@@ -1,0 +1,25 @@
+{
+  "name": "ELLS Club",
+  "short_name": "ELLS",
+  "description": "The English Language and Literary Society (ELLS) - Department of English Language and Literature, IIUC.",
+  "start_url": ".",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#101c2b",
+  "theme_color": "#101c2b",
+  "icons": [
+    {
+      "src": "images/ells-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/ells-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

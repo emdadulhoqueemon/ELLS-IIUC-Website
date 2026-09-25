@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELLS Club - The English Language and Literary Society. Fostering creative writing, linguistic inquiry, debate, and literary fellowship.">
+  <title>ELLS Club | English Language and Literary Society</title>
+  
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#101c2b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ELLS">
+  <link rel="apple-touch-icon" href="images/ells-logo.png">
+
+  <!-- Preload Fonts -->
+  <link rel="preload" href="fonts/Parkinsans-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/Parkinsans-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <!-- Society Logo -->
+      <a href="index.html" class="site-logo" aria-label="English Language and Literary Society Homepage">
+        <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img">
+        <div class="logo-text">
+          <span class="logo-line-1">ENGLISH LANGUAGE AND</span>
+          <span class="logo-line-2">LITERARY SOCIETY</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Menu -->
+      <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="membership.html" class="nav-link">Membership</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+          <a href="membership.html" class="btn btn-primary mobile-nav-cta">
+            <span>Join ELLS Club</span>
+            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="mobile-nav-social" aria-label="Follow ELLS on Facebook">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            <span>Follow ELLS on Facebook</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Header Utilities -->
+      <div class="header-actions">
+        <!-- Facebook Page Link -->
+        <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="social-icon social-facebook header-social-link" aria-label="Official ELLS Facebook Page" title="Follow ELLS on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+
+        <!-- Theme Toggle -->
+        <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle dark/light theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
+
+        <!-- Mobile Drawer Hamburger -->
+        <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+  <!-- Main Page Content -->
+  <main id="main-content">
+    <!-- Hero Section with Dynamic Notice Board -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="eyebrow">DEPARTMENT OF ENGLISH LANGUAGE &amp; LITERATURE • IIUC</span>
+            <h1 id="hero-heading">Where Words Find Voice and Thoughts Take Flight.</h1>
+            
+            <p class="hero-lead">
+              The English Language and Literary Society (ELLS) is a premier platform dedicated to nurturing the creative and intellectual potential of students. We foster a vibrant community where linguistic curiosity meets literary expression, empowering scholars to explore, debate, and elevate their communication skills through collaborative events and academic excellence.
+            </p>
+
+            <div class="hero-actions">
+              <a href="membership.html" class="btn btn-primary">
+                <span>Join ELLS Club</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="events.html" class="btn btn-secondary">
+                <span>Explore Events &amp; Salons</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Visual: Event Calendar Autumn-2026 Poster & Notice Hub -->
+          <div class="hero-visual">
+            <div class="notice-poster-card">
+              <div class="notice-poster-header">
+                <div class="poster-badge">
+                  <span class="live-dot-mini" aria-hidden="true"></span>
+                  <span>Autumn-2026 Bulletin</span>
+                </div>
+                <span class="poster-tag">*Event Calendar Autumn-2026 Poster</span>
+              </div>
+
+              <div class="notice-poster-body">
+                <h3>Official Notices &amp; Event Schedule</h3>
+
+                <div class="poster-notice-list">
+                  <!-- Notice 1 -->
+                  <div class="poster-notice-item">
+                    <span class="poster-icon">🎓</span>
+                    <div class="poster-item-content">
+                      <strong>Farewell &amp; Reception Autumn-2026</strong>
+                      <p>Organized by ELLS Club. Honoring graduating scholars and welcoming new literary fellows.</p>
+                      <div class="poster-meta-row">
+                        <span class="poster-chip">📅 27 Sept (Sun)</span>
+                        <span class="poster-chip">⏰ 2:00 PM</span>
+                        <span class="poster-chip">📍 IIUC Central Auditorium</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Notice 2 -->
+                  <div class="poster-notice-item">
+                    <span class="poster-icon">🌍</span>
+                    <div class="poster-item-content">
+                      <strong>2nd International Conference (FAHIIUCIC 2026)</strong>
+                      <p>Theme: <em>'HUMANITIES 5.0'</em> • Dates: 26–27 November 2026 at IIUC, Chittagong.</p>
+                      <div class="poster-meta-row" style="margin-bottom: 0.4rem;">
+                        <span class="poster-chip poster-chip-highlight">⏳ Abstract Deadline: 1 October 2026</span>
+                      </div>
+                      <div class="poster-action-buttons">
+                        <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="poster-action-btn btn-register">
+                          <span>Registration Link</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="poster-action-btn btn-details">
+                          <span>Details</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="notice-poster-footer">
+                <div class="poster-org-info">
+                  <span class="org-title">ELLS Club • IIUC</span>
+                  <span class="org-sub">Department of English Language &amp; Literature</span>
+                </div>
+                <img src="images/ells-logo.png" alt="ELLS Official Crest" class="poster-crest-img">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Side-Scrolling Notice Board / Latest Updates -->
+        <div class="hero-notice-board-wrap" id="notice-board">
+          <div class="notice-board-banner" role="region" aria-label="Dynamic side-scrolling Notice Board. Hover mouse or touch to pause.">
+            <!-- Side-Scrolling Marquee Track Window -->
+            <div class="notice-marquee-window" tabindex="0">
+              <div class="notice-marquee-track">
+                <!-- SET 1 -->
+                <div class="notice-item">
+                  <span class="notice-item-icon">🎓</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">Farewell &amp; Reception Autumn-2026:</strong>
+                    <span class="notice-item-desc">Organized by ELLS.</span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      Date: 27 September (Sunday)
+                    </span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                      Time: 2:00 PM
+                    </span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Venue: IIUC Central Auditorium
+                    </span>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+
+                <div class="notice-item">
+                  <span class="notice-item-icon">🌍</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">2nd International Conference (FAHIIUCIC 2026):</strong>
+                    <span class="notice-item-desc">Theme: <em>'HUMANITIES 5.0'</em>.</span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      Dates: 26–27 November 2026 at IIUC, Chittagong
+                    </span>
+                    <span class="notice-pill notice-pill-deadline">
+                      Abstract Submission Deadline: <strong>1 October 2026</strong>
+                    </span>
+                    <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="notice-link-btn" title="Open Registration Form">
+                      <span>Registration Link</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                    <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="notice-link-btn notice-link-secondary" title="View details on Facebook">
+                      <span>Details</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+
+                <div class="notice-item">
+                  <span class="notice-item-icon">📌</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">*Event Calendar Autumn-2026 poster:</strong>
+                    <span class="notice-item-desc">Official departmental schedule &amp; semester activity calendar is published.</span>
+                    <a href="events.html" class="notice-link-btn" style="background: #ffffff; color: #101c2b;">
+                      <span>View Calendar &rarr;</span>
+                    </a>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+
+                <!-- SET 2 (Exact duplicate for seamless continuous infinite CSS loop) -->
+                <div class="notice-item" aria-hidden="true">
+                  <span class="notice-item-icon">🎓</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">Farewell &amp; Reception Autumn-2026:</strong>
+                    <span class="notice-item-desc">Organized by ELLS.</span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      Date: 27 September (Sunday)
+                    </span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                      Time: 2:00 PM
+                    </span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Venue: IIUC Central Auditorium
+                    </span>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+
+                <div class="notice-item" aria-hidden="true">
+                  <span class="notice-item-icon">🌍</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">2nd International Conference (FAHIIUCIC 2026):</strong>
+                    <span class="notice-item-desc">Theme: <em>'HUMANITIES 5.0'</em>.</span>
+                    <span class="notice-pill">
+                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      Dates: 26–27 November 2026 at IIUC, Chittagong
+                    </span>
+                    <span class="notice-pill notice-pill-deadline">
+                      Abstract Submission Deadline: <strong>1 October 2026</strong>
+                    </span>
+                    <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="notice-link-btn" title="Open Registration Form">
+                      <span>Registration Link</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                    <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="notice-link-btn notice-link-secondary" title="View details on Facebook">
+                      <span>Details</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+
+                <div class="notice-item" aria-hidden="true">
+                  <span class="notice-item-icon">📌</span>
+                  <div class="notice-item-content">
+                    <strong class="notice-item-title">*Event Calendar Autumn-2026 poster:</strong>
+                    <span class="notice-item-desc">Official departmental schedule &amp; semester activity calendar is published.</span>
+                    <a href="events.html" class="notice-link-btn" style="background: #ffffff; color: #101c2b;">
+                      <span>View Calendar &rarr;</span>
+                    </a>
+                  </div>
+                </div>
+
+                <span class="notice-separator" aria-hidden="true">✦</span>
+              </div>
+            </div>
+
+            <!-- Pause on Hover Indicator Badge -->
+            <div class="notice-pause-indicator" title="Hover mouse anywhere over this board to pause scrolling">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+              <span>Pause on hover</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Academic Resource: Previous Question Bank -->
+    <section class="featured-resource-section" aria-labelledby="resource-bank-heading">
+      <div class="container">
+        <div class="featured-resource-card">
+          <div class="resource-card-grid">
+            <div class="resource-card-info">
+              <div class="resource-card-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Academic Resource Vault</span>
+              </div>
+              
+              <h2 id="resource-bank-heading" class="resource-card-title">Previous Question Bank (1st to 8th Semester)</h2>
+              
+              <p class="resource-card-desc">
+                Comprehensive archive of semester final questions and mid-term examination papers covering all 1st through 8th semester courses of the Department of English Language and Literature. Access organized course folders, study references, and past papers directly on Google Drive.
+              </p>
+
+              <div class="resource-tags-row">
+                <span class="resource-tag">📂 1st to 8th Semesters</span>
+                <span class="resource-tag">📝 Mid-Term &amp; Finals</span>
+                <span class="resource-tag">🎓 Dept. of English</span>
+                <span class="resource-tag">☁️ Direct Google Drive Access</span>
+              </div>
+            </div>
+
+            <div class="resource-btn-wrap">
+              <a href="https://drive.google.com/drive/folders/1k0UC5G3Th6137YczWjk9Y_VurXRueamo" target="_blank" rel="noopener noreferrer" class="resource-drive-btn" title="Open Previous Question Bank on Google Drive">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"></path>
+                </svg>
+                <span>Access Question Bank</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="resource-card-credit">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>An initiative by <strong>Md Shafayat Miraz &amp; Sajibul Islam Shawon (ELL-46th)</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats Strip -->
+    <section class="stats-strip" aria-label="Society Impact and Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">1,450+</div>
+            <div class="stat-label">Active Scholars &amp; Poets</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">120+</div>
+            <div class="stat-label">Annual Salons &amp; Readings</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">48</div>
+            <div class="stat-label">Published Anthologies</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">16</div>
+            <div class="stat-label">Active Secretariats &amp; Wings</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Society Core Pillars -->
+    <section class="section-pillars" aria-labelledby="pillars-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">OUR CALLING</span>
+          <h2 id="pillars-heading">Four Pillars of Literary Excellence</h2>
+          <p>Whether crafting lyrical stanzas, untangling syntactic evolution, or debating critical theory, ELLS Club provides the hearth for your creative fire.</p>
+        </div>
+
+        <div class="grid grid-4">
+          <!-- Pillar 1 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+              </svg>
+            </div>
+            <h3>Creative Writing &amp; Verse</h3>
+            <p>Weekly workshops for poets, playwrights, and novelists. Engage in confidential peer critique, prompt sessions, and annual chapbook selections.</p>
+            <a href="about.html#wings" class="card-link">Explore Guild &rarr;</a>
+          </article>
+
+          <!-- Pillar 2 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3>Linguistics &amp; Semiotics</h3>
+            <p>Investigating language variation, phonetics, historical etymology, and modern digital discourse analysis with faculty mentors.</p>
+            <a href="about.html#wings" class="card-link">Learn More &rarr;</a>
+          </article>
+
+          <!-- Pillar 3 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h3>The Great Books Circle</h3>
+            <p>From Homeric epics to contemporary world literature in translation, our roundtables dismantle narratives with nuance and passion.</p>
+            <a href="events.html" class="card-link">View Reading List &rarr;</a>
+          </article>
+
+          <!-- Pillar 4 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3>The Scribe Review</h3>
+            <p>Our premier quarterly literary review. We solicit, edit, curate, and publish outstanding student essays, fiction, and scholarly papers.</p>
+            <a href="about.html#the-scribe" class="card-link">Read Submissions &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Upcoming Events Preview -->
+    <section class="section-secondary" aria-labelledby="featured-events-heading">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="eyebrow">ON THE CALENDAR</span>
+            <h2 id="featured-events-heading">Upcoming Literary Gatherings</h2>
+          </div>
+          <a href="events.html" class="btn btn-secondary btn-sm">View Full Calendar &rarr;</a>
+        </div>
+
+        <div class="grid grid-3">
+          <!-- Featured Event 1 -->
+          <article class="event-card" data-event-id="evt-101">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">14</span>
+              </div>
+              <span class="badge badge-gold">Poetry &amp; Slam</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Autumn Open Mic &amp; Candlelit Verses</h3>
+              <p>An evening of student recitations, original lyricism, and acoustic interludes under the Great Hall chandeliers.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>7:00 PM – 9:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Athenaeum Salon, Room 204</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator">12 seats remaining</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Featured Event 2 -->
+          <article class="event-card" data-event-id="evt-102">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">22</span>
+              </div>
+              <span class="badge badge-crimson">Masterclass</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Crafting Compelling Non-Fiction Memoirs</h3>
+              <p>Special masterclass hosted by guest essayist Prof. Julian Sterling on voice, ethical memory, and sensory detail.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>4:30 PM – 6:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Humanities Auditorium B</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator seats-low">6 seats left</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Featured Event 3 -->
+          <article class="event-card" data-event-id="evt-103">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">NOV</span>
+                <span class="event-date-day">05</span>
+              </div>
+              <span class="badge badge-navy">Linguistics</span>
+            </div>
+            <div class="event-card-body">
+              <h3>The Secret Codes of Old English Dialects</h3>
+              <p>Uncovering phonetic shifts, Celtic borrowings, and lost idioms from Beowulf through Middle English transitions.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>5:00 PM – 7:00 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Online &amp; Seminar Room 4</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator">28 seats remaining</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Member Voices / Testimonials -->
+    <section class="section-testimonials" aria-labelledby="voices-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">VOICES OF FELLOWS</span>
+          <h2 id="voices-heading">Words from Our Literary Family</h2>
+          <p>Discover how ELLS Club shapes the craft, friendships, and intellectual journeys of our members.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "Walking into my first ELLS poetry salon was intimidating, but I found an extraordinarily generous community. My thesis and first published collection owe everything to their honest critiques."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--accent-gold); color: #0b1119; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                EM
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Eleanor Vance</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Class of '24 • Published Poet</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 3px solid var(--accent-crimson);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "The linguistics roundtables transformed how I think about syntax, dialogue, and cognitive processing. It bridges the art of expression with scientific inquiry in a rare and beautiful way."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--accent-crimson); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                TA
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Tariq Al-Mansoor</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Graduate Fellow, Dept of English</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 3px solid var(--accent-navy);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "Editing for The Scribe gave me the real-world editorial discipline that landed my first role at a major university press. ELLS is where passions turn into enduring vocations."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--accent-navy-light); color: var(--accent-gold); font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                SC
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Sophia Chen</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Alumna &amp; Assistant Editor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="site-logo">
+            <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img">
+            <div class="logo-text">
+              <span class="logo-title">ELLS Club</span>
+              <span class="logo-subtitle">English Language &amp; Literary Society</span>
+            </div>
+          </div>
+          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Department of English Language and Literature, International Islamic University Chittagong.</p>
+
+          <!-- Social Media Icons with Integrated Facebook Link -->
+          <div class="social-media-container">
+            <span class="social-media-title">Connect With Us</span>
+            <div class="social-media-icons">
+              <!-- Facebook Link: https://www.facebook.com/ELLS.IIUC/ -->
+              <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="social-icon social-facebook" aria-label="Follow ELLS Club on Facebook" title="Facebook - ELLS IIUC">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon social-instagram" aria-label="Follow ELLS Club on Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon social-youtube" aria-label="ELLS Club YouTube Channel" title="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon social-linkedin" aria-label="ELLS Club LinkedIn" title="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Institutional Partner Affiliation -->
+          <div class="partner-affiliation">
+            <img src="images/iiuc-logo.png" alt="IIUC Crest" class="partner-logo-img">
+            <div class="partner-text">
+              <span>Department of English Language and Literature</span>
+              <span>International Islamic University Chittagong</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ELLS</a></li>
+            <li><a href="events.html">Events &amp; Salons</a></li>
+            <li><a href="membership.html">Membership Application</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Society Circles</h4>
+          <ul class="footer-links">
+            <li><a href="about.html#wings">Poetry &amp; Slam Guild</a></li>
+            <li><a href="about.html#wings">Linguistics Forum</a></li>
+            <li><a href="about.html#the-scribe">The Scribe Review</a></li>
+            <li><a href="about.html#wings">The Great Books Circle</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact &amp; Hall</h4>
+          <ul class="footer-links">
+            <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
+            <li><a href="mailto:ells.dell.iiuc95@gmail.com">✉️ ells.dell.iiuc95@gmail.com</a></li>
+            <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
+            <li><a href="membership.html">Inquire for Fellowship</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-quote">"Nulla dies sine linea — Not a day without a line."</div>
+        <div>&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
