@@ -22,13 +22,13 @@ function initTheme() {
   const storedTheme = localStorage.getItem('ells-theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  // Determine initial theme
-  const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+  // Determine initial theme (Midnight theme by default)
+  const initialTheme = storedTheme || 'dark';
   setTheme(initialTheme);
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       setTheme(newTheme);
       showToast(`Switched to ${newTheme} mode`, 'info');
