@@ -997,7 +997,8 @@
   .skip-link,
   .theme-toggle,
   .mobile-nav-toggle,
-  .toast-container {
+  .toast-container,
+  .bg-caps {
     display: none !important;
   }
 
@@ -1412,5 +1413,45 @@
     font-weight: 700 !important;
     color: #4a5568 !important;
     letter-spacing: 0.05em !important;
+  }
+}
+
+/* ==========================================================================
+   Ambient Cap Watermark — Smaller Screens (fewer + smaller caps, less paint)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .bg-caps {
+    --bg-caps-scale: 0.78;
+  }
+
+  .bg-caps__cap:nth-of-type(n + 14) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .bg-caps {
+    --bg-caps-scale: 0.62;
+  }
+
+  .bg-caps__cap:nth-of-type(n + 11) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .bg-caps {
+    --bg-caps-scale: 0.5;
+    --bg-caps-opacity: 0.04;
+  }
+
+  .bg-caps__cap:nth-of-type(n + 8) {
+    display: none;
+  }
+
+  /* Drop the sway on low-power devices: drift alone keeps it alive */
+  .bg-caps__cap > svg {
+    animation: none;
+    transform: rotate(var(--cap-rot, 0deg));
   }
 }
