@@ -24,6 +24,25 @@
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+  <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
+  <div class="bg-caps" aria-hidden="true">
+    <span class="bg-caps__cap" style="--cap-x: 3vw; --cap-y: 12vh; --cap-size: 104px; --cap-dur: 76s; --cap-delay: -54s; --cap-dx: 8vw; --cap-rot: -8deg; --cap-sway: 17s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 22vw; --cap-y: 62vh; --cap-size: 62px; --cap-dur: 96s; --cap-delay: -31s; --cap-dx: -5vw; --cap-rot: 6deg; --cap-sway: 21s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 41vw; --cap-y: 30vh; --cap-size: 128px; --cap-dur: 68s; --cap-delay: -38s; --cap-dx: 5vw; --cap-rot: 10deg; --cap-sway: 15s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 63vw; --cap-y: 74vh; --cap-size: 48px; --cap-dur: 118s; --cap-delay: -26s; --cap-dx: -9vw; --cap-rot: -14deg; --cap-sway: 24s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 79vw; --cap-y: 22vh; --cap-size: 92px; --cap-dur: 80s; --cap-delay: -51s; --cap-dx: 6vw; --cap-rot: 7deg; --cap-sway: 18s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 91vw; --cap-y: 55vh; --cap-size: 56px; --cap-dur: 104s; --cap-delay: -40s; --cap-dx: -6vw; --cap-rot: -5deg; --cap-sway: 22s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 12vw; --cap-y: 84vh; --cap-size: 72px; --cap-dur: 88s; --cap-delay: -12s; --cap-dx: 9vw; --cap-rot: 12deg; --cap-sway: 16s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 27vw; --cap-y: 8vh; --cap-size: 44px; --cap-dur: 124s; --cap-delay: -98s; --cap-dx: -7vw; --cap-rot: -10deg; --cap-sway: 26s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 52vw; --cap-y: 46vh; --cap-size: 116px; --cap-dur: 72s; --cap-delay: -31s; --cap-dx: -4vw; --cap-rot: 5deg; --cap-sway: 14s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 71vw; --cap-y: 90vh; --cap-size: 66px; --cap-dur: 92s; --cap-delay: -8s; --cap-dx: 7vw; --cap-rot: -12deg; --cap-sway: 20s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 86vw; --cap-y: 38vh; --cap-size: 40px; --cap-dur: 130s; --cap-delay: -69s; --cap-dx: 4vw; --cap-rot: 9deg; --cap-sway: 25s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 2vw; --cap-y: 48vh; --cap-size: 84px; --cap-dur: 84s; --cap-delay: -36s; --cap-dx: -8vw; --cap-rot: -6deg; --cap-sway: 19s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 33vw; --cap-y: 26vh; --cap-size: 52px; --cap-dur: 112s; --cap-delay: -70s; --cap-dx: 6vw; --cap-rot: 14deg; --cap-sway: 23s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 47vw; --cap-y: 68vh; --cap-size: 96px; --cap-dur: 78s; --cap-delay: -20s; --cap-dx: -6vw; --cap-rot: -9deg; --cap-sway: 17s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 66vw; --cap-y: 14vh; --cap-size: 44px; --cap-dur: 126s; --cap-delay: -93s; --cap-dx: 5vw; --cap-rot: 4deg; --cap-sway: 27s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 95vw; --cap-y: 80vh; --cap-size: 76px; --cap-dur: 86s; --cap-delay: -14s; --cap-dx: -10vw; --cap-rot: 11deg; --cap-sway: 15s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+  </div>
   <!-- Accessible Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -72,13 +91,6 @@
           </svg>
         </a>
 
-        <!-- Theme Toggle -->
-        <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle dark/light theme">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
-
         <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <!-- Mobile Drawer Hamburger -->
@@ -97,10 +109,6 @@
   <!-- Urgent Updates News Ticker -->
   <aside class="news-ticker-bar" aria-label="Urgent Updates">
     <div class="news-ticker-inner">
-      <div class="news-ticker-badge">
-        <span class="live-dot-ticker" aria-hidden="true"></span>
-        <span class="ticker-badge-text">UPDATE</span>
-      </div>
       <div class="news-ticker-window" tabindex="0">
         <div class="news-ticker-track">
           <!-- Track Segment 1 -->
