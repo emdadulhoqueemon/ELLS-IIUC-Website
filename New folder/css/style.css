@@ -59,7 +59,9 @@
    -------------------------------------------------------------------------- */
 :root {
   /* ==========================================================================
-     Sophisticated Modern "Midnight" Theme (Primary / Default)
+     LOCKED THEME — Sophisticated Modern "Midnight Blue & Soft Gold"
+     This is the only palette the site ships with: every token below is the
+     permanent default and there is no light-mode override anywhere.
      Palette: Deep Navy (#0B1120), Soft Cream (#F8FAFC), ELLS Gold (#D4AF37),
      and Dark Slate with subtle IIUC Deep Green (#132A24) for eye comfort.
      ========================================================================== */
@@ -135,111 +137,15 @@
   --bg-card-veil: rgba(19, 42, 36, 0.72);
 }
 
-[data-theme="dark"] {
-  /* Dedicated Dark Selector mirroring Midnight tokens */
-  --bg-primary: #0B1120;
-  --bg-secondary: #0F172A;
-  --bg-card: #132A24;
-  --bg-card-subtle: #16322B;
-  --bg-card-hover: #193B32;
-  --bg-elevated: #111D33;
-  --bg-glass: rgba(11, 17, 32, 0.92);
-  --bg-input: #0D1627;
-
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
-  --text-inverse: #0B1120;
-
-  --accent-gold: #D4AF37;
-  --accent-gold-hover: #E2BC43;
-  --accent-gold-dark: #B89228;
-  --accent-gold-light: rgba(212, 175, 55, 0.14);
-  --accent-gold-glow: rgba(212, 175, 55, 0.22);
-
-  --accent-green: #10B981;
-  --accent-green-dark: #059669;
-  --accent-green-light: rgba(16, 185, 129, 0.14);
-  --accent-green-slate: #132A24;
-  --accent-green-border: rgba(16, 185, 129, 0.35);
-
-  --accent-crimson: #E11D48;
-  --accent-crimson-dark: #9F1239;
-  --accent-crimson-light: rgba(225, 29, 72, 0.14);
-  --accent-navy: #152438;
-  --accent-navy-light: #1E293B;
-
-  --border-subtle: #1E2E38;
-  --border-strong: #2D3E50;
-  --border-accent: #D4AF37;
-  --border-green: rgba(31, 77, 62, 0.5);
-
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.22);
-  --shadow-green: 0 8px 25px rgba(19, 42, 36, 0.45);
-
-  /* Ambient Background: floating graduation-cap watermark */
-  --bg-caps-ink: #D4AF37;
-  --bg-caps-opacity: 0.045;
-  --bg-caps-scale: 1;
-  --bg-secondary-veil: rgba(15, 23, 42, 0.68);
-  --bg-card-veil: rgba(19, 42, 36, 0.72);
-}
-
-[data-theme="light"] {
-  /* Daytime Alternative: Soft Cream & Daylight Slate with Matching Brand Accents */
-  --bg-primary: #F8FAFC;
-  --bg-secondary: #EDF2F7;
-  --bg-card: #FFFFFF;
-  --bg-card-subtle: #F1F7F4;
-  --bg-card-hover: #F8FAF9;
-  --bg-elevated: #FFFFFF;
-  --bg-glass: rgba(248, 250, 252, 0.92);
-  --bg-input: #FFFFFF;
-
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
-  --text-inverse: #FFFFFF;
-
-  --accent-gold: #B8860B;
-  --accent-gold-hover: #996F07;
-  --accent-gold-dark: #7A5803;
-  --accent-gold-light: rgba(184, 134, 11, 0.12);
-  --accent-gold-glow: rgba(184, 134, 11, 0.2);
-
-  --accent-green: #047857;
-  --accent-green-dark: #065F46;
-  --accent-green-light: rgba(4, 120, 87, 0.1);
-  --accent-green-slate: #E6F0EB;
-  --accent-green-border: rgba(4, 120, 87, 0.25);
-
-  --accent-crimson: #BE123C;
-  --accent-crimson-dark: #9F1239;
-  --accent-crimson-light: rgba(190, 18, 60, 0.1);
-  --accent-navy: #0F172A;
-  --accent-navy-light: #1E293B;
-
-  --border-subtle: #E2E8F0;
-  --border-strong: #CBD5E1;
-  --border-accent: #B8860B;
-  --border-green: rgba(4, 120, 87, 0.25);
-
-  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.07);
-  --shadow-lg: 0 16px 36px rgba(15, 23, 42, 0.1);
-  --shadow-gold: 0 8px 24px rgba(184, 134, 11, 0.18);
-  --shadow-green: 0 8px 24px rgba(4, 120, 87, 0.15);
-
-  /* Ambient Background: floating graduation-cap watermark (Daytime ink) */
-  --bg-caps-ink: #0F172A;
-  --bg-caps-opacity: 0.05;
-  --bg-caps-scale: 1;
-  --bg-secondary-veil: rgba(237, 242, 247, 0.8);
-  --bg-card-veil: rgba(255, 255, 255, 0.8);
-}
+/* --------------------------------------------------------------------------
+   1b. Theme Lock — "Midnight Blue & Soft Gold" is the ONLY theme
+   --------------------------------------------------------------------------
+   All colour tokens are declared once, permanently, on :root above, and are
+   re-applied to <body> directly. There is deliberately no light token set and
+   no runtime switching: the previous [data-theme="light"] palette and the
+   [data-theme="dark"] mirror (identical to :root) have been removed. The
+   data-theme="dark" attribute on <html> is kept only as documentation.
+   -------------------------------------------------------------------------- */
 
 /* Base Styles */
 *, *::before, *::after {
@@ -251,7 +157,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  color-scheme: light dark;
+  /* Locked to dark: native widgets & form controls follow the Midnight theme
+     instead of the visitor's OS light/dark preference */
+  color-scheme: dark;
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
@@ -267,8 +175,10 @@ textarea {
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
+     if the stylesheet above were ever truncated or a token removed. */
+  background-color: var(--bg-primary, #0B1120);
+  color: var(--text-primary, #F8FAFC);
   line-height: 1.65;
   font-weight: 400;
   min-height: 100vh;
@@ -637,28 +547,7 @@ body.nav-open .site-header {
   gap: 1rem;
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-  transform: rotate(15deg);
-}
-
+/* Header Social Link (the theme toggle that sat beside it is gone for good) */
 .header-social-link {
   width: 40px;
   height: 40px;
@@ -678,12 +567,6 @@ body.nav-open .site-header {
 .header-social-link:hover {
   border-color: var(--accent-gold);
   background: rgba(255, 255, 255, 0.1);
-}
-
-.theme-toggle svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
 }
 
 /* Mobile Hamburger */
@@ -738,11 +621,7 @@ body.nav-open .site-header {
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
 }
 
-[data-theme="dark"] .news-ticker-bar {
-  background: linear-gradient(90deg, #070d18 0%, #0F172A 50%, #070d18 100%);
-  border-bottom-color: rgba(212, 175, 55, 0.25);
-}
-
+/* The badge/label column is gone: one inner flex row, ticker owns all of it */
 .news-ticker-inner {
   display: flex;
   align-items: center;
@@ -750,47 +629,19 @@ body.nav-open .site-header {
   height: 100%;
 }
 
-.news-ticker-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 1.15rem;
-  height: 100%;
-  background: linear-gradient(135deg, #D4AF37 0%, #B89228 100%);
-  color: #0B1120;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  z-index: 10;
-  position: relative;
-  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.45);
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.live-dot-ticker {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #0B1120;
-  box-shadow: 0 0 0 0 rgba(11, 17, 32, 0.6);
-  animation: pulseDotTicker 1.8s infinite;
-}
-
-@keyframes pulseDotTicker {
-  0% { box-shadow: 0 0 0 0 rgba(11, 17, 32, 0.6); }
-  70% { box-shadow: 0 0 0 5px rgba(11, 17, 32, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(11, 17, 32, 0); }
-}
-
+/* Full-bleed marquee window: it now takes the whole bar. min-width: 0 lets the
+   flex item shrink back to that width instead of being blown out by the
+   nowrap track content. */
 .news-ticker-window {
-  flex: 1;
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   position: relative;
   height: 100%;
   display: flex;
   align-items: center;
+  /* Edge fades do the smoothing the badge used to anchor on the left */
   mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
 }
@@ -972,12 +823,9 @@ body.nav-open .site-header {
 
 .badge-gold {
   background-color: var(--accent-gold-light);
-  color: var(--accent-gold-dark);
-  border: 1px solid var(--accent-gold);
-}
-
-[data-theme="dark"] .badge-gold {
+  /* Gold ink (was the [data-theme="dark"] refinement, now the only value) */
   color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
 }
 
 .badge-crimson {
@@ -1079,12 +927,6 @@ body.nav-open .site-header {
   line-height: 1.25;
 }
 
-[data-theme="dark"] .poster-badge {
-  color: #34D399;
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
 .live-dot-mini {
   width: 8px;
   height: 8px;
@@ -1109,11 +951,6 @@ body.nav-open .site-header {
   border: 1px solid var(--accent-gold);
   white-space: nowrap;
   line-height: 1.25;
-}
-
-[data-theme="dark"] .poster-tag {
-  background: var(--accent-gold-light);
-  color: var(--accent-gold);
 }
 
 .notice-poster-body h3 {
@@ -1196,11 +1033,6 @@ body.nav-open .site-header {
   border-color: var(--accent-gold);
 }
 
-[data-theme="dark"] .poster-chip-highlight {
-  background: var(--accent-gold-light);
-  color: var(--accent-gold);
-}
-
 .poster-action-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -1237,11 +1069,6 @@ body.nav-open .site-header {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
-}
-
-[data-theme="dark"] .poster-action-btn.btn-details {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
 }
 
 .poster-action-btn.btn-details:hover {
@@ -1298,18 +1125,12 @@ body.nav-open .site-header {
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
   border-radius: var(--radius-md);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.12);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(212, 175, 55, 0.15);
   overflow: hidden;
   position: relative;
   color: var(--text-primary);
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
   transition: box-shadow var(--transition), border-color var(--transition);
-}
-
-[data-theme="dark"] .notice-board-banner {
-  background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
-  border-color: rgba(212, 175, 55, 0.45);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(212, 175, 55, 0.15);
 }
 
 .notice-board-banner:hover {
@@ -2093,12 +1914,7 @@ textarea.form-control {
 
 .custom-checkbox-card:has(input:checked) {
   border-color: var(--accent-gold);
-  background-color: var(--accent-gold-light);
-}
-
-[data-theme="dark"] .custom-checkbox-card:has(input:checked) {
   background-color: rgba(212, 175, 55, 0.15);
-  border-color: var(--accent-gold);
 }
 
 /* Tier Selection Cards */
@@ -2889,10 +2705,6 @@ textarea.form-control {
   align-self: flex-start;
   white-space: nowrap;
   line-height: 1.25;
-}
-
-[data-theme="dark"] .committee-role-badge {
-  color: var(--accent-gold);
 }
 
 .committee-card h4 {

@@ -1,10 +1,10 @@
 /**
  * ELLS Club - Main JavaScript Module
- * Handles Theme Toggling, Mobile Navigation Drawer, Toasts, and Global Interactions
+ * Handles the locked Midnight theme, Mobile Navigation Drawer, Toasts and Global Interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
+  lockMidnightTheme();
   initNavigation();
   initHeaderScroll();
   initNewsletterForms();
@@ -15,39 +15,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --------------------------------------------------------------------------
-   1. Theme Toggle (Light / Dark Mode)
+   1. Theme Lock — "Midnight Blue & Soft Gold" is permanent (no switcher)
+   --------------------------------------------------------------------------
+   The stylesheet now declares the Midnight palette on :root only: there is no
+   light token set, no toggle button and no listener, so dark cannot be turned
+   off. The only job left for JavaScript is housekeeping after the removed
+   control — a visitor who chose a theme during an older visit can still have a
+   stale "ells-theme" entry in localStorage, which is dropped here so it can
+   never leak back, while <html> is pinned to data-theme="dark".
    -------------------------------------------------------------------------- */
-function initTheme() {
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const storedTheme = localStorage.getItem('ells-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+function lockMidnightTheme() {
+  const root = document.documentElement;
 
-  // Determine initial theme (Midnight theme by default)
-  const initialTheme = storedTheme || 'dark';
-  setTheme(initialTheme);
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-      showToast(`Switched to ${newTheme} mode`, 'info');
-    });
+  try {
+    localStorage.removeItem('ells-theme');
+  } catch (err) {
+    /* Storage unavailable (private mode / blocked cookies): the hardcoded
+       data-theme="dark" attribute in the markup already keeps the site dark. */
   }
-}
 
-function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('ells-theme', theme);
-
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  if (themeToggleBtn) {
-    const isDark = theme === 'dark';
-    themeToggleBtn.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
-    themeToggleBtn.innerHTML = isDark
-      ? `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`
-      : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-  }
+  root.setAttribute('data-theme', 'dark');
+  root.style.colorScheme = 'dark';
 }
 
 /* --------------------------------------------------------------------------
