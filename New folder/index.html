@@ -94,9 +94,41 @@
   <!-- Mobile Drawer Backdrop Overlay -->
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
+  <!-- Urgent Updates News Ticker -->
+  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+    <div class="news-ticker-inner">
+      <div class="news-ticker-badge">
+        <span class="live-dot-ticker" aria-hidden="true"></span>
+        <span class="ticker-badge-text">UPDATE</span>
+      </div>
+      <div class="news-ticker-window" tabindex="0">
+        <div class="news-ticker-track">
+          <!-- Track Segment 1 -->
+          <div class="news-ticker-content">
+            <span class="ticker-item"><strong class="ticker-highlight">UPDATE: Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
+            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
+            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
+            <span class="ticker-divider" aria-hidden="true">✦</span>
+            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
+            <span class="ticker-divider" aria-hidden="true">✦</span>
+          </div>
+          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
+          <div class="news-ticker-content" aria-hidden="true">
+            <span class="ticker-item"><strong class="ticker-highlight">UPDATE: Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
+            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
+            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
+            <span class="ticker-divider" aria-hidden="true">✦</span>
+            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
+            <span class="ticker-divider" aria-hidden="true">✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <!-- Main Page Content -->
   <main id="main-content">
-    <!-- Hero Section with Dynamic Notice Board -->
+    <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
         <div class="hero-grid">
@@ -105,7 +137,7 @@
             <h1 id="hero-heading">Where Words Find Voice and Thoughts Take Flight.</h1>
             
             <p class="hero-lead">
-              The English Language and Literary Society (ELLS) is a premier platform dedicated to nurturing the creative and intellectual potential of students. We foster a vibrant community where linguistic curiosity meets literary expression, empowering scholars to explore, debate, and elevate their communication skills through collaborative events and academic excellence.
+              The English Language and Literary Society (ELLS) is a premier platform dedicated to nurturing the creative and intellectual potential of students. We foster a vibrant community where linguistic curiosity meets literary expression, empowering scholars to explore, debate, and elevate their communication skills through collaborative events and academic excellence in language and literature.
             </p>
 
             <div class="hero-actions">
@@ -116,210 +148,6 @@
               <a href="events.html" class="btn btn-secondary">
                 <span>Explore Events &amp; Salons</span>
               </a>
-            </div>
-          </div>
-
-          <!-- Hero Visual: Event Calendar Autumn-2026 Poster & Notice Hub -->
-          <div class="hero-visual">
-            <div class="notice-poster-card">
-              <div class="notice-poster-header">
-                <div class="poster-badge">
-                  <span class="live-dot-mini" aria-hidden="true"></span>
-                  <span>Autumn-2026 Bulletin</span>
-                </div>
-                <span class="poster-tag">*Event Calendar Autumn-2026 Poster</span>
-              </div>
-
-              <div class="notice-poster-body">
-                <h3>Official Notices &amp; Event Schedule</h3>
-
-                <div class="poster-notice-list">
-                  <!-- Notice 1 -->
-                  <div class="poster-notice-item">
-                    <span class="poster-icon">🎓</span>
-                    <div class="poster-item-content">
-                      <strong>Farewell &amp; Reception Autumn-2026</strong>
-                      <p>Organized by ELLS Club. Honoring graduating scholars and welcoming new literary fellows.</p>
-                      <div class="poster-meta-row">
-                        <span class="poster-chip">📅 27 Sept (Sun)</span>
-                        <span class="poster-chip">⏰ 2:00 PM</span>
-                        <span class="poster-chip">📍 IIUC Central Auditorium</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Notice 2 -->
-                  <div class="poster-notice-item">
-                    <span class="poster-icon">🌍</span>
-                    <div class="poster-item-content">
-                      <strong>2nd International Conference (FAHIIUCIC 2026)</strong>
-                      <p>Theme: <em>'HUMANITIES 5.0'</em> • Dates: 26–27 November 2026 at IIUC, Chittagong.</p>
-                      <div class="poster-meta-row" style="margin-bottom: 0.4rem;">
-                        <span class="poster-chip poster-chip-highlight">⏳ Abstract Deadline: 1 October 2026</span>
-                      </div>
-                      <div class="poster-action-buttons">
-                        <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="poster-action-btn btn-register">
-                          <span>Registration Link</span>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        </a>
-                        <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="poster-action-btn btn-details">
-                          <span>Details</span>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="notice-poster-footer">
-                <div class="poster-org-info">
-                  <span class="org-title">ELLS Club • IIUC</span>
-                  <span class="org-sub">Department of English Language &amp; Literature</span>
-                </div>
-                <img src="images/ells-logo.png" alt="ELLS Official Crest" class="poster-crest-img">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dynamic Side-Scrolling Notice Board / Latest Updates -->
-        <div class="hero-notice-board-wrap" id="notice-board">
-          <div class="notice-board-banner" role="region" aria-label="Dynamic side-scrolling Notice Board. Hover mouse or touch to pause.">
-            <!-- Side-Scrolling Marquee Track Window -->
-            <div class="notice-marquee-window" tabindex="0">
-              <div class="notice-marquee-track">
-                <!-- SET 1 -->
-                <div class="notice-item">
-                  <span class="notice-item-icon">🎓</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">Farewell &amp; Reception Autumn-2026:</strong>
-                    <span class="notice-item-desc">Organized by ELLS.</span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                      Date: 27 September (Sunday)
-                    </span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                      Time: 2:00 PM
-                    </span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                      Venue: IIUC Central Auditorium
-                    </span>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-
-                <div class="notice-item">
-                  <span class="notice-item-icon">🌍</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">2nd International Conference (FAHIIUCIC 2026):</strong>
-                    <span class="notice-item-desc">Theme: <em>'HUMANITIES 5.0'</em>.</span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                      Dates: 26–27 November 2026 at IIUC, Chittagong
-                    </span>
-                    <span class="notice-pill notice-pill-deadline">
-                      Abstract Submission Deadline: <strong>1 October 2026</strong>
-                    </span>
-                    <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="notice-link-btn" title="Open Registration Form">
-                      <span>Registration Link</span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                    <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="notice-link-btn notice-link-secondary" title="View details on Facebook">
-                      <span>Details</span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-
-                <div class="notice-item">
-                  <span class="notice-item-icon">📌</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">*Event Calendar Autumn-2026 poster:</strong>
-                    <span class="notice-item-desc">Official departmental schedule &amp; semester activity calendar is published.</span>
-                    <a href="events.html" class="notice-link-btn">
-                      <span>View Calendar &rarr;</span>
-                    </a>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-
-                <!-- SET 2 (Exact duplicate for seamless continuous infinite CSS loop) -->
-                <div class="notice-item" aria-hidden="true">
-                  <span class="notice-item-icon">🎓</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">Farewell &amp; Reception Autumn-2026:</strong>
-                    <span class="notice-item-desc">Organized by ELLS.</span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                      Date: 27 September (Sunday)
-                    </span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                      Time: 2:00 PM
-                    </span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                      Venue: IIUC Central Auditorium
-                    </span>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-
-                <div class="notice-item" aria-hidden="true">
-                  <span class="notice-item-icon">🌍</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">2nd International Conference (FAHIIUCIC 2026):</strong>
-                    <span class="notice-item-desc">Theme: <em>'HUMANITIES 5.0'</em>.</span>
-                    <span class="notice-pill">
-                      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                      Dates: 26–27 November 2026 at IIUC, Chittagong
-                    </span>
-                    <span class="notice-pill notice-pill-deadline">
-                      Abstract Submission Deadline: <strong>1 October 2026</strong>
-                    </span>
-                    <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="notice-link-btn" title="Open Registration Form">
-                      <span>Registration Link</span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                    <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="notice-link-btn notice-link-secondary" title="View details on Facebook">
-                      <span>Details</span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-
-                <div class="notice-item" aria-hidden="true">
-                  <span class="notice-item-icon">📌</span>
-                  <div class="notice-item-content">
-                    <strong class="notice-item-title">*Event Calendar Autumn-2026 poster:</strong>
-                    <span class="notice-item-desc">Official departmental schedule &amp; semester activity calendar is published.</span>
-                    <a href="events.html" class="notice-link-btn">
-                      <span>View Calendar &rarr;</span>
-                    </a>
-                  </div>
-                </div>
-
-                <span class="notice-separator" aria-hidden="true">✦</span>
-              </div>
-            </div>
-
-            <!-- Pause on Hover Indicator Badge -->
-            <div class="notice-pause-indicator" title="Hover mouse anywhere over this board to pause scrolling">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="6" y="4" width="4" height="16"></rect>
-                <rect x="14" y="4" width="4" height="16"></rect>
-              </svg>
-              <span>Pause on hover</span>
             </div>
           </div>
         </div>
@@ -385,20 +213,20 @@
       <div class="container">
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-number">1,450+</div>
-            <div class="stat-label">Active Scholars &amp; Poets</div>
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Active Members &amp; Scholars</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">120+</div>
-            <div class="stat-label">Annual Salons &amp; Readings</div>
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Annual Events &amp; Salons</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">48</div>
-            <div class="stat-label">Published Anthologies</div>
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Literary Publications</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">16</div>
-            <div class="stat-label">Active Secretariats &amp; Wings</div>
+            <div class="stat-number">5</div>
+            <div class="stat-label">Active Secretariats</div>
           </div>
         </div>
       </div>

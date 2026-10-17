@@ -575,6 +575,26 @@
     box-sizing: border-box !important;
     padding: 0.75rem 0 !important;
   }
+
+  /* News Ticker Mobile Layout */
+  .news-ticker-bar {
+    height: 36px !important;
+    font-size: 0.8rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .news-ticker-badge {
+    padding: 0 0.75rem !important;
+    font-size: 0.72rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .news-ticker-content {
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    font-size: 0.8rem !important;
+  }
 }
 
 /* Small mobile (max-width: 480px) */
@@ -629,6 +649,26 @@
 
   .notice-pause-indicator {
     display: none;
+  }
+
+  .news-ticker-bar {
+    height: 34px !important;
+  }
+
+  .news-ticker-badge {
+    padding: 0 0.55rem !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .news-ticker-content {
+    font-size: 0.76rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .ticker-link-btn {
+    padding: 0.1rem 0.4rem !important;
+    font-size: 0.7rem !important;
   }
 
   .membership-card-pass {

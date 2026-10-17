@@ -699,6 +699,147 @@ body.nav-open .site-header {
 }
 
 /* --------------------------------------------------------------------------
+   4b. Sleek News Ticker Bar (Urgent Updates)
+   -------------------------------------------------------------------------- */
+.news-ticker-bar {
+  background: linear-gradient(90deg, #070d18 0%, #0F172A 50%, #070d18 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  height: 38px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 990;
+  overflow: hidden;
+  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+}
+
+[data-theme="dark"] .news-ticker-bar {
+  background: linear-gradient(90deg, #070d18 0%, #0F172A 50%, #070d18 100%);
+  border-bottom-color: rgba(212, 175, 55, 0.25);
+}
+
+.news-ticker-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.news-ticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1rem 0 1.25rem;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.06) 100%);
+  border-right: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--accent-gold);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+
+.live-dot-ticker {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseDotTicker 1.8s infinite;
+}
+
+@keyframes pulseDotTicker {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.news-ticker-window {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+}
+
+.news-ticker-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+  animation: newsTickerMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.news-ticker-bar:hover .news-ticker-track,
+.news-ticker-window:focus-within .news-ticker-track {
+  animation-play-state: paused !important;
+}
+
+@keyframes newsTickerMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.news-ticker-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0 1.5rem;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+}
+
+.ticker-item {
+  color: var(--text-primary);
+  font-size: 0.84rem;
+}
+
+.ticker-highlight {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.ticker-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--accent-gold);
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+}
+
+.ticker-link-btn:hover {
+  background: var(--accent-gold);
+  color: #0B1120;
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
+}
+
+.ticker-divider {
+  color: rgba(212, 175, 55, 0.4);
+  font-size: 0.7rem;
+}
+
+/* --------------------------------------------------------------------------
    5. Buttons & Badges
    -------------------------------------------------------------------------- */
 .btn {
@@ -839,14 +980,12 @@ body.nav-open .site-header {
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  align-items: center;
-  gap: 3.5rem;
+  display: block;
+  max-width: 860px;
 }
 
 .hero-content {
-  max-width: 640px;
+  max-width: 840px;
 }
 
 .hero-lead {
@@ -1476,6 +1615,93 @@ body.nav-open .site-header {
 .card-link:hover {
   color: var(--accent-gold-dark);
   text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   8b. Four Pillars of Literary Excellence Refinements
+   -------------------------------------------------------------------------- */
+.section-pillars {
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%),
+              var(--bg-primary);
+}
+
+.section-pillars .section-intro {
+  max-width: 720px;
+  margin: 0 auto 3.5rem auto;
+  text-align: center;
+}
+
+.section-pillars .grid-4 {
+  gap: 1.75rem;
+}
+
+.section-pillars .card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  padding: 2.2rem 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition);
+}
+
+.section-pillars .card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-gold);
+  border-top-color: var(--accent-gold-hover);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+  background: var(--bg-card-hover);
+}
+
+.section-pillars .card-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+  transition: all var(--transition);
+}
+
+.section-pillars .card:hover .card-icon-wrap {
+  background: var(--accent-gold);
+  color: #0B1120;
+  border-color: var(--accent-gold);
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.section-pillars .card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.section-pillars .card p {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.section-pillars .card-link {
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: auto;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.section-pillars .card-link:hover {
+  color: #f1cf6d;
+  transform: translateX(4px);
+  text-decoration: none;
 }
 
 /* --------------------------------------------------------------------------

@@ -323,6 +323,24 @@ function initCommitteeFilter() {
    9. Dynamic Notice Board Interactions (Pause on Hover/Touch/Focus)
    -------------------------------------------------------------------------- */
 function initNoticeBoard() {
+  // Support News Ticker Bar touch pause/resume on mobile
+  const tickerBar = document.querySelector('.news-ticker-bar');
+  const tickerTrack = document.querySelector('.news-ticker-track');
+  if (tickerBar && tickerTrack) {
+    let tickerResumeTimer = null;
+    tickerBar.addEventListener('touchstart', () => {
+      tickerTrack.style.animationPlayState = 'paused';
+      if (tickerResumeTimer) clearTimeout(tickerResumeTimer);
+    }, { passive: true });
+
+    tickerBar.addEventListener('touchend', () => {
+      tickerResumeTimer = setTimeout(() => {
+        tickerTrack.style.animationPlayState = 'running';
+      }, 2500);
+    }, { passive: true });
+  }
+
+  // Legacy notice banner support if present
   const banner = document.querySelector('.notice-board-banner');
   const track = document.querySelector('.notice-marquee-track');
   if (!banner || !track) return;
