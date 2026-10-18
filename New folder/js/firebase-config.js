@@ -8,6 +8,7 @@
  * Modules included:
  *   • firebase-auth      → IT Secretary sign-in for admin.html
  *   • firebase-firestore → `notices` collection (public read, admin write)
+ *                          `events`  collection (public read, admin write)
  *
  * SDK delivery
  * ---------------------------------------------------------------------------
@@ -45,6 +46,9 @@ export const ADMIN_EMAILS = ['emdadulhoquex@gmail.com'];
 
 /** Firestore collection that powers the public notice board. */
 export const NOTICES_COLLECTION = 'notices';
+
+/** Firestore collection that powers the public events page (events.html). */
+export const EVENTS_COLLECTION = 'events';
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);

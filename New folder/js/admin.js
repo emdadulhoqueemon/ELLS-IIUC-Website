@@ -2,11 +2,12 @@
  * ELLS Club — IT Secretary Admin Console
  * ---------------------------------------------------------------------------
  * Firebase Authentication (email + password) protects the dashboard, and every
- * notice is written to the Cloud Firestore `notices` collection.
+ * notice is written to the Cloud Firestore `notices` collection while every
+ * event is written to the `events` collection.
  *
  *   • Login      → signInWithEmailAndPassword()
  *   • Session    → onAuthStateChanged() keeps the UI in sync across reloads
- *   • Publish    → addDoc(collection(db, 'notices'), {...})
+ *   • Publish    → addDoc(collection(db, 'notices' | 'events'), {...})
  *   • Live list  → onSnapshot() mirrors what the public homepage shows
  *   • Logout     → signOut()
  *
@@ -20,6 +21,7 @@ import {
   db,
   ADMIN_EMAILS,
   NOTICES_COLLECTION,
+  EVENTS_COLLECTION,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -73,9 +75,34 @@ function initAdminConsole() {
   const publishedCount = document.getElementById('publishedCount');
   const adminToday = document.getElementById('adminToday');
 
+  /* ---- Event Management elements ---- */
+  const eventForm = document.getElementById('addEventForm');
+  const eventTitleInput = document.getElementById('eventTitle');
+  const eventCategoryInput = document.getElementById('eventCategory');
+  const eventDescriptionInput = document.getElementById('eventDescription');
+  const eventDescCount = document.getElementById('eventDescCount');
+  const eventDateInput = document.getElementById('eventDate');
+  const eventTimeInput = document.getElementById('eventTime');
+  const eventVenueInput = document.getElementById('eventVenue');
+  const eventRegLinkInput = document.getElementById('eventRegLink');
+  const publishEventBtn = document.getElementById('publishEventBtn');
+  const eventFormStatus = document.getElementById('eventFormStatus');
+  const eventPreviewBadge = document.getElementById('eventPreviewBadge');
+  const eventPreviewTitle = document.getElementById('eventPreviewTitle');
+  const eventPreviewWhen = document.getElementById('eventPreviewWhen');
+  const eventPreviewDescription = document.getElementById('eventPreviewDescription');
+  const eventPreviewVenue = document.getElementById('eventPreviewVenue');
+  const eventPreviewLink = document.getElementById('eventPreviewLink');
+  const publishedEventList = document.getElementById('publishedEventList');
+  const publishedEventEmpty = document.getElementById('publishedEventEmpty');
+  const publishedEventCount = document.getElementById('publishedEventCount');
+  const adminEventTotal = document.getElementById('adminEventTotal');
+
   let unsubscribeNotices = null;
+  let unsubscribeEvents = null;
   let currentUser = null;
   let isPublishing = false;
+  let isPublishingEvent = false;
   // Set when an authenticated account is not on the ADMIN_EMAILS allowlist;
   // openLogin() displays it once the sign-out cycle settles.
   let pendingAuthMessage = '';
@@ -202,7 +229,9 @@ function initAdminConsole() {
     if (dateInput && !dateInput.value) dateInput.value = today;
 
     updatePreview();
+    updateEventPreview();
     subscribeToNotices();
+    subscribeToEvents();
   }
 
   function teardownDashboard() {
@@ -213,8 +242,15 @@ function initAdminConsole() {
       unsubscribeNotices = null;
     }
 
+    if (unsubscribeEvents) {
+      unsubscribeEvents();
+      unsubscribeEvents = null;
+    }
+
     notices = [];
     renderNotices();
+    events = [];
+    renderEvents();
   }
 
   function openLogin() {
@@ -281,6 +317,49 @@ function initAdminConsole() {
       (error) => {
         console.error('[ELLS] Notice feed failed:', error);
         renderNotices('error');
+      }
+    );
+  }
+
+  /* ======================================================================
+     Firestore — real-time event feed
+     ====================================================================== */
+
+  let events = [];
+
+  function subscribeToEvents() {
+    if (unsubscribeEvents) unsubscribeEvents();
+
+    renderEvents('loading');
+
+    // Single-field index is automatic; the list is newest-published first.
+    const eventsQuery = query(
+      collection(db, EVENTS_COLLECTION),
+      orderBy('createdAt', 'desc')
+    );
+
+    unsubscribeEvents = onSnapshot(
+      eventsQuery,
+      (snapshot) => {
+        events = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data() || {};
+          return {
+            id: docSnap.id,
+            title: typeof data.title === 'string' ? data.title.trim() : '',
+            category: typeof data.category === 'string' ? data.category.trim() : '',
+            description: typeof data.description === 'string' ? data.description.trim() : '',
+            date: typeof data.date === 'string' ? data.date.trim() : '',
+            time: typeof data.time === 'string' ? data.time.trim() : '',
+            venue: typeof data.venue === 'string' ? data.venue.trim() : '',
+            registrationLink: typeof data.registrationLink === 'string' ? data.registrationLink.trim() : ''
+          };
+        });
+
+        renderEvents();
+      },
+      (error) => {
+        console.error('[ELLS] Event feed failed:', error);
+        renderEvents('error');
       }
     );
   }
@@ -494,6 +573,304 @@ function initAdminConsole() {
   }
 
   /* ======================================================================
+     Event form
+     ====================================================================== */
+
+  if (eventForm) {
+    eventForm.addEventListener('input', (event) => {
+      if (event.target === eventTitleInput) clearFieldError(eventTitleInput, 'eventTitleError');
+      if (event.target === eventCategoryInput) clearFieldError(eventCategoryInput, 'eventCategoryError');
+      if (event.target === eventDescriptionInput) {
+        clearFieldError(eventDescriptionInput, 'eventDescriptionError');
+        updateEventCounter();
+      }
+      if (event.target === eventDateInput) clearFieldError(eventDateInput, 'eventDateError');
+      if (event.target === eventTimeInput) clearFieldError(eventTimeInput, 'eventTimeError');
+      if (event.target === eventVenueInput) clearFieldError(eventVenueInput, 'eventVenueError');
+      if (event.target === eventRegLinkInput) clearFieldError(eventRegLinkInput, 'eventRegLinkError');
+      updateEventPreview();
+    });
+
+    eventForm.addEventListener('change', (event) => {
+      if (event.target === eventCategoryInput) {
+        clearFieldError(eventCategoryInput, 'eventCategoryError');
+        updateEventPreview();
+      }
+    });
+
+    eventForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (isPublishingEvent) return;
+
+      const title = eventTitleInput ? eventTitleInput.value.trim() : '';
+      const category = eventCategoryInput ? eventCategoryInput.value.trim() : '';
+      const description = eventDescriptionInput ? eventDescriptionInput.value.trim() : '';
+      const date = eventDateInput ? eventDateInput.value.trim() : '';
+      const time = eventTimeInput ? eventTimeInput.value.trim() : '';
+      const venue = eventVenueInput ? eventVenueInput.value.trim() : '';
+      const registrationLink = eventRegLinkInput ? eventRegLinkInput.value.trim() : '';
+      let isValid = true;
+
+      if (!title) {
+        setFieldError(eventTitleInput, 'eventTitleError', 'Please enter an event title.');
+        isValid = false;
+      } else if (title.length < 4) {
+        setFieldError(eventTitleInput, 'eventTitleError', 'The title should be at least 4 characters long.');
+        isValid = false;
+      }
+
+      if (!category) {
+        setFieldError(eventCategoryInput, 'eventCategoryError', 'Please choose an event category/track.');
+        isValid = false;
+      }
+
+      if (!description) {
+        setFieldError(eventDescriptionInput, 'eventDescriptionError', 'Please write a short description for the event.');
+        isValid = false;
+      } else if (description.length < 10) {
+        setFieldError(eventDescriptionInput, 'eventDescriptionError', 'Please add a little more detail (at least 10 characters).');
+        isValid = false;
+      } else if (description.length > 220) {
+        setFieldError(eventDescriptionInput, 'eventDescriptionError', 'Keep the description short — 220 characters maximum.');
+        isValid = false;
+      }
+
+      if (!date) {
+        setFieldError(eventDateInput, 'eventDateError', 'Please enter the event date (e.g., Wed, Oct 14).');
+        isValid = false;
+      }
+
+      if (!time) {
+        setFieldError(eventTimeInput, 'eventTimeError', 'Please enter the event time (e.g., 2:00 PM - 2:30 PM).');
+        isValid = false;
+      }
+
+      if (!venue) {
+        setFieldError(eventVenueInput, 'eventVenueError', 'Please enter the event venue.');
+        isValid = false;
+      }
+
+      if (!registrationLink) {
+        setFieldError(eventRegLinkInput, 'eventRegLinkError', 'Please provide the registration link for the RSVP button.');
+        isValid = false;
+      } else if (!isValidHttpUrl(registrationLink)) {
+        setFieldError(eventRegLinkInput, 'eventRegLinkError', 'Please enter a valid URL starting with http:// or https://.');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        const firstInvalid = eventForm.querySelector('.has-error .form-control');
+        if (firstInvalid) firstInvalid.focus();
+        showFormStatus('Please complete the highlighted fields before publishing.', true, eventFormStatus);
+        return;
+      }
+
+      if (!currentUser) {
+        showFormStatus('Your session has expired. Please sign in again.', true, eventFormStatus);
+        return;
+      }
+
+      isPublishingEvent = true;
+      setEventPublishing(true);
+
+      try {
+        await addDoc(collection(db, EVENTS_COLLECTION), {
+          title,
+          category,
+          description,
+          date,
+          time,
+          venue,
+          registrationLink,
+          createdAt: serverTimestamp(),
+          authorEmail: currentUser.email || null,
+          authorUid: currentUser.uid
+        });
+
+        // The live onSnapshot() subscription refreshes the list automatically.
+        resetEventForm();
+        showFormStatus('Event published — it is now live on the public Events page.', false, eventFormStatus);
+      } catch (error) {
+        console.error('[ELLS] Publishing event failed:', error);
+        showFormStatus(describeFirestoreError(error), true, eventFormStatus);
+      } finally {
+        isPublishingEvent = false;
+        setEventPublishing(false);
+      }
+    });
+
+    eventForm.addEventListener('reset', () => {
+      window.setTimeout(() => {
+        updateEventCounter();
+        updateEventPreview();
+        clearFieldError(eventTitleInput, 'eventTitleError');
+        clearFieldError(eventCategoryInput, 'eventCategoryError');
+        clearFieldError(eventDescriptionInput, 'eventDescriptionError');
+        clearFieldError(eventDateInput, 'eventDateError');
+        clearFieldError(eventTimeInput, 'eventTimeError');
+        clearFieldError(eventVenueInput, 'eventVenueError');
+        clearFieldError(eventRegLinkInput, 'eventRegLinkError');
+        if (eventFormStatus) {
+          eventFormStatus.classList.remove('is-visible', 'is-error');
+          eventFormStatus.textContent = '';
+        }
+      }, 0);
+    });
+  }
+
+  function resetEventForm() {
+    if (eventTitleInput) eventTitleInput.value = '';
+    if (eventCategoryInput) eventCategoryInput.value = '';
+    if (eventDescriptionInput) eventDescriptionInput.value = '';
+    if (eventDateInput) eventDateInput.value = '';
+    if (eventTimeInput) eventTimeInput.value = '';
+    if (eventVenueInput) eventVenueInput.value = '';
+    if (eventRegLinkInput) eventRegLinkInput.value = '';
+    updateEventCounter();
+    updateEventPreview();
+    clearFieldError(eventTitleInput, 'eventTitleError');
+    clearFieldError(eventCategoryInput, 'eventCategoryError');
+    clearFieldError(eventDescriptionInput, 'eventDescriptionError');
+    clearFieldError(eventDateInput, 'eventDateError');
+    clearFieldError(eventTimeInput, 'eventTimeError');
+    clearFieldError(eventVenueInput, 'eventVenueError');
+    clearFieldError(eventRegLinkInput, 'eventRegLinkError');
+    if (eventTitleInput) eventTitleInput.focus();
+  }
+
+  function setEventPublishing(isBusy) {
+    if (!publishEventBtn) return;
+    publishEventBtn.disabled = isBusy;
+    publishEventBtn.classList.toggle('is-loading', isBusy);
+    const label = publishEventBtn.querySelector('span');
+    if (label) label.textContent = isBusy ? 'Publishing…' : 'Publish Event';
+  }
+
+  /* ======================================================================
+     Event rendering (live list)
+     ====================================================================== */
+
+  function renderEvents(state) {
+    if (!publishedEventList) return;
+
+    publishedEventList.querySelectorAll('.admin-notice-item').forEach((item) => item.remove());
+
+    if (state === 'loading' || state === 'error') {
+      if (publishedEventEmpty) {
+        publishedEventEmpty.hidden = false;
+        publishedEventEmpty.textContent = state === 'loading'
+          ? 'Loading events from Firestore…'
+          : 'The event feed is unavailable right now. Check your Firestore rules and connection.';
+      }
+      if (publishedEventCount) publishedEventCount.textContent = '–';
+      if (adminEventTotal) adminEventTotal.textContent = '–';
+      return;
+    }
+
+    if (publishedEventCount) publishedEventCount.textContent = String(events.length);
+    if (adminEventTotal) adminEventTotal.textContent = String(events.length);
+
+    if (publishedEventEmpty) {
+      publishedEventEmpty.hidden = events.length > 0;
+      publishedEventEmpty.textContent = 'No events published yet. Your entries will appear here.';
+    }
+
+    events.forEach((evt) => {
+      const item = document.createElement('li');
+      item.className = 'admin-notice-item';
+      item.dataset.eventId = evt.id;
+
+      const body = document.createElement('div');
+      body.className = 'admin-notice-item__body';
+
+      const title = document.createElement('h4');
+      title.textContent = evt.title || 'Untitled event';
+
+      const time = document.createElement('time');
+      time.textContent = [evt.date, evt.time].filter(Boolean).join(' • ') || 'Date not set';
+
+      const description = document.createElement('p');
+      description.textContent = [evt.category, evt.venue].filter(Boolean).join(' · ');
+
+      body.append(title, time, description);
+
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'admin-notice-item__remove';
+      remove.title = 'Delete event';
+      remove.setAttribute('aria-label', `Delete event: ${evt.title || 'Untitled event'}`);
+      remove.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<line x1="18" y1="6" x2="6" y2="18"></line>' +
+        '<line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+      remove.addEventListener('click', () => deleteEvent(evt, remove));
+
+      item.append(body, remove);
+      publishedEventList.appendChild(item);
+    });
+  }
+
+  /* ======================================================================
+     Delete an event (Firestore rules allow this for the admin only)
+     ====================================================================== */
+
+  async function deleteEvent(evt, buttonEl) {
+    const label = evt.title || 'this event';
+    const confirmed = window.confirm(
+      `Delete "${label}"?\n\n` +
+      'It will be removed from Cloud Firestore and disappear from the public ' +
+      'Events page immediately. This cannot be undone.'
+    );
+    if (!confirmed) return;
+
+    if (buttonEl) buttonEl.disabled = true;
+
+    try {
+      await deleteDoc(doc(db, EVENTS_COLLECTION, evt.id));
+      // onSnapshot() removes the row automatically.
+      showFormStatus('Event deleted from the public Events page.', false, eventFormStatus);
+    } catch (error) {
+      console.error('[ELLS] Deleting event failed:', error);
+      showFormStatus(describeFirestoreError(error), true, eventFormStatus);
+      if (buttonEl) buttonEl.disabled = false;
+    }
+  }
+
+  /* ======================================================================
+     Event preview + small helpers
+     ====================================================================== */
+
+  function updateEventPreview() {
+    if (!eventPreviewTitle || !eventPreviewDescription || !eventPreviewWhen) return;
+
+    const title = eventTitleInput ? eventTitleInput.value.trim() : '';
+    const category = eventCategoryInput ? eventCategoryInput.value.trim() : '';
+    const description = eventDescriptionInput ? eventDescriptionInput.value.trim() : '';
+    const date = eventDateInput ? eventDateInput.value.trim() : '';
+    const time = eventTimeInput ? eventTimeInput.value.trim() : '';
+    const venue = eventVenueInput ? eventVenueInput.value.trim() : '';
+    const registrationLink = eventRegLinkInput ? eventRegLinkInput.value.trim() : '';
+
+    if (eventPreviewBadge) eventPreviewBadge.textContent = category || 'Event';
+    eventPreviewTitle.textContent = title || 'Your event title will appear here';
+    eventPreviewWhen.textContent = [date, time].filter(Boolean).join(' • ') || 'Date & time not set';
+    eventPreviewDescription.textContent = description ||
+      'Add a title, category, and description to preview how this event will look to students.';
+    if (eventPreviewVenue) eventPreviewVenue.textContent = venue ? `Venue: ${venue}` : 'Venue not set';
+    if (eventPreviewLink) {
+      eventPreviewLink.textContent = registrationLink
+        ? `RSVP → ${registrationLink}`
+        : 'Registration link not set';
+    }
+  }
+
+  function updateEventCounter() {
+    if (!eventDescCount || !eventDescriptionInput) return;
+    eventDescCount.textContent = `${eventDescriptionInput.value.length} / ${eventDescriptionInput.maxLength}`;
+  }
+
+  /* ======================================================================
      Preview + small UI helpers
      ====================================================================== */
 
@@ -533,16 +910,17 @@ function initAdminConsole() {
     input.setAttribute('aria-invalid', 'true');
   }
 
-  function showFormStatus(message, isError) {
-    if (!formStatus) return;
-    formStatus.textContent = message;
-    formStatus.classList.add('is-visible');
-    formStatus.classList.toggle('is-error', Boolean(isError));
+  function showFormStatus(message, isError, statusEl) {
+    const target = statusEl || formStatus;
+    if (!target) return;
+    target.textContent = message;
+    target.classList.add('is-visible');
+    target.classList.toggle('is-error', Boolean(isError));
 
-    window.clearTimeout(showFormStatus.timer);
-    showFormStatus.timer = window.setTimeout(() => {
-      formStatus.classList.remove('is-visible', 'is-error');
-      formStatus.textContent = '';
+    window.clearTimeout(target._hideTimer);
+    target._hideTimer = window.setTimeout(() => {
+      target.classList.remove('is-visible', 'is-error');
+      target.textContent = '';
     }, 6000);
   }
 
@@ -592,6 +970,8 @@ function initAdminConsole() {
 
   updateCounter();
   updatePreview();
+  updateEventCounter();
+  updateEventPreview();
   if (dateInput && !dateInput.value) dateInput.value = todayISO();
 
   if (loginView) loginView.hidden = true;   // the splash covers this until auth resolves
@@ -647,6 +1027,15 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function isValidHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
 function initialsFromEmail(email) {
   if (!email) return 'IT';
   const localPart = email.split('@')[0].replace(/[^a-z0-9]/gi, '');
@@ -682,12 +1071,12 @@ function describeFirestoreError(error) {
 
   switch (code) {
     case 'permission-denied':
-      return 'Firestore blocked this action. Only the authorised IT Secretary account (see firestore.rules) may change notices.';
+      return 'Firestore blocked this action. Only the authorised IT Secretary account (see firestore.rules) may change notices or events.';
     case 'unavailable':
       return 'Cloud Firestore is unreachable right now. Check your connection and try again.';
     case 'failed-precondition':
       return 'Firestore needs an index for this query. Check the browser console for the setup link.';
     default:
-      return 'The notice could not be published. Please try again.';
+      return 'The entry could not be saved. Please try again.';
   }
 }
