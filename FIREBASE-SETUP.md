@@ -1,17 +1,19 @@
-# Firebase Setup — ELLS Club Notice Board
+# Firebase Setup — ELLS Club Notice Board & Events
 
 The site runs on **Firebase v10 (modular SDK)** with **Firebase Authentication**
-for the admin console and **Cloud Firestore** for the notice board.
+for the admin console and **Cloud Firestore** for the notice board and the
+events page.
 
 | Piece | File |
 | --- | --- |
 | Firebase init + config | `New folder/js/firebase-config.js` |
 | Public notice board (read) | `New folder/js/notice-board.js` → `index.html` |
+| Public events feed (read) | `New folder/js/events-feed.js` → `events.html` |
 | Admin login, publish & delete | `New folder/js/admin.js` → `admin.html` |
 | Security rules | `firestore.rules` |
 | CLI project config | `firebase.json`, `.firebaserc` |
 
-Firestore collection used: **`notices`**.
+Firestore collections used: **`notices`** and **`events`**.
 
 ---
 
@@ -23,8 +25,11 @@ Firestore collection used: **`notices`**.
 | Where it is enforced | `firestore.rules` → `isAdmin()` (real security boundary) |
 | Where it is mirrored | `ADMIN_EMAILS` in `New folder/js/firebase-config.js` (UI guard) |
 
-* **Read** on `notices` → public, so `index.html` works for visitors.
-* **Create / update / delete** on `notices` → only `emdadulhoquex@gmail.com`.
+* **Read** on `notices` and `events` → public, so `index.html` and `events.html`
+  work for visitors.
+* **Create / update / delete** on `notices` and `events` → only
+  `emdadulhoquex@gmail.com`. This is the **only** address with write access
+  anywhere in the rules.
 * Any other signed-in account is rejected by the rules **and** signed straight
   back out by `admin.js` with an “not authorised” message.
 * All other collections → denied.
@@ -59,6 +64,28 @@ document looks like:
   "authorUid": "<firebase uid>"
 }
 ```
+
+The `events` collection appears the first time an event is published from the
+**Event Management** section of `admin.html`. Each document looks like:
+
+```json
+{
+  "title": "Lexicon Mastery",
+  "category": "Organizing Track",
+  "description": "A fast-paced vocabulary showdown ...",
+  "date": "Wed, Oct 14",
+  "time": "2:00 PM - 2:30 PM",
+  "venue": "Department of English, Campus Hall",
+  "registrationLink": "https://forms.gle/...",
+  "createdAt": "<server timestamp>",
+  "authorEmail": "emdadulhoquex@gmail.com",
+  "authorUid": "<firebase uid>"
+}
+```
+
+`date` and `time` are display strings exactly as they should appear on the
+public event cards; `registrationLink` is the URL behind the card's
+**RSVP Now** button.
 
 ## 3. Publish the security rules
 
@@ -185,11 +212,12 @@ write access, so it cannot pollute production data.
 1. `signInWithEmailAndPassword()` on submit; `onAuthStateChanged()` keeps the
    UI in sync, so a refresh keeps the session when “Keep me signed in” is on.
 2. Non-allowlisted accounts are signed out immediately.
-3. **Publish Notice** → `addDoc(collection(db, 'notices'), {...})`.
-4. The **×** button → `deleteDoc(doc(db, 'notices', id))`.
-5. The dashboard list is an `onSnapshot()` feed of the same collection, so it
-   always shows exactly what visitors see.
-6. **Log out** → `signOut(auth)`; the session and the live feed are torn down.
+3. **Publish Notice** → `addDoc(collection(db, 'notices'), {...})`;
+   **Publish Event** → `addDoc(collection(db, 'events'), {...})`.
+4. The **×** button → `deleteDoc(doc(db, 'notices' | 'events', id))`.
+5. The dashboard lists are `onSnapshot()` feeds of the same collections, so they
+   always show exactly what visitors see.
+6. **Log out** → `signOut(auth)`; the session and the live feeds are torn down.
 
 **Public site (`index.html`)**
 
@@ -197,6 +225,14 @@ write access, so it cannot pollute production data.
 the cards inside the **Event & Notice Schedule** section (`#noticeBoardGrid`).
 Cards reuse the site's existing `event-card`, `event-date-badge`, `event-meta`
 and `badge` classes, and the board shows loading / empty / error states.
+
+**Public events page (`events.html`)**
+
+`js/events-feed.js` subscribes to the `events` collection and renders the
+upcoming-event cards into `#eventsGrid` with the same `event-card` UI (date
+badge, category badge, meta icons, RSVP button). Cards are ordered by the
+month/day parsed from the display `date`, and the **RSVP Now** button links
+directly to each event's `registrationLink`.
 
 ## 5. Where the SDK is loaded from
 

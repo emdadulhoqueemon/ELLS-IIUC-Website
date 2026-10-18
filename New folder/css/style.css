@@ -1671,15 +1671,6 @@ body.nav-open .site-header {
   flex-shrink: 0;
 }
 
-.past-event-badge-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
 .event-date-month {
   display: block;
   font-size: 0.75rem;
