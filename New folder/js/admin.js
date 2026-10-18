@@ -18,6 +18,7 @@
 import {
   auth,
   db,
+  ADMIN_EMAILS,
   NOTICES_COLLECTION,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -27,6 +28,8 @@ import {
   browserSessionPersistence,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   query,
   orderBy,
@@ -73,6 +76,9 @@ function initAdminConsole() {
   let unsubscribeNotices = null;
   let currentUser = null;
   let isPublishing = false;
+  // Set when an authenticated account is not on the ADMIN_EMAILS allowlist;
+  // openLogin() displays it once the sign-out cycle settles.
+  let pendingAuthMessage = '';
 
   /* ======================================================================
      Authentication
@@ -81,6 +87,22 @@ function initAdminConsole() {
   onAuthStateChanged(
     auth,
     (user) => {
+      // Firebase can authenticate any account in the project, but only the
+      // allowlisted address may use the console. Everyone else is signed
+      // straight back out (Firestore rules enforce the same boundary).
+      if (user && !isAuthorizedAdmin(user)) {
+        const rejected = user.email || 'This account';
+        pendingAuthMessage =
+          `${rejected} is not authorised to use the ELLS admin console. ` +
+          'Please sign in with the IT Secretary account.';
+        console.warn('[ELLS] Rejected non-admin sign-in:', rejected);
+
+        signOut(auth).catch((error) => {
+          console.error('[ELLS] Could not sign out rejected account:', error);
+        });
+        return; // the null-user callback below finishes the transition
+      }
+
       currentUser = user;
 
       if (user) {
@@ -204,7 +226,19 @@ function initAdminConsole() {
     loginForm.reset();
     clearLoginError();
     resetPasswordVisibility();
+
+    if (pendingAuthMessage) {
+      showLoginError(pendingAuthMessage);
+      pendingAuthMessage = '';
+    }
+
     if (emailInput) emailInput.focus();
+  }
+
+  function isAuthorizedAdmin(user) {
+    const email = (user && user.email ? user.email : '').toLowerCase();
+    if (!email) return false;
+    return ADMIN_EMAILS.some((allowed) => allowed.toLowerCase() === email);
   }
 
   function updateSkipLinkTarget() {
@@ -415,9 +449,48 @@ function initAdminConsole() {
       description.textContent = notice.description;
 
       body.append(title, time, description);
-      item.appendChild(body);
+
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'admin-notice-item__remove';
+      remove.title = 'Delete notice';
+      remove.setAttribute('aria-label', `Delete notice: ${notice.title || 'Untitled notice'}`);
+      remove.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<line x1="18" y1="6" x2="6" y2="18"></line>' +
+        '<line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+      remove.addEventListener('click', () => deleteNotice(notice, remove));
+
+      item.append(body, remove);
       publishedList.appendChild(item);
     });
+  }
+
+  /* ======================================================================
+     Delete a notice (Firestore rules allow this for the admin only)
+     ====================================================================== */
+
+  async function deleteNotice(notice, buttonEl) {
+    const label = notice.title || 'this notice';
+    const confirmed = window.confirm(
+      `Delete "${label}"?\n\n` +
+      'It will be removed from Cloud Firestore and disappear from the public ' +
+      'notice board immediately. This cannot be undone.'
+    );
+    if (!confirmed) return;
+
+    if (buttonEl) buttonEl.disabled = true;
+
+    try {
+      await deleteDoc(doc(db, NOTICES_COLLECTION, notice.id));
+      // onSnapshot() removes the row automatically.
+      showFormStatus('Notice deleted from the public notice board.', false);
+    } catch (error) {
+      console.error('[ELLS] Deleting notice failed:', error);
+      showFormStatus(describeFirestoreError(error), true);
+      if (buttonEl) buttonEl.disabled = false;
+    }
   }
 
   /* ======================================================================
@@ -609,7 +682,7 @@ function describeFirestoreError(error) {
 
   switch (code) {
     case 'permission-denied':
-      return 'Firestore blocked this write. Make sure your account is on the admin allowlist in the security rules.';
+      return 'Firestore blocked this action. Only the authorised IT Secretary account (see firestore.rules) may change notices.';
     case 'unavailable':
       return 'Cloud Firestore is unreachable right now. Check your connection and try again.';
     case 'failed-precondition':

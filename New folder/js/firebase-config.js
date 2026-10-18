@@ -36,6 +36,13 @@ export const firebaseConfig = {
   appId: '1:253554942186:web:8fdc926c12e769615d3793'
 };
 
+/**
+ * Accounts allowed to publish and delete notices.
+ * ⚠️ This is a UI convenience only — the REAL enforcement lives in
+ * firestore.rules (`isAdmin()`). Update both when the secretary changes.
+ */
+export const ADMIN_EMAILS = ['emdadulhoquex@gmail.com'];
+
 /** Firestore collection that powers the public notice board. */
 export const NOTICES_COLLECTION = 'notices';
 
@@ -61,6 +68,8 @@ export {
 export {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   query,
   orderBy,

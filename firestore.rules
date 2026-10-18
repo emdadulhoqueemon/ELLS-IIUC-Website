@@ -9,12 +9,14 @@ rules_version = '2';
 // Model
 //   notices/{noticeId}
 //     • Anyone may READ  → the public homepage notice board.
-//     • Only an authenticated admin may CREATE.
-//     • Nobody may update or delete from the browser (use the console).
+//     • ONLY the IT Secretary account may CREATE, UPDATE and DELETE:
+//           emdadulhoquex@gmail.com
+//     • Anonymous visitors and every other account are denied all writes.
+//     • Any other collection is denied entirely.
 //
-// Admins
-//   Add the IT Secretary account(s) to the allowlist below. The email must
-//   match exactly what you created in Firebase console → Authentication.
+// ⚠️ Keep the admin address below in sync with ADMIN_EMAILS in
+//    New folder/js/firebase-config.js — the rules are the real security
+//    boundary; the JS constant only controls what the UI lets you do.
 // ===========================================================================
 
 service cloud.firestore {
@@ -22,11 +24,10 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email_verified == true
-        && request.auth.token.email in [
-          'it.secretary@ells-club.com'
-          // add further committee emails here, comma separated
-        ];
+        && request.auth.token.email == 'emdadulhoquex@gmail.com';
+      // Optional hardening — uncomment once the admin account has confirmed
+      // its address (Authentication → Users → verified badge):
+      //   && request.auth.token.email_verified == true
     }
 
     // Shape guard: every notice written from the dashboard must match it.
@@ -47,9 +48,12 @@ service cloud.firestore {
     }
 
     match /notices/{noticeId} {
+      // Public notice board — readable by everyone, signed in or not.
       allow read: if true;
-      allow create: if isAdmin() && isValidNotice();
-      allow update, delete: if false;
+
+      // Write access is limited to the single authorised admin address.
+      allow create, update: if isAdmin() && isValidNotice();
+      allow delete: if isAdmin();
     }
 
     // Deny everything else by default.

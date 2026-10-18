@@ -84,7 +84,7 @@
 
         <span class="admin-eyebrow">Secure Sign-In</span>
         <h2>Welcome back</h2>
-        <p class="admin-login__lead">Sign in with the IT Secretary email and password issued for the ELLS Firebase project.</p>
+        <p class="admin-login__lead">Sign in with the IT Secretary account authorised for the ELLS Firebase project. Only this account can publish or delete notices.</p>
 
         <form id="adminLoginForm" class="admin-login__form" novalidate>
           <div class="form-group">
@@ -101,7 +101,7 @@
                 class="form-control admin-input"
                 id="adminEmail"
                 name="email"
-                placeholder="it.secretary@ells-club.com"
+                placeholder="emdadulhoquex@gmail.com"
                 autocomplete="username"
                 autocapitalize="none"
                 spellcheck="false"
@@ -162,7 +162,7 @@
         </form>
 
         <p class="admin-login__legal">
-          This workspace is protected and intended for the ELLS IT Secretary. Access is verified with Firebase Authentication.
+          This workspace is protected and intended for the ELLS IT Secretary. Access is verified with Firebase Authentication, and Firestore rules restrict notice changes to the authorised secretary account.
         </p>
       </div>
     </main>
@@ -324,7 +324,7 @@
             <header class="admin-card__head admin-card__head--compact">
               <div>
                 <h2 id="publishedHeading">Live Notices</h2>
-                <p>Streaming from the Firestore <code>notices</code> collection.</p>
+                <p>Streaming from Firestore. Use <strong>&times;</strong> to delete a notice.</p>
               </div>
               <span class="admin-count" id="publishedCount">0</span>
             </header>

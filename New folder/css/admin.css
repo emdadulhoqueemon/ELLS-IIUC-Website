@@ -1255,3 +1255,14 @@
     max-width: 190px;
   }
 }
+
+/* Delete button feedback (single-admin notice management) */
+.admin-notice-item__remove:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+
+.admin-notice-item__remove:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
