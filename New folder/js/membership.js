@@ -1,339 +1,299 @@
 /**
- * ELLS Club - Membership Application Module
- * Multi-step wizard, interactive validation, word counter, and digital pass generation
+ * ELLS Club — Membership Status Lookup
+ * ---------------------------------------------------------------------------
+ * UI/UX layer for the public membership directory. The status card in
+ * membership.html is hidden by default (inline `display: none`) and is
+ * revealed only after a student searches for their IIUC ID.
+ *
+ * BACKEND INTEGRATION
+ * -------------------
+ * 1. Set ELLS_STATUS_CONFIG.endpoint to the live status API, e.g.
+ *      endpoint: '/api/membership/status'
+ *    and set demoMode to false.
+ * 2. The expected JSON response for a match is:
+ *      {
+ *        "studentName": "Ayesha Rahman",
+ *        "studentId": "C2012345",
+ *        "tier": "Student Fellow",
+ *        "totalPaid": 1250,
+ *        "dueAmount": 0,
+ *        "assessmentTotal": 1250,          // optional
+ *        "eligibleForFreeEntry": true       // optional; derived when omitted
+ *      }
+ *    Return HTTP 404 when no record exists. The lookup function already
+ *    handles 404 (no-record state), other non-2xx responses (error message),
+ *    and network failures.
+ * ---------------------------------------------------------------------------
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initMembershipWizard();
-  checkExistingMembership();
-});
+const ELLS_STATUS_CONFIG = {
+  // Example: 'https://api.ells-iiuc.com/membership/status'
+  endpoint: null,
+  // While true (or while no endpoint is configured), the demo record below is
+  // returned so the interface can be reviewed without a backend.
+  demoMode: true
+};
 
-function initMembershipWizard() {
-  const wizardForm = document.getElementById('membershipForm');
-  if (!wizardForm) return;
+const ELLS_DEMO_RECORD = {
+  studentName: 'Ayesha Rahman',
+  tier: 'Student Fellow',
+  totalPaid: 1250,
+  dueAmount: 0,
+  assessmentTotal: 1250
+};
 
-  const steps = document.querySelectorAll('.wizard-step');
-  const stepIndicators = document.querySelectorAll('.wizard-step-indicator');
-  const prevBtn = document.getElementById('prevStepBtn');
-  const nextBtn = document.getElementById('nextStepBtn');
-  const submitBtn = document.getElementById('submitMembershipBtn');
-  const statementInput = document.getElementById('statementOfPurpose');
-  const wordCountDisplay = document.getElementById('wordCountDisplay');
+// IIUC IDs look like C2012345: a letter followed by at least three digits.
+const ELLS_ID_PATTERN = /^[A-Z]\d{3,}$/;
 
-  let currentStep = 1;
-  const totalSteps = steps.length;
+document.addEventListener('DOMContentLoaded', initMembershipStatusChecker);
 
-  // Tier selection handling
-  const tierCards = document.querySelectorAll('.tier-card');
-  const tierInput = document.getElementById('selectedTierInput');
+function initMembershipStatusChecker() {
+  const form = document.getElementById('statusCheckForm');
+  if (!form) return;
 
-  tierCards.forEach(card => {
-    card.addEventListener('click', () => {
-      tierCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      const tierValue = card.getAttribute('data-tier');
-      if (tierInput) tierInput.value = tierValue;
-      updateReviewSummary();
-    });
-  });
+  const input = document.getElementById('studentIdInput');
+  const button = document.getElementById('checkStatusBtn');
+  const buttonLabel = button ? button.querySelector('.status-search-submit__label') : null;
+  const field = form.querySelector('.status-search-field');
+  const errorEl = document.getElementById('statusSearchError');
+  const card = document.getElementById('statusCard');
+  const notFound = document.getElementById('statusNotFound');
+  const notFoundId = document.getElementById('statusNotFoundId');
+  const resetBtn = document.getElementById('statusResetBtn');
 
-  // Word Counter for Statement
-  if (statementInput && wordCountDisplay) {
-    statementInput.addEventListener('input', () => {
-      const text = statementInput.value.trim();
-      const words = text ? text.split(/\s+/).length : 0;
-      wordCountDisplay.textContent = `${words} / 150 words`;
-      if (words > 150) {
-        wordCountDisplay.style.color = 'var(--accent-crimson)';
-      } else {
-        wordCountDisplay.style.color = 'var(--text-muted)';
-      }
-    });
-  }
+  if (!input || !button || !card) return;
 
-  // Navigation handlers
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      if (validateStep(currentStep)) {
-        if (currentStep < totalSteps) {
-          goToStep(currentStep + 1);
-        }
-      }
-    });
-  }
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearError();
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      if (currentStep > 1) {
-        goToStep(currentStep - 1);
-      }
-    });
-  }
+    const rawValue = input.value.trim();
+    const studentId = rawValue.toUpperCase().replace(/\s+/g, '');
 
-  function goToStep(stepNumber) {
-    currentStep = stepNumber;
-
-    // Update steps display
-    steps.forEach(step => {
-      step.classList.remove('active');
-      if (parseInt(step.getAttribute('data-step')) === currentStep) {
-        step.classList.add('active');
-      }
-    });
-
-    // Update indicators
-    stepIndicators.forEach(indicator => {
-      const stepIdx = parseInt(indicator.getAttribute('data-step'));
-      indicator.classList.remove('active', 'completed');
-      if (stepIdx === currentStep) {
-        indicator.classList.add('active');
-      } else if (stepIdx < currentStep) {
-        indicator.classList.add('completed');
-      }
-    });
-
-    // Toggle navigation buttons
-    if (prevBtn) {
-      prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-flex';
-    }
-
-    if (nextBtn && submitBtn) {
-      if (currentStep === totalSteps) {
-        nextBtn.style.display = 'none';
-        submitBtn.style.display = 'inline-flex';
-        updateReviewSummary();
-      } else {
-        nextBtn.style.display = 'inline-flex';
-        submitBtn.style.display = 'none';
-      }
-    }
-
-    // Smooth scroll back to form top
-    wizardForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // Live Step Validation
-  function validateStep(step) {
-    let isValid = true;
-
-    if (step === 1) {
-      const fullName = document.getElementById('fullName');
-      const email = document.getElementById('emailAddress');
-      const phone = document.getElementById('phoneNumber');
-      const affiliation = document.getElementById('affiliation');
-
-      if (!fullName.value.trim()) {
-        markError(fullName, 'Please provide your full legal or preferred name.');
-        isValid = false;
-      } else {
-        clearError(fullName);
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
-        markError(email, 'Please enter a valid academic or personal email address.');
-        isValid = false;
-      } else {
-        clearError(email);
-      }
-
-      if (!phone.value.trim()) {
-        markError(phone, 'Please provide a valid contact number.');
-        isValid = false;
-      } else {
-        clearError(phone);
-      }
-
-      if (!affiliation.value.trim()) {
-        markError(affiliation, 'Please enter your department, major, or institution.');
-        isValid = false;
-      } else {
-        clearError(affiliation);
-      }
-    }
-
-    if (step === 2) {
-      const interests = document.querySelectorAll('input[name="literaryInterests"]:checked');
-      const errorBox = document.getElementById('interestsError');
-      if (interests.length === 0) {
-        if (errorBox) {
-          errorBox.textContent = 'Please select at least one literary or linguistic area of interest.';
-          errorBox.style.display = 'block';
-        }
-        isValid = false;
-      } else {
-        if (errorBox) errorBox.style.display = 'none';
-      }
-    }
-
-    if (step === 3) {
-      const statement = document.getElementById('statementOfPurpose');
-      if (!statement.value.trim() || statement.value.trim().split(/\s+/).length < 15) {
-        markError(statement, 'Please share at least a few sentences (minimum 15 words) describing your literary interests.');
-        isValid = false;
-      } else {
-        clearError(statement);
-      }
-    }
-
-    if (!isValid) {
-      showToast('Please complete all required fields correctly before proceeding.', 'error');
-    }
-
-    return isValid;
-  }
-
-  function markError(input, message) {
-    const parent = input.closest('.form-group');
-    if (parent) {
-      parent.classList.add('has-error');
-      let errorEl = parent.querySelector('.form-error');
-      if (errorEl) {
-        errorEl.textContent = message;
-        errorEl.style.display = 'block';
-      }
-    }
-  }
-
-  function clearError(input) {
-    const parent = input.closest('.form-group');
-    if (parent) {
-      parent.classList.remove('has-error');
-      let errorEl = parent.querySelector('.form-error');
-      if (errorEl) {
-        errorEl.style.display = 'none';
-      }
-    }
-  }
-
-  // Update Review Screen
-  function updateReviewSummary() {
-    const name = document.getElementById('fullName')?.value || 'Distinguished Scholar';
-    const email = document.getElementById('emailAddress')?.value || '';
-    const affiliation = document.getElementById('affiliation')?.value || '';
-    const tier = document.getElementById('selectedTierInput')?.value || 'Student Fellow';
-
-    const selectedInterests = Array.from(document.querySelectorAll('input[name="literaryInterests"]:checked'))
-      .map(cb => cb.parentElement.textContent.trim())
-      .join(', ') || 'Literary Arts & English Language';
-
-    const reviewName = document.getElementById('reviewName');
-    const reviewEmail = document.getElementById('reviewEmail');
-    const reviewAffiliation = document.getElementById('reviewAffiliation');
-    const reviewInterests = document.getElementById('reviewInterests');
-    const reviewTier = document.getElementById('reviewTier');
-
-    if (reviewName) reviewName.textContent = name;
-    if (reviewEmail) reviewEmail.textContent = email;
-    if (reviewAffiliation) reviewAffiliation.textContent = affiliation;
-    if (reviewInterests) reviewInterests.textContent = selectedInterests;
-    if (reviewTier) reviewTier.textContent = tier.toUpperCase();
-  }
-
-  // Form Submission
-  wizardForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
-      goToStep(1);
+    if (!studentId) {
+      showError('Please enter your IIUC Student ID to continue.');
       return;
     }
 
-    const agreeCode = document.getElementById('agreeCodeOfConduct');
-    if (agreeCode && !agreeCode.checked) {
-      showToast('You must agree to the ELLS Club Code of Intellectual Discourse.', 'error');
+    if (!ELLS_ID_PATTERN.test(studentId)) {
+      showError('That does not look like a valid IIUC ID. Use the format C2012345 (a letter followed by digits).');
       return;
     }
 
-    // Simulate submission processing
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Processing Application...</span>`;
-    }
+    setLoading(true);
+    form.setAttribute('aria-busy', 'true');
 
-    setTimeout(() => {
-      const fullName = document.getElementById('fullName')?.value.trim() || 'New Fellow';
-      const tier = document.getElementById('selectedTierInput')?.value || 'Student Fellow';
-      const memberId = 'ELLS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
-      const issueDate = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-
-      const memberData = {
-        name: fullName,
-        id: memberId,
-        tier: tier,
-        issued: issueDate
-      };
-
-      localStorage.setItem('ells-member', JSON.stringify(memberData));
-      renderMembershipPass(memberData);
-
-      showToast(`Welcome to ELLS Club, ${fullName}! Your fellowship is confirmed.`, 'success');
-    }, 900);
-  });
-}
-
-function renderMembershipPass(memberData) {
-  const formCard = document.getElementById('applicationFormCard');
-  const passContainer = document.getElementById('membershipPassContainer');
-
-  if (formCard) formCard.style.display = 'none';
-  if (passContainer) {
-    passContainer.style.display = 'block';
-
-    const passName = document.getElementById('passMemberName');
-    const passId = document.getElementById('passMemberId');
-    const passTier = document.getElementById('passTier');
-    const passDate = document.getElementById('passIssuedDate');
-
-    if (passName) passName.textContent = memberData.name;
-    if (passId) passId.textContent = memberData.id;
-    if (passTier) passTier.textContent = memberData.tier.toUpperCase();
-    if (passDate) passDate.textContent = memberData.issued;
-
-    // Scroll smoothly to the pass
-    passContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  // Print button
-  const printBtn = document.getElementById('printPassBtn');
-  if (printBtn) {
-    printBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
-
-  // Reset/Reapply button
-  const reapplyBtn = document.getElementById('reapplyBtn');
-  if (reapplyBtn) {
-    reapplyBtn.addEventListener('click', () => {
-      localStorage.removeItem('ells-member');
-      location.reload();
-    });
-  }
-}
-
-function checkExistingMembership() {
-  const savedMember = localStorage.getItem('ells-member');
-  if (savedMember) {
     try {
-      const memberData = JSON.parse(savedMember);
-      const viewExistingBtn = document.getElementById('viewExistingMemberNotice');
-      if (viewExistingBtn) {
-        viewExistingBtn.style.display = 'block';
-        viewExistingBtn.innerHTML = `
-          <div style="background: var(--accent-gold-light); border: 1px solid var(--accent-gold); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-            <div>
-              <strong>Active Fellowship Found:</strong> You are registered as <em>${memberData.name}</em> (${memberData.id}).
-            </div>
-            <button type="button" class="btn btn-sm btn-primary" id="restorePassBtn">View Digital Pass</button>
-          </div>
-        `;
-        document.getElementById('restorePassBtn')?.addEventListener('click', () => {
-          renderMembershipPass(memberData);
+      const record = await lookupMembership(studentId);
+
+      if (!record) {
+        showNotFound(studentId);
+        return;
+      }
+
+      renderStatusCard(record);
+    } catch (error) {
+      console.error('[ELLS] Membership status lookup failed:', error);
+      showError('We could not reach the membership directory right now. Please try again in a moment.');
+    } finally {
+      setLoading(false);
+      form.removeAttribute('aria-busy');
+    }
+  });
+
+  input.addEventListener('input', clearError);
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      card.style.display = 'none';
+      if (notFound) notFound.style.display = 'none';
+      form.reset();
+      clearError();
+      const searchCard = form.closest('.status-search-card');
+      if (searchCard) {
+        window.scrollTo({
+          top: searchCard.getBoundingClientRect().top + window.scrollY - 120,
+          behavior: 'smooth'
         });
       }
-    } catch (e) {
-      console.error(e);
+      setTimeout(() => input.focus(), 300);
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Backend bridge
+     ------------------------------------------------------------------------ */
+  async function lookupMembership(studentId) {
+    const endpoint = ELLS_STATUS_CONFIG.endpoint;
+
+    if (!ELLS_STATUS_CONFIG.demoMode && endpoint) {
+      const url = `${endpoint}?studentId=${encodeURIComponent(studentId)}`;
+      const response = await fetch(url, {
+        headers: { Accept: 'application/json' }
+      });
+
+      if (response.status === 404) return null;
+      if (!response.ok) {
+        throw new Error(`Membership status request failed with ${response.status}`);
+      }
+
+      return normalizeRecord(await response.json(), studentId);
     }
+
+    // Demo mode: keep the lookup asynchronous so the loading state is visible.
+    await new Promise((resolve) => setTimeout(resolve, 650));
+
+    return normalizeRecord(
+      { ...ELLS_DEMO_RECORD, studentId },
+      studentId
+    );
+  }
+
+  function normalizeRecord(raw, fallbackId) {
+    const totalPaid = toNumber(raw.totalPaid);
+    const dueAmount = toNumber(raw.dueAmount);
+    const assessmentTotal = toNumber(raw.assessmentTotal) || totalPaid + dueAmount;
+
+    return {
+      studentName: raw.studentName || raw.name || 'ELLS Member',
+      studentId: raw.studentId || fallbackId,
+      tier: raw.tier || 'Student Fellow',
+      totalPaid,
+      dueAmount,
+      assessmentTotal,
+      eligibleForFreeEntry:
+        typeof raw.eligibleForFreeEntry === 'boolean'
+          ? raw.eligibleForFreeEntry
+          : dueAmount <= 0
+    };
+  }
+
+  /* ------------------------------------------------------------------------
+     Rendering
+     ------------------------------------------------------------------------ */
+  function renderStatusCard(record) {
+    if (notFound) notFound.style.display = 'none';
+
+    setText('statusStudentName', record.studentName);
+    setText('statusStudentId', record.studentId);
+    setText('statusTier', record.tier);
+    setText('statusTotalPaid', formatMoney(record.totalPaid));
+    setText('statusDueAmount', formatMoney(record.dueAmount));
+
+    const eligible = record.eligibleForFreeEntry;
+    const eligibilityEl = document.getElementById('statusEligibility');
+    const eligibilityText = document.getElementById('statusEligibilityText');
+    const eligibilityNote = document.getElementById('statusEligibilityNote');
+    const entryMetric = document.getElementById('statusEntryMetric');
+
+    if (eligibilityEl) {
+      eligibilityEl.classList.toggle('is-eligible', eligible);
+      eligibilityEl.classList.toggle('is-ineligible', !eligible);
+    }
+
+    if (entryMetric) {
+      entryMetric.classList.toggle('is-ineligible', !eligible);
+    }
+
+    if (eligibilityText) {
+      eligibilityText.textContent = eligible ? 'Eligible for Free Entry' : 'Not Eligible Yet';
+    }
+
+    if (eligibilityNote) {
+      eligibilityNote.textContent = eligible
+        ? 'All dues cleared'
+        : `Clear ${formatMoney(record.dueAmount)} BDT to unlock free entry`;
+    }
+
+    const dueNote = document.getElementById('statusDueNote');
+    if (dueNote) {
+      dueNote.textContent = record.dueAmount > 0
+        ? 'Please clear this outstanding balance'
+        : 'No outstanding balance';
+    }
+
+    // Payment progress (paid vs. total assessment)
+    const total = record.assessmentTotal > 0
+      ? record.assessmentTotal
+      : record.totalPaid + record.dueAmount;
+    const percent = total > 0
+      ? Math.max(0, Math.min(100, Math.round((record.totalPaid / total) * 100)))
+      : 100;
+
+    setText('statusProgressLabel', `${percent}%`);
+
+    const progressBar = document.getElementById('statusProgressBar');
+    const progressFill = document.getElementById('statusProgressFill');
+    if (progressBar) progressBar.setAttribute('aria-valuenow', String(percent));
+    if (progressFill) progressFill.style.width = `${percent}%`;
+
+    const progressNote = document.getElementById('statusProgressNote');
+    if (progressNote) {
+      progressNote.textContent = `${formatMoney(record.totalPaid)} of ${formatMoney(total)} BDT membership assessment settled.`;
+    }
+
+    // Reveal (and replay the entrance animation on repeat searches)
+    card.style.display = 'block';
+    card.style.animation = 'none';
+    void card.offsetWidth;
+    card.style.animation = '';
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showNotFound(studentId) {
+    card.style.display = 'none';
+
+    if (notFoundId) notFoundId.textContent = studentId;
+    if (notFound) {
+      notFound.style.display = 'flex';
+      notFound.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     UI helpers
+     ------------------------------------------------------------------------ */
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function formatMoney(value) {
+    return Number(value || 0).toLocaleString('en-US', {
+      maximumFractionDigits: 0
+    });
+  }
+
+  function toNumber(value) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+  }
+
+  function setLoading(isLoading) {
+    button.disabled = isLoading;
+    button.classList.toggle('is-loading', isLoading);
+    if (buttonLabel) {
+      buttonLabel.textContent = isLoading ? 'Checking...' : 'Check Status';
+    }
+  }
+
+  function showError(message) {
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.classList.add('is-visible');
+    }
+    if (field) field.classList.add('has-error');
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+  }
+
+  function clearError() {
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('is-visible');
+    }
+    if (field) field.classList.remove('has-error');
+    input.removeAttribute('aria-invalid');
   }
 }
