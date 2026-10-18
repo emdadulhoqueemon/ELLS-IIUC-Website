@@ -1162,3 +1162,96 @@
   border-color: var(--accent-crimson);
   background-color: var(--accent-crimson-light);
 }
+
+/* ==========================================================================
+   Firebase session splash
+   ========================================================================== */
+/* Fail-safe: if the module never runs (offline / file://), reveal the login
+   form underneath instead of leaving the splash on screen forever. */
+.admin-boot {
+  animation: adminBootFailSafe 0.4s ease 8s forwards;
+}
+
+@keyframes adminBootFailSafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.admin-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.admin-boot__spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid rgba(212, 175, 55, 0.22);
+  border-top-color: var(--accent-gold);
+  animation: adminSpin 0.8s linear infinite;
+}
+
+.admin-boot p {
+  margin: 0;
+}
+
+/* Publish button busy state */
+.admin-form-actions .btn.is-loading {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+/* Admin list: "live" notification styling */
+.admin-notice-item__body h4 {
+  color: var(--text-primary);
+}
+
+.admin-published-card code,
+.admin-main__head code,
+.admin-footnote code {
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--accent-gold);
+  font-size: 0.9em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-boot__spinner {
+    animation: none;
+  }
+}
+
+/* Long admin emails must not stretch the topbar */
+.admin-user-chip {
+  max-width: 260px;
+}
+
+.admin-user-chip__text {
+  min-width: 0;
+}
+
+.admin-user-chip__text span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .admin-user-chip {
+    max-width: 190px;
+  }
+}

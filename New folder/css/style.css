@@ -291,6 +291,11 @@ p:last-child {
   text-align: center;
 }
 
+/* The `hidden` attribute must always win, even on flex/grid components */
+[hidden] {
+  display: none !important;
+}
+
 .eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
@@ -4069,4 +4074,229 @@ textarea.form-control {
 .status-metric--entry.is-ineligible .status-metric__icon {
   color: #FDA4AF;
   background: var(--accent-crimson-light);
+}
+
+/* --------------------------------------------------------------------------
+   18. Event & Notice Schedule — Dynamic Firestore Notice Board
+   -------------------------------------------------------------------------- */
+.notice-board-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.notice-board-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.notice-board-sub {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Live badge */
+.notice-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.6rem;
+  padding: 0.32rem 0.8rem;
+  border: 1px solid var(--accent-green-border);
+  border-radius: var(--radius-full);
+  background: var(--accent-green-light);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #6EE7B7;
+}
+
+.notice-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: noticeLivePulse 2s ease-out infinite;
+}
+
+@keyframes noticeLivePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Loading / empty / error panel */
+.notice-board-state {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding: 1.15rem 1.35rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  background: rgba(11, 17, 32, 0.55);
+}
+
+.notice-board-state[data-state="error"] {
+  border-left-color: var(--accent-crimson);
+}
+
+.notice-board-state[data-state="empty"] {
+  border-left-color: var(--border-strong);
+}
+
+.notice-board-state__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  color: var(--accent-gold);
+  background: var(--accent-gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.notice-board-state[data-state="error"] .notice-board-state__icon {
+  color: #FDA4AF;
+  background: var(--accent-crimson-light);
+  border-color: rgba(225, 29, 72, 0.38);
+}
+
+.notice-board-state__icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.notice-board-state__copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.notice-board-state__copy h3 {
+  margin-bottom: 0.15rem;
+  font-size: 1rem;
+}
+
+.notice-board-state__copy p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.notice-board-state__spinner {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.28);
+  border-top-color: var(--accent-gold);
+  animation: noticeBoardSpin 0.8s linear infinite;
+}
+
+.notice-board-state[data-state="empty"] .notice-board-state__spinner,
+.notice-board-state[data-state="error"] .notice-board-state__spinner {
+  display: none;
+}
+
+@keyframes noticeBoardSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cards rendered from Firestore reuse .event-card; a few notice refinements */
+.notice-card .event-card-body h3 {
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.notice-card .event-meta-item svg {
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 2;
+}
+
+.notice-card-desc {
+  margin-bottom: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.notice-card-stamp {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.notice-card-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.notice-card-link:hover {
+  color: #f1cf6d;
+  transform: translateX(2px);
+}
+
+/* Cards appear with a short stagger as the snapshot lands */
+.notice-board-grid .notice-card {
+  animation: noticeCardIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.notice-board-grid .notice-card:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.notice-board-grid .notice-card:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.notice-board-grid .notice-card:nth-child(4) {
+  animation-delay: 0.18s;
+}
+
+.notice-board-grid .notice-card:nth-child(n + 5) {
+  animation-delay: 0.24s;
+}
+
+@keyframes noticeCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notice-live-dot,
+  .notice-board-state__spinner {
+    animation: none;
+  }
+
+  .notice-board-grid .notice-card {
+    animation: none;
+  }
 }

@@ -84,27 +84,28 @@
 
         <span class="admin-eyebrow">Secure Sign-In</span>
         <h2>Welcome back</h2>
-        <p class="admin-login__lead">Sign in with your IT Secretary credentials to open the administration console.</p>
+        <p class="admin-login__lead">Sign in with the IT Secretary email and password issued for the ELLS Firebase project.</p>
 
         <form id="adminLoginForm" class="admin-login__form" novalidate>
           <div class="form-group">
-            <label class="form-label" for="adminUsername">Username</label>
+            <label class="form-label" for="adminEmail">Email Address</label>
             <div class="admin-input-wrap">
               <span class="admin-input-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="8" r="4"></circle>
-                  <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m2.5 6.5 9.5 7 9.5-7"></path>
                 </svg>
               </span>
               <input
-                type="text"
+                type="email"
                 class="form-control admin-input"
-                id="adminUsername"
-                name="username"
-                placeholder="e.g., it.secretary"
+                id="adminEmail"
+                name="email"
+                placeholder="it.secretary@ells-club.com"
                 autocomplete="username"
                 autocapitalize="none"
                 spellcheck="false"
+                aria-describedby="adminLoginError"
                 required>
             </div>
           </div>
@@ -160,14 +161,8 @@
           </button>
         </form>
 
-        <div class="admin-demo-note">
-          <strong>Demo access</strong>
-          <span>Username <code>it.secretary</code></span>
-          <span>Password <code>ells@2026</code></span>
-        </div>
-
         <p class="admin-login__legal">
-          This workspace is protected and intended for the ELLS IT Secretary. Authentication will be verified server-side once the backend is connected.
+          This workspace is protected and intended for the ELLS IT Secretary. Access is verified with Firebase Authentication.
         </p>
       </div>
     </main>
@@ -176,6 +171,12 @@
   <!-- ======================================================================
        DASHBOARD VIEW
        ====================================================================== -->
+  <!-- Auth resolution splash: visible until Firebase reports the session state -->
+  <div class="admin-boot" id="adminBoot">
+    <span class="admin-boot__spinner" aria-hidden="true"></span>
+    <p>Verifying secure session&hellip;</p>
+  </div>
+
   <div class="admin-dashboard" id="adminDashboard" hidden>
     <header class="admin-topbar">
       <a href="index.html" class="admin-topbar__brand" aria-label="ELLS Club homepage">
@@ -187,13 +188,13 @@
       </a>
 
       <div class="admin-topbar__actions">
-        <span class="admin-env-pill"><span class="admin-status-dot"></span> UI Preview</span>
+        <span class="admin-env-pill" id="adminEnvPill"><span class="admin-status-dot"></span> Live</span>
 
         <div class="admin-user-chip">
-          <span class="admin-user-chip__avatar">IT</span>
+          <span class="admin-user-chip__avatar" id="adminUserInitials">IT</span>
           <span class="admin-user-chip__text">
             <strong>IT Secretary</strong>
-            <span>Administrator</span>
+            <span id="adminUserEmail">Not signed in</span>
           </span>
         </div>
 
@@ -213,7 +214,7 @@
         <div>
           <span class="admin-eyebrow">Admin Console</span>
           <h1>Notice Management</h1>
-          <p>Prepare official ELLS announcements for the public site. Publishing will sync with the backend once it is connected.</p>
+          <p>Publish official ELLS announcements straight to the public notice board. Every notice is stored in Cloud Firestore and appears on the homepage instantly.</p>
         </div>
         <div class="admin-main__meta">
           <span>Today</span>
@@ -322,8 +323,8 @@
           <section class="admin-card admin-published-card" aria-labelledby="publishedHeading">
             <header class="admin-card__head admin-card__head--compact">
               <div>
-                <h2 id="publishedHeading">Published This Session</h2>
-                <p>Notices queued from this browser.</p>
+                <h2 id="publishedHeading">Live Notices</h2>
+                <p>Streaming from the Firestore <code>notices</code> collection.</p>
               </div>
               <span class="admin-count" id="publishedCount">0</span>
             </header>
@@ -341,11 +342,11 @@
           <path d="M12 11v5"></path>
           <path d="M12 7.8h.01"></path>
         </svg>
-        <span>UI preview only &mdash; authentication and notice publishing will be connected to the ELLS backend in a later phase.</span>
+        <span>Secured with Firebase Authentication &middot; Notices are stored in the Cloud Firestore <code>notices</code> collection.</span>
       </p>
     </main>
   </div>
 
-  <script src="js/admin.js"></script>
+  <script type="module" src="js/admin.js"></script>
 </body>
 </html>

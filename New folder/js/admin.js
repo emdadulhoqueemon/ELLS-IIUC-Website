@@ -1,40 +1,59 @@
 /**
- * ELLS Club — IT Secretary Admin Console (UI/UX only)
+ * ELLS Club — IT Secretary Admin Console
  * ---------------------------------------------------------------------------
- * This module powers the login screen and the notice-management dashboard in
- * admin.html. Authentication here is a LOCAL DEMO only — replace
- * ELLS_ADMIN_DEMO_CREDENTIALS and the session helpers with real server-side
- * authentication when the backend is connected.
+ * Firebase Authentication (email + password) protects the dashboard, and every
+ * notice is written to the Cloud Firestore `notices` collection.
  *
- * Backend integration points are marked with "BACKEND:" comments.
+ *   • Login      → signInWithEmailAndPassword()
+ *   • Session    → onAuthStateChanged() keeps the UI in sync across reloads
+ *   • Publish    → addDoc(collection(db, 'notices'), {...})
+ *   • Live list  → onSnapshot() mirrors what the public homepage shows
+ *   • Logout     → signOut()
+ *
+ * Security is enforced in the Firebase console (Authentication → Users) and by
+ * Firestore Security Rules (firestore.rules in the project root).
  * ---------------------------------------------------------------------------
  */
 
-const ELLS_ADMIN_DEMO_CREDENTIALS = {
-  username: 'it.secretary',
-  password: 'ells@2026'
-};
-
-const ELLS_ADMIN_SESSION_KEY = 'ells-admin-session';
-const ELLS_ADMIN_NOTICES_KEY = 'ells-admin-notice-queue';
+import {
+  auth,
+  db,
+  NOTICES_COLLECTION,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
+} from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', initAdminConsole);
 
 function initAdminConsole() {
+  const bootSplash = document.getElementById('adminBoot');
   const loginView = document.getElementById('adminLoginView');
   const dashboard = document.getElementById('adminDashboard');
   const loginForm = document.getElementById('adminLoginForm');
 
   if (!loginView || !dashboard || !loginForm) return;
 
+  /* ------------------------------ Elements ------------------------------ */
   const loginError = document.getElementById('adminLoginError');
   const loginBtn = document.getElementById('adminLoginBtn');
   const loginBtnLabel = loginBtn ? loginBtn.querySelector('.admin-submit__label') : null;
-  const usernameInput = document.getElementById('adminUsername');
+  const emailInput = document.getElementById('adminEmail');
   const passwordInput = document.getElementById('adminPassword');
   const passwordToggle = document.getElementById('passwordToggle');
   const rememberInput = document.getElementById('rememberSession');
   const logoutBtn = document.getElementById('adminLogoutBtn');
+  const userEmailEl = document.getElementById('adminUserEmail');
+  const userInitialsEl = document.getElementById('adminUserInitials');
 
   const noticeForm = document.getElementById('addNoticeForm');
   const titleInput = document.getElementById('noticeTitle');
@@ -51,133 +70,129 @@ function initAdminConsole() {
   const publishedCount = document.getElementById('publishedCount');
   const adminToday = document.getElementById('adminToday');
 
-  let notices = [];
+  let unsubscribeNotices = null;
+  let currentUser = null;
+  let isPublishing = false;
 
-  /* ------------------------------------------------------------------------
-     Session
-     ------------------------------------------------------------------------ */
-  function readSession() {
-    try {
-      const raw = sessionStorage.getItem(ELLS_ADMIN_SESSION_KEY) ||
-                  localStorage.getItem(ELLS_ADMIN_SESSION_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (error) {
-      return null;
+  /* ======================================================================
+     Authentication
+     ====================================================================== */
+
+  onAuthStateChanged(
+    auth,
+    (user) => {
+      currentUser = user;
+
+      if (user) {
+        openDashboard(user);
+      } else {
+        teardownDashboard();
+        openLogin();
+      }
+
+      if (bootSplash) bootSplash.hidden = true;
+    },
+    (error) => {
+      console.error('[ELLS] Auth state listener failed:', error);
+      if (bootSplash) bootSplash.hidden = true;
+      openLogin();
+      showLoginError('Could not verify your session. Please sign in again.');
     }
-  }
+  );
 
-  function saveSession(remember) {
-    const payload = JSON.stringify({
-      username: ELLS_ADMIN_DEMO_CREDENTIALS.username,
-      role: 'IT Secretary',
-      signedInAt: new Date().toISOString()
-    });
-
-    try {
-      // Clear the other storage so a stale session cannot linger.
-      sessionStorage.removeItem(ELLS_ADMIN_SESSION_KEY);
-      localStorage.removeItem(ELLS_ADMIN_SESSION_KEY);
-      (remember ? localStorage : sessionStorage).setItem(ELLS_ADMIN_SESSION_KEY, payload);
-    } catch (error) {
-      /* Storage blocked: the dashboard still opens for this page view. */
-    }
-  }
-
-  function clearSession() {
-    try {
-      sessionStorage.removeItem(ELLS_ADMIN_SESSION_KEY);
-      localStorage.removeItem(ELLS_ADMIN_SESSION_KEY);
-    } catch (error) {
-      /* no-op */
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     Login
-     ------------------------------------------------------------------------ */
-  function showLoginError(message) {
-    if (!loginError) return;
-    loginError.textContent = message;
-    loginError.classList.add('is-visible');
-  }
-
-  function clearLoginError() {
-    if (!loginError) return;
-    loginError.textContent = '';
-    loginError.classList.remove('is-visible');
-  }
-
-  function setLoginLoading(isLoading) {
-    if (!loginBtn) return;
-    loginBtn.disabled = isLoading;
-    loginBtn.classList.toggle('is-loading', isLoading);
-    if (loginBtnLabel) {
-      loginBtnLabel.textContent = isLoading ? 'Verifying...' : 'Sign In Securely';
-    }
-  }
-
-  loginForm.addEventListener('submit', (event) => {
+  loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearLoginError();
 
-    const username = usernameInput.value.trim().toLowerCase();
-    const password = passwordInput.value;
+    const email = (emailInput ? emailInput.value : '').trim();
+    const password = passwordInput ? passwordInput.value : '';
 
-    if (!username || !password) {
-      showLoginError('Please enter both your username and password.');
-      (!username ? usernameInput : passwordInput).focus();
+    if (!email || !password) {
+      showLoginError('Please enter both your email address and password.');
+      (email ? passwordInput : emailInput).focus();
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showLoginError('Please enter a valid email address.');
+      emailInput.focus();
       return;
     }
 
     setLoginLoading(true);
 
-    // BACKEND: replace this demo check with a POST to the authentication API.
-    window.setTimeout(() => {
-      const isValid =
-        username === ELLS_ADMIN_DEMO_CREDENTIALS.username &&
-        password === ELLS_ADMIN_DEMO_CREDENTIALS.password;
+    try {
+      // "Keep me signed in" chooses where Firebase persists the session.
+      const persistence = rememberInput && rememberInput.checked
+        ? browserLocalPersistence
+        : browserSessionPersistence;
 
-      setLoginLoading(false);
-
-      if (!isValid) {
-        showLoginError('Incorrect username or password. Please try again.');
+      await setPersistence(auth, persistence);
+      await signInWithEmailAndPassword(auth, email, password);
+      // onAuthStateChanged() takes over from here.
+    } catch (error) {
+      console.error('[ELLS] Sign-in failed:', error);
+      showLoginError(describeAuthError(error));
+      if (passwordInput) {
         passwordInput.value = '';
         passwordInput.focus();
-        return;
       }
-
-      saveSession(Boolean(rememberInput && rememberInput.checked));
-      openDashboard();
-    }, 500);
+    } finally {
+      setLoginLoading(false);
+    }
   });
 
-  [usernameInput, passwordInput].forEach((input) => {
-    input.addEventListener('input', clearLoginError);
+  const credentialInputs = [emailInput, passwordInput];
+  credentialInputs.forEach((input) => {
+    if (input) input.addEventListener('input', clearLoginError);
   });
 
-  function openDashboard() {
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      logoutBtn.disabled = true;
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error('[ELLS] Sign-out failed:', error);
+        showFormStatus('Could not sign out. Please try again.', true);
+      } finally {
+        logoutBtn.disabled = false;
+      }
+    });
+  }
+
+  /* ======================================================================
+     Dashboard lifecycle
+     ====================================================================== */
+
+  function openDashboard(user) {
+    if (bootSplash) bootSplash.hidden = true;
     loginView.hidden = true;
     dashboard.hidden = false;
     document.title = 'IT Secretary Console | ELLS Club';
     updateSkipLinkTarget();
 
+    if (userEmailEl) userEmailEl.textContent = user.email || 'Signed in';
+    if (userInitialsEl) userInitialsEl.textContent = initialsFromEmail(user.email);
+
     const today = todayISO();
-    if (adminToday) {
-      adminToday.textContent = formatDate(today);
-    }
-    if (dateInput && !dateInput.value) {
-      dateInput.value = today;
-    }
+    if (adminToday) adminToday.textContent = formatDate(today);
+    if (dateInput && !dateInput.value) dateInput.value = today;
 
-    loadNotices();
     updatePreview();
+    subscribeToNotices();
+  }
 
-    // Move focus into the dashboard for keyboard and screen-reader users.
-    const heading = dashboard.querySelector('.admin-main__head h1');
-    if (heading) {
-      heading.setAttribute('tabindex', '-1');
-      heading.focus({ preventScroll: true });
+  function teardownDashboard() {
+    dashboard.hidden = true;
+
+    if (unsubscribeNotices) {
+      unsubscribeNotices();
+      unsubscribeNotices = null;
     }
+
+    notices = [];
+    renderNotices();
   }
 
   function openLogin() {
@@ -189,104 +204,56 @@ function initAdminConsole() {
     loginForm.reset();
     clearLoginError();
     resetPasswordVisibility();
-    usernameInput.focus();
+    if (emailInput) emailInput.focus();
   }
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      clearSession();
-      openLogin();
-    });
+  function updateSkipLinkTarget() {
+    const skipLink = document.querySelector('.skip-link');
+    if (!skipLink) return;
+    skipLink.setAttribute('href', dashboard.hidden ? '#adminMain' : '#adminDashboardMain');
   }
 
-  /* ------------------------------------------------------------------------
-     Password visibility toggle
-     ------------------------------------------------------------------------ */
-  function resetPasswordVisibility() {
-    if (!passwordInput || !passwordToggle) return;
-    passwordInput.type = 'password';
-    passwordToggle.classList.remove('is-visible');
-    passwordToggle.setAttribute('aria-pressed', 'false');
-    passwordToggle.setAttribute('aria-label', 'Show password');
+  /* ======================================================================
+     Firestore — real-time notice feed
+     ====================================================================== */
+
+  let notices = [];
+
+  function subscribeToNotices() {
+    if (unsubscribeNotices) unsubscribeNotices();
+
+    renderNotices('loading');
+
+    const noticesQuery = query(
+      collection(db, NOTICES_COLLECTION),
+      orderBy('date', 'desc')
+    );
+
+    unsubscribeNotices = onSnapshot(
+      noticesQuery,
+      (snapshot) => {
+        notices = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data() || {};
+          return {
+            id: docSnap.id,
+            title: typeof data.title === 'string' ? data.title.trim() : '',
+            description: typeof data.description === 'string' ? data.description.trim() : '',
+            date: parseNoticeDate(data.date)
+          };
+        });
+
+        renderNotices();
+      },
+      (error) => {
+        console.error('[ELLS] Notice feed failed:', error);
+        renderNotices('error');
+      }
+    );
   }
 
-  if (passwordToggle && passwordInput) {
-    passwordToggle.addEventListener('click', () => {
-      const isVisible = passwordInput.type === 'text';
-      passwordInput.type = isVisible ? 'password' : 'text';
-      passwordToggle.classList.toggle('is-visible', !isVisible);
-      passwordToggle.setAttribute('aria-pressed', String(!isVisible));
-      passwordToggle.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
-      passwordInput.focus();
-    });
-  }
-
-  /* ------------------------------------------------------------------------
+  /* ======================================================================
      Notice form
-     ------------------------------------------------------------------------ */
-  function todayISO() {
-    const now = new Date();
-    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-    return local.toISOString().slice(0, 10);
-  }
-
-  function formatDate(value) {
-    if (!value) return 'Date not set';
-    const parsed = new Date(`${value}T00:00:00`);
-    if (Number.isNaN(parsed.getTime())) return 'Date not set';
-    return parsed.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    });
-  }
-
-  function updatePreview() {
-    if (!previewTitle || !previewDescription || !previewDate) return;
-
-    const title = titleInput ? titleInput.value.trim() : '';
-    const description = descriptionInput ? descriptionInput.value.trim() : '';
-    const date = dateInput ? dateInput.value : '';
-
-    previewTitle.textContent = title || 'Your notice title will appear here';
-    previewDate.textContent = formatDate(date);
-    previewDescription.textContent = description ||
-      'Add a title, date, and description to preview how this notice will look to students.';
-  }
-
-  function updateCounter() {
-    if (!descCount || !descriptionInput) return;
-    descCount.textContent = `${descriptionInput.value.length} / ${descriptionInput.maxLength}`;
-  }
-
-  function clearFieldError(input, errorId) {
-    const group = input.closest('.form-group');
-    if (group) group.classList.remove('has-error');
-    const error = document.getElementById(errorId);
-    if (error) error.textContent = '';
-    input.removeAttribute('aria-invalid');
-  }
-
-  function setFieldError(input, errorId, message) {
-    const group = input.closest('.form-group');
-    if (group) group.classList.add('has-error');
-    const error = document.getElementById(errorId);
-    if (error) error.textContent = message;
-    input.setAttribute('aria-invalid', 'true');
-  }
-
-  function showFormStatus(message, isError) {
-    if (!formStatus) return;
-    formStatus.textContent = message;
-    formStatus.classList.add('is-visible');
-    formStatus.classList.toggle('is-error', Boolean(isError));
-
-    window.clearTimeout(showFormStatus.timer);
-    showFormStatus.timer = window.setTimeout(() => {
-      formStatus.classList.remove('is-visible');
-      formStatus.textContent = '';
-    }, 5000);
-  }
+     ====================================================================== */
 
   if (noticeForm) {
     noticeForm.addEventListener('input', (event) => {
@@ -299,12 +266,13 @@ function initAdminConsole() {
       updatePreview();
     });
 
-    noticeForm.addEventListener('submit', (event) => {
+    noticeForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (isPublishing) return;
 
-      const title = titleInput.value.trim();
-      const date = dateInput.value;
-      const description = descriptionInput.value.trim();
+      const title = titleInput ? titleInput.value.trim() : '';
+      const date = dateInput ? dateInput.value : '';
+      const description = descriptionInput ? descriptionInput.value.trim() : '';
       let isValid = true;
 
       if (!title) {
@@ -335,31 +303,34 @@ function initAdminConsole() {
         return;
       }
 
-      const notice = {
-        id: `notice-${Date.now()}`,
-        title,
-        date,
-        description,
-        createdAt: new Date().toISOString()
-      };
+      if (!currentUser) {
+        showFormStatus('Your session has expired. Please sign in again.', true);
+        return;
+      }
 
-      notices.unshift(notice);
-      saveNotices();
-      renderNotices();
+      isPublishing = true;
+      setPublishing(true);
 
-      // BACKEND: POST `notice` to the notices API here, then refresh from server.
-      // Clear the fields manually (instead of form.reset()) so the reset
-      // listener does not erase the success message that follows.
-      if (titleInput) titleInput.value = '';
-      if (descriptionInput) descriptionInput.value = '';
-      if (dateInput) dateInput.value = todayISO();
-      updateCounter();
-      updatePreview();
-      clearFieldError(titleInput, 'noticeTitleError');
-      clearFieldError(dateInput, 'noticeDateError');
-      clearFieldError(descriptionInput, 'noticeDescriptionError');
-      showFormStatus('Notice added to this session\'s preview queue.', false);
-      if (titleInput) titleInput.focus();
+      try {
+        await addDoc(collection(db, NOTICES_COLLECTION), {
+          title,
+          date,
+          description,
+          createdAt: serverTimestamp(),
+          authorEmail: currentUser.email || null,
+          authorUid: currentUser.uid
+        });
+
+        // The live onSnapshot() subscription refreshes the list automatically.
+        resetNoticeForm();
+        showFormStatus('Notice published — it is now live on the public notice board.', false);
+      } catch (error) {
+        console.error('[ELLS] Publishing notice failed:', error);
+        showFormStatus(describeFirestoreError(error), true);
+      } finally {
+        isPublishing = false;
+        setPublishing(false);
+      }
     });
 
     noticeForm.addEventListener('reset', () => {
@@ -367,12 +338,9 @@ function initAdminConsole() {
         if (dateInput) dateInput.value = todayISO();
         updateCounter();
         updatePreview();
-        [titleInput, dateInput, descriptionInput].forEach((input) => {
-          if (input) {
-            const errorId = `${input.id}Error`;
-            clearFieldError(input, errorId);
-          }
-        });
+        clearFieldError(titleInput, 'noticeTitleError');
+        clearFieldError(dateInput, 'noticeDateError');
+        clearFieldError(descriptionInput, 'noticeDescriptionError');
         if (formStatus) {
           formStatus.classList.remove('is-visible', 'is-error');
           formStatus.textContent = '';
@@ -381,43 +349,51 @@ function initAdminConsole() {
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Notice queue (session preview only)
-     ------------------------------------------------------------------------ */
-  function loadNotices() {
-    let stored = [];
-    try {
-      stored = JSON.parse(sessionStorage.getItem(ELLS_ADMIN_NOTICES_KEY) || '[]');
-    } catch (error) {
-      stored = [];
-    }
-
-    notices = Array.isArray(stored)
-      ? stored.filter((notice) => notice && notice.title && notice.date && notice.description)
-      : [];
-
-    renderNotices();
+  function resetNoticeForm() {
+    if (titleInput) titleInput.value = '';
+    if (descriptionInput) descriptionInput.value = '';
+    if (dateInput) dateInput.value = todayISO();
+    updateCounter();
+    updatePreview();
+    clearFieldError(titleInput, 'noticeTitleError');
+    clearFieldError(dateInput, 'noticeDateError');
+    clearFieldError(descriptionInput, 'noticeDescriptionError');
+    if (titleInput) titleInput.focus();
   }
 
-  function saveNotices() {
-    try {
-      sessionStorage.setItem(ELLS_ADMIN_NOTICES_KEY, JSON.stringify(notices.slice(0, 25)));
-    } catch (error) {
-      /* Storage unavailable — the queue still lives in memory. */
-    }
+  function setPublishing(isBusy) {
+    if (!publishBtn) return;
+    publishBtn.disabled = isBusy;
+    publishBtn.classList.toggle('is-loading', isBusy);
+    const label = publishBtn.querySelector('span');
+    if (label) label.textContent = isBusy ? 'Publishing…' : 'Publish Notice';
   }
 
-  function renderNotices() {
+  /* ======================================================================
+     Rendering
+     ====================================================================== */
+
+  function renderNotices(state) {
     if (!publishedList) return;
 
     publishedList.querySelectorAll('.admin-notice-item').forEach((item) => item.remove());
 
-    if (publishedCount) {
-      publishedCount.textContent = String(notices.length);
+    if (state === 'loading' || state === 'error') {
+      if (publishedEmpty) {
+        publishedEmpty.hidden = false;
+        publishedEmpty.textContent = state === 'loading'
+          ? 'Loading notices from Firestore…'
+          : 'The notice feed is unavailable right now. Check your Firestore rules and connection.';
+      }
+      if (publishedCount) publishedCount.textContent = '–';
+      return;
     }
+
+    if (publishedCount) publishedCount.textContent = String(notices.length);
 
     if (publishedEmpty) {
       publishedEmpty.hidden = notices.length > 0;
+      publishedEmpty.textContent = 'No notices published yet. Your entries will appear here.';
     }
 
     notices.forEach((notice) => {
@@ -429,51 +405,216 @@ function initAdminConsole() {
       body.className = 'admin-notice-item__body';
 
       const title = document.createElement('h4');
-      title.textContent = notice.title;
+      title.textContent = notice.title || 'Untitled notice';
 
       const time = document.createElement('time');
-      time.dateTime = notice.date;
-      time.textContent = formatDate(notice.date);
+      time.dateTime = notice.date ? toISODate(notice.date) : '';
+      time.textContent = formatDate(notice.date ? toISODate(notice.date) : '');
 
       const description = document.createElement('p');
       description.textContent = notice.description;
 
       body.append(title, time, description);
-
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.className = 'admin-notice-item__remove';
-      remove.setAttribute('aria-label', `Remove notice: ${notice.title}`);
-      remove.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
-
-      remove.addEventListener('click', () => {
-        notices = notices.filter((entry) => entry.id !== notice.id);
-        saveNotices();
-        renderNotices();
-      });
-
-      item.append(body, remove);
+      item.appendChild(body);
       publishedList.appendChild(item);
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Boot
-     ------------------------------------------------------------------------ */
-  updateCounter();
-  updatePreview();
+  /* ======================================================================
+     Preview + small UI helpers
+     ====================================================================== */
 
-  const existingSession = readSession();
-  if (existingSession) {
-    openDashboard();
-  } else {
-    dashboard.hidden = true;
-    loginView.hidden = false;
+  function updatePreview() {
+    if (!previewTitle || !previewDescription || !previewDate) return;
+
+    const title = titleInput ? titleInput.value.trim() : '';
+    const description = descriptionInput ? descriptionInput.value.trim() : '';
+    const date = dateInput ? dateInput.value : '';
+
+    previewTitle.textContent = title || 'Your notice title will appear here';
+    previewDate.textContent = formatDate(date);
+    previewDescription.textContent = description ||
+      'Add a title, date, and description to preview how this notice will look to students.';
   }
 
-  function updateSkipLinkTarget() {
-    const skipLink = document.querySelector('.skip-link');
-    if (!skipLink) return;
-    skipLink.setAttribute('href', dashboard.hidden ? '#adminMain' : '#adminDashboardMain');
+  function updateCounter() {
+    if (!descCount || !descriptionInput) return;
+    descCount.textContent = `${descriptionInput.value.length} / ${descriptionInput.maxLength}`;
+  }
+
+  function clearFieldError(input, errorId) {
+    if (!input) return;
+    const group = input.closest('.form-group');
+    if (group) group.classList.remove('has-error');
+    const error = document.getElementById(errorId);
+    if (error) error.textContent = '';
+    input.removeAttribute('aria-invalid');
+  }
+
+  function setFieldError(input, errorId, message) {
+    if (!input) return;
+    const group = input.closest('.form-group');
+    if (group) group.classList.add('has-error');
+    const error = document.getElementById(errorId);
+    if (error) error.textContent = message;
+    input.setAttribute('aria-invalid', 'true');
+  }
+
+  function showFormStatus(message, isError) {
+    if (!formStatus) return;
+    formStatus.textContent = message;
+    formStatus.classList.add('is-visible');
+    formStatus.classList.toggle('is-error', Boolean(isError));
+
+    window.clearTimeout(showFormStatus.timer);
+    showFormStatus.timer = window.setTimeout(() => {
+      formStatus.classList.remove('is-visible', 'is-error');
+      formStatus.textContent = '';
+    }, 6000);
+  }
+
+  function showLoginError(message) {
+    if (!loginError) return;
+    loginError.textContent = message;
+    loginError.classList.add('is-visible');
+  }
+
+  function clearLoginError() {
+    if (!loginError) return;
+    loginError.textContent = '';
+    loginError.classList.remove('is-visible');
+  }
+
+  function setLoginLoading(isLoading) {
+    if (!loginBtn) return;
+    loginBtn.disabled = isLoading;
+    loginBtn.classList.toggle('is-loading', isLoading);
+    if (loginBtnLabel) {
+      loginBtnLabel.textContent = isLoading ? 'Verifying…' : 'Sign In Securely';
+    }
+  }
+
+  function resetPasswordVisibility() {
+    if (!passwordInput || !passwordToggle) return;
+    passwordInput.type = 'password';
+    passwordToggle.classList.remove('is-visible');
+    passwordToggle.setAttribute('aria-pressed', 'false');
+    passwordToggle.setAttribute('aria-label', 'Show password');
+  }
+
+  if (passwordToggle && passwordInput) {
+    passwordToggle.addEventListener('click', () => {
+      const isVisible = passwordInput.type === 'text';
+      passwordInput.type = isVisible ? 'password' : 'text';
+      passwordToggle.classList.toggle('is-visible', !isVisible);
+      passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+      passwordToggle.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+      passwordInput.focus();
+    });
+  }
+
+  /* ======================================================================
+     Boot
+     ====================================================================== */
+
+  updateCounter();
+  updatePreview();
+  if (dateInput && !dateInput.value) dateInput.value = todayISO();
+
+  if (loginView) loginView.hidden = true;   // the splash covers this until auth resolves
+  dashboard.hidden = true;
+}
+
+/* =========================================================================
+   Date helpers
+   ========================================================================= */
+
+function todayISO() {
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+function toISODate(date) {
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+/** Firestore `date` may be a "YYYY-MM-DD" string, a Date or a Timestamp. */
+function parseNoticeDate(value) {
+  if (!value) return null;
+  if (value instanceof Date) return value;
+  if (typeof value.toDate === 'function') return value.toDate();
+  if (typeof value === 'object' && typeof value.seconds === 'number') {
+    return new Date(value.seconds * 1000);
+  }
+  if (typeof value === 'string' && value.trim()) {
+    const parsed = new Date(`${value.trim()}T00:00:00`);
+    if (!Number.isNaN(parsed.getTime())) return parsed;
+  }
+  return null;
+}
+
+function formatDate(value) {
+  if (!value) return 'Date not set';
+  const parsed = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return 'Date not set';
+  return parsed.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+
+/* =========================================================================
+   Error copy
+   ========================================================================= */
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function initialsFromEmail(email) {
+  if (!email) return 'IT';
+  const localPart = email.split('@')[0].replace(/[^a-z0-9]/gi, '');
+  return localPart ? localPart.slice(0, 2).toUpperCase() : 'IT';
+}
+
+function describeAuthError(error) {
+  const code = error && error.code ? error.code : '';
+
+  switch (code) {
+    case 'auth/invalid-email':
+      return 'That email address is not valid.';
+    case 'auth/user-disabled':
+      return 'This account has been disabled. Contact the ELLS executive committee.';
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Incorrect email or password. Please try again.';
+    case 'auth/too-many-requests':
+      return 'Too many failed attempts. Please wait a few minutes and try again.';
+    case 'auth/network-request-failed':
+      return 'Network error — check your internet connection and try again.';
+    case 'auth/invalid-api-key':
+    case 'auth/configuration-not-found':
+      return 'Firebase Authentication is not configured for this project yet.';
+    default:
+      return 'Sign-in failed. Please check your credentials and try again.';
+  }
+}
+
+function describeFirestoreError(error) {
+  const code = error && error.code ? error.code : '';
+
+  switch (code) {
+    case 'permission-denied':
+      return 'Firestore blocked this write. Make sure your account is on the admin allowlist in the security rules.';
+    case 'unavailable':
+      return 'Cloud Firestore is unreachable right now. Check your connection and try again.';
+    case 'failed-precondition':
+      return 'Firestore needs an index for this query. Check the browser console for the setup link.';
+    default:
+      return 'The notice could not be published. Please try again.';
   }
 }
