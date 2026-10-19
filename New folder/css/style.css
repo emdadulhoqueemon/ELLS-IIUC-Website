@@ -175,6 +175,7 @@ textarea {
 }
 
 body {
+  padding-top: 80px; /* offset for fixed header */
   /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
      if the stylesheet above were ever truncated or a token removed. */
   background-color: var(--bg-primary, #0B1120);
@@ -359,18 +360,16 @@ section {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition);
-  will-change: transform;
+  will-change: top;
 }
 
 .site-header.scrolled {
@@ -2707,6 +2706,15 @@ textarea.form-control {
   line-height: 1.25;
 }
 
+/* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
+.committee-role-badge.badge-secretary-primary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(212, 175, 55, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
 .committee-card h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
@@ -2881,6 +2889,32 @@ textarea.form-control {
   margin-top: 1rem;
   font-size: 0.9rem;
   max-width: 320px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo-img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.footer-brand .logo-subtitle {
+  display: block;
+  text-align: center;
+  margin-top: 0.6rem;
 }
 
 /* Social Media Icons */
@@ -3372,3 +3406,199 @@ textarea.form-control {
     display: none !important;
   }
 }
+
+/* Smart Sticky Navbar - Ensure header element meets spec */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
+}
+
+/* Footer Brand Alignment - Exact Center Spec */
+.footer-brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.footer-brand .site-logo { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* ==========================================================================
+   Site-Wide Alignment & Typography Audit - Polished Centered Desktop
+   Ensures every section, heading, and card is perfectly aligned with
+   larger, cleaner typography while preserving mobile compactness.
+   Desktop/tablet polished, mobile compact via !important overrides.
+   ========================================================================== */
+
+/* Hero - Perfectly Centered */
+.hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-grid {
+  margin: 0 auto;
+  text-align: center;
+  justify-items: center;
+}
+
+.hero-content {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero h1 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(2.3rem, 5vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  max-width: 780px;
+}
+
+.hero-lead {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.08rem, 2.5vw, 1.22rem);
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+.hero-actions {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Section Intro - Polished Centered */
+.section-intro {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-intro h2 {
+  text-align: center;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  font-weight: 800;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-intro p {
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-intro .eyebrow {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Headings - Larger Cleaner */
+h1 {
+  font-size: clamp(2.3rem, 5vw, 3.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  font-weight: 800;
+  text-align: center;
+}
+
+h2 {
+  font-size: clamp(1.85rem, 4vw, 2.55rem);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  font-weight: 800;
+}
+
+h3 {
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+/* Cards - Perfectly Aligned */
+.grid,
+.grid-2,
+.grid-3,
+.grid-4 {
+  align-items: stretch;
+  justify-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.card h3,
+.card h4 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card p {
+  text-align: center;
+}
+
+/* Membership Specific - Check Your ELLS Membership Status */
+#memberLookupHeading,
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  text-align: center;
+}
+
+#memberRecordLookupCard {
+  text-align: center;
+  align-items: center;
+}
+
+#memberRecordLookupCard .section-intro {
+  text-align: center;
+  align-items: center;
+}
+
+/* Ensure sections are centered */
+section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section .container > * {
+  width: 100%;
+  max-width: 100%;
+}
+

@@ -13,7 +13,7 @@
  *     date:             string,   // display date, e.g. "Wed, Oct 14"
  *     time:             string,   // display time, e.g. "2:00 PM - 2:30 PM"
  *     venue:            string,
- *     registrationLink: string,   // URL behind the "RSVP Now" button
+ *     registrationLink: string,   // URL behind the "Reg Now" button
  *     createdAt:        Timestamp // serverTimestamp()
  *   }
  *
@@ -253,14 +253,14 @@ function buildRsvpControl(evt) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.className = 'btn btn-primary btn-sm';
-    link.textContent = 'RSVP Now';
+    link.textContent = 'Reg Now';
     return link;
   }
 
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'btn btn-primary btn-sm open-rsvp-modal';
-  button.textContent = 'RSVP Now';
+  button.textContent = 'Reg Now';
   return button;
 }
 

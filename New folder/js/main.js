@@ -106,48 +106,26 @@ function initNavigation() {
    3. Smart Sticky Header (Auto-hide on Scroll Down, Reveal on Scroll Up)
    -------------------------------------------------------------------------- */
 function initHeaderScroll() {
-  const header = document.querySelector('.site-header');
-  const mainNav = document.getElementById('mainNav');
-  if (!header) return;
-
-  let lastScrollY = Math.max(0, window.scrollY);
-  let ticking = false;
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = Math.max(0, window.scrollY);
-        const scrollDelta = currentScrollY - lastScrollY;
-        const isMenuOpen = (mainNav && mainNav.classList.contains('open')) ||
-                           document.body.classList.contains('nav-open');
-
-        // Scrolled styling & shadow toggle
-        if (currentScrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-
-        // Smart Sticky Header behavior
-        if (isMenuOpen) {
-          // Keep header always visible when mobile navigation drawer is active
-          header.classList.remove('header-hidden');
-        } else if (currentScrollY <= 80) {
-          // Always visible at or near the top of the page
-          header.classList.remove('header-hidden');
-        } else if (scrollDelta > 6) {
-          // Scrolling down: hide header to save mobile viewport space
-          header.classList.add('header-hidden');
-        } else if (scrollDelta < -6) {
-          // Scrolling up: smoothly reveal header
-          header.classList.remove('header-hidden');
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
-      ticking = true;
-    }
+  let lastScrollTop = 0;
+  const navbar = document.querySelector('header'); // adjust selector if needed
+  if (!navbar) return;
+  window.addEventListener('scroll', function() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop) {
+          navbar.style.top = '-100px'; // or appropriate height to hide
+      } else {
+          navbar.style.top = '0';
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  });
+  // Scrolled shadow enhancement (kept for aesthetics)
+  window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > 20) {
+          navbar.classList.add('scrolled');
+      } else {
+          navbar.classList.remove('scrolled');
+      }
   }, { passive: true });
 }
 
@@ -346,4 +324,16 @@ function initNoticeBoard() {
     }, 2500);
   }, { passive: true });
 }
+/* MANDATORY Smart Sticky Navbar Fix - Exact Logic as Required */
+let lastScrollTop = 0;
+const navbar = document.querySelector('header'); // adjust selector if needed
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+        navbar.style.top = '-100px'; // or appropriate height to hide
+    } else {
+        navbar.style.top = '0';
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+});
 
