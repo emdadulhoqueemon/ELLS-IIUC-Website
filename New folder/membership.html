@@ -225,6 +225,8 @@
               <p class="status-card__subline">
                 <span>IIUC ID: <strong class="status-card__id" id="statusStudentId">&mdash;</strong></span>
                 <span class="status-card__dot" aria-hidden="true">&bull;</span>
+                <span id="statusSemester">&mdash;</span>
+                <span class="status-card__dot" aria-hidden="true">&bull;</span>
                 <span id="statusTier">ELLS Member</span>
               </p>
             </div>
@@ -239,6 +241,22 @@
           </div>
 
           <div class="status-metrics">
+            <div class="status-metric status-metric--fee">
+              <div class="status-metric__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"></path>
+                  <path d="M9 7h6"></path>
+                  <path d="M9 11h6"></path>
+                  <path d="M9 15h4"></path>
+                </svg>
+              </div>
+              <span class="status-metric__label">Total Fee</span>
+              <div class="status-metric__value">
+                <span id="statusTotalFee">0</span><span class="status-metric__unit">BDT</span>
+              </div>
+              <span class="status-metric__meta">Full membership assessment</span>
+            </div>
+
             <div class="status-metric status-metric--paid">
               <div class="status-metric__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -247,7 +265,7 @@
                   <path d="M7 15h3"></path>
                 </svg>
               </div>
-              <span class="status-metric__label">Total Paid</span>
+              <span class="status-metric__label">Paid Amount</span>
               <div class="status-metric__value">
                 <span id="statusTotalPaid">0</span><span class="status-metric__unit">BDT</span>
               </div>
@@ -312,7 +330,7 @@
                 <path d="M12 11v5"></path>
                 <path d="M12 7.8h.01"></path>
               </svg>
-              <span>Preview record &mdash; live membership data will load once the backend is connected.</span>
+              <span>Live record pulled from the ELLS treasury registry.</span>
             </p>
             <button type="button" class="status-card__reset" id="statusResetBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -334,7 +352,7 @@
             </svg>
           </div>
           <h3>No membership record found</h3>
-          <p>We could not find an ELLS membership linked to <strong id="statusNotFoundId">&mdash;</strong>. Double-check the ID or contact the IT Secretary if you believe this is an error.</p>
+          <p>We could not find an ELLS membership linked to <strong id="statusNotFoundId">&mdash;</strong>. Double-check the ID or contact the club cashier if you believe this is an error.</p>
         </div>
 
       </div>
