@@ -66,7 +66,7 @@
           <li><a href="membership.html#membershipStatusCheck" class="nav-link active">Membership</a></li>
         </ul>
         <div class="mobile-nav-footer">
-          <a href="membership.html#membershipStatusCheck" class="btn btn-primary mobile-nav-cta">
+          <a href="membership.html#applicationFormCard" class="btn btn-primary mobile-nav-cta">
             <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -89,7 +89,7 @@
           </svg>
         </a>
 
-        <a href="membership.html#membershipStatusCheck" class="btn btn-primary btn-sm">Join ELLS</a>
+        <a href="membership.html#applicationFormCard" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
           <span></span>
@@ -133,10 +133,10 @@
   <main id="main-content">
     <!-- Header Banner -->
     <section class="hero" style="padding-bottom: 3rem;">
-      <div class="container text-center" style="max-width: 820px;">
-        <span class="eyebrow">MEMBERSHIP STATUS CHECK</span>
-        <h1>Check Your ELLS Membership Status</h1>
-        <p style="font-size: 1.15rem; color: var(--text-secondary); margin-top: 1rem;">
+      <div class="container text-center" style="max-width: 840px;">
+        <span class="eyebrow" style="display: block; text-align: center; letter-spacing: 0.12em;">MEMBERSHIP STATUS CHECK</span>
+        <h1 style="text-align: center; font-size: clamp(2.1rem, 5vw, 3rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 0.6rem auto 1rem; max-width: 720px;">Check Your ELLS Membership Status</h1>
+        <p style="font-size: clamp(1rem, 2.5vw, 1.18rem); color: var(--text-secondary); margin-top: 1rem; text-align: center; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;">
           Enter your Student ID below to instantly verify your membership record — view your Name, ID, Semester, fee breakdown, and current Status.
         </p>
       </div>
@@ -182,8 +182,18 @@
           <div id="memberLookupResults" style="margin-top: 1rem;"></div>
         </div>
 
-        <!-- OLD APPLICATION FORM - HIDDEN (replaced by Membership Status Check as primary view) -->
-        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem); display: none !important;" hidden>
+        <!-- Divider with Apply Toggle -->
+        <div class="text-center" style="margin: 2.5rem 0 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(201,162,39,0.08) 0%, rgba(201,162,39,0.02) 100%); border: 1px solid rgba(201,162,39,0.15); border-radius: 12px;">
+          <h3 style="margin: 0 0 0.6rem; font-size: 1.25rem; text-align: center;">Ready to Join ELLS?</h3>
+          <p style="margin: 0 0 1rem; color: var(--text-secondary); font-size: 0.95rem; text-align: center;">New members complete our 4-step application to generate your printable certificate.</p>
+          <a href="#applicationFormCard" class="btn btn-primary" id="applyMembershipToggle" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <span>Apply for Membership</span>
+            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2;" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+
+        <!-- 4-Step Application Form - Restored (generates printable certificate) -->
+        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem);">
           
           <!-- Wizard Step Progress -->
           <div class="wizard-progress" role="progressbar" aria-label="Application Progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
