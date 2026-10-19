@@ -128,18 +128,18 @@ function initHeaderScroll() {
           header.classList.remove('scrolled');
         }
 
-        // Smart Sticky Header behavior
+        // Smart Sticky Header behavior — Global: hide on scroll down, immediately show on scroll up
         if (isMenuOpen) {
           // Keep header always visible when mobile navigation drawer is active
           header.classList.remove('header-hidden');
         } else if (currentScrollY <= 80) {
           // Always visible at or near the top of the page
           header.classList.remove('header-hidden');
-        } else if (scrollDelta > 6) {
-          // Scrolling down: hide header to save mobile viewport space
+        } else if (scrollDelta > 5) {
+          // Scrolling down: hide navbar to save viewport space
           header.classList.add('header-hidden');
-        } else if (scrollDelta < -6) {
-          // Scrolling up: smoothly reveal header
+        } else if (scrollDelta < -2) {
+          // Scrolling UP even slightly from anywhere: immediately reveal navbar
           header.classList.remove('header-hidden');
         }
 

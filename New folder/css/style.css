@@ -2707,6 +2707,15 @@ textarea.form-control {
   line-height: 1.25;
 }
 
+/* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
+.committee-role-badge.badge-secretary-primary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(212, 175, 55, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
 .committee-card h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
