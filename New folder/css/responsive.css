@@ -1433,3 +1433,431 @@
     transform: rotate(var(--cap-rot, 0deg));
   }
 }
+/* ==========================================================================
+   PREMIUM COMPACT MOBILE EXPERIENCE — App-like density for 768px & 480px
+   Goal: 30-40% less vertical whitespace, tighter typography & component gaps,
+   while keeping Midnight Blue & Soft Gold legibility. These overrides are
+   intentionally last in the file so they win over earlier mobile rules.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Compact Typography — 768px
+   Proportional reduction + tighter line-height / letter-spacing for density
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: clamp(1.55rem, 5.2vw, 1.95rem) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.018em !important;
+    margin-bottom: 0.45rem !important;
+  }
+  h2 {
+    font-size: clamp(1.25rem, 4.6vw, 1.6rem) !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.012em !important;
+    margin-bottom: 0.4rem !important;
+  }
+  h3 {
+    font-size: clamp(1.02rem, 3.8vw, 1.22rem) !important;
+    line-height: 1.26 !important;
+    letter-spacing: -0.008em !important;
+    margin-bottom: 0.35rem !important;
+  }
+  h4 {
+    font-size: 0.98rem !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.005em !important;
+    margin-bottom: 0.3rem !important;
+  }
+  .hero h1 {
+    font-size: clamp(1.5rem, 6vw, 1.92rem) !important;
+    line-height: 1.16 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.45rem !important;
+  }
+  .hero p,
+  .hero-lead,
+  .section-intro p,
+  .section-intro .hero-lead {
+    font-size: 0.88rem !important;
+    line-height: 1.42 !important;
+    letter-spacing: -0.005em !important;
+    margin-bottom: 0.65rem !important;
+  }
+  .eyebrow {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.1em !important;
+    margin-bottom: 0.32rem !important;
+    line-height: 1.2 !important;
+  }
+  p {
+    font-size: 0.88rem !important;
+    line-height: 1.48 !important;
+    letter-spacing: -0.006em !important;
+    margin-bottom: 0.55rem !important;
+  }
+  .stat-number {
+    font-size: clamp(1.5rem, 5vw, 1.9rem) !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.2rem !important;
+  }
+  .stat-label {
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
+  }
+  .card h3,
+  .committee-card h4,
+  .event-card-body h3 {
+    line-height: 1.25 !important;
+    letter-spacing: -0.008em !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Reduce Whitespace — Global Sections 30-40% tighter on mobile
+     ------------------------------------------------------------------------ */
+  section {
+    padding: 1.9rem 0 !important;
+  }
+  .hero {
+    padding: 1.6rem 0 1.2rem 0 !important;
+  }
+  .section-secondary {
+    padding: 1.7rem 0 !important;
+  }
+  .section-pillars {
+    padding: 1.8rem 0 !important;
+  }
+  .stats-strip {
+    padding: 1.2rem 0 !important;
+  }
+  .section-intro {
+    margin-bottom: 1.1rem !important;
+    max-width: 100% !important;
+  }
+  .section-intro h2 {
+    margin-bottom: 0.35rem !important;
+  }
+  .section-intro p {
+    margin-bottom: 0 !important;
+  }
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.45rem !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Compact Components — tighter padding & gaps, more content per screen
+     ------------------------------------------------------------------------ */
+  .card {
+    padding: 0.95rem !important;
+    gap: 0.5rem !important;
+  }
+  .card-icon-wrap {
+    width: 42px !important;
+    height: 42px !important;
+    margin-bottom: 0.6rem !important;
+  }
+  .card-icon-wrap svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .card p {
+    margin-bottom: 0.55rem !important;
+    font-size: 0.86rem !important;
+    line-height: 1.45 !important;
+  }
+  .grid, .grid-2, .grid-3, .grid-4, .tiers-grid {
+    gap: 0.85rem !important;
+  }
+  .committee-grid {
+    gap: 0.8rem !important;
+    margin-bottom: 1.1rem !important;
+  }
+  .committee-card {
+    padding: 0.9rem !important;
+    gap: 0.4rem !important;
+  }
+  .committee-card-header {
+    margin-bottom: 0.5rem !important;
+    gap: 0.6rem !important;
+  }
+  .committee-subheading {
+    margin: 1.6rem 0 0.8rem 0 !important;
+    gap: 0.7rem !important;
+  }
+  .committee-toolbar {
+    padding: 0.7rem 0.85rem !important;
+    margin-bottom: 1.1rem !important;
+    gap: 0.6rem !important;
+  }
+  .committee-pill {
+    padding: 0.32rem 0.7rem !important;
+    font-size: 0.78rem !important;
+  }
+  .event-card {
+    border-radius: 10px !important;
+  }
+  .event-card-header {
+    padding: 0.85rem 0.9rem 0.5rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .event-card-body {
+    padding: 0 0.9rem 0.85rem 0.9rem !important;
+  }
+  .event-card-body h3 {
+    margin-bottom: 0.35rem !important;
+    font-size: 1.02rem !important;
+  }
+  .event-meta {
+    gap: 0.28rem !important;
+    margin: 0.5rem 0 0.6rem 0 !important;
+    font-size: 0.81rem !important;
+  }
+  .event-card-footer {
+    padding-top: 0.55rem !important;
+    margin-top: 0.5rem !important;
+  }
+  .event-date-badge {
+    padding: 0.32rem 0.45rem !important;
+    min-width: 48px !important;
+  }
+  .event-date-month {
+    font-size: 0.68rem !important;
+  }
+  .event-date-day {
+    font-size: 1.15rem !important;
+  }
+  .notice-poster-card {
+    padding: 0.95rem !important;
+    gap: 0.6rem !important;
+  }
+  .notice-board-banner,
+  .cta-banner {
+    padding: 0.9rem !important;
+  }
+  .cta-banner {
+    padding: 1.2rem !important;
+  }
+  .cta-banner h2 {
+    margin-bottom: 0.4rem !important;
+  }
+  .cta-banner p {
+    margin-bottom: 0.8rem !important;
+  }
+  .hero-actions {
+    gap: 0.55rem !important;
+    margin-top: 0.4rem !important;
+  }
+  .hero-actions .btn {
+    padding: 0.65rem 1rem !important;
+    font-size: 0.88rem !important;
+  }
+  .btn {
+    padding: 0.6rem 1.1rem !important;
+    font-size: 0.88rem !important;
+    gap: 0.4rem !important;
+  }
+  .btn-sm {
+    padding: 0.42rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
+  .badge {
+    padding: 0.18rem 0.45rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  /* Footer — compact, app-like */
+  .site-footer {
+    padding: 1.6rem 0 0.9rem 0 !important;
+  }
+  .footer-grid {
+    gap: 1.1rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .footer-brand p {
+    margin-top: 0.6rem !important;
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+  }
+  .social-media-container {
+    margin-top: 0.8rem !important;
+  }
+  .partner-affiliation {
+    margin-top: 0.9rem !important;
+    padding: 0.85rem 1rem !important;
+    gap: 0.5rem !important;
+  }
+  .footer-col h4 {
+    margin-bottom: 0.5rem !important;
+    font-size: 0.82rem !important;
+  }
+  .footer-links {
+    gap: 0.4rem !important;
+  }
+  .footer-links li {
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+  }
+  .footer-bottom {
+    padding-top: 0.9rem !important;
+    gap: 0.6rem !important;
+    font-size: 0.78rem !important;
+  }
+  .footer-quote {
+    font-size: 0.88rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Extra Compact — 480px (small phones)
+   Even tighter density while keeping legible
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(1.32rem, 5.8vw, 1.65rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.35rem !important;
+  }
+  h2 {
+    font-size: clamp(1.12rem, 5vw, 1.38rem) !important;
+    line-height: 1.18 !important;
+    margin-bottom: 0.32rem !important;
+  }
+  h3 {
+    font-size: 0.98rem !important;
+    line-height: 1.22 !important;
+    margin-bottom: 0.3rem !important;
+  }
+  h4 {
+    font-size: 0.92rem !important;
+    line-height: 1.25 !important;
+  }
+  .hero h1 {
+    font-size: clamp(1.32rem, 6.5vw, 1.68rem) !important;
+    line-height: 1.12 !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .hero p,
+  .hero-lead,
+  .section-intro p {
+    font-size: 0.84rem !important;
+    line-height: 1.38 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .eyebrow {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 0.25rem !important;
+  }
+  p {
+    font-size: 0.84rem !important;
+    line-height: 1.42 !important;
+    margin-bottom: 0.45rem !important;
+  }
+  section {
+    padding: 1.4rem 0 !important;
+  }
+  .hero {
+    padding: 1.2rem 0 0.9rem 0 !important;
+  }
+  .section-secondary {
+    padding: 1.3rem 0 !important;
+  }
+  .section-pillars,
+  .stats-strip {
+    padding: 1.1rem 0 !important;
+  }
+  .section-intro {
+    margin-bottom: 0.9rem !important;
+  }
+  .container {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+  .card {
+    padding: 0.8rem !important;
+    border-radius: 10px !important;
+  }
+  .grid, .grid-2, .grid-3, .grid-4, .tiers-grid, .committee-grid {
+    gap: 0.7rem !important;
+  }
+  .committee-card {
+    padding: 0.75rem !important;
+  }
+  .committee-card h4 {
+    font-size: 0.95rem !important;
+  }
+  .committee-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.82rem !important;
+  }
+  .committee-role-badge {
+    font-size: 0.62rem !important;
+    padding: 0.15rem 0.4rem !important;
+  }
+  .committee-subheading {
+    margin: 1.2rem 0 0.6rem 0 !important;
+  }
+  .committee-subheading h3 {
+    font-size: 0.98rem !important;
+  }
+  .committee-toolbar {
+    padding: 0.6rem 0.7rem !important;
+    margin-bottom: 0.9rem !important;
+  }
+  .event-card-header {
+    padding: 0.7rem 0.75rem 0.45rem 0.75rem !important;
+  }
+  .event-card-body {
+    padding: 0 0.75rem 0.7rem 0.75rem !important;
+  }
+  .event-card-body h3 {
+    font-size: 0.96rem !important;
+  }
+  .event-meta {
+    font-size: 0.77rem !important;
+    gap: 0.22rem !important;
+    margin: 0.4rem 0 0.5rem 0 !important;
+  }
+  .event-card-footer {
+    padding-top: 0.45rem !important;
+  }
+  .notice-poster-card {
+    padding: 0.8rem !important;
+  }
+  .cta-banner {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+  }
+  .btn {
+    padding: 0.55rem 0.9rem !important;
+    font-size: 0.84rem !important;
+  }
+  .btn-sm {
+    padding: 0.38rem 0.65rem !important;
+    font-size: 0.76rem !important;
+  }
+  .site-footer {
+    padding: 1.2rem 0 0.7rem 0 !important;
+  }
+  .footer-grid {
+    gap: 0.85rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .footer-col h4 {
+    font-size: 0.78rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .footer-links {
+    gap: 0.32rem !important;
+  }
+  .footer-bottom {
+    padding-top: 0.7rem !important;
+    font-size: 0.74rem !important;
+  }
+}
