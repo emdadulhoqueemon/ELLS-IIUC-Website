@@ -371,6 +371,26 @@
     margin-right: auto;
   }
 
+  .footer-brand .site-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .footer-brand .site-logo-img {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .footer-brand .logo-subtitle {
+    display: block;
+    text-align: center;
+    margin-top: 0.6rem;
+  }
+
   .social-media-container {
     display: flex;
     flex-direction: column;
@@ -1872,3 +1892,7 @@ header {
   transition: top 0.3s ease-in-out;
 }
 
+/* Footer Brand Alignment - Exact Center Spec */
+.footer-brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.footer-brand .site-logo { display: flex; flex-direction: column; align-items: center; text-align: center; }
+@media (max-width: 768px) { .footer-brand .site-logo { display: flex; flex-direction: column; align-items: center; text-align: center; } }

@@ -106,28 +106,27 @@ function initNavigation() {
    3. Smart Sticky Header (Auto-hide on Scroll Down, Reveal on Scroll Up)
    -------------------------------------------------------------------------- */
 function initHeaderScroll() {
-  var header = document.querySelector('header');
-  if (!header) header = document.querySelector('.site-header');
-  if (!header) return;
-
-  var lastScrollTop = 0;
-
-  window.onscroll = function() {
-    var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScroll > lastScrollTop) {
-      header.style.top = "-100px";
-    } else {
-      header.style.top = "0";
-    }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-
-    // Scrolled shadow styling (kept for aesthetics)
-    if (currentScroll > 20) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  };
+  let lastScrollTop = 0;
+  const navbar = document.querySelector('header'); // adjust selector if needed
+  if (!navbar) return;
+  window.addEventListener('scroll', function() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop) {
+          navbar.style.top = '-100px'; // or appropriate height to hide
+      } else {
+          navbar.style.top = '0';
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  });
+  // Scrolled shadow enhancement (kept for aesthetics)
+  window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > 20) {
+          navbar.classList.add('scrolled');
+      } else {
+          navbar.classList.remove('scrolled');
+      }
+  }, { passive: true });
 }
 
 /* --------------------------------------------------------------------------
@@ -325,4 +324,16 @@ function initNoticeBoard() {
     }, 2500);
   }, { passive: true });
 }
+/* MANDATORY Smart Sticky Navbar Fix - Exact Logic as Required */
+let lastScrollTop = 0;
+const navbar = document.querySelector('header'); // adjust selector if needed
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+        navbar.style.top = '-100px'; // or appropriate height to hide
+    } else {
+        navbar.style.top = '0';
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+});
 
