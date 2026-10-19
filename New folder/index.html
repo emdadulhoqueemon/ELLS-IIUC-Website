@@ -68,7 +68,7 @@
         </ul>
         <div class="mobile-nav-footer">
           <a href="membership.html" class="btn btn-primary mobile-nav-cta">
-            <span>Membership Status</span>
+            <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
@@ -91,7 +91,7 @@
           </svg>
         </a>
 
-        <a href="membership.html" class="btn btn-primary btn-sm">Membership Status</a>
+        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <!-- Mobile Drawer Hamburger -->
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
@@ -150,7 +150,7 @@
 
             <div class="hero-actions">
               <a href="membership.html" class="btn btn-primary">
-                <span>Membership Status</span>
+                <span>Join ELLS Club</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </a>
               <a href="events.html" class="btn btn-secondary">
@@ -311,43 +311,105 @@
       </div>
     </section>
 
-    <!-- Event & Notice Schedule — live from Cloud Firestore -->
-    <section class="section-secondary" id="notice-board" aria-labelledby="featured-events-heading">
+    <!-- Featured Upcoming Events Preview -->
+    <section class="section-secondary" aria-labelledby="featured-events-heading">
       <div class="container">
-        <div class="notice-board-head">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
           <div>
-            <span class="eyebrow">EVENT &amp; NOTICE SCHEDULE</span>
-            <h2 id="featured-events-heading">Latest Notices &amp; Gatherings</h2>
-            <p class="notice-board-sub">Official announcements published by the ELLS IT Secretary, updated live.</p>
+            <span class="eyebrow">ON THE CALENDAR</span>
+            <h2 id="featured-events-heading">Upcoming Literary Gatherings</h2>
           </div>
           <a href="events.html" class="btn btn-secondary btn-sm">View Full Calendar &rarr;</a>
         </div>
 
-        <!-- Live indicator -->
-        <p class="notice-live-pill" id="noticeLivePill" hidden>
-          <span class="notice-live-dot" aria-hidden="true"></span>
-          <span>Live from the ELLS notice board</span>
-        </p>
+        <div class="grid grid-3">
+          <!-- Featured Event 1 -->
+          <article class="event-card" data-event-id="evt-101">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">14</span>
+              </div>
+              <span class="badge badge-gold">Poetry &amp; Slam</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Autumn Open Mic &amp; Candlelit Verses</h3>
+              <p>An evening of student recitations, original lyricism, and acoustic interludes under the Great Hall chandeliers.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>7:00 PM – 9:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Athenaeum Salon, Room 204</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator">12 seats remaining</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
 
-        <!-- State panel: shown while loading, if empty, or if Firestore is unreachable -->
-        <div class="notice-board-state" id="noticeBoardStatus" role="status" data-state="loading">
-          <div class="notice-board-state__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-              <path d="M9 7h7"></path>
-              <path d="M9 11h5"></path>
-            </svg>
-          </div>
-          <div class="notice-board-state__copy">
-            <h3 data-notice-status-title>Loading the notice board&hellip;</h3>
-            <p data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
-          </div>
-          <span class="notice-board-state__spinner" aria-hidden="true"></span>
+          <!-- Featured Event 2 -->
+          <article class="event-card" data-event-id="evt-102">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">22</span>
+              </div>
+              <span class="badge badge-crimson">Masterclass</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Crafting Compelling Non-Fiction Memoirs</h3>
+              <p>Special masterclass hosted by guest essayist Prof. Julian Sterling on voice, ethical memory, and sensory detail.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>4:30 PM – 6:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Humanities Auditorium B</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator seats-low">6 seats left</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Featured Event 3 -->
+          <article class="event-card" data-event-id="evt-103">
+            <div class="event-card-header">
+              <div class="event-date-badge">
+                <span class="event-date-month">NOV</span>
+                <span class="event-date-day">05</span>
+              </div>
+              <span class="badge badge-navy">Linguistics</span>
+            </div>
+            <div class="event-card-body">
+              <h3>The Secret Codes of Old English Dialects</h3>
+              <p>Uncovering phonetic shifts, Celtic borrowings, and lost idioms from Beowulf through Middle English transitions.</p>
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>5:00 PM – 7:00 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Online &amp; Seminar Room 4</span>
+                </div>
+              </div>
+              <div class="event-card-footer">
+                <span class="seats-indicator">28 seats remaining</span>
+                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
+              </div>
+            </div>
+          </article>
         </div>
-
-        <!-- Notice cards are rendered here by js/notice-board.js -->
-        <div class="grid grid-3 notice-board-grid" id="noticeBoardGrid" aria-live="polite" aria-busy="true"></div>
       </div>
     </section>
 
@@ -474,7 +536,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About ELLS</a></li>
             <li><a href="events.html">Events &amp; Salons</a></li>
-            <li><a href="membership.html">Membership Status</a></li>
+            <li><a href="membership.html">Membership Application</a></li>
           </ul>
         </div>
 
@@ -494,7 +556,7 @@
             <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
             <li><a href="mailto:ells.dell.iiuc95@gmail.com">✉️ ells.dell.iiuc95@gmail.com</a></li>
             <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
-            <li><a href="membership.html">Check Membership Status</a></li>
+            <li><a href="membership.html">Inquire for Fellowship</a></li>
           </ul>
         </div>
       </div>
@@ -508,19 +570,5 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
-  <script>
-    // Fail-safe: if the notices module cannot load (offline or file:// protocol),
-    // fall back to the error state instead of showing an endless spinner.
-    window.setTimeout(function () {
-      var panel = document.getElementById('noticeBoardStatus');
-      if (!panel || panel.dataset.state !== 'loading') return;
-      var title = panel.querySelector('[data-notice-status-title]');
-      var text = panel.querySelector('[data-notice-status-text]');
-      panel.dataset.state = 'error';
-      if (title) title.textContent = 'Notice board is temporarily unavailable';
-      if (text) text.textContent = 'We could not reach the ELLS notice archive. Please refresh the page in a moment.';
-    }, 10000);
-  </script>
-  <script type="module" src="js/notice-board.js"></script>
 </body>
 </html>

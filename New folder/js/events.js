@@ -1,12 +1,6 @@
 /**
  * ELLS Club - Events Page Module
  * Dynamic search, category filtering, native <dialog> RSVP system & seat management
- *
- * Event cards are rendered asynchronously by js/events-feed.js from the
- * Firestore `events` collection, so every lookup re-queries the live DOM and
- * RSVP clicks are delegated. The `ells:events-updated` event (fired after
- * each Firestore render) re-applies the active filters and the local
- * "Reserved" state to the fresh cards.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,20 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initRsvpModal();
 });
 
-/* -------------------------------------------------------------------------- */
-/*   1. Event Filtering (Categories + Search)                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   1. Event Filtering (Categories + Search)
+   -------------------------------------------------------------------------- */
 function initEventFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const searchInput = document.getElementById('eventSearchInput');
+  const eventCards = document.querySelectorAll('.event-card');
   const noResultsMsg = document.getElementById('noEventsMatch');
 
   let activeCategory = 'all';
   let searchQuery = '';
 
   function filterEvents() {
-    // Re-queried every pass: cards are added dynamically by the Firestore feed.
-    const eventCards = document.querySelectorAll('.event-card');
     let visibleCount = 0;
 
     eventCards.forEach(card => {
@@ -52,8 +45,7 @@ function initEventFilters() {
     });
 
     if (noResultsMsg) {
-      // Only meaningful once the feed has actually produced cards.
-      noResultsMsg.style.display = visibleCount === 0 && eventCards.length > 0 ? 'block' : 'none';
+      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
     }
   }
 
@@ -74,18 +66,15 @@ function initEventFilters() {
       filterEvents();
     });
   }
-
-  // Firestore feed re-rendered the grid — re-apply the active filter.
-  document.addEventListener('ells:events-updated', filterEvents);
-  filterEvents();
 }
 
-/* -------------------------------------------------------------------------- */
-/*   2. Native <dialog> RSVP System                                            */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   2. Native <dialog> RSVP System
+   -------------------------------------------------------------------------- */
 function initRsvpModal() {
   const modal = document.getElementById('rsvpModal');
   const rsvpForm = document.getElementById('rsvpForm');
+  const rsvpBtns = document.querySelectorAll('.open-rsvp-modal');
   const modalCloseBtn = document.getElementById('closeRsvpModal');
   const modalCancelBtn = document.getElementById('cancelRsvpModal');
   const modalEventTitle = document.getElementById('modalEventTitle');
@@ -100,29 +89,27 @@ function initRsvpModal() {
   // Update UI for previously booked events
   updateBookedEvents(savedRsvps);
 
-  // Open Modal — delegated so dynamically rendered cards work too.
-  // Cards with a registration link use a direct <a> and never reach here.
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.open-rsvp-modal');
-    if (!btn) return;
+  // Open Modal
+  rsvpBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.event-card');
+      if (!card) return;
 
-    const card = btn.closest('.event-card');
-    if (!card) return;
+      const eventId = card.getAttribute('data-event-id');
+      const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
+      const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
 
-    const eventId = card.getAttribute('data-event-id');
-    const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
-    const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
+      if (savedRsvps.includes(eventId)) {
+        showToast('You have already reserved seats for this event!', 'info');
+        return;
+      }
 
-    if (savedRsvps.includes(eventId)) {
-      showToast('You have already reserved seats for this event!', 'info');
-      return;
-    }
+      if (modalEventTitle) modalEventTitle.textContent = eventTitle;
+      if (modalEventDate) modalEventDate.textContent = eventDate.trim();
+      if (modalEventIdInput) modalEventIdInput.value = eventId;
 
-    if (modalEventTitle) modalEventTitle.textContent = eventTitle;
-    if (modalEventDate) modalEventDate.textContent = eventDate.trim();
-    if (modalEventIdInput) modalEventIdInput.value = eventId;
-
-    modal.showModal();
+      modal.showModal();
+    });
   });
 
   // Close handlers
@@ -195,7 +182,4 @@ function initRsvpModal() {
       }
     });
   }
-
-  // Firestore feed re-rendered the grid — restore "Reserved" states.
-  document.addEventListener('ells:events-updated', () => updateBookedEvents(savedRsvps));
 }

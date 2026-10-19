@@ -345,32 +345,22 @@
     flex-direction: column;
   }
 
-  /* Footer Mobile Layout — every block stacked and perfectly centered */
+  /* Footer Mobile Layout */
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 2.2rem;
-    justify-content: center;
   }
 
   .footer-brand {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
   }
 
   .footer-brand .site-logo {
     justify-content: center;
-    align-items: center;
-    text-align: center;
     margin-bottom: 0.6rem;
-  }
-
-  .footer-brand .logo-text {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
   }
 
   .footer-brand p {
@@ -384,25 +374,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     width: 100%;
   }
 
   .social-media-icons {
-    align-items: center;
     justify-content: center;
   }
 
-  /* IIUC/Department crest stacked above the two department lines,
-     exactly center-aligned on mobile */
   .partner-affiliation {
     margin: 1.5rem auto 0 auto !important;
     width: 100% !important;
     max-width: 320px !important;
-    flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
     text-align: center !important;
   }
 
@@ -412,20 +396,16 @@
   }
 
   .partner-text {
-    flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
     text-align: center !important;
   }
 
   .partner-text span:first-child {
     font-size: 0.74rem !important;
-    text-align: center !important;
   }
 
   .partner-text span:last-child {
     font-size: 0.84rem !important;
-    text-align: center !important;
   }
 
   .footer-col {
@@ -434,31 +414,21 @@
 
   .footer-col h4 {
     margin-bottom: 0.85rem;
-    text-align: center;
   }
 
   .footer-links {
     align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .footer-links li {
-    text-align: center;
   }
 
   .footer-links li span,
   .footer-links li a {
-    align-items: center;
-    justify-content: center;
     text-align: center;
+    justify-content: center;
   }
 
   .footer-bottom {
     flex-direction: column;
     gap: 1rem;
-    align-items: center;
-    justify-content: center;
     text-align: center;
   }
 
@@ -895,10 +865,6 @@
   .partner-affiliation {
     max-width: 290px !important;
     padding: 1rem 1rem !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
   }
 
   .partner-logo-img {
@@ -906,21 +872,12 @@
     height: 42px !important;
   }
 
-  .partner-text {
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
-
   .partner-text span:first-child {
     font-size: 0.7rem !important;
-    text-align: center !important;
   }
 
   .partner-text span:last-child {
     font-size: 0.8rem !important;
-    text-align: center !important;
   }
 
   .membership-card-pass {
@@ -1474,172 +1431,5 @@
   .bg-caps__cap > svg {
     animation: none;
     transform: rotate(var(--cap-rot, 0deg));
-  }
-}
-
-/* ==========================================================================
-   Header Fit for the Longer "Membership Status" CTA (Tablet Range)
-   ========================================================================== */
-@media (min-width: 769px) and (max-width: 992px) {
-  .header-container {
-    gap: 0.75rem;
-  }
-
-  .site-logo-img {
-    width: 44px;
-    height: 44px;
-  }
-
-  .logo-line-1,
-  .logo-line-2 {
-    font-size: 0.72rem;
-  }
-
-  .nav-links {
-    gap: 1.05rem;
-  }
-
-  .nav-link {
-    font-size: 0.88rem;
-  }
-
-  .header-actions {
-    gap: 0.5rem;
-  }
-
-  .header-actions .header-social-link {
-    display: none;
-  }
-
-  .header-actions .btn-sm {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.78rem;
-  }
-
-  .status-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* ==========================================================================
-   Membership Status Lookup — Responsive
-   ========================================================================== */
-@media (max-width: 768px) {
-  .status-search-card__top {
-    gap: 0.85rem;
-  }
-
-  .status-search-card__icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-  }
-
-  .status-search-card__icon svg {
-    width: 23px;
-    height: 23px;
-  }
-
-  .status-search-field {
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0.5rem;
-  }
-
-  .status-search-input-wrap {
-    width: 100%;
-  }
-
-  .status-search-input {
-    padding: 0.9rem 0.8rem 0.9rem 2.75rem;
-    font-size: 1rem;
-  }
-
-  .status-search-field__icon {
-    left: 0.85rem;
-  }
-
-  .status-search-submit {
-    width: 100%;
-    flex: 0 0 auto;
-    padding: 0.9rem 1rem;
-  }
-
-  .status-search-meta {
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .status-search-error {
-    width: 100%;
-  }
-
-  .status-metrics {
-    grid-template-columns: 1fr;
-  }
-
-  .status-card__verified {
-    margin-left: 0;
-  }
-
-  .status-card__footer {
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 480px) {
-  .status-search-card {
-    padding: 1.25rem;
-    border-radius: var(--radius-md);
-  }
-
-  .status-search-card__top {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .status-card {
-    padding: 1.25rem;
-    border-radius: var(--radius-md);
-  }
-
-  .status-card__header {
-    gap: 0.8rem;
-  }
-
-  .status-card__seal {
-    width: 48px;
-    height: 48px;
-  }
-
-  .status-card__seal svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .status-card__verified {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.64rem;
-  }
-
-  .status-metric {
-    padding: 1rem;
-  }
-
-  .status-card__reset {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* Respect reduced-motion preferences for the status lookup */
-@media (prefers-reduced-motion: reduce) {
-  .status-card {
-    animation: none;
-  }
-
-  .status-progress-fill {
-    transition: none;
   }
 }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Check your ELLS Club membership status. Enter your IIUC student ID to view total paid, outstanding dues, and free-entry eligibility.">
-  <title>Membership Status | ELLS Club</title>
+  <meta name="description" content="Apply for membership in ELLS Club. Join the English Language and Literary Society as a student fellow, scholar, or patron.">
+  <title>Membership Application | ELLS Club</title>
   
   <!-- PWA & Mobile Web App Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -67,7 +67,7 @@
         </ul>
         <div class="mobile-nav-footer">
           <a href="membership.html" class="btn btn-primary mobile-nav-cta">
-            <span>Membership Status</span>
+            <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
@@ -89,7 +89,7 @@
           </svg>
         </a>
 
-        <a href="membership.html" class="btn btn-primary btn-sm">Membership Status</a>
+        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
           <span></span>
@@ -132,227 +132,375 @@
 
   <main id="main-content">
     <!-- Header Banner -->
-    <section class="hero membership-status-hero">
+    <section class="hero" style="padding-bottom: 3rem;">
       <div class="container text-center" style="max-width: 820px;">
-        <span class="eyebrow">MEMBERSHIP DIRECTORY</span>
-        <h1>Check Your Membership Status</h1>
-        <p class="hero-lead" style="margin-bottom: 0;">
-          Enter your IIUC student ID to review your membership ledger &mdash; total paid, outstanding dues, and whether your member card grants free entry to ELLS events.
+        <span class="eyebrow">FELLOWSHIP APPLICATION</span>
+        <h1>Join the ELLS Guild of Letters</h1>
+        <p style="font-size: 1.15rem; color: var(--text-secondary); margin-top: 1rem;">
+          Membership connects you with fellow writers, linguistic researchers, exclusive salons, peer review workshops, and publication opportunities in <em>The Scribe Review</em>.
         </p>
       </div>
     </section>
 
-    <!-- Membership Status Checker -->
-    <section class="status-check-section" style="padding-top: 2.5rem;">
-      <div class="container" style="max-width: 880px;">
+    <!-- Main Form Section -->
+    <section style="padding-top: 2rem;">
+      <div class="container" style="max-width: 840px;">
+        
+        <!-- Notice if existing membership found in localStorage -->
+        <div id="viewExistingMemberNotice" style="display: none;"></div>
 
-        <!-- Search Interface -->
-        <div class="status-search-card">
-          <span class="status-search-card__glow" aria-hidden="true"></span>
+        <!-- Member Record Lookup Section (Google Apps Script API) -->
+        <div class="card" id="memberRecordLookupCard" style="padding: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem;">
+          <div class="section-intro" style="margin-bottom: 1.5rem;">
+            <span class="eyebrow">MEMBER DIRECTORY</span>
+            <h3 id="memberLookupHeading" style="margin: 0.5rem 0 0.4rem;">Search Member Records</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+              Look up your ELLS Club membership status and fee record using your Student ID.
+            </p>
+          </div>
 
-          <div class="status-search-card__top">
-            <div class="status-search-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                <circle cx="8.5" cy="10.5" r="2.5"></circle>
-                <path d="M4.5 17.2a4.4 4.4 0 0 1 8 0"></path>
-                <path d="M15 8.5h4.5"></path>
-                <path d="M15 12h4.5"></path>
-                <path d="M15 15.5h2.5"></path>
-              </svg>
+          <form id="memberLookupForm" class="member-lookup-form" autocomplete="off" style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end;">
+            <div class="form-group" style="flex: 1 1 260px; margin-bottom: 0;">
+              <label for="memberLookupInput" class="form-label" style="font-size: 0.88rem;">Student ID</label>
+              <input type="text" id="memberLookupInput" class="form-control" placeholder="e.g. N241038" required>
             </div>
-            <div>
-              <h2>Find Your Record</h2>
-              <p>One search is all it takes. Your details are pulled directly from the ELLS membership ledger.</p>
+            <button type="submit" class="btn btn-primary" id="memberLookupBtn" style="align-self: flex-end;">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; margin-right: 6px;" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span id="memberLookupBtnText">Search Records</span>
+            </button>
+          </form>
+
+          <!-- Lookup Status / Loading Indicator -->
+          <div id="memberLookupStatus" role="status" aria-live="polite" style="margin-top: 1.2rem; display: none; font-size: 0.95rem;"></div>
+
+          <!-- Lookup Results Container -->
+          <div id="memberLookupResults" style="margin-top: 1rem;"></div>
+        </div>
+
+        <!-- Application Form Card -->
+        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem);">
+          
+          <!-- Wizard Step Progress -->
+          <div class="wizard-progress" role="progressbar" aria-label="Application Progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+            <div class="wizard-step-indicator active" data-step="1">
+              <div class="step-bubble">1</div>
+              <span class="step-label">Personal Info</span>
+            </div>
+            <div class="wizard-step-indicator" data-step="2">
+              <div class="step-bubble">2</div>
+              <span class="step-label">Interests</span>
+            </div>
+            <div class="wizard-step-indicator" data-step="3">
+              <div class="step-bubble">3</div>
+              <span class="step-label">Statement</span>
+            </div>
+            <div class="wizard-step-indicator" data-step="4">
+              <div class="step-bubble">4</div>
+              <span class="step-label">Review &amp; Tier</span>
             </div>
           </div>
 
-          <form id="statusCheckForm" class="status-search-form" novalidate>
-            <div class="status-search-field">
-              <div class="status-search-input-wrap">
-                <span class="status-search-field__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="7"></circle>
-                    <path d="m20 20-3.6-3.6"></path>
-                  </svg>
-                </span>
-                <label class="sr-only" for="studentIdInput">IIUC Student ID</label>
-                <input
-                  type="text"
-                  id="studentIdInput"
-                  name="studentId"
-                  class="status-search-input"
-                  placeholder="Enter your IIUC Student ID (e.g., C201...)"
-                  autocomplete="off"
-                  autocapitalize="characters"
-                  spellcheck="false"
-                  aria-describedby="studentIdHint statusSearchError"
-                  required>
+          <form id="membershipForm" novalidate>
+            <!-- Step 1: Personal Details -->
+            <div class="wizard-step active" data-step="1">
+              <h3 style="margin-bottom: 0.5rem;">Step 1: Personal &amp; Academic Details</h3>
+              <p style="margin-bottom: 2rem;">Please provide your basic contact information and academic or institutional affiliation.</p>
+
+              <div class="form-group">
+                <label for="fullName" class="form-label">Full Legal / Preferred Name <span class="required">*</span></label>
+                <input type="text" id="fullName" class="form-control" placeholder="e.g. (demo: Emdadul Hoque)" required>
+                <span class="form-error">Please enter your full name.</span>
               </div>
-              <button type="submit" class="btn btn-primary status-search-submit" id="checkStatusBtn">
-                <span class="status-search-submit__label">Check Status</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
+
+              <div class="grid grid-2" style="gap: 1.2rem;">
+                <div class="form-group">
+                  <label for="emailAddress" class="form-label">Email Address <span class="required">*</span></label>
+                  <input type="email" id="emailAddress" class="form-control" placeholder="demo: name@university.ac.bd" required>
+                  <span class="form-error">Please enter a valid email address.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="phoneNumber" class="form-label">Contact Phone Number <span class="required">*</span></label>
+                  <input type="tel" id="phoneNumber" class="form-control" placeholder="demo: +880 **********" required>
+                  <span class="form-error">Please provide a valid phone number.</span>
+                </div>
+              </div>
+
+              <div class="grid grid-2" style="gap: 1.2rem;">
+                <div class="form-group">
+                  <label for="affiliation" class="form-label">Institutional / Academic Affiliation <span class="required">*</span></label>
+                  <input type="text" id="affiliation" class="form-control" placeholder="e.g. Dept. of English / Humanities" required>
+                  <span class="form-error">Please enter your department or affiliation.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="studentId" class="form-label">Student / Scholar ID (Optional)</label>
+                  <input type="text" id="studentId" class="form-control" placeholder="e.g. STU-94021">
+                </div>
+              </div>
             </div>
 
-            <div class="status-search-meta">
-              <p class="status-search-hint" id="studentIdHint">
-                Use the format printed on your university ID card &mdash; a letter followed by digits (e.g., C2012345).
-              </p>
-              <p class="status-search-error" id="statusSearchError" role="alert"></p>
+            <!-- Step 2: Literary Interests -->
+            <div class="wizard-step" data-step="2">
+              <h3 style="margin-bottom: 0.5rem;">Step 2: Literary Interests &amp; Focus Circles</h3>
+              <p style="margin-bottom: 1.5rem;">Select all fields and circles you wish to participate in within the ELLS Club.</p>
+
+              <div class="checkbox-grid">
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Poetry & Spoken Word" checked>
+                  <span>Poetry &amp; Spoken Word</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Fiction & Creative Prose">
+                  <span>Fiction &amp; Creative Prose</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Linguistics & Semiotics">
+                  <span>Linguistics &amp; Semiotics</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="The Scribe Journal Editorial">
+                  <span>The Scribe Editorial Board</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Great Books & World Classics">
+                  <span>Great Books &amp; Classics</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Debate, Rhetoric & Oratory">
+                  <span>Rhetoric &amp; Public Oratory</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Playwriting & Theatre">
+                  <span>Playwriting &amp; Dramatic Arts</span>
+                </label>
+                <label class="custom-checkbox-card">
+                  <input type="checkbox" name="literaryInterests" value="Memoir & Non-Fiction">
+                  <span>Memoir &amp; Non-Fiction</span>
+                </label>
+              </div>
+              <div id="interestsError" class="form-error" style="margin-top: 1rem;"></div>
+            </div>
+
+            <!-- Step 3: Statement of Intent -->
+            <div class="wizard-step" data-step="3">
+              <h3 style="margin-bottom: 0.5rem;">Step 3: Statement of Literary Intent</h3>
+              <p style="margin-bottom: 1.5rem;">Share a brief introduction to your literary interests and what you hope to explore with our society.</p>
+
+              <div class="form-group">
+                <label for="statementOfPurpose" class="form-label">Brief Statement of Intent <span class="required">*</span></label>
+                <textarea id="statementOfPurpose" class="form-control" rows="5" placeholder="Share why you wish to join ELLS Club, what themes you enjoy writing or discussing, or your aspirations for the upcoming semester..." required></textarea>
+                <div class="form-hint">
+                  <span>Min 15 words, recommended 50–150 words.</span>
+                  <span id="wordCountDisplay">0 / 150 words</span>
+                </div>
+                <span class="form-error">Please write a brief statement of intent.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="favoriteAuthors" class="form-label">Favorite Authors, Poets, or Linguists (Optional)</label>
+                <input type="text" id="favoriteAuthors" class="form-control" placeholder="e.g. Virginia Woolf, Seamus Heaney, Noam Chomsky, Toni Morrison">
+              </div>
+
+              <div class="form-group">
+                <label for="portfolioLink" class="form-label">Link to Writing Sample / Portfolio (Optional)</label>
+                <input type="url" id="portfolioLink" class="form-control" placeholder="https://yourblog.com or Google Docs link">
+              </div>
+            </div>
+
+            <!-- Step 4: Tier Selection & Review -->
+            <div class="wizard-step" data-step="4">
+              <h3 style="margin-bottom: 0.5rem;">Step 4: Select Tier &amp; Final Review</h3>
+              <p style="margin-bottom: 1.5rem;">Choose your fellowship tier. Dues support guest lectures, publication printing, and student awards.</p>
+
+              <input type="hidden" id="selectedTierInput" value="Student Fellow">
+
+              <div class="tiers-grid">
+                <!-- Tier 1 -->
+                <div class="tier-card selected" data-tier="Student Fellow">
+                  <span class="badge badge-gold tier-badge-corner">Most Popular</span>
+                  <h4>Student Fellow</h4>
+                  <div class="tier-price">250 TK <span>/ semester</span></div>
+                  <p style="font-size: 0.85rem; color: var(--text-muted);">For undergraduate and graduate students currently enrolled.</p>
+                  <ul class="tier-perks">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Access to all weekly salons</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Free submission to The Scribe</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Peer workshop feedback</li>
+                  </ul>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="tier-card" data-tier="Faculty & Scholar">
+                  <h4>Faculty &amp; Scholar</h4>
+                  <div class="tier-price">2000 TK <span>/ year</span></div>
+                  <p style="font-size: 0.85rem; color: var(--text-muted);">For academic researchers, professors, and published writers.</p>
+                  <ul class="tier-perks">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Priority salon seating</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Guest panel moderation</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Annual print anthology copy</li>
+                  </ul>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="tier-card" data-tier="Patron Fellow">
+                  <h4>Patron Fellow</h4>
+                  <div class="tier-price">5000 TK <span>/ year</span></div>
+                  <p style="font-size: 0.85rem; color: var(--text-muted);">For alumni and benefactors sponsoring student writing grants.</p>
+                  <ul class="tier-perks">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> All Scholar privileges</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Invitation to Annual Gala</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Named donor acknowledgment</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Application Summary Box -->
+              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h4 style="margin-bottom: 0.8rem; font-size: 1.05rem;">Application Summary</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; font-size: 0.9rem;">
+                  <div><strong style="color: var(--text-muted);">Candidate:</strong> <span id="reviewName">—</span></div>
+                  <div><strong style="color: var(--text-muted);">Email:</strong> <span id="reviewEmail">—</span></div>
+                  <div><strong style="color: var(--text-muted);">Affiliation:</strong> <span id="reviewAffiliation">—</span></div>
+                  <div><strong style="color: var(--text-muted);">Tier:</strong> <span id="reviewTier" class="text-gold" style="font-weight: 700;">STUDENT FELLOW</span></div>
+                  <div style="grid-column: 1 / -1;"><strong style="color: var(--text-muted);">Circles:</strong> <span id="reviewInterests">—</span></div>
+                </div>
+              </div>
+
+              <!-- Agreement Checkbox -->
+              <label class="custom-checkbox-card" style="margin-bottom: 1.5rem;">
+                <input type="checkbox" id="agreeCodeOfConduct" required>
+                <span style="font-size: 0.9rem;">I agree to uphold the <strong>ELLS Club Code of Intellectual Discourse</strong> and treat all peers with scholarly respect.</span>
+              </label>
+            </div>
+
+            <!-- Wizard Navigation Buttons -->
+            <div class="wizard-navigation">
+              <button type="button" class="btn btn-secondary" id="prevStepBtn" style="display: none;">&larr; Previous Step</button>
+              <div style="margin-left: auto;">
+                <button type="button" class="btn btn-primary" id="nextStepBtn">Next Step &rarr;</button>
+                <button type="submit" class="btn btn-crimson" id="submitMembershipBtn" style="display: none;">Submit Application &rarr;</button>
+              </div>
             </div>
           </form>
         </div>
 
-        <!-- Status Card: hidden until a search returns a record -->
-        <div class="status-card" id="statusCard" style="display: none;" role="region" aria-label="Membership status result" aria-live="polite">
-          <div class="status-card__accent" aria-hidden="true"></div>
-
-          <div class="status-card__header">
-            <div class="status-card__seal" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2.5 4.5 5.5v6c0 4.6 3.1 8.3 7.5 10 4.4-1.7 7.5-5.4 7.5-10v-6z"></path>
-                <path d="m8.6 11.8 2.3 2.3 4.5-4.6"></path>
-              </svg>
-            </div>
-
-            <div class="status-card__identity">
-              <span class="status-card__eyebrow">MEMBER RECORD VERIFIED</span>
-              <h3 class="status-card__name" id="statusStudentName">Student Name</h3>
-              <p class="status-card__subline">
-                <span>IIUC ID: <strong class="status-card__id" id="statusStudentId">&mdash;</strong></span>
-                <span class="status-card__dot" aria-hidden="true">&bull;</span>
-                <span id="statusSemester">&mdash;</span>
-                <span class="status-card__dot" aria-hidden="true">&bull;</span>
-                <span id="statusTier">ELLS Member</span>
-              </p>
-            </div>
-
-            <span class="status-card__verified">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="m8.2 12.2 2.6 2.6 5-5.2"></path>
-              </svg>
-              <span>Verified</span>
-            </span>
+        <!-- Generated Digital Membership Pass & Certificate Display (Hidden by default) -->
+        <div id="membershipPassContainer" style="display: none;">
+          <!-- Screen-Only Welcoming Banner -->
+          <div class="cert-screen-greeting text-center" style="margin-bottom: 2rem;">
+            <span class="badge badge-gold" style="font-size: 0.9rem; padding: 0.4rem 1.2rem;">FELLOWSHIP CONFERRED</span>
+            <h2 style="margin-top: 0.8rem;">Welcome to the ELLS Club Fellowship</h2>
+            <p>Your provisional application has been successfully verified and registered in the Society archives.</p>
           </div>
 
-          <div class="status-metrics">
-            <div class="status-metric status-metric--fee">
-              <div class="status-metric__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"></path>
-                  <path d="M9 7h6"></path>
-                  <path d="M9 11h6"></path>
-                  <path d="M9 15h4"></path>
-                </svg>
-              </div>
-              <span class="status-metric__label">Total Fee</span>
-              <div class="status-metric__value">
-                <span id="statusTotalFee">0</span><span class="status-metric__unit">BDT</span>
-              </div>
-              <span class="status-metric__meta">Full membership assessment</span>
-            </div>
+          <!-- Official Certificate of Membership Frame -->
+          <div class="membership-certificate-frame" id="membershipCertificateFrame">
+            <!-- Corner Decorative Accents -->
+            <div class="cert-corner-ornament cert-corner-tl" aria-hidden="true"></div>
+            <div class="cert-corner-ornament cert-corner-tr" aria-hidden="true"></div>
+            <div class="cert-corner-ornament cert-corner-bl" aria-hidden="true"></div>
+            <div class="cert-corner-ornament cert-corner-br" aria-hidden="true"></div>
 
-            <div class="status-metric status-metric--paid">
-              <div class="status-metric__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="6" width="18" height="13" rx="3"></rect>
-                  <path d="M3 10h18"></path>
-                  <path d="M7 15h3"></path>
-                </svg>
-              </div>
-              <span class="status-metric__label">Paid Amount</span>
-              <div class="status-metric__value">
-                <span id="statusTotalPaid">0</span><span class="status-metric__unit">BDT</span>
-              </div>
-              <span class="status-metric__meta">Received against membership dues</span>
-            </div>
+            <div class="cert-inner-frame">
+              <!-- Certificate Formal Header -->
+              <div class="cert-formal-header">
+                <div class="cert-crests-row">
+                  <img src="images/iiuc-logo.png" alt="IIUC Crest" class="cert-crest-img">
+                  <div class="cert-institution-meta">
+                    <div class="cert-uni-title">International Islamic University Chittagong</div>
+                    <div class="cert-dept-title">Department of English Language and Literature</div>
+                    <div class="cert-society-heading">English Language and Literary Society (ELLS)</div>
+                  </div>
+                  <img src="images/ells-logo.png" alt="ELLS Crest" class="cert-crest-img">
+                </div>
 
-            <div class="status-metric status-metric--due">
-              <div class="status-metric__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 2h9l4 4v16H6z"></path>
-                  <path d="M14 2v5h5"></path>
-                  <path d="M9 12h6"></path>
-                  <path d="M9 16h4"></path>
-                </svg>
+                <div class="cert-title-block">
+                  <div class="cert-award-ribbon">
+                    <span>CERTIFICATE OF MEMBERSHIP</span>
+                  </div>
+                </div>
               </div>
-              <span class="status-metric__label">Due Amount</span>
-              <div class="status-metric__value">
-                <span id="statusDueAmount">0</span><span class="status-metric__unit">BDT</span>
-              </div>
-              <span class="status-metric__meta" id="statusDueNote">Outstanding balance</span>
-            </div>
 
-            <div class="status-metric status-metric--entry" id="statusEntryMetric">
-              <div class="status-metric__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6z"></path>
-                  <path d="M13 5v14"></path>
-                </svg>
+              <!-- Prominently Centered Dark Membership ID Card -->
+              <div class="membership-card-pass" id="digitalPass">
+                <div class="pass-header">
+                  <div class="pass-logo">
+                    <img src="images/ells-logo.png" alt="ELLS Club Crest" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; background: #ffffff; padding: 2px;">
+                    <span class="pass-org-name">ELLS CLUB</span>
+                  </div>
+                  <span class="pass-tier-badge" id="passTier">STUDENT FELLOW</span>
+                </div>
+
+                <div class="pass-body">
+                  <div class="pass-member-name" id="passMemberName">Eleanor Vance</div>
+                  <p style="color: rgba(255, 255, 255, 0.75); font-size: 0.85rem; margin-bottom: 0;">English Language &amp; Literary Society Fellow</p>
+
+                  <div class="pass-meta-grid">
+                    <div class="pass-meta-item">
+                      <label>MEMBER ID</label>
+                      <span id="passMemberId">ELLS-2026-8492</span>
+                    </div>
+                    <div class="pass-meta-item">
+                      <label>ISSUED ON</label>
+                      <span id="passIssuedDate">Sep 23, 2026</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pass-footer">
+                  <div class="pass-seal-graphic">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                    <span>VERIFIED SCHOLAR PASS</span>
+                  </div>
+                  <span>VALID THROUGH 2027</span>
+                </div>
               </div>
-              <span class="status-metric__label">Event Access</span>
-              <div class="status-eligibility is-eligible" id="statusEligibility">
-                <svg class="status-eligibility__icon status-eligibility__icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="m8.2 12.2 2.6 2.6 5-5.2"></path>
-                </svg>
-                <svg class="status-eligibility__icon status-eligibility__icon--x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="m9 9 6 6"></path>
-                  <path d="m15 9-6 6"></path>
-                </svg>
-                <span id="statusEligibilityText">Eligible for Free Entry</span>
+
+              <!-- Formal Declaration Text -->
+              <div class="cert-declaration">
+                <p>This document certifies that the individual named above is an officially registered member of the English Language and Literary Society (ELLS), Department of English Language and Literature, International Islamic University Chittagong.</p>
               </div>
-              <span class="status-metric__meta" id="statusEligibilityNote">All dues cleared</span>
+
+              <!-- Professional Dual Signature Block -->
+              <div class="cert-signature-section">
+                <div class="cert-sig-block cert-sig-left">
+                  <div class="cert-sig-line"></div>
+                  <div class="cert-sig-designation">GENERAL SECRETARY</div>
+                  <div class="cert-sig-sub">ELLS Executive Committee</div>
+                </div>
+
+                <div class="cert-official-seal-wrap">
+                  <div class="cert-seal-stamp">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                    <span class="cert-seal-tag">OFFICIAL SEAL</span>
+                    <span class="cert-seal-affil">ELLS • IIUC</span>
+                  </div>
+                </div>
+
+                <div class="cert-sig-block cert-sig-right">
+                  <div class="cert-sig-line"></div>
+                  <div class="cert-sig-designation">PRESIDENT, ELLS</div>
+                  <div class="cert-sig-sub">Dept. of ELL, IIUC</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="status-card__progress">
-            <div class="status-card__progress-head">
-              <span>Payment progress</span>
-              <span id="statusProgressLabel">0%</span>
-            </div>
-            <div class="status-progress-track" role="progressbar" aria-label="Membership payment progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="statusProgressBar">
-              <span class="status-progress-fill" id="statusProgressFill"></span>
-            </div>
-            <p class="status-card__progress-note" id="statusProgressNote">Membership assessment details will appear here.</p>
-          </div>
-
-          <div class="status-card__footer">
-            <p class="status-card__note">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 11v5"></path>
-                <path d="M12 7.8h.01"></path>
-              </svg>
-              <span>Live record pulled from the ELLS treasury registry.</span>
-            </p>
-            <button type="button" class="status-card__reset" id="statusResetBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 12a9 9 0 1 0 3-6.7"></path>
-                <path d="M3 4v5h5"></path>
-              </svg>
-              <span>Check another ID</span>
+          <!-- Actions -->
+          <div class="pass-actions" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" id="printPassBtn">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Print / Save Certificate</span>
             </button>
+            <a href="events.html" class="btn btn-secondary">Browse Fellow Salons &rarr;</a>
+            <button type="button" class="btn btn-secondary" id="reapplyBtn">Submit Another Application</button>
           </div>
-        </div>
-
-        <!-- No-record state: hidden by default -->
-        <div class="status-empty" id="statusNotFound" style="display: none;" role="alert">
-          <div class="status-empty__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"></circle>
-              <path d="m20 20-3.6-3.6"></path>
-              <path d="M8.5 11h5"></path>
-            </svg>
-          </div>
-          <h3>No membership record found</h3>
-          <p>We could not find an ELLS membership linked to <strong id="statusNotFoundId">&mdash;</strong>. Double-check the ID or contact the club cashier if you believe this is an error.</p>
         </div>
 
       </div>
@@ -366,20 +514,20 @@
           <h2 id="faq-heading">Frequently Asked Inquiries</h2>
         </div>
 
-        <div class="status-faq">
+        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
           <div class="card">
-            <h4>How current is the membership ledger?</h4>
-            <p>Records are maintained by the ELLS IT Secretary and are updated once a payment is verified. If a recent payment is missing, please allow one working day before checking again.</p>
+            <h4>Are students from non-humanities majors eligible to join?</h4>
+            <p>Absolutely. Over 40% of our active fellows study Computer Science, Biology, Economics, and Engineering. The only prerequisite is an authentic passion for writing, reading, and linguistic inquiry.</p>
           </div>
 
           <div class="card">
-            <h4>What does &ldquo;Eligible for Free Entry&rdquo; mean?</h4>
-            <p>Student Fellows with no outstanding dues enjoy complimentary entry to general ELLS salons, screenings, and workshops. Specially ticketed events may still require separate registration.</p>
+            <h4>Are fee waivers available for student dues?</h4>
+            <p>Yes. If dues present a financial hardship, select "Student Fellow" and indicate in your statement of intent. The Society maintains an endowed fellowship fund to ensure cost is never a barrier.</p>
           </div>
 
           <div class="card">
-            <h4>Who should I contact if my record looks incorrect?</h4>
-            <p>Write to <a href="mailto:ells.dell.iiuc95@gmail.com" class="text-gold">ells.dell.iiuc95@gmail.com</a> with your student ID and payment receipt, or visit the IT Secretary at Room 405, Academic Building-05.</p>
+            <h4>How often are poetry and writing workshops convened?</h4>
+            <p>The Keats Poetry Fellowship meets every Tuesday evening, and fiction/memoir workshops meet every Thursday. You are free to attend as many circles as your schedule allows.</p>
           </div>
         </div>
       </div>
@@ -449,7 +597,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About ELLS</a></li>
             <li><a href="events.html">Events &amp; Salons</a></li>
-            <li><a href="membership.html">Membership Status</a></li>
+            <li><a href="membership.html">Membership Application</a></li>
           </ul>
         </div>
 
@@ -469,7 +617,7 @@
             <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
             <li><a href="mailto:ells.dell.iiuc95@gmail.com">✉️ ells.dell.iiuc95@gmail.com</a></li>
             <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
-            <li><a href="membership.html">Check Membership Status</a></li>
+            <li><a href="membership.html">Inquire for Fellowship</a></li>
           </ul>
         </div>
       </div>
