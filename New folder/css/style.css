@@ -175,6 +175,7 @@ textarea {
 }
 
 body {
+  padding-top: 80px; /* offset for fixed header */
   /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
      if the stylesheet above were ever truncated or a token removed. */
   background-color: var(--bg-primary, #0B1120);
@@ -359,18 +360,16 @@ section {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition);
-  will-change: transform;
+  will-change: top;
 }
 
 .site-header.scrolled {
@@ -3381,3 +3380,13 @@ textarea.form-control {
     display: none !important;
   }
 }
+
+/* Smart Sticky Navbar - Ensure header element meets spec */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
+}
+

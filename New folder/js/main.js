@@ -106,49 +106,28 @@ function initNavigation() {
    3. Smart Sticky Header (Auto-hide on Scroll Down, Reveal on Scroll Up)
    -------------------------------------------------------------------------- */
 function initHeaderScroll() {
-  const header = document.querySelector('.site-header');
-  const mainNav = document.getElementById('mainNav');
+  var header = document.querySelector('header');
+  if (!header) header = document.querySelector('.site-header');
   if (!header) return;
 
-  let lastScrollY = Math.max(0, window.scrollY);
-  let ticking = false;
+  var lastScrollTop = 0;
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = Math.max(0, window.scrollY);
-        const scrollDelta = currentScrollY - lastScrollY;
-        const isMenuOpen = (mainNav && mainNav.classList.contains('open')) ||
-                           document.body.classList.contains('nav-open');
-
-        // Scrolled styling & shadow toggle
-        if (currentScrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-
-        // Smart Sticky Header behavior — Global: hide on scroll down, immediately show on scroll up
-        if (isMenuOpen) {
-          // Keep header always visible when mobile navigation drawer is active
-          header.classList.remove('header-hidden');
-        } else if (currentScrollY <= 80) {
-          // Always visible at or near the top of the page
-          header.classList.remove('header-hidden');
-        } else if (scrollDelta > 5) {
-          // Scrolling down: hide navbar to save viewport space
-          header.classList.add('header-hidden');
-        } else if (scrollDelta < -2) {
-          // Scrolling UP even slightly from anywhere: immediately reveal navbar
-          header.classList.remove('header-hidden');
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
-      ticking = true;
+  window.onscroll = function() {
+    var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > lastScrollTop) {
+      header.style.top = "-100px";
+    } else {
+      header.style.top = "0";
     }
-  }, { passive: true });
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
+    // Scrolled shadow styling (kept for aesthetics)
+    if (currentScroll > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  };
 }
 
 /* --------------------------------------------------------------------------
