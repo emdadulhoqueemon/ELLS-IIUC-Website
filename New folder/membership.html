@@ -63,10 +63,10 @@
           <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="about.html" class="nav-link">About Us</a></li>
           <li><a href="events.html" class="nav-link">Events</a></li>
-          <li><a href="membership.html" class="nav-link active">Membership</a></li>
+          <li><a href="membership.html#membershipStatusCheck" class="nav-link active">Membership</a></li>
         </ul>
         <div class="mobile-nav-footer">
-          <a href="membership.html" class="btn btn-primary mobile-nav-cta">
+          <a href="membership.html#membershipStatusCheck" class="btn btn-primary mobile-nav-cta">
             <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -89,7 +89,7 @@
           </svg>
         </a>
 
-        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
+        <a href="membership.html#membershipStatusCheck" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
           <span></span>
@@ -134,10 +134,10 @@
     <!-- Header Banner -->
     <section class="hero" style="padding-bottom: 3rem;">
       <div class="container text-center" style="max-width: 820px;">
-        <span class="eyebrow">FELLOWSHIP APPLICATION</span>
-        <h1>Join the ELLS Guild of Letters</h1>
+        <span class="eyebrow">MEMBERSHIP STATUS CHECK</span>
+        <h1>Check Your ELLS Membership Status</h1>
         <p style="font-size: 1.15rem; color: var(--text-secondary); margin-top: 1rem;">
-          Membership connects you with fellow writers, linguistic researchers, exclusive salons, peer review workshops, and publication opportunities in <em>The Scribe Review</em>.
+          Enter your Student ID below to instantly verify your membership record — view your Name, ID, Semester, fee breakdown, and current Status.
         </p>
       </div>
     </section>
@@ -149,8 +149,41 @@
         <!-- Notice if existing membership found in localStorage -->
         <div id="viewExistingMemberNotice" style="display: none;"></div>
 
-        <!-- Application Form Card -->
-        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem);">
+        <!-- Membership Status Check - Primary Default View (Restored) -->
+        <div id="membershipStatusCheck"></div>
+        <!-- Member Record Lookup Section (Google Apps Script API) -->
+        <div class="card" id="memberRecordLookupCard" style="padding: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem;">
+          <div class="section-intro" style="margin-bottom: 1.5rem;">
+            <span class="eyebrow">MEMBERSHIP STATUS CHECK</span>
+            <h3 id="memberLookupHeading" style="margin: 0.5rem 0 0.4rem;">Membership Status Check</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+              Enter your Student ID to check your ELLS Club membership status, fee breakdown, and eligibility.
+            </p>
+          </div>
+
+          <form id="memberLookupForm" class="member-lookup-form" autocomplete="off" style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end;">
+            <div class="form-group" style="flex: 1 1 260px; margin-bottom: 0;">
+              <label for="memberLookupInput" class="form-label" style="font-size: 0.88rem;">Student ID</label>
+              <input type="text" id="memberLookupInput" class="form-control" placeholder="e.g. N241038" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="memberLookupBtn" style="align-self: flex-end;">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; margin-right: 6px;" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span id="memberLookupBtnText">Check Status</span>
+            </button>
+          </form>
+
+          <!-- Lookup Status / Loading Indicator -->
+          <div id="memberLookupStatus" role="status" aria-live="polite" style="margin-top: 1.2rem; display: none; font-size: 0.95rem;"></div>
+
+          <!-- Lookup Results Container -->
+          <div id="memberLookupResults" style="margin-top: 1rem;"></div>
+        </div>
+
+        <!-- OLD APPLICATION FORM - HIDDEN (replaced by Membership Status Check as primary view) -->
+        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem); display: none !important;" hidden>
           
           <!-- Wizard Step Progress -->
           <div class="wizard-progress" role="progressbar" aria-label="Application Progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
@@ -566,7 +599,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About ELLS</a></li>
             <li><a href="events.html">Events &amp; Salons</a></li>
-            <li><a href="membership.html">Membership Application</a></li>
+            <li><a href="membership.html#membershipStatusCheck">Membership Application</a></li>
           </ul>
         </div>
 
@@ -586,7 +619,7 @@
             <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
             <li><a href="mailto:ells.dell.iiuc95@gmail.com">✉️ ells.dell.iiuc95@gmail.com</a></li>
             <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
-            <li><a href="membership.html">Inquire for Fellowship</a></li>
+            <li><a href="membership.html#membershipStatusCheck">Inquire for Fellowship</a></li>
           </ul>
         </div>
       </div>
