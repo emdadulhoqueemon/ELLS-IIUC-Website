@@ -156,6 +156,8 @@
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   /* Locked to dark: native widgets & form controls follow the Midnight theme
      instead of the visitor's OS light/dark preference */
@@ -175,7 +177,8 @@ textarea {
 }
 
 body {
-  padding-top: 80px; /* offset for fixed header */
+  margin: 0;
+  padding-top: 80px; /* offset for the fixed public header (admin overrides) */
   /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
      if the stylesheet above were ever truncated or a token removed. */
   background-color: var(--bg-primary, #0B1120);
