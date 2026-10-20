@@ -29,6 +29,10 @@ import {
   ADMIN_EMAILS,
   NOTICES_COLLECTION,
   EVENTS_COLLECTION,
+  IMGBB_UPLOAD_ENDPOINT,
+  IMGBB_API_KEY,
+  POSTER_MAX_BYTES,
+  POSTER_MIME_TYPES,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -92,6 +96,15 @@ function initAdminConsole() {
   const eventTimeInput = document.getElementById('eventTime');
   const eventVenueInput = document.getElementById('eventVenue');
   const eventRegLinkInput = document.getElementById('eventRegLink');
+  const eventPosterInput = document.getElementById('eventPosterFile');
+  const eventPosterDrop = document.getElementById('eventPosterDrop');
+  const eventPosterThumb = document.getElementById('eventPosterThumb');
+  const eventPosterIcon = document.getElementById('eventPosterIcon');
+  const eventPosterLabel = document.getElementById('eventPosterLabel');
+  const eventPosterFileName = document.getElementById('eventPosterFileName');
+  const removeEventPosterBtn = document.getElementById('removeEventPoster');
+  const eventPreviewPosterWrap = document.getElementById('eventPreviewPosterWrap');
+  const eventPreviewPoster = document.getElementById('eventPreviewPoster');
   const publishEventBtn = document.getElementById('publishEventBtn');
   const eventFormStatus = document.getElementById('eventFormStatus');
   const eventPreviewBadge = document.getElementById('eventPreviewBadge');
@@ -110,6 +123,10 @@ function initAdminConsole() {
   let currentUser = null;
   let isPublishing = false;
   let isPublishingEvent = false;
+  // Object URL for the poster chosen in the form (revoked when replaced/cleared)
+  let eventPosterObjectUrl = '';
+  // File dropped onto the picker (input.files cannot be set programmatically)
+  let droppedPosterFile = null;
   // Set when an authenticated account is not on the ADMIN_EMAILS allowlist;
   // openLogin() displays it once the sign-out cycle settles.
   let pendingAuthMessage = '';
@@ -692,10 +709,46 @@ function initAdminConsole() {
       }
 
       isPublishingEvent = true;
-      setEventPublishing(true);
 
       try {
-        await addDoc(collection(db, EVENTS_COLLECTION), {
+        /* --------------------------------------------------------------
+           Step 1 — upload the poster to ImgBB (only when one is chosen).
+           The public display_url is what we store in Firestore; the binary
+           never touches Firebase Storage, so there is nothing to bill.
+           -------------------------------------------------------------- */
+        let posterUrl = '';
+        const posterFile = getSelectedPoster();
+
+        if (posterFile) {
+          // Re-check at submit time: never send a rejected/oversized file to
+          // ImgBB just because it slipped in through drag & drop.
+          const posterProblem = validatePosterFile(posterFile);
+          if (posterProblem) {
+            markPosterError(posterProblem);
+            showFormStatus(posterProblem, true, eventFormStatus);
+            return;
+          }
+
+          setEventPublishing(true, 'Uploading poster…');
+          showFormStatus('Uploading poster…', false, eventFormStatus);
+
+          try {
+            posterUrl = await uploadPosterToImgBB(posterFile);
+          } catch (uploadError) {
+            console.error('[ELLS] Poster upload failed:', uploadError);
+            showFormStatus(describePosterError(uploadError), true, eventFormStatus);
+            markPosterError(describePosterError(uploadError));
+            return;
+          }
+
+          showFormStatus('Poster uploaded — saving event…', false, eventFormStatus);
+          clearPosterError();
+        }
+
+        /* Step 2 — write the event document. */
+        setEventPublishing(true, 'Publishing…');
+
+        const eventDoc = {
           title,
           category,
           description,
@@ -706,11 +759,23 @@ function initAdminConsole() {
           createdAt: serverTimestamp(),
           authorEmail: currentUser.email || null,
           authorUid: currentUser.uid
-        });
+        };
+
+        // Omitted entirely when no poster was chosen — firestore.rules treats
+        // the field as optional and validates it as an https URL when present.
+        if (posterUrl) eventDoc.posterUrl = posterUrl;
+
+        await addDoc(collection(db, EVENTS_COLLECTION), eventDoc);
 
         // The live onSnapshot() subscription refreshes the list automatically.
         resetEventForm();
-        showFormStatus('Event published — it is now live on the public Events page.', false, eventFormStatus);
+        showFormStatus(
+          posterUrl
+            ? 'Event published with its poster — it is now live on the public Events page.'
+            : 'Event published — it is now live on the public Events page.',
+          false,
+          eventFormStatus
+        );
       } catch (error) {
         console.error('[ELLS] Publishing event failed:', error);
         showFormStatus(describeFirestoreError(error), true, eventFormStatus);
@@ -720,8 +785,77 @@ function initAdminConsole() {
       }
     });
 
+    /* ------------------------------------------------------------------
+       Poster picker — live thumbnail, validation and removal.
+       ------------------------------------------------------------------ */
+    if (eventPosterInput) {
+      eventPosterInput.addEventListener('change', () => {
+        clearPosterError();
+        const file = getSelectedPoster();
+        if (!file) {
+          clearPosterSelection();
+          return;
+        }
+
+        const problem = validatePosterFile(file);
+        if (problem) {
+          markPosterError(problem);
+          clearPosterSelection();
+          return;
+        }
+
+        previewPosterSelection(file);
+      });
+    }
+
+    if (removeEventPosterBtn) {
+      removeEventPosterBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        clearPosterSelection();
+        clearPosterError();
+        if (eventPosterInput) eventPosterInput.focus();
+      });
+    }
+
+    // Drag & drop support on the drop zone
+    if (eventPosterDrop && eventPosterInput) {
+      ['dragenter', 'dragover'].forEach((type) => {
+        eventPosterDrop.addEventListener(type, (event) => {
+          event.preventDefault();
+          eventPosterDrop.classList.add('is-dragging');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((type) => {
+        eventPosterDrop.addEventListener(type, () => {
+          eventPosterDrop.classList.remove('is-dragging');
+        });
+      });
+
+      eventPosterDrop.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+        if (!file) return;
+
+        const problem = validatePosterFile(file);
+        if (problem) {
+          markPosterError(problem);
+          clearPosterSelection();
+          return;
+        }
+
+        // Browsers do not let us set input.files from a drop, so remember the
+        // dropped file separately and use it when the form is submitted.
+        droppedPosterFile = file;
+        clearPosterError();
+        previewPosterSelection(file);
+      });
+    }
+
     eventForm.addEventListener('reset', () => {
       window.setTimeout(() => {
+        clearPosterSelection();
+        clearPosterError();
         updateEventCounter();
         updateEventPreview();
         clearFieldError(eventTitleInput, 'eventTitleError');
@@ -747,6 +881,8 @@ function initAdminConsole() {
     if (eventTimeInput) eventTimeInput.value = '';
     if (eventVenueInput) eventVenueInput.value = '';
     if (eventRegLinkInput) eventRegLinkInput.value = '';
+    clearPosterSelection();
+    clearPosterError();
     updateEventCounter();
     updateEventPreview();
     clearFieldError(eventTitleInput, 'eventTitleError');
@@ -759,12 +895,114 @@ function initAdminConsole() {
     if (eventTitleInput) eventTitleInput.focus();
   }
 
-  function setEventPublishing(isBusy) {
+  function setEventPublishing(isBusy, busyLabel) {
     if (!publishEventBtn) return;
     publishEventBtn.disabled = isBusy;
     publishEventBtn.classList.toggle('is-loading', isBusy);
     const label = publishEventBtn.querySelector('span');
-    if (label) label.textContent = isBusy ? 'Publishing…' : 'Publish Event';
+    if (label) label.textContent = isBusy ? (busyLabel || 'Publishing…') : 'Publish Event';
+  }
+
+  /* ======================================================================
+     Poster picker — validation, preview and ImgBB upload
+     ====================================================================== */
+
+  /** The poster the admin picked, whether via the picker or drag & drop. */
+  function getSelectedPoster() {
+    const picked = eventPosterInput && eventPosterInput.files && eventPosterInput.files[0];
+    return picked || droppedPosterFile || null;
+  }
+
+  /** Returns a human message when the file is unacceptable, otherwise ''. */
+  function validatePosterFile(file) {
+    const type = String(file.type || '').toLowerCase();
+    const name = String(file.name || '');
+    const looksLikeImage = /\.(jpe?g|png)$/i.test(name);
+
+    if (!POSTER_MIME_TYPES.includes(type) && !(looksLikeImage && !type)) {
+      return 'Please choose a JPG or PNG image. Other formats are not supported.';
+    }
+
+    if (!/\.(jpe?g|png)$/i.test(name) && !POSTER_MIME_TYPES.includes(type)) {
+      return 'Please choose a JPG or PNG image.';
+    }
+
+    if (file.size > POSTER_MAX_BYTES) {
+      return `That image is ${formatFileSize(file.size)} — the maximum is ${formatFileSize(POSTER_MAX_BYTES)}.`;
+    }
+
+    if (file.size === 0) {
+      return 'That file appears to be empty. Please choose another image.';
+    }
+
+    return '';
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
+
+  /** Shows the chosen image inside the picker and in the live preview. */
+  function previewPosterSelection(file) {
+    if (eventPosterObjectUrl) {
+      URL.revokeObjectURL(eventPosterObjectUrl);
+      eventPosterObjectUrl = '';
+    }
+
+    if (file) eventPosterObjectUrl = URL.createObjectURL(file);
+
+    if (eventPosterThumb) {
+      if (eventPosterObjectUrl) {
+        eventPosterThumb.src = eventPosterObjectUrl;
+        eventPosterThumb.hidden = false;
+      } else {
+        eventPosterThumb.removeAttribute('src');
+        eventPosterThumb.hidden = true;
+      }
+    }
+
+    if (eventPosterIcon) eventPosterIcon.hidden = !!file;
+    if (eventPosterDrop) eventPosterDrop.classList.toggle('has-file', !!file);
+    if (removeEventPosterBtn) removeEventPosterBtn.hidden = !file;
+
+    if (eventPosterLabel) {
+      eventPosterLabel.textContent = file ? 'Poster selected' : 'Choose a poster image';
+    }
+
+    if (eventPosterFileName) {
+      eventPosterFileName.textContent = file
+        ? `${file.name} · ${formatFileSize(file.size)}`
+        : 'PNG or JPG, square images look best';
+    }
+
+    if (eventPreviewPoster && eventPreviewPosterWrap) {
+      if (eventPosterObjectUrl) {
+        eventPreviewPoster.src = eventPosterObjectUrl;
+        eventPreviewPosterWrap.hidden = false;
+      } else {
+        eventPreviewPoster.removeAttribute('src');
+        eventPreviewPosterWrap.hidden = true;
+      }
+    }
+  }
+
+  /** Drops the selection (keeps the rest of the form untouched). */
+  function clearPosterSelection() {
+    if (eventPosterInput) eventPosterInput.value = '';
+    droppedPosterFile = null;
+    previewPosterSelection(null);
+    if (eventPosterDrop) eventPosterDrop.classList.remove('is-dragging', 'has-file');
+  }
+
+  function markPosterError(message) {
+    if (eventPosterInput) setFieldError(eventPosterInput, 'eventPosterFileError', message);
+    if (eventPosterDrop) eventPosterDrop.classList.add('has-error');
+  }
+
+  function clearPosterError() {
+    if (eventPosterInput) clearFieldError(eventPosterInput, 'eventPosterFileError');
+    if (eventPosterDrop) eventPosterDrop.classList.remove('has-error');
   }
 
   /* ======================================================================
@@ -1085,6 +1323,84 @@ function describeAuthError(error) {
     default:
       return 'Sign-in failed. Please check your credentials and try again.';
   }
+}
+
+/* =========================================================================
+   ImgBB poster upload
+   -------------------------------------------------------------------------
+   POST https://api.imgbb.com/1/upload  (multipart/form-data)
+     image → the file itself
+     key   → the free ImgBB API key (see firebase-config.js)
+
+   Success: { success: true, data: { display_url, url, … } }
+   Failure: { success: false, status: 4xx, error: { message } }
+
+   Only data.display_url is returned; the binary stays on ImgBB's CDN so no
+   Firebase Storage bucket (and no billing) is involved.
+   ========================================================================= */
+async function uploadPosterToImgBB(file) {
+  const formData = new FormData();
+  formData.append('image', file, file.name);
+  formData.append('key', IMGBB_API_KEY);
+
+  let response;
+  try {
+    response = await fetch(IMGBB_UPLOAD_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      // No mode/headers: the browser sets the multipart boundary itself and
+      // ImgBB returns permissive CORS headers for browser uploads.
+      redirect: 'follow'
+    });
+  } catch (networkError) {
+    const error = new Error('network');
+    error.cause = networkError;
+    throw error;
+  }
+
+  let payload = null;
+  try {
+    payload = await response.json();
+  } catch (parseError) {
+    payload = null;
+  }
+
+  if (!response.ok || !payload || payload.success === false) {
+    const error = new Error('rejected');
+    error.status = response.status;
+    error.apiMessage = payload && payload.error && payload.error.message;
+    throw error;
+  }
+
+  const url = payload.data && (payload.data.display_url || payload.data.url);
+  if (!url || !/^https?:\/\//i.test(url)) {
+    throw new Error('no-url');
+  }
+
+  return url;
+}
+
+function describePosterError(error) {
+  if (!error) return 'The poster could not be uploaded. Please try again.';
+  if (error.message === 'network') {
+    return 'Could not reach ImgBB. Check your internet connection and try again.';
+  }
+  if (error.status === 400) {
+    return 'ImgBB rejected the image. Try a different JPG or PNG file.';
+  }
+  if (error.status === 413) {
+    return 'That image is too large for ImgBB. Please choose a smaller file.';
+  }
+  if (error.status === 429) {
+    return 'Too many uploads right now. Wait a minute and try again.';
+  }
+  if (error.status === 401 || error.status === 403) {
+    return 'The ImgBB API key was rejected. Update IMGBB_API_KEY in firebase-config.js.';
+  }
+  if (error.message === 'no-url') {
+    return 'ImgBB accepted the upload but returned no image URL. Please try again.';
+  }
+  return 'The poster could not be uploaded. Please try again.';
 }
 
 function describeFirestoreError(error) {

@@ -38,8 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function initEventFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const searchInput = document.getElementById('eventSearchInput');
-  const eventCards = document.querySelectorAll('.event-card');
   const noResultsMsg = document.getElementById('noEventsMatch');
+
+  // The Firestore feed (js/events-feed.js) replaces every card after load, so
+  // always read the cards fresh instead of freezing a NodeList up front.
+  const getEventCards = () => Array.from(document.querySelectorAll('.event-card'));
 
   let activeCategory = 'all';
   let searchQuery = '';
@@ -47,7 +50,7 @@ function initEventFilters() {
   function filterEvents() {
     let visibleCount = 0;
 
-    eventCards.forEach(card => {
+    getEventCards().forEach(card => {
       const category = (card.getAttribute('data-category') || '').toLowerCase();
       const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
       const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
@@ -61,7 +64,9 @@ function initEventFilters() {
                             meta.includes(searchQuery);
 
       if (matchesCategory && matchesSearch) {
-        card.style.display = 'flex';
+        // Clear the inline style so the stylesheet decides: legacy cards are
+        // flex columns, poster cards are grid (poster left / details right).
+        card.style.display = '';
         visibleCount++;
       } else {
         card.style.display = 'none';
@@ -90,6 +95,10 @@ function initEventFilters() {
       filterEvents();
     });
   }
+
+  // The live feed re-renders #eventsGrid at any time; keep the active
+  // category/search applied to the freshly built cards.
+  document.addEventListener('ells:events-updated', filterEvents);
 }
 
 /* --------------------------------------------------------------------------
@@ -112,6 +121,9 @@ function initRsvpModal() {
 
   // Update UI for previously booked events
   updateBookedEvents(savedRsvps);
+
+  // …and again whenever the live feed rebuilds the cards.
+  document.addEventListener('ells:events-updated', () => updateBookedEvents(savedRsvps));
 
   // Open Modal
   rsvpBtns.forEach(btn => {

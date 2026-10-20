@@ -60,6 +60,27 @@ export const NOTICES_COLLECTION = 'notices';
 /** Firestore collection that powers the public events page (events.html). */
 export const EVENTS_COLLECTION = 'events';
 
+/* ---------------------------------------------------------------------------
+   ImgBB — free image hosting for event posters
+   ---------------------------------------------------------------------------
+   Posters are uploaded straight from admin.html to ImgBB, and only the
+   resulting public URL is written to Firestore. That keeps Storage costs at
+   zero and means Firestore documents stay tiny.
+
+   NOTE: as with the Firebase web API key above, this key ships in the client
+   bundle — it is a project identifier for the free ImgBB tier, not a secret
+   that grants access to your Firebase data. Rotate it from the ImgBB console
+   if it is ever abused (Settings → API).
+   --------------------------------------------------------------------------- */
+export const IMGBB_UPLOAD_ENDPOINT = 'https://api.imgbb.com/1/upload';
+export const IMGBB_API_KEY = 'f2035aa391a0f46994eba47c4dc76b99';
+
+/** Largest poster accepted before upload (ImgBB itself allows 32 MB). */
+export const POSTER_MAX_BYTES = 8 * 1024 * 1024;
+
+/** MIME types the poster picker accepts. */
+export const POSTER_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
+
 export const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);

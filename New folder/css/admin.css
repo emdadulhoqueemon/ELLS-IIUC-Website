@@ -781,6 +781,179 @@
   color: var(--text-muted);
 }
 
+/* --------------------------------------------------------------------------
+   Poster uploader (Add Event form)
+   --------------------------------------------------------------------------
+   A hidden <input type="file"> driven by a styled <label>: thumbnail preview,
+   filename + size, and a remove button. Drag & drop is wired in admin.js.
+   -------------------------------------------------------------------------- */
+.admin-optional {
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.admin-upload {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.admin-upload__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.admin-upload__drop {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(11, 17, 32, 0.45);
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition),
+              box-shadow var(--transition);
+}
+
+.admin-upload__drop:hover,
+.admin-upload__drop.is-dragging {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.admin-upload__drop:focus-within {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.admin-upload.has-error .admin-upload__drop,
+.admin-upload__drop.has-error {
+  border-color: var(--accent-crimson, #DC2626);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.admin-upload__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  color: var(--accent-gold);
+}
+
+.admin-upload__icon[hidden] {
+  display: none;
+}
+
+.admin-upload__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.admin-upload__thumb {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--accent-gold);
+  background: var(--bg-secondary);
+}
+
+.admin-upload__thumb[hidden] {
+  display: none;
+}
+
+.admin-upload__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.admin-upload__copy strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.admin-upload__copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-upload__remove {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  background: rgba(11, 17, 32, 0.9);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.admin-upload__remove:hover {
+  color: var(--accent-crimson, #DC2626);
+  border-color: var(--accent-crimson, #DC2626);
+}
+
+.admin-upload__remove[hidden] {
+  display: none;
+}
+
+/* Poster preview inside the admin "Live Preview" card */
+.admin-notice-preview__poster {
+  margin: -0.15rem -0.2rem 1rem;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+}
+
+.admin-notice-preview__poster[hidden] {
+  display: none;
+}
+
+.admin-notice-preview__poster img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
 .admin-form-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1007,6 +1180,52 @@
   height: 15px;
   margin-top: 0.1rem;
   color: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Console credit block — copyright with the developer credit directly beneath
+   it. Centred on every viewport, matching the public site's footer treatment.
+   Shared by the login panel and the dashboard footer.
+   -------------------------------------------------------------------------- */
+.admin-credit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.admin-credit__copyright {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.admin-credit .developer-credit {
+  align-self: stretch;
+  width: auto;
+  margin: 0.1rem 0 0;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+/* Login screen: sits under the legal note, inside the sign-in card.
+   No extra rule/divider here — the legal note above already closes the card. */
+.admin-credit--login {
+  margin-top: 0.85rem;
+}
+
+/* Dashboard: full-width footer strip below the console content */
+.admin-footer {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.15rem var(--container-padding) 1.6rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
 /* ==========================================================================
