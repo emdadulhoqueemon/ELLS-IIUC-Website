@@ -589,6 +589,52 @@ main > .hero .container,
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* A pasted Google Form URL must wrap inside the card, never force it wider */
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   Inline links inside a notice description (js/notice-board.js linkifies any
+   http(s) URL the IT Secretary types into the notice body)
+   -------------------------------------------------------------------------- */
+.notice-link {
+  color: var(--accent-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  border-radius: 3px;
+  padding: 0 1px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: color var(--transition, 0.2s ease),
+              background-color var(--transition, 0.2s ease),
+              text-decoration-color var(--transition, 0.2s ease);
+}
+
+/* External-link hint: this always opens a new tab */
+.notice-link::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: 0.18em;
+  font-size: 0.8em;
+  line-height: 1;
+  transform: translateY(-0.08em);
+  opacity: 0.75;
+}
+
+.notice-link:hover {
+  color: #F3D98B;
+  background-color: rgba(212, 175, 55, 0.14);
+  text-decoration-color: currentColor;
+}
+
+.notice-link:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+  color: #F3D98B;
+  background-color: rgba(212, 175, 55, 0.14);
 }
 
 .notice-card-stamp {

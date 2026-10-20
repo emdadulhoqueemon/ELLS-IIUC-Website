@@ -149,7 +149,9 @@ function buildNoticeCard(notice, index) {
 
   const description = document.createElement('p');
   description.className = 'notice-card-desc';
-  description.textContent = notice.description;
+  /* Announcements routinely carry a Google Form or a Facebook post — turn
+     those URLs into real links instead of leaving them as dead text. */
+  appendTextWithLinks(description, notice.description);
 
   const meta = document.createElement('div');
   meta.className = 'event-meta';
@@ -174,6 +176,156 @@ function buildNoticeCard(notice, index) {
   card.append(header, body);
 
   return card;
+}
+
+/* ---------------------------------------------------------------------------
+   Inline link detection for notice descriptions
+   ---------------------------------------------------------------------------
+   Notice text is written by hand in the admin console, so URLs arrive as
+   plain strings: "Abstracts: https://forms.gle/abc". Everything else in this
+   module sets textContent, and this helper keeps that guarantee — the text is
+   split into text nodes and <a> elements, never handed to innerHTML. A URL is
+   only linked when it parses as a real http(s) address, so "javascript:" or a
+   half-typed "https://" can never become clickable.
+   --------------------------------------------------------------------------- */
+
+const TRAILING_URL_PUNCTUATION = new Set([
+  '.', ',', ';', ':', '!', '?', '\u2026', "'", '"', '\u2019', '\u201d'
+]);
+
+/** Closing bracket → the opener it has to balance. */
+const CLOSING_BRACKETS = { ')': '(', ']': '[', '}': '{' };
+
+/** Splits "…/page)." into the clean URL plus the punctuation the sentence owns. */
+function splitTrailingPunctuation(candidate) {
+  let url = candidate;
+  let tail = '';
+
+  while (url.length > 0) {
+    const last = url[url.length - 1];
+
+    if (TRAILING_URL_PUNCTUATION.has(last)) {
+      tail = last + tail;
+      url = url.slice(0, -1);
+      continue;
+    }
+
+    /* Keep a closing bracket that balances one inside the URL — Wikipedia
+       style "…/Foo_(bar)" links stay intact, "(see https://x.com)" does not. */
+    const opener = CLOSING_BRACKETS[last];
+    if (opener) {
+      const opens = (url.split(opener).length - 1);
+      const closes = (url.split(last).length - 1);
+      if (closes > opens) {
+        tail = last + tail;
+        url = url.slice(0, -1);
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  return { url, tail };
+}
+
+/** Returns a normalised href, or null unless it is a genuine http(s) URL. */
+function toSafeHttpUrl(value) {
+  if (!value) return null;
+
+  try {
+    const parsed = new URL(value);
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return null;
+    if (!parsed.hostname) return null;
+    return parsed.href;
+  } catch {
+    return null;
+  }
+}
+
+function buildNoticeLink(displayText, href) {
+  const link = document.createElement('a');
+  link.className = 'notice-link';
+  link.href = href;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = displayText;
+  link.title = 'Opens in a new tab';
+  return link;
+}
+
+/** Appends `text` to `container`, wrapping every http(s) URL in an anchor. */
+function appendTextWithLinks(container, text) {
+  const value = safeText(text);
+  if (!value) return container;
+
+  const pattern = /\bhttps?:\/\/[^\s<>"'`]+/gi;
+  let cursor = 0;
+  let match = pattern.exec(value);
+
+  while (match) {
+    const start = match.index;
+    const { url, tail } = splitTrailingPunctuation(match[0]);
+    const href = toSafeHttpUrl(url);
+
+    if (start > cursor) {
+      container.appendChild(document.createTextNode(value.slice(cursor, start)));
+    }
+
+    container.appendChild(href ? buildNoticeLink(url, href) : document.createTextNode(url));
+    if (tail) container.appendChild(document.createTextNode(tail));
+
+    cursor = start + match[0].length;
+    match = pattern.exec(value);
+  }
+
+  if (cursor < value.length) {
+    container.appendChild(document.createTextNode(value.slice(cursor)));
+  }
+
+  return container;
+}
+
+/* ---------------------------------------------------------------------------
+   Marquee speed
+   ---------------------------------------------------------------------------
+   The stylesheet default (18s per loop) is tuned for a short line-up. When a
+   long run of notices makes the track much wider, 18s would rush the copy
+   past, so the duration is stretched for the measured width at roughly
+   150 px/s. It never goes below the requested 18s and never crawls past 30s.
+   --------------------------------------------------------------------------- */
+
+const TICKER_MIN_SECONDS = 18;
+const TICKER_MAX_SECONDS = 30;
+const TICKER_PIXELS_PER_SECOND = 150;
+
+/** Duration for a track holding two identical segments. */
+function tickerDurationFor(width) {
+  if (!Number.isFinite(width) || width <= 0) return TICKER_MIN_SECONDS;
+
+  const segmentWidth = width / 2;   // the keyframes travel half the track
+  const seconds = segmentWidth / TICKER_PIXELS_PER_SECOND;
+  return Math.min(TICKER_MAX_SECONDS, Math.max(TICKER_MIN_SECONDS, seconds));
+}
+
+function syncTickerDuration(track) {
+  if (!track) return;
+
+  const apply = () => {
+    const seconds = tickerDurationFor(track.scrollWidth || 0);
+    track.style.setProperty('--ticker-duration', `${seconds.toFixed(1)}s`);
+  };
+
+  apply();   // also the fallback when no layout engine is available
+
+  if (typeof window.requestAnimationFrame === 'function') {
+    window.requestAnimationFrame(apply);
+  }
+
+  // Web fonts change the text width; re-measure once they have loaded.
+  if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
+    document.fonts.ready.then(apply).catch(() => {});
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -224,6 +376,7 @@ function renderTicker(notices) {
   });
 
   bar.hidden = false;
+  syncTickerDuration(track);
 }
 
 /** Keeps one ticker entry to a readable length without cutting mid-word. */
