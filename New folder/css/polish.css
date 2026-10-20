@@ -377,6 +377,169 @@ main > .hero .container,
   margin: 0 0 0.5rem;
 }
 
+/* --------------------------------------------------------------------------
+   Poster event cards — square poster left, details right (events.html feed)
+   --------------------------------------------------------------------------
+   .event-card--poster is the layout emitted by js/events-feed.js for every
+   Firestore event:
+
+     .event-card--poster
+       .event-card__poster      → 1:1 media (img or placeholder)
+       .event-card__details     → header + body + footer
+
+   Desktop/tablet: two columns, poster square on the left.
+   Mobile: stacked, poster square on top.
+   -------------------------------------------------------------------------- */
+.event-card--poster {
+  display: grid;
+  grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+}
+
+.event-card--poster:hover {
+  transform: translateY(-4px);
+}
+
+/* The media cell — always a perfect square */
+.event-card__poster {
+  position: relative;
+  align-self: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.16) 0%, transparent 60%),
+    linear-gradient(140deg, #0B1120 0%, #132A24 55%, #0B1120 100%);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.event-card__poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.event-card--poster:hover .event-card__poster-img {
+  transform: scale(1.04);
+}
+
+/* Fallback: midnight-blue panel with the soft-gold ELLS mark */
+.event-card__poster-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(212, 175, 55, 0.22) 0%, transparent 62%),
+    linear-gradient(150deg, #0B1120 0%, #16233d 48%, #0B1120 100%);
+}
+
+.event-card__poster-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.event-card__poster-mark {
+  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: var(--accent-gold);
+  text-shadow: 0 2px 18px rgba(212, 175, 55, 0.35);
+}
+
+.event-card__poster-caption {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(248, 250, 252, 0.72);
+  max-width: 90%;
+  overflow-wrap: anywhere;
+}
+
+/* Details column */
+.event-card__details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+}
+
+.event-card--poster .event-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: var(--polish-card-pad) var(--polish-card-pad) 0.85rem;
+}
+
+.event-card--poster .event-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+}
+
+.event-card--poster .event-card-body h3 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.28;
+}
+
+.event-card--poster .event-card-body > p {
+  margin: 0 0 0.9rem;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.event-card--poster .event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+
+.event-card--poster .event-card-footer {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* The events feed breathes better in two wide columns than three narrow ones */
+#eventsGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+  #eventsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Committee / people cards */
 .committee-card {
   height: 100%;
@@ -766,6 +929,41 @@ main > .hero .container,
 
   .event-card-body h3 {
     font-size: 1rem !important;
+  }
+
+  /* Poster cards stack: square poster on top, details directly below */
+  #eventsGrid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .event-card--poster {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .event-card__poster {
+    align-self: start;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .event-card--poster .event-card-header {
+    padding: 0.95rem 0.95rem 0.6rem;
+  }
+
+  .event-card--poster .event-card-body {
+    padding: 0 0.95rem 0.95rem;
+  }
+
+  .event-card--poster .event-card-body h3 {
+    font-size: 1.02rem !important;
+  }
+
+  .event-card__poster-mark {
+    font-size: 1.55rem;
+  }
+
+  .event-card__poster-caption {
+    font-size: 0.6rem;
   }
 
   .membership-switch {

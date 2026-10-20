@@ -15,6 +15,8 @@ rules_version = '2';
 //
 //   events/{eventId}
 //     • Anyone may READ  → the public events page (events.html).
+//     • posterUrl is optional: an https ImgBB display_url written by the
+//       admin console after a successful poster upload.
 //     • ONLY the authorised admin accounts may CREATE, UPDATE and DELETE:
 //           emdadulhoquex@gmail.com      (IT Secretary)
 //           ells.dell.iiuc95@gmail.com   (official ELLS club account)
@@ -74,7 +76,7 @@ service cloud.firestore {
     function isValidEvent() {
       return request.resource.data.keys().hasOnly([
                 'title', 'category', 'description', 'date', 'time',
-                'venue', 'registrationLink',
+                'venue', 'registrationLink', 'posterUrl',
                 'createdAt', 'authorEmail', 'authorUid'
               ])
         && request.resource.data.title is string
@@ -98,6 +100,15 @@ service cloud.firestore {
         && request.resource.data.registrationLink is string
         && request.resource.data.registrationLink.size() <= 600
         && request.resource.data.registrationLink.matches('^https?://.+$')
+        // Optional poster (uploaded to ImgBB): must be an https image URL.
+        && (
+             !('posterUrl' in request.resource.data)
+             || (
+                  request.resource.data.posterUrl is string
+                  && request.resource.data.posterUrl.size() <= 600
+                  && request.resource.data.posterUrl.matches('^https://.+$')
+                )
+           )
         && request.resource.data.authorEmail is string
         && isAdminEmail(request.resource.data.authorEmail);
     }

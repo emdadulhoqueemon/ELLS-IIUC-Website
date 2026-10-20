@@ -481,6 +481,46 @@
             </div>
 
             <div class="form-group">
+              <div class="admin-label-row">
+                <label class="form-label" for="eventPosterFile">Event Poster <span class="admin-optional">Optional</span></label>
+                <span class="admin-counter">JPG / PNG &middot; max 8 MB</span>
+              </div>
+
+              <div class="admin-upload" id="eventPosterUpload">
+                <input
+                  type="file"
+                  class="admin-upload__input"
+                  id="eventPosterFile"
+                  name="poster"
+                  accept="image/png, image/jpeg, image/jpg"
+                  aria-describedby="eventPosterHint eventPosterFileError">
+
+                <label class="admin-upload__drop" for="eventPosterFile" id="eventPosterDrop">
+                  <img class="admin-upload__thumb" id="eventPosterThumb" alt="" hidden>
+                  <span class="admin-upload__icon" id="eventPosterIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                  </span>
+                  <span class="admin-upload__copy">
+                    <strong id="eventPosterLabel">Choose a poster image</strong>
+                    <span id="eventPosterFileName">PNG or JPG, square images look best</span>
+                  </span>
+                </label>
+
+                <button type="button" class="admin-upload__remove" id="removeEventPoster" hidden>
+                  <span aria-hidden="true">&times;</span>
+                  <span class="visually-hidden">Remove selected poster</span>
+                </button>
+              </div>
+
+              <span class="form-hint" id="eventPosterHint">Uploaded to ImgBB and shown as a square poster on the public events page.</span>
+              <p class="form-error" id="eventPosterFileError"></p>
+            </div>
+
+            <div class="form-group">
               <label class="form-label" for="eventRegLink">Registration Link <span class="required">*</span></label>
               <input
                 type="url"
@@ -522,6 +562,9 @@
             </header>
 
             <article class="admin-notice-preview">
+              <div class="admin-notice-preview__poster" id="eventPreviewPosterWrap" hidden>
+                <img id="eventPreviewPoster" alt="Selected event poster preview">
+              </div>
               <div class="admin-notice-preview__top">
                 <span class="admin-notice-preview__badge" id="eventPreviewBadge">Event</span>
                 <time id="eventPreviewWhen">Date &amp; time not set</time>

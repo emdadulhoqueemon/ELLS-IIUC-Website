@@ -14,6 +14,7 @@
  *     time:             string,   // display time, e.g. "2:00 PM - 2:30 PM"
  *     venue:            string,
  *     registrationLink: string,   // URL behind the "Reg Now" button
+ *     posterUrl:        string?,   // optional ImgBB https URL (square poster)
  *     createdAt:        Timestamp // serverTimestamp()
  *   }
  *
@@ -119,6 +120,7 @@ function initEventsFeed(gridEl) {
           time: safeText(data.time),
           venue: safeText(data.venue),
           registrationLink: safeText(data.registrationLink),
+          posterUrl: safeText(data.posterUrl),
           createdAt: toMillis(data.createdAt)
         };
       });
@@ -173,10 +175,39 @@ function buildEventCard(evt) {
   const badgeParts = splitDisplayDate(evt.date);
 
   const card = document.createElement('article');
-  card.className = 'event-card';
+  card.className = 'event-card event-card--poster';
   card.dataset.category = taxonomy.keys;
   card.dataset.eventId = evt.id;
   card.setAttribute('aria-labelledby', `eventTitle-${evt.id}`);
+
+  /* ---- 1. Square poster (left on desktop, on top on mobile) ---- */
+  const poster = document.createElement('div');
+  poster.className = 'event-card__poster';
+
+  const posterUrl = normalizeHttpUrl(evt.posterUrl);
+  const titleText = evt.title || 'Untitled Event';
+
+  if (posterUrl) {
+    const img = document.createElement('img');
+    img.className = 'event-card__poster-img';
+    img.src = posterUrl;
+    img.alt = `${titleText} — ELLS event poster`;
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
+    img.setAttribute('referrerpolicy', 'no-referrer');
+    // A dead/blocked URL must never leave a broken-image icon on the card.
+    img.addEventListener('error', () => {
+      poster.removeChild(img);
+      poster.appendChild(buildPosterPlaceholder(evt.category));
+    }, { once: true });
+    poster.appendChild(img);
+  } else {
+    poster.appendChild(buildPosterPlaceholder(evt.category));
+  }
+
+  /* ---- 2. Details column ---- */
+  const details = document.createElement('div');
+  details.className = 'event-card__details';
 
   /* Header: date badge + category badge */
   const header = document.createElement('div');
@@ -213,7 +244,7 @@ function buildEventCard(evt) {
 
   const title = document.createElement('h3');
   title.id = `eventTitle-${evt.id}`;
-  title.textContent = evt.title || 'Untitled Event';
+  title.textContent = titleText;
 
   const description = document.createElement('p');
   description.textContent = evt.description;
@@ -234,9 +265,32 @@ function buildEventCard(evt) {
   footer.append(seats, buildRsvpControl(evt));
 
   body.append(title, description, meta, footer);
-  card.append(header, body);
+  details.append(header, body);
+  card.append(poster, details);
 
   return card;
+}
+
+/**
+ * Poster placeholder — midnight-blue panel with the soft-gold ELLS mark.
+ * Used when an event has no posterUrl, and as the graceful fallback when an
+ * uploaded poster fails to load.
+ */
+function buildPosterPlaceholder(category) {
+  const placeholder = document.createElement('div');
+  placeholder.className = 'event-card__poster-placeholder';
+  placeholder.setAttribute('aria-hidden', 'true');
+
+  const mark = document.createElement('span');
+  mark.className = 'event-card__poster-mark';
+  mark.textContent = 'ELLS';
+
+  const caption = document.createElement('span');
+  caption.className = 'event-card__poster-caption';
+  caption.textContent = category ? String(category) : 'Literary Society';
+
+  placeholder.append(mark, caption);
+  return placeholder;
 }
 
 /**
