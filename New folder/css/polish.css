@@ -1152,6 +1152,58 @@ main > .hero .container,
     margin-bottom: 1rem;
   }
 
+  /* ------------------------------------------------------------------------
+     Events category pills — horizontal swipe strip
+     ------------------------------------------------------------------------
+     Below 768px the eight category buttons no longer fit. They become a
+     single non-wrapping rail that scrolls sideways with momentum, and the
+     scrollbar is hidden so it reads as a native app carousel.
+
+     `justify-content: flex-start` is essential: the desktop rule centres the
+     pills, and a centred flex container that overflows clips the FIRST items
+     beyond the left edge, where no amount of scrolling can reach them.
+     ------------------------------------------------------------------------ */
+  .event-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    padding-bottom: 5px;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    /* Firefox + legacy IE/Edge: no visible scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* WebKit/Blink: no visible scrollbar */
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .filter-pills .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
   .search-input-wrap {
     flex: 1 1 100%;
     min-width: 0;
@@ -1181,7 +1233,18 @@ main > .hero .container,
     justify-content: center;
   }
 
-  /* Student ID lookup: full-width field + button */
+  /* ------------------------------------------------------------------------
+     Student ID lookup: full-width field + button, stacked with compact spacing
+     ------------------------------------------------------------------------
+     The markup carries inline flex values tuned for the desktop ROW layout:
+       form           display:flex; align-items:flex-end
+       .form-group    flex: 1 1 260px
+       button         align-self: flex-end
+     Stacking the form into a COLUMN turns that 260px flex-basis into a 260px
+     HEIGHT, which opened the huge empty gap between the Student ID field and
+     the Check Status button. Both children are pinned to their natural height
+     here so the button lands directly under the field.
+     ------------------------------------------------------------------------ */
   #memberLookupForm {
     flex-direction: column;
     align-items: stretch !important;
@@ -1191,11 +1254,16 @@ main > .hero .container,
   #memberLookupForm .form-group,
   #memberLookupForm .btn {
     width: 100%;
-    flex: 1 1 auto;
+    /* column axis → flex-basis is a HEIGHT: never let it inflate the field */
+    flex: 0 0 auto !important;
+    min-height: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   #memberLookupForm .btn {
     align-self: stretch !important;
+    height: auto;
   }
 
   #applicationFormCard .wizard-step > h3 {

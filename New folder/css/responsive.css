@@ -453,7 +453,7 @@
     text-align: center;
   }
 
-  /* Stacked footer: copyright and developer credit both centre */
+  /* Stacked footer: the copyright centres across the page */
   .footer-legal {
     align-items: center;
     width: 100%;
@@ -1733,11 +1733,6 @@
     gap: 0.6rem !important;
     font-size: 0.78rem !important;
   }
-  .developer-credit {
-    margin-top: 0.08rem !important;
-    font-size: 0.7rem !important;
-    line-height: 1.35 !important;
-  }
   .footer-quote {
     font-size: 0.88rem !important;
   }
@@ -1891,8 +1886,5 @@
   .footer-bottom {
     padding-top: 0.7rem !important;
     font-size: 0.74rem !important;
-  }
-  .developer-credit {
-    font-size: 0.67rem !important;
   }
 }
