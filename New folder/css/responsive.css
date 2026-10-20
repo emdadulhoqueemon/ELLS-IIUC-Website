@@ -1882,17 +1882,3 @@
     font-size: 0.74rem !important;
   }
 }
-
-/* Smart Sticky Navbar - Global header spec */
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 9999;
-  transition: top 0.3s ease-in-out;
-}
-
-/* Footer Brand Alignment - Exact Center Spec */
-.footer-brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.footer-brand .site-logo { display: flex; flex-direction: column; align-items: center; text-align: center; }
-@media (max-width: 768px) { .footer-brand .site-logo { display: flex; flex-direction: column; align-items: center; text-align: center; } }

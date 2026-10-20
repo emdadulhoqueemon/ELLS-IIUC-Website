@@ -56,7 +56,10 @@ function initNavigation() {
     if (backdrop) backdrop.classList.add('open');
     document.body.classList.add('nav-open');
     document.documentElement.classList.add('nav-open');
-    if (header) header.classList.remove('header-hidden');
+    if (header) {
+      header.classList.remove('header-hidden', 'is-hidden');
+      header.style.top = '0px';
+    }
   }
 
   function closeMenu() {
@@ -103,30 +106,111 @@ function initNavigation() {
 }
 
 /* --------------------------------------------------------------------------
-   3. Smart Sticky Header (Auto-hide on Scroll Down, Reveal on Scroll Up)
+   3. Smart Sticky Header — explicit show/hide on scroll direction
+   --------------------------------------------------------------------------
+   Contract with css/polish.css (.site-header):
+     position: fixed; top: 0; width: 100%; z-index: 9999;
+     transition: top 0.3s ease-in-out;
+
+   Behaviour (required):
+     • scrolling DOWN  → header.style.top = '-<header height>px'  (hide)
+     • scrolling UP    → header.style.top = '0'                   (reveal)
+     • at the very top → always visible
+
+   Implementation notes:
+     • `lastScrollTop` tracks the previous position; the delta drives the
+       direction decision, so a 1px rubber-band wobble cannot flicker the bar.
+     • scroll events are coalesced into one requestAnimationFrame tick.
+     • the bar is always shown when the mobile drawer is open, when something
+       inside it receives focus, and when the page is restored from the
+       back/forward cache or resized back to the top.
    -------------------------------------------------------------------------- */
 function initHeaderScroll() {
-  let lastScrollTop = 0;
-  const navbar = document.querySelector('header'); // adjust selector if needed
-  if (!navbar) return;
-  window.addEventListener('scroll', function() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > lastScrollTop) {
-          navbar.style.top = '-100px'; // or appropriate height to hide
-      } else {
-          navbar.style.top = '0';
-      }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-  });
-  // Scrolled shadow enhancement (kept for aesthetics)
-  window.addEventListener('scroll', function() {
-      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll > 20) {
-          navbar.classList.add('scrolled');
-      } else {
-          navbar.classList.remove('scrolled');
-      }
+  const header = document.querySelector('.site-header') || document.querySelector('header');
+  if (!header) return;
+
+  const HIDE_CLASS = 'is-hidden';
+  const JITTER = 6; // px of movement before we react (kills touch jitter)
+  let lastScrollTop = Math.max(
+    window.pageYOffset || document.documentElement.scrollTop || 0,
+    0
+  );
+  let ticking = false;
+
+  function headerHeight() {
+    // 70px on phones (responsive.css), 80px on desktop — used only when the
+    // element cannot report its own height (e.g. before layout).
+    return header.offsetHeight || (window.innerWidth <= 768 ? 70 : 80);
+  }
+
+  function showHeader() {
+    header.style.top = '0px';
+    header.classList.remove(HIDE_CLASS, 'header-hidden');
+  }
+
+  function hideHeader() {
+    header.style.top = `-${headerHeight()}px`;
+    header.classList.add(HIDE_CLASS);
+  }
+
+  function currentScrollTop() {
+    return Math.max(
+      window.pageYOffset || document.documentElement.scrollTop || 0,
+      0
+    );
+  }
+
+  function updateHeader() {
+    ticking = false;
+
+    const scrollTop = currentScrollTop();
+    const delta = scrollTop - lastScrollTop;
+
+    // Shadow once the page has moved a little.
+    header.classList.toggle('scrolled', scrollTop > 8);
+
+    // Never hide the bar while the mobile drawer is open.
+    if (document.body.classList.contains('nav-open')) {
+      showHeader();
+      lastScrollTop = scrollTop;
+      return;
+    }
+
+    if (scrollTop <= 0) {
+      // Pinned at the top of the page — the header always belongs here.
+      showHeader();
+    } else if (delta > JITTER && scrollTop > headerHeight()) {
+      // Scrolling DOWN → slide the bar out of view.
+      hideHeader();
+    } else if (delta < -JITTER) {
+      // Scrolling UP → bring it straight back.
+      showHeader();
+    }
+
+    lastScrollTop = scrollTop;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateHeader);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Re-reveal the bar in the situations where hiding it would strand the user.
+  window.addEventListener('resize', () => {
+    if (currentScrollTop() <= 0) showHeader();
   }, { passive: true });
+
+  header.addEventListener('focusin', showHeader);
+  window.addEventListener('hashchange', showHeader);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) showHeader();
+  });
+
+  // Start visible, even when the browser restores a scrolled position.
+  showHeader();
 }
 
 /* --------------------------------------------------------------------------
@@ -324,16 +408,3 @@ function initNoticeBoard() {
     }, 2500);
   }, { passive: true });
 }
-/* MANDATORY Smart Sticky Navbar Fix - Exact Logic as Required */
-let lastScrollTop = 0;
-const navbar = document.querySelector('header'); // adjust selector if needed
-window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-        navbar.style.top = '-100px'; // or appropriate height to hide
-    } else {
-        navbar.style.top = '0';
-    }
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-});
-

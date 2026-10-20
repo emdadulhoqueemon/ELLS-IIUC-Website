@@ -3,6 +3,30 @@
  * Dynamic search, category filtering, native <dialog> RSVP system & seat management
  */
 
+/* Storage-safe RSVP helpers — never let blocked storage break the modal. */
+const RSVP_STORAGE_KEY = 'ells-rsvps';
+
+function readStoredRsvps() {
+  try {
+    const raw = window.localStorage ? window.localStorage.getItem(RSVP_STORAGE_KEY) : null;
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.warn('[ELLS] RSVP storage unavailable (read):', error);
+    return [];
+  }
+}
+
+function writeStoredRsvps(list) {
+  try {
+    if (window.localStorage) {
+      window.localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(list));
+    }
+  } catch (error) {
+    console.warn('[ELLS] RSVP storage unavailable (write):', error);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initEventFilters();
   initRsvpModal();
@@ -83,8 +107,8 @@ function initRsvpModal() {
 
   if (!modal || !rsvpForm) return;
 
-  // Track RSVPs in localStorage
-  const savedRsvps = JSON.parse(localStorage.getItem('ells-rsvps') || '[]');
+  // Track RSVPs locally (storage-safe: private modes may throw)
+  const savedRsvps = readStoredRsvps();
 
   // Update UI for previously booked events
   updateBookedEvents(savedRsvps);
@@ -151,7 +175,7 @@ function initRsvpModal() {
     // Save to local storage
     if (eventId && !savedRsvps.includes(eventId)) {
       savedRsvps.push(eventId);
-      localStorage.setItem('ells-rsvps', JSON.stringify(savedRsvps));
+      writeStoredRsvps(savedRsvps);
     }
 
     closeModal();

@@ -22,6 +22,7 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/polish.css">
 </head>
 <body>
   <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
@@ -132,19 +133,23 @@
 
   <main id="main-content">
     <!-- Events Header -->
-    <!-- Events Header -->
-    <section class="hero" style="padding-bottom: 2rem;">
-      <div class="container text-center" style="max-width: 860px;">
-        <span class="eyebrow">SEMESTER SCHEDULE • AUTUMN 2026</span>
-        <h1>Events, Competitions &amp; Festivals</h1>
-        <p style="font-size: 1.15rem; color: var(--text-secondary); margin-top: 1rem;">
-          Explore the official calendar of the English Language and Literary Society (ELLS), Department of English, IIUC. Join our upcoming post-midterm competitions, workshops, sports, and international conference, or review the chronicles and highlights from our pre-midterm events.
-        </p>
+    <section class="hero" aria-labelledby="events-heading">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">SEMESTER SCHEDULE • AUTUMN 2026</span>
+          <h1 id="events-heading">Events, Competitions &amp; Festivals</h1>
+          <p class="hero-lead">
+            Explore the official calendar of the English Language and Literary Society (ELLS),
+            Department of English, IIUC. Join our upcoming post-midterm competitions, workshops,
+            sports, and international conference, or review the chronicles and highlights from our
+            pre-midterm events.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Upcoming Events (After Mid-Term) Section -->
-    <section style="padding: 1.5rem 0 1rem 0;">
+    <section class="events-controls-section" style="padding: 1.5rem 0 1rem 0;">
       <div class="container">
         <div class="section-intro" style="margin-bottom: 2rem;">
           <span class="eyebrow" style="color: var(--accent-gold);">AFTER MID-TERM</span>
@@ -177,7 +182,7 @@
     </section>
 
     <!-- Upcoming Events Grid -->
-    <section style="padding-top: 1rem; padding-bottom: 3rem;">
+    <section class="events-grid-section" style="padding-top: 1rem; padding-bottom: 3rem;">
       <div class="container">
         <div class="grid grid-3" id="eventsGrid">
           <!-- Upcoming Event 1: Oct 14 - Lexicon Mastery -->
@@ -591,7 +596,7 @@
               <span class="badge badge-gold">Sep 6–7, 2026</span>
               <span class="badge badge-navy" style="font-size: 0.72rem;">Sports Track</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">E-Football Tournament</h3>
+            <h3 style="margin-bottom: 0.6rem;">E-Football Tournament</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               The electrifying launch of our Autumn 2026 season! Department gamers contested thrilling virtual soccer fixtures showcasing sharp tactical intelligence and esports passion.
             </p>
@@ -611,7 +616,7 @@
               <span class="badge badge-navy">Sep 7, 2026 • 10:40 AM</span>
               <span class="badge badge-gold" style="font-size: 0.72rem;">Literary Track</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Grammarian Contest</h3>
+            <h3 style="margin-bottom: 0.6rem;">Grammarian Contest</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               An intensive scrutiny of syntax, punctuation nuances, linguistic error analysis, and grammatical subtleties where students demonstrated academic precision.
             </p>
@@ -631,7 +636,7 @@
               <span class="badge badge-crimson">Sep 9, 2026</span>
               <span class="badge badge-gold" style="font-size: 0.72rem;">Cultural Track</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Cultural Competition</h3>
+            <h3 style="margin-bottom: 0.6rem;">Cultural Competition</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               A spiritually resonant gathering celebrating Quran recitation, melodious Naat-e-Rasool, and emotive recitation of classical English and Bengali poems.
             </p>
@@ -651,7 +656,7 @@
               <span class="badge badge-gold">Sep 9, 2026</span>
               <span class="badge badge-navy" style="font-size: 0.72rem;">Organizing &amp; Sports</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">GK &amp; Literary Challenge + Cricket</h3>
+            <h3 style="margin-bottom: 0.6rem;">GK &amp; Literary Challenge + Cricket</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               An action-packed twin event pairing quick-thinking general knowledge and literary trivia challenges with competitive outdoor cricket pitch excitement.
             </p>
@@ -671,7 +676,7 @@
               <span class="badge badge-crimson">Sep 13, 2026 • 1:00 PM</span>
               <span class="badge badge-gold" style="font-size: 0.72rem;">Cultural Track</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Wall Magazine Publication</h3>
+            <h3 style="margin-bottom: 0.6rem;">Wall Magazine Publication</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               Visual literature brought to life. Students curated and unveiled handmade artistic wall installations blending poetry, editorial essays, and illustrated themes.
             </p>
@@ -691,7 +696,7 @@
               <span class="badge badge-gold">Sep 14, 2026 • 10:40 AM</span>
               <span class="badge badge-navy" style="font-size: 0.72rem;">Organizing &amp; Literary</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Picture Description Competition</h3>
+            <h3 style="margin-bottom: 0.6rem;">Picture Description Competition</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               A creative observation challenge evaluating participants on descriptive eloquence, metaphoric interpretations, and rapid narrative storytelling from unseen imagery.
             </p>
@@ -711,7 +716,7 @@
               <span class="badge badge-navy">Sep 15, 2026 • Night (Online)</span>
               <span class="badge badge-crimson" style="font-size: 0.72rem;">Cultural &amp; Career</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">English for Professional Success</h3>
+            <h3 style="margin-bottom: 0.6rem;">English for Professional Success</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               High-impact virtual session on Journalism, Article Writing &amp; Advanced Communication strategies, empowering members with real-world media and editorial skills.
             </p>
@@ -731,7 +736,7 @@
               <span class="badge badge-gold">Sep 16, 2026 • 3:20 PM</span>
               <span class="badge badge-crimson" style="font-size: 0.72rem;">Grand Finale</span>
             </div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Grand Literary Day</h3>
+            <h3 style="margin-bottom: 0.6rem;">Grand Literary Day</h3>
             <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
               The grand pre-midterm finale uniting <em>The Listening Bee</em>, <em>Ink &amp; Intellect: The Literary Debate</em>, and the <em>Public Speaking Competition</em> in a full-house celebration.
             </p>
