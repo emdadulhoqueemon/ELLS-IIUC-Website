@@ -3114,10 +3114,8 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Footer legal block — copyright with the developer credit tucked directly
-   beneath it. The block keeps the copyright flush with the footer edge on
-   desktop while the credit sits perfectly centred underneath it; on mobile
-   (where .footer-bottom stacks) both lines centre across the page.
+   Footer legal block — copyright only. The developer credit lives in its own
+   full-bleed gold bar at the very end of <body> (see .developer-credit-bar).
    -------------------------------------------------------------------------- */
 .footer-legal {
   display: flex;
@@ -3132,21 +3130,32 @@ textarea.form-control {
   line-height: 1.5;
 }
 
-/* Developer credit: one step smaller and softer than the copyright line,
-   with tight vertical rhythm so it reads as a signature, not a new block. */
-.developer-credit {
-  align-self: stretch;
-  width: auto;
-  margin: 0.1rem 0 0;
-  padding: 0;
+/* --------------------------------------------------------------------------
+   Developer credit bar — full-width gold strip, the last element on the page
+   --------------------------------------------------------------------------
+   Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
+   spans the whole viewport instead of the footer's max-width container. It is
+   intentionally a different colour world from the dark footer above it: soft
+   gold (#d4af37) with near-black type (#0a111a) for maximum contrast.
+   -------------------------------------------------------------------------- */
+.developer-credit-bar {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0 0;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  background-color: #d4af37;
+  color: #0a111a;
   font-family: inherit;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: 0.015em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   text-align: center;
-  color: var(--text-muted);
-  opacity: 0.72;
+  border: 0;
+  /* Keeps the strip crisp against the dark page above it */
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.16) inset;
 }
 
 /* --------------------------------------------------------------------------

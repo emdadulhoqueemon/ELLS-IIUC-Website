@@ -4,7 +4,11 @@
    ========================================================================== */
 
 .admin-body {
-  display: block;
+  /* A column flex box so the gold developer bar always finishes the page:
+     whichever view (login or dashboard) is visible grows to fill the viewport
+     and the bar sits flush underneath it. */
+  display: flex;
+  flex-direction: column;
   /* style.css offsets every page by 80px to clear the public site's fixed
      header (body { padding-top: 80px }). The admin console has no site header
      — its own .admin-topbar is sticky — so that offset would leave a dark
@@ -48,7 +52,10 @@
 .admin-login {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  min-height: 100vh;
+  /* Fills the viewport minus the developer bar; never a fixed 100vh, which
+     would push the bar below the fold. */
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 /* --- Brand panel ------------------------------------------------------- */
@@ -494,7 +501,8 @@
    Dashboard
    ========================================================================== */
 .admin-dashboard {
-  min-height: 100vh;
+  flex: 1 1 auto;
+  min-height: 0;
   background:
     radial-gradient(circle at 8% 0%, rgba(212, 175, 55, 0.05), transparent 38%),
     var(--bg-primary);
@@ -787,6 +795,246 @@
   font-size: 0.74rem;
   font-weight: 600;
   color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   "Currently Live on Website" tables
+   --------------------------------------------------------------------------
+   Serial number · mini poster · title / date / status · Edit + Delete.
+   Rendered by admin.js (buildNoticeRow / buildEventRow).
+   -------------------------------------------------------------------------- */
+.admin-live {
+  margin-top: 1.5rem;
+}
+
+.admin-live-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.admin-live-list.is-loading {
+  opacity: 0.55;
+}
+
+.admin-live-item {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: rgba(11, 17, 32, 0.5);
+  transition: border-color var(--transition), background-color var(--transition),
+              box-shadow var(--transition);
+}
+
+/* Notices have no thumbnail: drop the second column */
+.admin-live-item:not(.admin-live-item--event) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.admin-live-item:hover {
+  border-color: rgba(212, 175, 55, 0.42);
+  background: rgba(11, 17, 32, 0.72);
+}
+
+.admin-live-item.is-editing {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35), 0 10px 26px rgba(0, 0, 0, 0.28);
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.1), rgba(11, 17, 32, 0.6) 45%);
+}
+
+.admin-live-item.is-saved {
+  animation: adminLiveSaved 1.6s ease;
+}
+
+@keyframes adminLiveSaved {
+  0%   { border-color: var(--accent-green, #10B981); box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35); }
+  100% { border-color: var(--border-subtle); box-shadow: none; }
+}
+
+.admin-live-item__serial {
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--accent-gold);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-live-item__thumb {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  flex: 0 0 auto;
+}
+
+.admin-live-item__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.admin-live-item__thumb.is-placeholder {
+  border-color: rgba(212, 175, 55, 0.32);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.22), transparent 70%),
+    linear-gradient(150deg, #0B1120 0%, #16233d 60%, #0B1120 100%);
+  color: var(--accent-gold);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.admin-live-item__body {
+  min-width: 0;
+}
+
+.admin-live-item__title {
+  margin: 0 0 0.2rem;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.admin-live-item__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.admin-live-item__dot {
+  opacity: 0.5;
+}
+
+.admin-live-item__desc {
+  margin: 0.28rem 0 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Status pills */
+.admin-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-live-badge--live,
+.admin-live-badge--open {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.12);
+  color: #6EE7B7;
+}
+
+.admin-live-badge--closed {
+  border-color: rgba(148, 163, 184, 0.45);
+  background: rgba(148, 163, 184, 0.12);
+  color: #CBD5E1;
+}
+
+.admin-live-badge--completed {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--accent-gold);
+}
+
+/* Row actions */
+.admin-live-item__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.admin-live-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.62rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: rgba(148, 163, 184, 0.06);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition),
+              background-color var(--transition);
+}
+
+.admin-live-action svg {
+  width: 14px;
+  height: 14px;
+}
+
+.admin-live-action:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.admin-live-action--edit:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.admin-live-action--delete:hover {
+  color: #F87171;
+  border-color: rgba(248, 113, 113, 0.55);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.admin-live-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The form is visibly in edit mode */
+.admin-notice-card form.is-editing {
+  border-left: 3px solid var(--accent-gold);
+  padding-left: 1rem;
+  margin-left: -1rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -1191,9 +1439,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   Console credit block — copyright with the developer credit directly beneath
-   it. Centred on every viewport, matching the public site's footer treatment.
-   Shared by the login panel and the dashboard footer.
+   Console credit block — copyright only. The developer credit is a full-bleed
+   gold bar at the very end of <body> (style.css → .developer-credit-bar), so
+   it shows on both the login view and the dashboard.
    -------------------------------------------------------------------------- */
 .admin-credit {
   display: flex;
@@ -1210,14 +1458,6 @@
   font-size: 0.78rem;
   line-height: 1.5;
   color: var(--text-muted);
-  text-align: center;
-}
-
-.admin-credit .developer-credit {
-  align-self: stretch;
-  width: auto;
-  margin: 0.1rem 0 0;
-  font-size: 0.7rem;
   text-align: center;
 }
 
@@ -1541,4 +1781,34 @@
   font-size: 0.82rem;
   color: var(--text-muted);
   overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   "Currently Live" rows on phones — actions drop to their own line so the
+   title never gets squeezed to three characters.
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .admin-live-item:not(.admin-live-item--event) {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .admin-live-item--event {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .admin-live-item--event .admin-live-item__thumb {
+    width: 44px;
+    height: 44px;
+  }
+
+  .admin-live-item__actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+
+  .admin-live-item__serial {
+    min-width: 38px;
+  }
 }

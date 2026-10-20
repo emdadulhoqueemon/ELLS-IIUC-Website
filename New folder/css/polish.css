@@ -156,6 +156,32 @@ p {
   flex: 0 0 auto;
 }
 
+/* Home hero welcome badge — the first thing on index.html.
+   Deliberately NOT .eyebrow: the sentence is long, so it stays sentence-case
+   with tight tracking and is allowed to wrap instead of overflowing. */
+.hero-welcome {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-width: 100%;
+  margin: 0 auto 1.15rem;
+  padding: 0.44rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.05));
+  color: var(--accent-gold);
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.08);
+}
+
 /* Eyebrows inside cards / forms stay minimal (no decorative rules) */
 .card .eyebrow::before,
 .card .eyebrow::after,
@@ -536,6 +562,374 @@ main > .hero .container,
   }
 }
 
+/* The ticker is display:flex in style.css, which would defeat [hidden] —
+   it must disappear completely until Firestore returns at least one notice. */
+.news-ticker-bar[hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Notice cards (reuse the event-card shell, gold identity)
+   -------------------------------------------------------------------------- */
+.notice-card {
+  height: 100%;
+  border-top: 3px solid var(--accent-gold);
+}
+
+.notice-card .event-card-header {
+  align-items: flex-start;
+}
+
+.notice-card-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notice-card-stamp {
+  color: var(--accent-gold) !important;
+  font-weight: 700;
+}
+
+.notice-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition, 0.2s ease);
+}
+
+.notice-card-link:hover,
+.notice-card-link:focus-visible {
+  border-bottom-color: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Homepage notice board block
+   -------------------------------------------------------------------------- */
+.section-notice-board {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(212, 175, 55, 0.07), transparent 55%),
+    var(--bg-primary, #0B1120);
+}
+
+.section-notice-board .section-intro {
+  margin-bottom: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* --------------------------------------------------------------------------
+   Past-events archive pointer (events.html) — the listing itself is dynamic
+   now, so only a branded callout remains here.
+   -------------------------------------------------------------------------- */
+.archive-band {
+  padding: 3rem 0;
+}
+
+.archive-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: clamp(1.2rem, 3vw, 1.8rem) clamp(1.1rem, 3vw, 1.8rem);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: var(--polish-radius);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.12), transparent 55%),
+    linear-gradient(140deg, rgba(11, 17, 32, 0.9), rgba(19, 42, 36, 0.55));
+}
+
+.archive-band__copy {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.archive-band__copy h2 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+}
+
+.archive-band__copy p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.archive-band__cta {
+  flex: 0 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Empty / loading / error states — the ELLS-themed "nothing here yet" panel
+   --------------------------------------------------------------------------
+   Shared by the public event feed (#eventsFeedStatus), the homepage strip
+   (#homeEventsStatus) and the notice board (#noticeBoardStatus). Rendered
+   by js/events-feed.js and js/notice-board.js; the panel is hidden entirely
+   once there is real content.
+   -------------------------------------------------------------------------- */
+.feed-state,
+.notice-board-state {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1.1rem, 3vw, 2rem);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: var(--polish-radius);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 62%),
+    linear-gradient(160deg, rgba(11, 17, 32, 0.92) 0%, rgba(19, 42, 36, 0.55) 100%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  text-align: center;
+}
+
+.feed-state[hidden],
+.notice-board-state[hidden] {
+  display: none !important;
+}
+
+.feed-state__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 46ch;
+}
+
+/* Monogram badge — the ELLS mark inside a gold ring */
+.feed-state__monogram {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.2), transparent 70%);
+  color: var(--accent-gold);
+  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.06);
+}
+
+.feed-state__eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.feed-state__title {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.feed-state__text {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.feed-state__actions,
+.notice-board-state .feed-state__actions {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+
+/* Only the genuine "empty" state offers a next step — not loading or error. */
+.feed-state[data-state="empty"] .feed-state__actions,
+.notice-board-state[data-state="empty"] .feed-state__actions {
+  display: flex;
+}
+
+/* Compact variant for the homepage strip */
+.feed-state--compact {
+  padding: 1.35rem 1.1rem;
+}
+
+.feed-state--compact .feed-state__monogram {
+  width: 54px;
+  height: 54px;
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.feed-state--compact .feed-state__title {
+  font-size: 1.15rem;
+}
+
+.feed-state--compact .feed-state__text {
+  font-size: 0.86rem;
+}
+
+/* Spinner */
+.feed-state__spinner,
+.notice-board-state__spinner {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 0.35rem;
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  border-top-color: var(--accent-gold);
+  border-radius: 50%;
+  animation: feedStateSpin 0.9s linear infinite;
+}
+
+.feed-state__spinner[hidden],
+.notice-board-state__spinner[hidden] {
+  display: none !important;
+}
+
+@keyframes feedStateSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Once content exists the monogram would double up with the spinner */
+.feed-state[data-state="ready"],
+.notice-board-state[data-state="ready"] {
+  display: none !important;
+}
+
+/* Live pill above the notice board */
+.notice-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-green, #10B981);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.notice-live-pill[hidden] {
+  display: none !important;
+}
+
+.notice-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 0 currentColor;
+  animation: noticeLivePulse 2s ease-out infinite;
+}
+
+@keyframes noticeLivePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Event registration status (set in the admin console)
+   -------------------------------------------------------------------------- */
+.event-card__badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.event-status-badge.status-closed {
+  background: rgba(148, 163, 184, 0.16);
+  border-color: rgba(148, 163, 184, 0.45);
+  color: #CBD5E1;
+}
+
+.event-status-badge.status-completed {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6EE7B7;
+}
+
+/* Closed / completed cards stay legible but read as "past" */
+.event-card--poster.is-registration-closed .event-card__poster-img {
+  filter: saturate(0.55) brightness(0.86);
+}
+
+.event-card--poster.is-registration-closed .seats-indicator {
+  color: var(--text-muted);
+}
+
+.seats-indicator--closed,
+.seats-indicator--completed {
+  color: var(--text-muted) !important;
+}
+
+/* The disabled CTA: no pointer, no hover lift, no gold fill */
+.event-cta-disabled,
+.btn.event-cta-disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.event-cta-disabled::before {
+  content: '🔒';
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.btn.event-cta-disabled.is-completed::before {
+  content: '✓';
+  color: var(--accent-green, #10B981);
+}
+
+.event-cta-disabled:hover,
+.event-cta-disabled:focus {
+  border-color: var(--border-strong);
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
 /* Committee / people cards */
 .committee-card {
   height: 100%;
@@ -804,16 +1198,19 @@ main > .hero .container,
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   :root {
-    --polish-section-y: 1.5rem;
-    --polish-card-pad: 1rem;
+    /* Dense, app-like phone scale: every step is ~1.3px smaller than before so
+       long headings ("ELLS Committee — Autumn 2026", "Executive Committee
+       (Faculty Leadership)") fit one or two clean lines instead of spilling. */
+    --polish-section-y: 1.2rem;
+    --polish-card-pad: 0.88rem;
     --polish-radius: 12px;
-    --polish-gap: 1rem;
-    --fs-display: clamp(1.5rem, 6vw, 1.9rem);
-    --fs-section: clamp(1.26rem, 4.8vw, 1.55rem);
-    --fs-sub: clamp(1.04rem, 3.8vw, 1.22rem);
-    --fs-lead: 0.94rem;
-    --fs-body: 0.9rem;
-    --fs-eyebrow: 0.66rem;
+    --polish-gap: 0.85rem;
+    --fs-display: clamp(1.32rem, 5.3vw, 1.58rem);
+    --fs-section: clamp(1.06rem, 4.15vw, 1.3rem);
+    --fs-sub: clamp(0.94rem, 3.4vw, 1.08rem);
+    --fs-lead: 0.87rem;
+    --fs-body: 0.86rem;
+    --fs-eyebrow: 0.6rem;
   }
 
   html {
@@ -829,41 +1226,53 @@ main > .hero .container,
   }
 
   .hero {
-    padding: 1.1rem 0 0.9rem !important;
+    padding: 0.8rem 0 0.65rem !important;
+  }
+
+  .hero-welcome {
+    margin-bottom: 0.62rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 14px;
+    font-size: 0.68rem !important;
+    line-height: 1.42 !important;
   }
 
   .hero h1 {
-    max-width: 22ch;
-    margin-bottom: 0.7rem;
+    max-width: 24ch;
+    margin-bottom: 0.58rem;
     font-size: var(--fs-display) !important;
-    line-height: 1.18 !important;
+    line-height: 1.16 !important;
     letter-spacing: -0.018em !important;
   }
 
   .hero-lead,
   .hero p.hero-lead {
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.9rem;
     font-size: var(--fs-lead) !important;
-    line-height: 1.55 !important;
+    line-height: 1.5 !important;
   }
 
   .section-intro,
   .section-head {
-    margin-bottom: 1.15rem;
+    margin-bottom: 0.95rem;
   }
 
   .section-intro h2,
   .section-head h2,
   h2 {
     font-size: var(--fs-section) !important;
-    line-height: 1.22 !important;
-    margin-bottom: 0.55rem;
+    line-height: 1.2 !important;
+    margin-bottom: 0.45rem;
     letter-spacing: -0.012em !important;
+    /* Long titles break on word boundaries, never mid-word orphans */
+    overflow-wrap: break-word;
+    hyphens: none;
   }
 
   h3 {
     font-size: var(--fs-sub) !important;
-    line-height: 1.3 !important;
+    line-height: 1.28 !important;
+    overflow-wrap: break-word;
   }
 
   .eyebrow {
@@ -1003,6 +1412,99 @@ main > .hero .container,
     margin-bottom: 0 !important;
   }
 
+  /* ------------------------------------------------------------------------
+     Committee headings & cards — the two long offenders on phones
+     ------------------------------------------------------------------------
+     style.css pins `.committee-subheading h3 { white-space: nowrap }`, which
+     pushed "Executive Committee (Faculty Leadership)" past the viewport edge.
+     Below 768px the heading is allowed to wrap, the decorative rule that
+     squeezed it is dropped, and the type steps down so it lands on one line
+     on most phones and two clean lines on the narrowest ones.
+     ------------------------------------------------------------------------ */
+  .committee-subheading {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.35rem 0 0.7rem 0 !important;
+  }
+
+  .committee-subheading:first-of-type {
+    margin-top: 0.35rem !important;
+  }
+
+  .committee-subheading h3 {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance;
+    min-width: 0;
+    max-width: 100%;
+    font-size: clamp(0.92rem, 3.5vw, 1.06rem) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.005em !important;
+    gap: 0.42rem;
+  }
+
+  .committee-subheading h3 svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+  }
+
+  .committee-subheading::after {
+    display: none;
+  }
+
+  .committee-grid {
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .committee-card {
+    padding: 0.82rem 0.88rem !important;
+    gap: 0.28rem;
+    border-radius: 12px !important;
+  }
+
+  .committee-card-header {
+    gap: 0.6rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  .committee-avatar {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.96rem !important;
+    line-height: 1.28 !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .committee-role-badge {
+    font-size: 0.6rem !important;
+    padding: 0.14rem 0.42rem !important;
+    margin-bottom: 0.28rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.5rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-contact-item {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
   .events-controls-section {
     padding: 0.9rem 0 0.35rem !important;
   }
@@ -1016,6 +1518,61 @@ main > .hero .container,
   .committee-toolbar {
     gap: 0.55rem;
     margin-bottom: 1rem;
+  }
+
+  /* ------------------------------------------------------------------------
+     Events category pills — horizontal swipe strip
+     ------------------------------------------------------------------------
+     Below 768px the eight category buttons no longer fit. They become a
+     single non-wrapping rail that scrolls sideways with momentum, and the
+     scrollbar is hidden so it reads as a native app carousel.
+
+     `justify-content: flex-start` is essential: the desktop rule centres the
+     pills, and a centred flex container that overflows clips the FIRST items
+     beyond the left edge, where no amount of scrolling can reach them.
+     ------------------------------------------------------------------------ */
+  .event-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    /* 5px top+bottom keeps the :focus-visible outline from being clipped by
+       overflow-y while still hugging the row on both sides */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    /* Firefox + legacy IE/Edge: no visible scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* WebKit/Blink: no visible scrollbar */
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .filter-pills .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
   }
 
   .search-input-wrap {
@@ -1047,7 +1604,18 @@ main > .hero .container,
     justify-content: center;
   }
 
-  /* Student ID lookup: full-width field + button */
+  /* ------------------------------------------------------------------------
+     Student ID lookup: full-width field + button, stacked with compact spacing
+     ------------------------------------------------------------------------
+     The markup carries inline flex values tuned for the desktop ROW layout:
+       form           display:flex; align-items:flex-end
+       .form-group    flex: 1 1 260px
+       button         align-self: flex-end
+     Stacking the form into a COLUMN turns that 260px flex-basis into a 260px
+     HEIGHT, which opened the huge empty gap between the Student ID field and
+     the Check Status button. Both children are pinned to their natural height
+     here so the button lands directly under the field.
+     ------------------------------------------------------------------------ */
   #memberLookupForm {
     flex-direction: column;
     align-items: stretch !important;
@@ -1057,11 +1625,16 @@ main > .hero .container,
   #memberLookupForm .form-group,
   #memberLookupForm .btn {
     width: 100%;
-    flex: 1 1 auto;
+    /* column axis → flex-basis is a HEIGHT: never let it inflate the field */
+    flex: 0 0 auto !important;
+    min-height: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   #memberLookupForm .btn {
     align-self: stretch !important;
+    height: auto;
   }
 
   #applicationFormCard .wizard-step > h3 {
@@ -1079,14 +1652,70 @@ main > .hero .container,
 
 @media (max-width: 480px) {
   :root {
-    --fs-display: clamp(1.34rem, 6.4vw, 1.62rem);
-    --fs-section: clamp(1.14rem, 5vw, 1.36rem);
-    --fs-body: 0.87rem;
-    --polish-card-pad: 0.85rem;
+    --fs-display: clamp(1.2rem, 5.9vw, 1.44rem);
+    --fs-section: clamp(1rem, 4.6vw, 1.2rem);
+    --fs-sub: clamp(0.88rem, 3.9vw, 1rem);
+    --fs-lead: 0.83rem;
+    --fs-body: 0.83rem;
+    --fs-eyebrow: 0.57rem;
+    --polish-section-y: 1rem;
+    --polish-card-pad: 0.8rem;
+    --polish-gap: 0.72rem;
   }
 
   .card {
-    padding: 0.85rem !important;
+    padding: 0.82rem !important;
+  }
+
+  .hero {
+    padding: 0.65rem 0 0.55rem !important;
+  }
+
+  .hero-welcome {
+    padding: 0.3rem 0.62rem;
+    font-size: 0.63rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-lead,
+  .hero p.hero-lead {
+    line-height: 1.45 !important;
+  }
+
+  .committee-subheading {
+    margin: 1.1rem 0 0.6rem 0 !important;
+  }
+
+  .committee-subheading h3 {
+    font-size: 0.88rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .committee-card {
+    padding: 0.72rem 0.78rem !important;
+  }
+
+  .committee-card-header {
+    gap: 0.52rem !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .committee-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.92rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.76rem !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.64rem !important;
   }
 
   .hero-actions .btn,

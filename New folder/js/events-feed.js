@@ -15,6 +15,7 @@
  *     venue:            string,
  *     registrationLink: string,   // URL behind the "Reg Now" button
  *     posterUrl:        string?,   // optional ImgBB https URL (square poster)
+ *     status:           string?,   // 'open' | 'closed' | 'completed'
  *     createdAt:        Timestamp // serverTimestamp()
  *   }
  *
@@ -38,6 +39,42 @@ import {
   onSnapshot,
   onAuthStateChanged
 } from './firebase-config.js';
+
+/* ---------------------------------------------------------------------------
+   Registration status — drives the public "Reg Now" control.
+   ---------------------------------------------------------------------------
+   'open'      → a live link / RSVP button
+   'closed'    → a disabled chip reading "Reg Closed"
+   'completed' → a disabled chip reading "Completed"
+   Documents written before the field existed have no `status` key; they are
+   treated as open.
+   --------------------------------------------------------------------------- */
+
+const EVENT_STATUS = {
+  open: {
+    key: 'open',
+    label: 'Registration Open',
+    cta: 'Reg Now',
+    badge: 'status-open'
+  },
+  closed: {
+    key: 'closed',
+    label: 'Registration Closed',
+    cta: 'Reg Closed',
+    badge: 'status-closed'
+  },
+  completed: {
+    key: 'completed',
+    label: 'Completed',
+    cta: 'Completed',
+    badge: 'status-completed'
+  }
+};
+
+function normalizeEventStatus(value) {
+  const raw = safeText(value).toLowerCase();
+  return Object.prototype.hasOwnProperty.call(EVENT_STATUS, raw) ? raw : 'open';
+}
 
 /* ---------------------------------------------------------------------------
    Category/Track taxonomy — badge label written by the admin form is mapped
@@ -98,11 +135,15 @@ function taxonomyFor(categoryLabel) {
    Feed subscription
    --------------------------------------------------------------------------- */
 
-function initEventsFeed(gridEl) {
+function initEventsFeed(gridEl, options = {}) {
   let hasRendered = false;
   let unsubscribeAuth = null;
 
-  setFeedState('loading');
+  const statusPanelId = options.statusPanelId || 'eventsFeedStatus';
+  const maxCards = Number.isFinite(options.limit) ? options.limit : Infinity;
+  const variant = options.variant || '';
+
+  setFeedState('loading', statusPanelId);
 
   // No orderBy on purpose: the display `date` is free text ("Wed, Oct 14"),
   // so the schedule order is computed client-side (see compareEvents).
@@ -121,13 +162,25 @@ function initEventsFeed(gridEl) {
           venue: safeText(data.venue),
           registrationLink: safeText(data.registrationLink),
           posterUrl: safeText(data.posterUrl),
+          status: normalizeEventStatus(data.status),
           createdAt: toMillis(data.createdAt)
         };
       });
 
       events.sort(compareEvents);
-      renderEvents(gridEl, events);
-      setFeedState(events.length ? 'ready' : 'empty');
+
+      /* The homepage strip is titled "Upcoming…", so finished events are
+         pushed behind everything still to come before the cap is applied. */
+      const ordered = variant === 'home'
+        ? [
+            ...events.filter((evt) => evt.status !== 'completed'),
+            ...events.filter((evt) => evt.status === 'completed')
+          ]
+        : events;
+
+      const visible = maxCards === Infinity ? ordered : ordered.slice(0, maxCards);
+      renderEvents(gridEl, visible, variant);
+      setFeedState(visible.length ? 'ready' : 'empty', statusPanelId, variant);
       hasRendered = true;
     },
     (error) => {
@@ -141,11 +194,11 @@ function initEventsFeed(gridEl) {
             unsubscribeAuth();
             unsubscribeAuth = null;
           }
-          if (!user) setFeedState('error');
+          if (!user) setFeedState('error', statusPanelId, variant);
         });
       }
 
-      if (!hasRendered) setFeedState('error');
+      if (!hasRendered) setFeedState('error', statusPanelId, variant);
     }
   );
 
@@ -159,23 +212,27 @@ function initEventsFeed(gridEl) {
    Rendering — byte-for-byte the same structure as the old hardcoded cards.
    --------------------------------------------------------------------------- */
 
-function renderEvents(gridEl, events) {
+function renderEvents(gridEl, events, variant = '') {
   gridEl.textContent = '';
 
   events.forEach((evt) => {
-    gridEl.appendChild(buildEventCard(evt));
+    gridEl.appendChild(buildEventCard(evt, variant));
   });
 
   // Let js/events.js re-apply filters/booked state to the fresh cards.
   document.dispatchEvent(new CustomEvent('ells:events-updated', { detail: { count: events.length } }));
 }
 
-function buildEventCard(evt) {
+function buildEventCard(evt, variant = '') {
   const taxonomy = taxonomyFor(evt.category);
   const badgeParts = splitDisplayDate(evt.date);
+  const status = EVENT_STATUS[normalizeEventStatus(evt.status)];
 
   const card = document.createElement('article');
   card.className = 'event-card event-card--poster';
+  if (variant) card.classList.add(`event-card--${variant}`);
+  card.dataset.status = status.key;
+  if (status.key !== 'open') card.classList.add('is-registration-closed');
   card.dataset.category = taxonomy.keys;
   card.dataset.eventId = evt.id;
   card.setAttribute('aria-labelledby', `eventTitle-${evt.id}`);
@@ -232,11 +289,24 @@ function buildEventCard(evt) {
 
   dateBadge.append(monthEl, dayEl);
 
+  const badges = document.createElement('span');
+  badges.className = 'event-card__badges';
+
   const badge = document.createElement('span');
   badge.className = `badge ${taxonomy.badge}`;
   badge.textContent = evt.category || 'Event';
+  badges.appendChild(badge);
 
-  header.append(dateBadge, badge);
+  /* Registration state is only advertised when it is NOT open — an "Open"
+     chip on every card would just be noise. */
+  if (status.key !== 'open') {
+    const statusChip = document.createElement('span');
+    statusChip.className = `badge event-status-badge ${status.badge}`;
+    statusChip.textContent = status.label;
+    badges.appendChild(statusChip);
+  }
+
+  header.append(dateBadge, badges);
 
   /* Body: title + description + meta + footer */
   const body = document.createElement('div');
@@ -259,8 +329,8 @@ function buildEventCard(evt) {
   footer.className = 'event-card-footer';
 
   const seats = document.createElement('span');
-  seats.className = 'seats-indicator';
-  seats.textContent = 'Open Registration';
+  seats.className = `seats-indicator seats-indicator--${status.key}`;
+  seats.textContent = status.key === 'open' ? 'Open Registration' : status.label;
 
   footer.append(seats, buildRsvpControl(evt));
 
@@ -299,6 +369,25 @@ function buildPosterPlaceholder(category) {
  * link does it fall back to the on-page RSVP dialog.
  */
 function buildRsvpControl(evt) {
+  const status = EVENT_STATUS[normalizeEventStatus(evt.status)];
+
+  /* Closed / completed events keep their card, but the call to action is a
+     non-interactive chip: no href, no click target, still readable. Rather
+     than a disabled <a> (which is not a real thing in HTML) this is a plain
+     <span> with aria-disabled, so screen readers and keyboards skip it. */
+  if (status.key !== 'open') {
+    const chip = document.createElement('span');
+    chip.className = `btn btn-sm event-cta-disabled is-${status.key}`;
+    chip.setAttribute('role', 'button');
+    chip.setAttribute('aria-disabled', 'true');
+    chip.setAttribute('tabindex', '-1');
+    chip.title = status.key === 'closed'
+      ? 'Registration for this event has closed.'
+      : 'This event has already taken place.';
+    chip.textContent = status.cta;
+    return chip;
+  }
+
   const url = normalizeHttpUrl(evt.registrationLink);
 
   if (url) {
@@ -307,14 +396,14 @@ function buildRsvpControl(evt) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.className = 'btn btn-primary btn-sm';
-    link.textContent = 'Reg Now';
+    link.textContent = status.cta;
     return link;
   }
 
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'btn btn-primary btn-sm open-rsvp-modal';
-  button.textContent = 'Reg Now';
+  button.textContent = status.cta;
   return button;
 }
 
@@ -346,27 +435,42 @@ const ICONS = {
 
 const FEED_STATE_COPY = {
   loading: {
+    eyebrow: 'One moment',
     title: 'Loading upcoming events…',
     text: 'Fetching the latest schedule from ELLS Club.',
     spinner: true
   },
   empty: {
-    title: 'No upcoming events published yet',
-    text: 'Events published by the IT Secretary will appear here as soon as they go live.',
+    eyebrow: 'Stay tuned',
+    title: 'No Upcoming Events Right Now',
+    text: 'New competitions and workshops will be announced soon! Keep an eye on this page and on the ELLS notice board.',
     spinner: false
   },
   error: {
+    eyebrow: 'Offline',
     title: 'Events feed is temporarily unavailable',
     text: 'We could not reach the ELLS events archive. Please refresh the page in a moment.',
     spinner: false
   }
 };
 
-function setFeedState(state) {
-  const panel = document.getElementById('eventsFeedStatus');
+/** Compact copy for the homepage strip, which is deliberately shorter. */
+const HOME_STATE_COPY = {
+  loading: FEED_STATE_COPY.loading,
+  empty: {
+    eyebrow: 'Stay tuned',
+    title: 'No Upcoming Events Right Now',
+    text: 'New competitions and workshops will be announced soon!',
+    spinner: false
+  },
+  error: FEED_STATE_COPY.error
+};
+
+function setFeedState(state, panelId = 'eventsFeedStatus', variant = '') {
+  const panel = document.getElementById(panelId);
   if (!panel) return;
 
-  const gridEl = document.getElementById('eventsGrid');
+  const gridEl = document.getElementById(variant === 'home' ? 'homeEventsGrid' : 'eventsGrid');
   if (gridEl) gridEl.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
 
   panel.dataset.state = state;
@@ -376,13 +480,15 @@ function setFeedState(state) {
     return;
   }
 
-  const copy = FEED_STATE_COPY[state];
+  const copy = (variant === 'home' ? HOME_STATE_COPY : FEED_STATE_COPY)[state];
   if (!copy) return;
 
   panel.hidden = false;
 
+  const eyebrowEl = panel.querySelector('[data-event-status-eyebrow]');
   const titleEl = panel.querySelector('[data-event-status-title]');
   const textEl = panel.querySelector('[data-event-status-text]');
+  if (eyebrowEl && copy.eyebrow) eyebrowEl.textContent = copy.eyebrow;
   if (titleEl) titleEl.textContent = copy.title;
   if (textEl) textEl.textContent = copy.text;
 
@@ -491,7 +597,21 @@ function normalizeHttpUrl(value) {
    Bootstrap — runs after every declaration above is initialised.
    --------------------------------------------------------------------------- */
 
+/* Full events page */
 const grid = document.getElementById('eventsGrid');
 if (grid) {
-  initEventsFeed(grid);
+  initEventsFeed(grid, {
+    statusPanelId: 'eventsFeedStatus',
+    variant: 'full'
+  });
+}
+
+/* Homepage strip — same Firestore feed, capped at the three next events */
+const homeGrid = document.getElementById('homeEventsGrid');
+if (homeGrid) {
+  initEventsFeed(homeGrid, {
+    statusPanelId: 'homeEventsStatus',
+    variant: 'home',
+    limit: 3
+  });
 }

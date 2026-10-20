@@ -103,29 +103,12 @@
 
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker -->
-  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track">
-          <!-- Track Segment 1 -->
-          <div class="news-ticker-content">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
-          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
-          <div class="news-ticker-content" aria-hidden="true">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
         </div>
       </div>
     </div>
@@ -139,8 +122,7 @@
           <span class="eyebrow">ABOUT THE SOCIETY</span>
           <h1 id="about-heading">A Home for Writers, Thinkers &amp; Speakers</h1>
           <p class="hero-lead">
-            The English Language and Literary Society (ELLS) of the Department of English
-            Language and Literature, IIUC, brings together students who write, debate, perform
+            The English Language and Literary Society (ELLS) of the Dept. of English Language &amp; Literature, IIUC, brings together students who write, debate, perform
             and publish — guided by faculty mentors and an elected student committee.
           </p>
         </div>
@@ -155,7 +137,7 @@
           <h2 id="committee-heading">ELLS Committee — Autumn 2026</h2>
           <p>
             English Language &amp; Literary Society (Chapter: Male)<br>
-            <strong>Department of English Language and Literature</strong><br>
+            <strong>Dept. of English Language &amp; Literature</strong><br>
             International Islamic University Chittagong (IIUC)
           </p>
         </div>
@@ -261,7 +243,7 @@
               </div>
             </div>
             <div class="committee-designation">Associate Professor &amp; Chairman</div>
-            <div class="committee-meta-pill">Dept. of English Language and Literature</div>
+            <div class="committee-meta-pill">Dept. of English Language &amp; Literature</div>
             <div class="committee-contacts">
               <div class="committee-contact-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -361,7 +343,7 @@
               </div>
             </div>
             <div class="committee-designation">Lecturer</div>
-            <div class="committee-meta-pill">Dept. of English Language and Literature</div>
+            <div class="committee-meta-pill">Dept. of English Language &amp; Literature</div>
             <div class="committee-contacts">
               <a href="mailto:hossainahmed.iiuc@gmail.com" class="committee-contact-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -1210,7 +1192,7 @@
           <div style="display: flex; align-items: center; gap: 1.2rem;">
             <img src="images/iiuc-logo.png" alt="IIUC Seal" style="width: 52px; height: 52px; object-fit: contain;">
             <div>
-              <strong style="display: block; font-size: 1.05rem;">Certified by Department of English Language and Literature</strong>
+              <strong style="display: block; font-size: 1.05rem;">Certified by Dept. of English Language &amp; Literature</strong>
               <span style="font-size: 0.85rem; color: var(--text-muted);">Dr. Md. Nazmul Huda, Chairman &amp; Associate Professor • IIUC</span>
             </div>
           </div>
@@ -1308,7 +1290,7 @@
             <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img" style="border-radius: 50%;">
             <span class="logo-subtitle" style="display: block; text-align: center; margin-top: 0.6rem;">English Language &amp; Literary Society</span>
           </div>
-          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Department of English Language and Literature, International Islamic University Chittagong.</p>
+          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
 
           <!-- Social Media Icons with Integrated Facebook Link -->
           <div class="social-media-container">
@@ -1347,7 +1329,7 @@
           <div class="partner-affiliation">
             <img src="images/iiuc-logo.png" alt="IIUC Crest" class="partner-logo-img">
             <div class="partner-text">
-              <span>Department of English Language and Literature</span>
+              <span>Dept. of English Language &amp; Literature</span>
               <span>International Islamic University Chittagong</span>
             </div>
           </div>
@@ -1388,13 +1370,16 @@
         <div class="footer-quote">"Literature is the immortality of speech."</div>
         <div class="footer-legal">
           <div class="footer-copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
-          <div class="developer-credit">Developed by Md. Emdadul Hoque (N241038)</div>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Developer credit — full-bleed gold bar, the last thing on the page -->
+  <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
+
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
 </body>
 </html>

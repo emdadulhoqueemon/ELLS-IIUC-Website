@@ -17,6 +17,10 @@ rules_version = '2';
 //     • Anyone may READ  → the public events page (events.html).
 //     • posterUrl is optional: an https ImgBB display_url written by the
 //       admin console after a successful poster upload.
+//     • status is optional: 'open' | 'closed' | 'completed'. It drives the
+//       public Reg Now button (closed/completed render it disabled).
+//     • updatedAt is written by updateDoc() when an admin edits an entry;
+//       createdAt is preserved so the original publish time is never lost.
 //     • ONLY the authorised admin accounts may CREATE, UPDATE and DELETE:
 //           emdadulhoquex@gmail.com      (IT Secretary)
 //           ells.dell.iiuc95@gmail.com   (official ELLS club account)
@@ -58,7 +62,7 @@ service cloud.firestore {
     function isValidNotice() {
       return request.resource.data.keys().hasOnly([
                 'title', 'date', 'description',
-                'createdAt', 'authorEmail', 'authorUid'
+                'createdAt', 'updatedAt', 'authorEmail', 'authorUid'
               ])
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 4
@@ -73,11 +77,17 @@ service cloud.firestore {
     }
 
     // Shape guard: every event written from the dashboard must match it.
+    // Status values the admin console can write. Events created before the
+    // field existed simply have no `status` key and are treated as 'open'.
+    function isKnownEventStatus(value) {
+      return value in ['open', 'closed', 'completed'];
+    }
+
     function isValidEvent() {
       return request.resource.data.keys().hasOnly([
                 'title', 'category', 'description', 'date', 'time',
-                'venue', 'registrationLink', 'posterUrl',
-                'createdAt', 'authorEmail', 'authorUid'
+                'venue', 'registrationLink', 'posterUrl', 'status',
+                'createdAt', 'updatedAt', 'authorEmail', 'authorUid'
               ])
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 4
@@ -107,6 +117,14 @@ service cloud.firestore {
                   request.resource.data.posterUrl is string
                   && request.resource.data.posterUrl.size() <= 600
                   && request.resource.data.posterUrl.matches('^https://.+$')
+                )
+           )
+        // Optional registration status (older documents have no field).
+        && (
+             !('status' in request.resource.data)
+             || (
+                  request.resource.data.status is string
+                  && isKnownEventStatus(request.resource.data.status)
                 )
            )
         && request.resource.data.authorEmail is string

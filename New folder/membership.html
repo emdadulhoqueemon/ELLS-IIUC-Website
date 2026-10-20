@@ -111,29 +111,12 @@
 
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker -->
-  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track">
-          <!-- Track Segment 1 -->
-          <div class="news-ticker-content">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
-          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
-          <div class="news-ticker-content" aria-hidden="true">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
         </div>
       </div>
     </div>
@@ -464,7 +447,7 @@
                   <img src="images/iiuc-logo.png" alt="IIUC Crest" class="cert-crest-img">
                   <div class="cert-institution-meta">
                     <div class="cert-uni-title">International Islamic University Chittagong</div>
-                    <div class="cert-dept-title">Department of English Language and Literature</div>
+                    <div class="cert-dept-title">Dept. of English Language &amp; Literature</div>
                     <div class="cert-society-heading">English Language and Literary Society (ELLS)</div>
                   </div>
                   <img src="images/ells-logo.png" alt="ELLS Crest" class="cert-crest-img">
@@ -514,7 +497,7 @@
 
               <!-- Formal Declaration Text -->
               <div class="cert-declaration">
-                <p>This document certifies that the individual named above is an officially registered member of the English Language and Literary Society (ELLS), Department of English Language and Literature, International Islamic University Chittagong.</p>
+                <p>This document certifies that the individual named above is an officially registered member of the English Language and Literary Society (ELLS), Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
               </div>
 
               <!-- Professional Dual Signature Block -->
@@ -596,7 +579,7 @@
             <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img" style="border-radius: 50%;">
             <span class="logo-subtitle" style="display: block; text-align: center; margin-top: 0.6rem;">English Language &amp; Literary Society</span>
           </div>
-          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Department of English Language and Literature, International Islamic University Chittagong.</p>
+          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
 
           <!-- Social Media Icons with Integrated Facebook Link -->
           <div class="social-media-container">
@@ -635,7 +618,7 @@
           <div class="partner-affiliation">
             <img src="images/iiuc-logo.png" alt="IIUC Crest" class="partner-logo-img">
             <div class="partner-text">
-              <span>Department of English Language and Literature</span>
+              <span>Dept. of English Language &amp; Literature</span>
               <span>International Islamic University Chittagong</span>
             </div>
           </div>
@@ -676,14 +659,17 @@
         <div class="footer-quote">"The pen is the tongue of the mind." — Cervantes</div>
         <div class="footer-legal">
           <div class="footer-copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
-          <div class="developer-credit">Developed by Md. Emdadul Hoque (N241038)</div>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Developer credit — full-bleed gold bar, the last thing on the page -->
+  <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
+
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
   <script src="js/membership.js"></script>
 </body>
 </html>

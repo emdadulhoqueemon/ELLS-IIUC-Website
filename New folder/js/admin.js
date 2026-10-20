@@ -8,7 +8,12 @@
  *   • Login      → signInWithEmailAndPassword()
  *   • Session    → onAuthStateChanged() keeps the UI in sync across reloads
  *   • Publish    → addDoc(collection(db, 'notices' | 'events'), {...})
+ *   • Edit       → updateDoc(doc(db, …, id), {...}) — the same document is
+ *                  rewritten in place; createdAt and the original author are
+ *                  preserved, updatedAt records the edit
+ *   • Delete     → deleteDoc(doc(db, …, id))
  *   • Live list  → onSnapshot() mirrors what the public homepage shows
+ *   • Status     → each event carries status: 'open' | 'closed' | 'completed'
  *   • Logout     → signOut()
  *
  * Security is enforced in the Firebase console (Authentication → Users) and by
@@ -42,11 +47,13 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  deleteField,
   doc,
   onSnapshot,
   query,
   orderBy,
-  serverTimestamp
+  serverTimestamp,
+  updateDoc
 } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', initAdminConsole);
@@ -117,12 +124,27 @@ function initAdminConsole() {
   const publishedEventEmpty = document.getElementById('publishedEventEmpty');
   const publishedEventCount = document.getElementById('publishedEventCount');
   const adminEventTotal = document.getElementById('adminEventTotal');
+  const eventStatusInput = document.getElementById('eventStatus');
+  const cancelNoticeEditBtn = document.getElementById('cancelNoticeEditBtn');
+  const cancelEventEditBtn = document.getElementById('cancelEventEditBtn');
 
   let unsubscribeNotices = null;
   let unsubscribeEvents = null;
   let currentUser = null;
   let isPublishing = false;
   let isPublishingEvent = false;
+
+  /* --- Edit mode -------------------------------------------------------
+     When these hold a document id the matching form UPDATES that document
+     instead of creating a new one. `editingNotice` / `editingEvent` keep the
+     snapshot so an edit never loses fields the form does not show —
+     createdAt, the original authorUid/authorEmail, and the saved poster. */
+  let editingNoticeId = '';
+  let editingNotice = null;
+  let editingEventId = '';
+  let editingEvent = null;
+  /** ImgBB display_url already stored on the event being edited. */
+  let editingPosterUrl = '';
   // Object URL for the poster chosen in the form (revoked when replaced/cleared)
   let eventPosterObjectUrl = '';
   // File dropped onto the picker (input.files cannot be set programmatically)
@@ -263,6 +285,7 @@ function initAdminConsole() {
   }
 
   function teardownDashboard() {
+    teardownEditModes();
     dashboard.hidden = true;
 
     if (unsubscribeNotices) {
@@ -279,6 +302,20 @@ function initAdminConsole() {
     renderNotices();
     events = [];
     renderEvents();
+  }
+
+  /** Drops any half-finished edit when the session ends. */
+  function teardownEditModes() {
+    editingNoticeId = '';
+    editingNotice = null;
+    editingEventId = '';
+    editingEvent = null;
+    editingPosterUrl = '';
+
+    if (cancelNoticeEditBtn) cancelNoticeEditBtn.hidden = true;
+    if (cancelEventEditBtn) cancelEventEditBtn.hidden = true;
+    if (noticeForm) noticeForm.classList.remove('is-editing');
+    if (eventForm) eventForm.classList.remove('is-editing');
   }
 
   function openLogin() {
@@ -346,7 +383,9 @@ function initAdminConsole() {
             id: docSnap.id,
             title: typeof data.title === 'string' ? data.title.trim() : '',
             description: typeof data.description === 'string' ? data.description.trim() : '',
-            date: parseNoticeDate(data.date)
+            date: parseNoticeDate(data.date),
+            authorEmail: typeof data.authorEmail === 'string' ? data.authorEmail : '',
+            authorUid: typeof data.authorUid === 'string' ? data.authorUid : ''
           };
         });
 
@@ -389,7 +428,11 @@ function initAdminConsole() {
             date: typeof data.date === 'string' ? data.date.trim() : '',
             time: typeof data.time === 'string' ? data.time.trim() : '',
             venue: typeof data.venue === 'string' ? data.venue.trim() : '',
-            registrationLink: typeof data.registrationLink === 'string' ? data.registrationLink.trim() : ''
+            registrationLink: typeof data.registrationLink === 'string' ? data.registrationLink.trim() : '',
+            posterUrl: typeof data.posterUrl === 'string' ? data.posterUrl.trim() : '',
+            status: normalizeEventStatus(data.status),
+            authorEmail: typeof data.authorEmail === 'string' ? data.authorEmail : '',
+            authorUid: typeof data.authorUid === 'string' ? data.authorUid : ''
           };
         });
 
@@ -460,21 +503,41 @@ function initAdminConsole() {
       }
 
       isPublishing = true;
-      setPublishing(true);
+      const wasEditing = Boolean(editingNoticeId);
+      setPublishing(true, wasEditing ? 'Saving…' : 'Publishing…');
 
       try {
-        await addDoc(collection(db, NOTICES_COLLECTION), {
-          title,
-          date,
-          description,
-          createdAt: serverTimestamp(),
-          authorEmail: currentUser.email || null,
-          authorUid: currentUser.uid
-        });
+        if (wasEditing) {
+          /* UPDATE the existing document. createdAt is deliberately omitted so
+             the original publish time survives, and the author is carried over
+             from the snapshot (either admin may edit either document). */
+          await updateDoc(doc(db, NOTICES_COLLECTION, editingNoticeId), {
+            title,
+            date,
+            description,
+            updatedAt: serverTimestamp(),
+            authorEmail: (editingNotice && editingNotice.authorEmail) || currentUser.email || null,
+            authorUid: (editingNotice && editingNotice.authorUid) || currentUser.uid
+          });
 
-        // The live onSnapshot() subscription refreshes the list automatically.
-        resetNoticeForm();
-        showFormStatus('Notice published — it is now live on the public notice board.', false);
+          const savedId = editingNoticeId;
+          exitNoticeEditMode();
+          showFormStatus('Notice updated — the public board immediately shows the new text.', false);
+          flashLiveItem('notice', savedId);
+        } else {
+          await addDoc(collection(db, NOTICES_COLLECTION), {
+            title,
+            date,
+            description,
+            createdAt: serverTimestamp(),
+            authorEmail: currentUser.email || null,
+            authorUid: currentUser.uid
+          });
+
+          // The live onSnapshot() subscription refreshes the list automatically.
+          resetNoticeForm();
+          showFormStatus('Notice published — it is now live on the public notice board.', false);
+        }
       } catch (error) {
         console.error('[ELLS] Publishing notice failed:', error);
         showFormStatus(describeFirestoreError(error), true);
@@ -485,6 +548,9 @@ function initAdminConsole() {
     });
 
     noticeForm.addEventListener('reset', () => {
+      // Reset doubles as "leave edit mode": a cleared form must never keep
+      // pointing at the document it was loaded from.
+      exitNoticeEditMode({ keepFields: true });
       window.setTimeout(() => {
         if (dateInput) dateInput.value = todayISO();
         updateCounter();
@@ -500,6 +566,10 @@ function initAdminConsole() {
     });
   }
 
+  if (cancelNoticeEditBtn) {
+    cancelNoticeEditBtn.addEventListener('click', () => exitNoticeEditMode());
+  }
+
   function resetNoticeForm() {
     if (titleInput) titleInput.value = '';
     if (descriptionInput) descriptionInput.value = '';
@@ -512,12 +582,75 @@ function initAdminConsole() {
     if (titleInput) titleInput.focus();
   }
 
-  function setPublishing(isBusy) {
+  function setPublishing(isBusy, busyLabel) {
     if (!publishBtn) return;
     publishBtn.disabled = isBusy;
     publishBtn.classList.toggle('is-loading', isBusy);
     const label = publishBtn.querySelector('span');
-    if (label) label.textContent = isBusy ? 'Publishing…' : 'Publish Notice';
+    if (label) {
+      label.textContent = isBusy
+        ? (busyLabel || 'Publishing…')
+        : (editingNoticeId ? 'Save Changes' : 'Publish Notice');
+    }
+  }
+
+  /* ======================================================================
+     Notice edit mode
+     ====================================================================== */
+
+  /** Loads a notice document into the form so submit() updates it. */
+  function startNoticeEdit(notice) {
+    editingNoticeId = notice.id;
+    editingNotice = notice;
+
+    if (titleInput) titleInput.value = notice.title;
+    if (dateInput) dateInput.value = toISODate(notice.date) || todayISO();
+    if (descriptionInput) descriptionInput.value = notice.description;
+
+    clearFieldError(titleInput, 'noticeTitleError');
+    clearFieldError(dateInput, 'noticeDateError');
+    clearFieldError(descriptionInput, 'noticeDescriptionError');
+
+    updateCounter();
+    updatePreview();
+
+    if (publishBtn) {
+      const label = publishBtn.querySelector('span');
+      if (label) label.textContent = 'Save Changes';
+    }
+    if (cancelNoticeEditBtn) cancelNoticeEditBtn.hidden = false;
+    if (noticeForm) noticeForm.classList.add('is-editing');
+
+    const heading = document.getElementById('addNoticeHeading');
+    if (heading) heading.textContent = 'Edit Notice';
+
+    if (titleInput) titleInput.focus();
+    if (noticeForm) noticeForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showFormStatus('Editing an existing notice — saving will update it, not create a duplicate.', false);
+    markEditingRow('notice', notice.id);
+  }
+
+  /** Leaves edit mode without touching Firestore. */
+  function exitNoticeEditMode(options = {}) {
+    editingNoticeId = '';
+    editingNotice = null;
+
+    if (publishBtn) {
+      const label = publishBtn.querySelector('span');
+      if (label) label.textContent = 'Publish Notice';
+    }
+    if (cancelNoticeEditBtn) cancelNoticeEditBtn.hidden = true;
+    if (noticeForm) noticeForm.classList.remove('is-editing');
+
+    const heading = document.getElementById('addNoticeHeading');
+    if (heading) heading.textContent = 'Add New Notice';
+
+    if (!options.keepFields) resetNoticeForm();
+    if (formStatus) {
+      formStatus.classList.remove('is-visible', 'is-error');
+      formStatus.textContent = '';
+    }
+    markEditingRow('notice', '');
   }
 
   /* ======================================================================
@@ -527,7 +660,8 @@ function initAdminConsole() {
   function renderNotices(state) {
     if (!publishedList) return;
 
-    publishedList.querySelectorAll('.admin-notice-item').forEach((item) => item.remove());
+    publishedList.querySelectorAll('.admin-live-item').forEach((item) => item.remove());
+    publishedList.classList.toggle('is-loading', state === 'loading');
 
     if (state === 'loading' || state === 'error') {
       if (publishedEmpty) {
@@ -547,41 +681,143 @@ function initAdminConsole() {
       publishedEmpty.textContent = 'No notices published yet. Your entries will appear here.';
     }
 
-    notices.forEach((notice) => {
-      const item = document.createElement('li');
-      item.className = 'admin-notice-item';
-      item.dataset.noticeId = notice.id;
-
-      const body = document.createElement('div');
-      body.className = 'admin-notice-item__body';
-
-      const title = document.createElement('h4');
-      title.textContent = notice.title || 'Untitled notice';
-
-      const time = document.createElement('time');
-      time.dateTime = notice.date ? toISODate(notice.date) : '';
-      time.textContent = formatDate(notice.date ? toISODate(notice.date) : '');
-
-      const description = document.createElement('p');
-      description.textContent = notice.description;
-
-      body.append(title, time, description);
-
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.className = 'admin-notice-item__remove';
-      remove.title = 'Delete notice';
-      remove.setAttribute('aria-label', `Delete notice: ${notice.title || 'Untitled notice'}`);
-      remove.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<line x1="18" y1="6" x2="6" y2="18"></line>' +
-        '<line x1="6" y1="6" x2="18" y2="18"></line></svg>';
-      remove.addEventListener('click', () => deleteNotice(notice, remove));
-
-      item.append(body, remove);
-      publishedList.appendChild(item);
+    notices.forEach((notice, index) => {
+      publishedList.appendChild(buildNoticeRow(notice, index));
     });
+
+    // Keep the highlight in sync after a live re-render.
+    markEditingRow('notice', editingNoticeId);
+  }
+
+  /** One row of the "Currently Live" notice table. */
+  function buildNoticeRow(notice, index) {
+    const item = document.createElement('li');
+    item.className = 'admin-live-item';
+    item.dataset.noticeId = notice.id;
+
+    /* Serial: #01, #02 … padded to two digits, growing past 99 naturally. */
+    const serial = document.createElement('span');
+    serial.className = 'admin-live-item__serial';
+    serial.textContent = formatSerial(index);
+
+    const body = document.createElement('div');
+    body.className = 'admin-live-item__body';
+
+    const title = document.createElement('h4');
+    title.className = 'admin-live-item__title';
+    title.textContent = notice.title || 'Untitled notice';
+
+    const meta = document.createElement('p');
+    meta.className = 'admin-live-item__meta';
+
+    const when = document.createElement('time');
+    when.dateTime = notice.date ? toISODate(notice.date) : '';
+    when.textContent = formatDate(notice.date ? toISODate(notice.date) : '');
+
+    const dot = document.createElement('span');
+    dot.className = 'admin-live-item__dot';
+    dot.setAttribute('aria-hidden', 'true');
+    dot.textContent = '•';
+
+    const live = document.createElement('span');
+    live.className = 'admin-live-badge admin-live-badge--live';
+    live.textContent = 'Live';
+
+    meta.append(when, dot, live);
+
+    const description = document.createElement('p');
+    description.className = 'admin-live-item__desc';
+    description.textContent = notice.description;
+
+    body.append(title, meta, description);
+
+    const actions = document.createElement('div');
+    actions.className = 'admin-live-item__actions';
+    actions.append(
+      buildEditButton('notice', notice, () => startNoticeEdit(notice)),
+      buildDeleteButton('notice', notice, (btn) => deleteNotice(notice, btn))
+    );
+
+    item.append(serial, body, actions);
+    return item;
+  }
+
+  /* ======================================================================
+     Shared "Currently Live" helpers (used by notices and events)
+     ====================================================================== */
+
+  /** #01, #02 … — two digits until the list is longer than 99. */
+  function formatSerial(index) {
+    return `#${String(index + 1).padStart(2, '0')}`;
+  }
+
+  function buildIcon(kind, paths) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.innerHTML = paths;
+    return svg;
+  }
+
+  function buildEditButton(kind, record, onClick) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'admin-live-action admin-live-action--edit';
+    button.dataset.action = 'edit';
+    button.dataset[kind + 'Id'] = record.id;
+    button.title = `Edit ${kind}`;
+    button.setAttribute('aria-label', `Edit ${kind}: ${record.title || 'Untitled'}`);
+    button.append(
+      buildIcon('edit', '<path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>'),
+      Object.assign(document.createElement('span'), { textContent: 'Edit' })
+    );
+    button.addEventListener('click', onClick);
+    return button;
+  }
+
+  function buildDeleteButton(kind, record, onClick) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'admin-live-action admin-live-action--delete';
+    button.dataset.action = 'delete';
+    button.dataset[kind + 'Id'] = record.id;
+    button.title = `Delete ${kind}`;
+    button.setAttribute('aria-label', `Delete ${kind}: ${record.title || 'Untitled'}`);
+    button.append(
+      buildIcon('delete', '<path d="M3 6h18"></path><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>'),
+      Object.assign(document.createElement('span'), { textContent: 'Delete' })
+    );
+    button.addEventListener('click', () => onClick(button));
+    return button;
+  }
+
+  /** Marks the row matching the document currently open in a form. */
+  function markEditingRow(kind, id) {
+    const list = kind === 'notice' ? publishedList : publishedEventList;
+    if (!list) return;
+    const attr = kind === 'notice' ? 'noticeId' : 'eventId';
+    list.querySelectorAll('.admin-live-item').forEach((row) => {
+      const isEditing = Boolean(id) && row.dataset[attr] === id;
+      row.classList.toggle('is-editing', isEditing);
+      if (isEditing) row.setAttribute('aria-current', 'true');
+      else row.removeAttribute('aria-current');
+    });
+  }
+
+  /** Brief highlight so the admin sees which row they just saved. */
+  function flashLiveItem(kind, id) {
+    const list = kind === 'notice' ? publishedList : publishedEventList;
+    if (!list || !id) return;
+    const attr = kind === 'notice' ? 'noticeId' : 'eventId';
+    const row = list.querySelector(`.admin-live-item[data-${kind === 'notice' ? 'notice' : 'event'}-id="${id}"]`);
+    if (!row) return;
+    row.classList.add('is-saved');
+    window.setTimeout(() => row.classList.remove('is-saved'), 1600);
   }
 
   /* ======================================================================
@@ -602,6 +838,7 @@ function initAdminConsole() {
     try {
       await deleteDoc(doc(db, NOTICES_COLLECTION, notice.id));
       // onSnapshot() removes the row automatically.
+      if (editingNoticeId === notice.id) exitNoticeEditMode();
       showFormStatus('Notice deleted from the public notice board.', false);
     } catch (error) {
       console.error('[ELLS] Deleting notice failed:', error);
@@ -632,6 +869,8 @@ function initAdminConsole() {
     eventForm.addEventListener('change', (event) => {
       if (event.target === eventCategoryInput) {
         clearFieldError(eventCategoryInput, 'eventCategoryError');
+      }
+      if (event.target === eventCategoryInput || event.target === eventStatusInput) {
         updateEventPreview();
       }
     });
@@ -709,14 +948,22 @@ function initAdminConsole() {
       }
 
       isPublishingEvent = true;
+      const wasEditingEvent = Boolean(editingEventId);
 
       try {
+        const status = normalizeEventStatus(eventStatusInput ? eventStatusInput.value : 'open');
+
         /* --------------------------------------------------------------
            Step 1 — upload the poster to ImgBB (only when one is chosen).
            The public display_url is what we store in Firestore; the binary
            never touches Firebase Storage, so there is nothing to bill.
+
+           While editing, the poster already saved on the document is kept
+           unless the admin picked a new file (replace) or pressed remove
+           (delete the field on save).
            -------------------------------------------------------------- */
-        let posterUrl = '';
+        let posterUrl = wasEditingEvent ? (editingPosterUrl || '') : '';
+        const posterReplaced = Boolean(getSelectedPoster());
         const posterFile = getSelectedPoster();
 
         if (posterFile) {
@@ -745,8 +992,8 @@ function initAdminConsole() {
           clearPosterError();
         }
 
-        /* Step 2 — write the event document. */
-        setEventPublishing(true, 'Publishing…');
+        /* Step 2 — create or update the event document. */
+        setEventPublishing(true, wasEditingEvent ? 'Saving…' : 'Publishing…');
 
         const eventDoc = {
           title,
@@ -756,26 +1003,52 @@ function initAdminConsole() {
           time,
           venue,
           registrationLink,
-          createdAt: serverTimestamp(),
-          authorEmail: currentUser.email || null,
-          authorUid: currentUser.uid
+          status
         };
 
-        // Omitted entirely when no poster was chosen — firestore.rules treats
-        // the field as optional and validates it as an https URL when present.
-        if (posterUrl) eventDoc.posterUrl = posterUrl;
+        if (wasEditingEvent) {
+          /* UPDATE in place. createdAt is omitted on purpose so the original
+             publish time survives; the author comes from the snapshot so
+             either admin can edit either document. */
+          eventDoc.updatedAt = serverTimestamp();
+          eventDoc.authorEmail = (editingEvent && editingEvent.authorEmail) || currentUser.email || null;
+          eventDoc.authorUid = (editingEvent && editingEvent.authorUid) || currentUser.uid;
 
-        await addDoc(collection(db, EVENTS_COLLECTION), eventDoc);
+          if (posterUrl) {
+            eventDoc.posterUrl = posterUrl;
+          } else if (!posterReplaced) {
+            /* No new file and no saved poster left → remove the field entirely
+               (firestore.rules rejects an empty string). */
+            eventDoc.posterUrl = deleteField();
+          }
 
-        // The live onSnapshot() subscription refreshes the list automatically.
-        resetEventForm();
-        showFormStatus(
-          posterUrl
-            ? 'Event published with its poster — it is now live on the public Events page.'
-            : 'Event published — it is now live on the public Events page.',
-          false,
-          eventFormStatus
-        );
+          const savedId = editingEventId;
+          await updateDoc(doc(db, EVENTS_COLLECTION, savedId), eventDoc);
+
+          exitEventEditMode();
+          showFormStatus('Event updated — the public Events page now shows the new details.', false, eventFormStatus);
+          flashLiveItem('event', savedId);
+        } else {
+          eventDoc.createdAt = serverTimestamp();
+          eventDoc.authorEmail = currentUser.email || null;
+          eventDoc.authorUid = currentUser.uid;
+
+          // Omitted entirely when no poster was chosen — firestore.rules treats
+          // the field as optional and validates it as an https URL when present.
+          if (posterUrl) eventDoc.posterUrl = posterUrl;
+
+          await addDoc(collection(db, EVENTS_COLLECTION), eventDoc);
+
+          // The live onSnapshot() subscription refreshes the list automatically.
+          resetEventForm();
+          showFormStatus(
+            posterUrl
+              ? 'Event published with its poster — it is now live on the public Events page.'
+              : 'Event published — it is now live on the public Events page.',
+            false,
+            eventFormStatus
+          );
+        }
       } catch (error) {
         console.error('[ELLS] Publishing event failed:', error);
         showFormStatus(describeFirestoreError(error), true, eventFormStatus);
@@ -784,6 +1057,10 @@ function initAdminConsole() {
         setEventPublishing(false);
       }
     });
+
+    if (cancelEventEditBtn) {
+      cancelEventEditBtn.addEventListener('click', () => exitEventEditMode());
+    }
 
     /* ------------------------------------------------------------------
        Poster picker — live thumbnail, validation and removal.
@@ -853,9 +1130,13 @@ function initAdminConsole() {
     }
 
     eventForm.addEventListener('reset', () => {
+      // The reset button doubles as "leave edit mode" — otherwise a reset form
+      // would still update the document it was loaded from.
+      exitEventEditMode({ keepFields: true });
       window.setTimeout(() => {
         clearPosterSelection();
         clearPosterError();
+        if (eventStatusInput) eventStatusInput.value = 'open';
         updateEventCounter();
         updateEventPreview();
         clearFieldError(eventTitleInput, 'eventTitleError');
@@ -881,6 +1162,7 @@ function initAdminConsole() {
     if (eventTimeInput) eventTimeInput.value = '';
     if (eventVenueInput) eventVenueInput.value = '';
     if (eventRegLinkInput) eventRegLinkInput.value = '';
+    if (eventStatusInput) eventStatusInput.value = 'open';
     clearPosterSelection();
     clearPosterError();
     updateEventCounter();
@@ -900,7 +1182,87 @@ function initAdminConsole() {
     publishEventBtn.disabled = isBusy;
     publishEventBtn.classList.toggle('is-loading', isBusy);
     const label = publishEventBtn.querySelector('span');
-    if (label) label.textContent = isBusy ? (busyLabel || 'Publishing…') : 'Publish Event';
+    if (label) {
+      label.textContent = isBusy
+        ? (busyLabel || 'Publishing…')
+        : (editingEventId ? 'Save Changes' : 'Publish Event');
+    }
+  }
+
+  /* ======================================================================
+     Event edit mode
+     ====================================================================== */
+
+  /** Loads an event document into the form so submit() updates it. */
+  function startEventEdit(evt) {
+    editingEventId = evt.id;
+    editingEvent = evt;
+    editingPosterUrl = evt.posterUrl || '';
+
+    if (eventTitleInput) eventTitleInput.value = evt.title;
+    if (eventCategoryInput) eventCategoryInput.value = evt.category;
+    if (eventDescriptionInput) eventDescriptionInput.value = evt.description;
+    if (eventDateInput) eventDateInput.value = evt.date;
+    if (eventTimeInput) eventTimeInput.value = evt.time;
+    if (eventVenueInput) eventVenueInput.value = evt.venue;
+    if (eventRegLinkInput) eventRegLinkInput.value = evt.registrationLink;
+    if (eventStatusInput) eventStatusInput.value = normalizeEventStatus(evt.status);
+
+    // A stale dropped file must never leak into a different event's edit.
+    droppedPosterFile = null;
+    if (eventPosterInput) eventPosterInput.value = '';
+
+    clearPosterError();
+    clearFieldError(eventTitleInput, 'eventTitleError');
+    clearFieldError(eventCategoryInput, 'eventCategoryError');
+    clearFieldError(eventDescriptionInput, 'eventDescriptionError');
+    clearFieldError(eventDateInput, 'eventDateError');
+    clearFieldError(eventTimeInput, 'eventTimeError');
+    clearFieldError(eventVenueInput, 'eventVenueError');
+    clearFieldError(eventRegLinkInput, 'eventRegLinkError');
+
+    updateEventCounter();
+    updateEventPreview();
+    previewPosterSelection(null);
+
+    if (publishEventBtn) {
+      const label = publishEventBtn.querySelector('span');
+      if (label) label.textContent = 'Save Changes';
+    }
+    if (cancelEventEditBtn) cancelEventEditBtn.hidden = false;
+    if (eventForm) eventForm.classList.add('is-editing');
+
+    const heading = document.getElementById('addEventHeading');
+    if (heading) heading.textContent = 'Edit Event';
+
+    if (eventTitleInput) eventTitleInput.focus();
+    if (eventForm) eventForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showFormStatus('Editing an existing event — saving will update it, not create a duplicate.', false, eventFormStatus);
+    markEditingRow('event', evt.id);
+  }
+
+  /** Leaves edit mode without touching Firestore. */
+  function exitEventEditMode(options = {}) {
+    editingEventId = '';
+    editingEvent = null;
+    editingPosterUrl = '';
+
+    if (publishEventBtn) {
+      const label = publishEventBtn.querySelector('span');
+      if (label) label.textContent = 'Publish Event';
+    }
+    if (cancelEventEditBtn) cancelEventEditBtn.hidden = true;
+    if (eventForm) eventForm.classList.remove('is-editing');
+
+    const heading = document.getElementById('addEventHeading');
+    if (heading) heading.textContent = 'Add New Event';
+
+    if (!options.keepFields) resetEventForm();
+    if (eventFormStatus) {
+      eventFormStatus.classList.remove('is-visible', 'is-error');
+      eventFormStatus.textContent = '';
+    }
+    markEditingRow('event', '');
   }
 
   /* ======================================================================
@@ -952,9 +1314,14 @@ function initAdminConsole() {
 
     if (file) eventPosterObjectUrl = URL.createObjectURL(file);
 
+    /* A newly chosen file wins. Otherwise, while editing, keep showing the
+       poster already stored on the document until the admin removes it. */
+    const previewSrc = eventPosterObjectUrl || (editingEventId ? editingPosterUrl : '');
+    const hasPoster = Boolean(previewSrc);
+
     if (eventPosterThumb) {
-      if (eventPosterObjectUrl) {
-        eventPosterThumb.src = eventPosterObjectUrl;
+      if (hasPoster) {
+        eventPosterThumb.src = previewSrc;
         eventPosterThumb.hidden = false;
       } else {
         eventPosterThumb.removeAttribute('src');
@@ -962,23 +1329,25 @@ function initAdminConsole() {
       }
     }
 
-    if (eventPosterIcon) eventPosterIcon.hidden = !!file;
-    if (eventPosterDrop) eventPosterDrop.classList.toggle('has-file', !!file);
-    if (removeEventPosterBtn) removeEventPosterBtn.hidden = !file;
+    if (eventPosterIcon) eventPosterIcon.hidden = hasPoster;
+    if (eventPosterDrop) eventPosterDrop.classList.toggle('has-file', hasPoster);
+    if (removeEventPosterBtn) removeEventPosterBtn.hidden = !hasPoster;
 
     if (eventPosterLabel) {
-      eventPosterLabel.textContent = file ? 'Poster selected' : 'Choose a poster image';
+      if (file) eventPosterLabel.textContent = 'Poster selected';
+      else if (hasPoster) eventPosterLabel.textContent = 'Current poster';
+      else eventPosterLabel.textContent = 'Choose a poster image';
     }
 
     if (eventPosterFileName) {
-      eventPosterFileName.textContent = file
-        ? `${file.name} · ${formatFileSize(file.size)}`
-        : 'PNG or JPG, square images look best';
+      if (file) eventPosterFileName.textContent = `${file.name} · ${formatFileSize(file.size)}`;
+      else if (hasPoster) eventPosterFileName.textContent = 'Saved on ImgBB — choose a file to replace it';
+      else eventPosterFileName.textContent = 'PNG or JPG, square images look best';
     }
 
     if (eventPreviewPoster && eventPreviewPosterWrap) {
-      if (eventPosterObjectUrl) {
-        eventPreviewPoster.src = eventPosterObjectUrl;
+      if (hasPoster) {
+        eventPreviewPoster.src = previewSrc;
         eventPreviewPosterWrap.hidden = false;
       } else {
         eventPreviewPoster.removeAttribute('src');
@@ -987,10 +1356,12 @@ function initAdminConsole() {
     }
   }
 
-  /** Drops the selection (keeps the rest of the form untouched). */
+  /** Drops the selection (keeps the rest of the form untouched).
+      While editing, this also schedules the saved poster for removal. */
   function clearPosterSelection() {
     if (eventPosterInput) eventPosterInput.value = '';
     droppedPosterFile = null;
+    editingPosterUrl = '';
     previewPosterSelection(null);
     if (eventPosterDrop) eventPosterDrop.classList.remove('is-dragging', 'has-file');
   }
@@ -1012,7 +1383,8 @@ function initAdminConsole() {
   function renderEvents(state) {
     if (!publishedEventList) return;
 
-    publishedEventList.querySelectorAll('.admin-notice-item').forEach((item) => item.remove());
+    publishedEventList.querySelectorAll('.admin-live-item').forEach((item) => item.remove());
+    publishedEventList.classList.toggle('is-loading', state === 'loading');
 
     if (state === 'loading' || state === 'error') {
       if (publishedEventEmpty) {
@@ -1034,40 +1406,82 @@ function initAdminConsole() {
       publishedEventEmpty.textContent = 'No events published yet. Your entries will appear here.';
     }
 
-    events.forEach((evt) => {
-      const item = document.createElement('li');
-      item.className = 'admin-notice-item';
-      item.dataset.eventId = evt.id;
-
-      const body = document.createElement('div');
-      body.className = 'admin-notice-item__body';
-
-      const title = document.createElement('h4');
-      title.textContent = evt.title || 'Untitled event';
-
-      const time = document.createElement('time');
-      time.textContent = [evt.date, evt.time].filter(Boolean).join(' • ') || 'Date not set';
-
-      const description = document.createElement('p');
-      description.textContent = [evt.category, evt.venue].filter(Boolean).join(' · ');
-
-      body.append(title, time, description);
-
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.className = 'admin-notice-item__remove';
-      remove.title = 'Delete event';
-      remove.setAttribute('aria-label', `Delete event: ${evt.title || 'Untitled event'}`);
-      remove.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<line x1="18" y1="6" x2="6" y2="18"></line>' +
-        '<line x1="6" y1="6" x2="18" y2="18"></line></svg>';
-      remove.addEventListener('click', () => deleteEvent(evt, remove));
-
-      item.append(body, remove);
-      publishedEventList.appendChild(item);
+    events.forEach((evt, index) => {
+      publishedEventList.appendChild(buildEventRow(evt, index));
     });
+
+    markEditingRow('event', editingEventId);
+  }
+
+  /** One row of the "Currently Live" event table: poster, title, date, status. */
+  function buildEventRow(evt, index) {
+    const item = document.createElement('li');
+    item.className = 'admin-live-item admin-live-item--event';
+    item.dataset.eventId = evt.id;
+
+    const serial = document.createElement('span');
+    serial.className = 'admin-live-item__serial';
+    serial.textContent = formatSerial(index);
+
+    /* Mini poster thumbnail — the ImgBB display_url saved on the document. */
+    const thumbWrap = document.createElement('span');
+    thumbWrap.className = 'admin-live-item__thumb';
+
+    if (evt.posterUrl) {
+      const img = document.createElement('img');
+      img.src = evt.posterUrl;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.setAttribute('referrerpolicy', 'no-referrer');
+      img.addEventListener('error', () => {
+        thumbWrap.textContent = '';
+        thumbWrap.classList.add('is-placeholder');
+        thumbWrap.textContent = 'ELLS';
+      }, { once: true });
+      thumbWrap.appendChild(img);
+    } else {
+      thumbWrap.classList.add('is-placeholder');
+      thumbWrap.textContent = 'ELLS';
+    }
+
+    const body = document.createElement('div');
+    body.className = 'admin-live-item__body';
+
+    const title = document.createElement('h4');
+    title.className = 'admin-live-item__title';
+    title.textContent = evt.title || 'Untitled event';
+
+    const meta = document.createElement('p');
+    meta.className = 'admin-live-item__meta';
+
+    const when = document.createElement('time');
+    when.textContent = [evt.date, evt.time].filter(Boolean).join(' • ') || 'Date not set';
+
+    const dot = document.createElement('span');
+    dot.className = 'admin-live-item__dot';
+    dot.setAttribute('aria-hidden', 'true');
+    dot.textContent = '•';
+
+    const where = document.createElement('span');
+    where.textContent = [evt.category, evt.venue].filter(Boolean).join(' · ') || 'Venue not set';
+
+    const status = document.createElement('span');
+    status.className = `admin-live-badge admin-live-badge--${evt.status}`;
+    status.textContent = eventStatusLabel(evt.status);
+
+    meta.append(when, dot, where, dot.cloneNode(true), status);
+
+    body.append(title, meta);
+
+    const actions = document.createElement('div');
+    actions.className = 'admin-live-item__actions';
+    actions.append(
+      buildEditButton('event', evt, () => startEventEdit(evt)),
+      buildDeleteButton('event', evt, (btn) => deleteEvent(evt, btn))
+    );
+
+    item.append(serial, thumbWrap, body, actions);
+    return item;
   }
 
   /* ======================================================================
@@ -1088,6 +1502,7 @@ function initAdminConsole() {
     try {
       await deleteDoc(doc(db, EVENTS_COLLECTION, evt.id));
       // onSnapshot() removes the row automatically.
+      if (editingEventId === evt.id) exitEventEditMode();
       showFormStatus('Event deleted from the public Events page.', false, eventFormStatus);
     } catch (error) {
       console.error('[ELLS] Deleting event failed:', error);
@@ -1117,10 +1532,18 @@ function initAdminConsole() {
     eventPreviewDescription.textContent = description ||
       'Add a title, category, and description to preview how this event will look to students.';
     if (eventPreviewVenue) eventPreviewVenue.textContent = venue ? `Venue: ${venue}` : 'Venue not set';
+
+    const status = normalizeEventStatus(eventStatusInput ? eventStatusInput.value : 'open');
     if (eventPreviewLink) {
-      eventPreviewLink.textContent = registrationLink
-        ? `RSVP → ${registrationLink}`
-        : 'Registration link not set';
+      if (status !== 'open') {
+        eventPreviewLink.textContent = status === 'closed'
+          ? 'Reg Now is disabled — Registration Closed'
+          : 'Reg Now is disabled — Event Completed';
+      } else {
+        eventPreviewLink.textContent = registrationLink
+          ? `RSVP → ${registrationLink}`
+          : 'Registration link not set';
+      }
     }
   }
 
@@ -1284,6 +1707,33 @@ function formatDate(value) {
 
 function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+/* ---------------------------------------------------------------------------
+   Event registration status
+   ---------------------------------------------------------------------------
+   'open'       → public button reads "Reg Now" and links out
+   'closed'     → button is disabled and reads "Reg Closed"
+   'completed'  → button is disabled and reads "Completed"
+   Documents created before the field existed have no `status` key at all;
+   they are treated as 'open'.
+   --------------------------------------------------------------------------- */
+
+const EVENT_STATUS_OPTIONS = ['open', 'closed', 'completed'];
+
+const EVENT_STATUS_LABELS = {
+  open: 'Registration Open',
+  closed: 'Registration Closed',
+  completed: 'Completed'
+};
+
+function normalizeEventStatus(value) {
+  const raw = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  return EVENT_STATUS_OPTIONS.includes(raw) ? raw : 'open';
+}
+
+function eventStatusLabel(status) {
+  return EVENT_STATUS_LABELS[normalizeEventStatus(status)];
 }
 
 function isValidHttpUrl(value) {

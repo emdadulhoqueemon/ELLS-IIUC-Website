@@ -73,8 +73,11 @@ function initEventFilters() {
       }
     });
 
+    /* With an empty Firestore collection the feed's own empty state is the
+       message — "no events match your filters" would be a lie and a duplicate. */
     if (noResultsMsg) {
-      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      const hasCards = getEventCards().length > 0;
+      noResultsMsg.style.display = hasCards && visibleCount === 0 ? 'block' : 'none';
     }
   }
 
@@ -107,7 +110,7 @@ function initEventFilters() {
 function initRsvpModal() {
   const modal = document.getElementById('rsvpModal');
   const rsvpForm = document.getElementById('rsvpForm');
-  const rsvpBtns = document.querySelectorAll('.open-rsvp-modal');
+
   const modalCloseBtn = document.getElementById('closeRsvpModal');
   const modalCancelBtn = document.getElementById('cancelRsvpModal');
   const modalEventTitle = document.getElementById('modalEventTitle');
@@ -125,27 +128,42 @@ function initRsvpModal() {
   // …and again whenever the live feed rebuilds the cards.
   document.addEventListener('ells:events-updated', () => updateBookedEvents(savedRsvps));
 
-  // Open Modal
-  rsvpBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.event-card');
-      if (!card) return;
+  /* Open Modal — delegated, because js/events-feed.js rebuilds every card
+     from Firestore after this module has already run. */
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('.open-rsvp-modal');
+    if (!btn) return;
 
-      const eventId = card.getAttribute('data-event-id');
-      const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
-      const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
+    const card = btn.closest('.event-card');
+    if (!card) return;
 
-      if (savedRsvps.includes(eventId)) {
-        showToast('You have already reserved seats for this event!', 'info');
-        return;
-      }
+    const eventId = card.getAttribute('data-event-id');
+    const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
+    const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
 
-      if (modalEventTitle) modalEventTitle.textContent = eventTitle;
-      if (modalEventDate) modalEventDate.textContent = eventDate.trim();
-      if (modalEventIdInput) modalEventIdInput.value = eventId;
+    // Closed / completed events never open the RSVP dialog (the button is
+    // normally rendered non-interactive; this is the belt-and-braces guard).
+    const status = card.getAttribute('data-status') || 'open';
+    if (status === 'closed' || status === 'completed') {
+      showToast(
+        status === 'closed'
+          ? 'Registration for this event has closed.'
+          : 'This event has already taken place.',
+        'info'
+      );
+      return;
+    }
 
-      modal.showModal();
-    });
+    if (savedRsvps.includes(eventId)) {
+      showToast('You have already reserved seats for this event!', 'info');
+      return;
+    }
+
+    if (modalEventTitle) modalEventTitle.textContent = eventTitle;
+    if (modalEventDate) modalEventDate.textContent = eventDate.trim();
+    if (modalEventIdInput) modalEventIdInput.value = eventId;
+
+    modal.showModal();
   });
 
   // Close handlers
@@ -199,7 +217,8 @@ function initRsvpModal() {
   function updateBookedEvents(rsvps) {
     rsvps.forEach(id => {
       const card = document.querySelector(`.event-card[data-event-id="${id}"]`);
-      if (card) {
+      if (card && card.getAttribute('data-status') !== 'closed'
+        && card.getAttribute('data-status') !== 'completed') {
         const btn = card.querySelector('.open-rsvp-modal');
         if (btn) {
           btn.textContent = 'Reserved ✓';

@@ -15,6 +15,11 @@
  *
  * The board subscribes with onSnapshot(), so a notice published from the
  * admin console appears on the homepage instantly — no reload required.
+ *
+ * The same snapshot also feeds the top scrolling ticker (#noticeTicker):
+ * the four newest notices are rendered twice so the marquee loops
+ * seamlessly. With zero notices both the ticker and the board show a
+ * purpose-built ELLS empty state — there is no hardcoded copy anywhere.
  * ---------------------------------------------------------------------------
  */
 
@@ -32,6 +37,9 @@ import {
 function initNoticeBoard(gridEl) {
   // Rendered cards carry [data-notice-id]; the static skeleton is removed once
   // the first snapshot arrives so Firestore is the only source of notices.
+  //
+  // gridEl is null on the pages that only carry the ticker (about, membership,
+  // events) — the same subscription still feeds them.
   let hasRendered = false;
   let unsubscribeAuth = null;
 
@@ -55,7 +63,8 @@ function initNoticeBoard(gridEl) {
         };
       });
 
-      renderNotices(gridEl, notices);
+      if (gridEl) renderNotices(gridEl, notices);
+      renderTicker(notices);
       setBoardState(notices.length ? 'ready' : 'empty');
       setLivePill(notices.length > 0);
       hasRendered = true;
@@ -167,6 +176,66 @@ function buildNoticeCard(notice, index) {
   return card;
 }
 
+/* ---------------------------------------------------------------------------
+   Top scrolling ticker — the same live notices, no static copy.
+   --------------------------------------------------------------------------- */
+
+function renderTicker(notices) {
+  const bar = document.getElementById('noticeTicker');
+  const track = document.getElementById('noticeTickerTrack');
+  if (!bar || !track) return;
+
+  track.textContent = '';
+
+  // Four newest notices keep the loop short enough to read comfortably.
+  const latest = notices.slice(0, 4);
+
+  if (!latest.length) {
+    bar.hidden = true;
+    return;
+  }
+
+  /* Two identical segments: the marquee translates -50%, so the second copy
+     slides in exactly where the first one started. */
+  [false, true].forEach((isDuplicate) => {
+    const segment = document.createElement('div');
+    segment.className = 'news-ticker-content';
+    if (isDuplicate) segment.setAttribute('aria-hidden', 'true');
+
+    latest.forEach((notice) => {
+      const item = document.createElement('span');
+      item.className = 'ticker-item';
+
+      const highlight = document.createElement('strong');
+      highlight.className = 'ticker-highlight';
+      highlight.textContent = `${notice.title}:`;
+
+      item.append(highlight, document.createTextNode(` ${truncate(notice.description, 140)}`));
+      segment.appendChild(item);
+
+      const divider = document.createElement('span');
+      divider.className = 'ticker-divider';
+      divider.setAttribute('aria-hidden', 'true');
+      divider.textContent = '✦';
+      segment.appendChild(divider);
+    });
+
+    track.appendChild(segment);
+  });
+
+  bar.hidden = false;
+}
+
+/** Keeps one ticker entry to a readable length without cutting mid-word. */
+function truncate(text, max) {
+  const value = safeText(text);
+  if (value.length <= max) return value;
+
+  const cut = value.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${(lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).trimEnd()}…`;
+}
+
 function buildMetaItem(text, iconName) {
   const item = document.createElement('div');
   item.className = 'event-meta-item';
@@ -193,16 +262,19 @@ const ICONS = {
 
 const BOARD_STATE_COPY = {
   loading: {
+    eyebrow: 'One moment',
     title: 'Loading the notice board…',
     text: 'Fetching the latest official announcements from ELLS Club.',
     spinner: true
   },
   empty: {
-    title: 'No notices published yet',
-    text: 'Official announcements from the IT Secretary will appear here as soon as they go live.',
+    eyebrow: 'Stay tuned',
+    title: 'No Notices Right Now',
+    text: 'Announcements from the IT Secretary will appear here the moment they are published. New competitions and workshops are on the way!',
     spinner: false
   },
   error: {
+    eyebrow: 'Offline',
     title: 'Notice board is temporarily unavailable',
     text: 'We could not reach the ELLS notice archive. Please refresh the page in a moment.',
     spinner: false
@@ -212,6 +284,7 @@ const BOARD_STATE_COPY = {
 function setBoardState(state) {
   const panel = document.getElementById('noticeBoardStatus');
   if (!panel) return;
+
 
   const gridEl = document.getElementById('noticeBoardGrid');
   if (gridEl) gridEl.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
@@ -228,10 +301,15 @@ function setBoardState(state) {
 
   panel.hidden = false;
 
+  const eyebrowEl = panel.querySelector('[data-notice-status-eyebrow]');
   const titleEl = panel.querySelector('[data-notice-status-title]');
   const textEl = panel.querySelector('[data-notice-status-text]');
+  if (eyebrowEl && copy.eyebrow) eyebrowEl.textContent = copy.eyebrow;
   if (titleEl) titleEl.textContent = copy.title;
   if (textEl) textEl.textContent = copy.text;
+
+  const spinner = panel.querySelector('.notice-board-state__spinner');
+  if (spinner) spinner.hidden = !copy.spinner;
 }
 
 function setLivePill(isLive) {
@@ -291,7 +369,8 @@ function formatDate(date) {
    Bootstrap — runs after every declaration above is initialised.
    --------------------------------------------------------------------------- */
 
-const grid = document.getElementById('noticeBoardGrid');
-if (grid) {
-  initNoticeBoard(grid);
+const boardGrid = document.getElementById('noticeBoardGrid');
+const tickerBar = document.getElementById('noticeTicker');
+if (boardGrid || tickerBar) {
+  initNoticeBoard(boardGrid);
 }

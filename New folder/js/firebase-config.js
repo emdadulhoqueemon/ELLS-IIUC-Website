@@ -104,9 +104,15 @@ export {
   addDoc,
   collection,
   deleteDoc,
+  deleteField,
   doc,
+  getDoc,
+  getDocs,
+  limit,
   onSnapshot,
-  query,
   orderBy,
-  serverTimestamp
+  query,
+  serverTimestamp,
+  updateDoc,
+  where
 } from './vendor/firebase/firebase-firestore.js';

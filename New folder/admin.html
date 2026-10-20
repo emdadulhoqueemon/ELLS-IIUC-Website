@@ -167,7 +167,6 @@
 
         <div class="admin-credit admin-credit--login">
           <p class="admin-credit__copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</p>
-          <p class="developer-credit">Developed by Md. Emdadul Hoque (N241038)</p>
         </div>
       </div>
     </main>
@@ -297,6 +296,9 @@
                 </svg>
                 <span>Publish Notice</span>
               </button>
+              <button type="button" class="btn btn-secondary" id="cancelNoticeEditBtn" hidden>
+                <span>Cancel Edit</span>
+              </button>
               <button type="reset" class="btn btn-secondary" id="clearNoticeBtn">Clear Form</button>
             </div>
 
@@ -325,21 +327,31 @@
             </article>
           </section>
 
-          <section class="admin-card admin-published-card" aria-labelledby="publishedHeading">
-            <header class="admin-card__head admin-card__head--compact">
-              <div>
-                <h2 id="publishedHeading">Live Notices</h2>
-                <p>Streaming from Firestore. Use <strong>&times;</strong> to delete a notice.</p>
-              </div>
-              <span class="admin-count" id="publishedCount">0</span>
-            </header>
-
-            <ul class="admin-notice-list" id="publishedNoticeList">
-              <li class="admin-notice-list__empty" id="publishedEmpty">No notices published yet. Your entries will appear here.</li>
-            </ul>
-          </section>
         </aside>
       </div>
+
+      <!-- ------------------------------------------------------------------
+           CURRENTLY LIVE — NOTICES
+           ------------------------------------------------------------------ -->
+      <section class="admin-card admin-live" aria-labelledby="publishedHeading">
+        <header class="admin-card__head">
+          <div class="admin-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"></path>
+              <path d="M17 8a5 5 0 0 1 0 8"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 id="publishedHeading">Currently Live on Website</h2>
+            <p>Every notice streaming from Firestore, newest first. Edit a notice in place or remove it from the public board.</p>
+          </div>
+          <span class="admin-count" id="publishedCount">0</span>
+        </header>
+
+        <ol class="admin-live-list" id="publishedNoticeList">
+          <li class="admin-notice-list__empty" id="publishedEmpty">No notices published yet. Your entries will appear here.</li>
+        </ol>
+      </section>
 
       <!-- ==================================================================
            EVENT MANAGEMENT
@@ -521,6 +533,20 @@
             </div>
 
             <div class="form-group">
+              <label class="form-label" for="eventStatus">Event Status</label>
+              <select
+                class="form-control admin-input"
+                id="eventStatus"
+                name="status"
+                aria-describedby="eventStatusHint">
+                <option value="open" selected>Registration Open</option>
+                <option value="closed">Registration Closed</option>
+                <option value="completed">Completed</option>
+              </select>
+              <span class="form-hint" id="eventStatusHint">Closed and completed events keep their card but the public <strong>Reg Now</strong> button is disabled.</span>
+            </div>
+
+            <div class="form-group">
               <label class="form-label" for="eventRegLink">Registration Link <span class="required">*</span></label>
               <input
                 type="url"
@@ -542,6 +568,9 @@
                   <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
                 <span>Publish Event</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="cancelEventEditBtn" hidden>
+                <span>Cancel Edit</span>
               </button>
               <button type="reset" class="btn btn-secondary" id="clearEventBtn">Clear Form</button>
             </div>
@@ -576,21 +605,33 @@
             </article>
           </section>
 
-          <section class="admin-card admin-published-card" aria-labelledby="publishedEventsHeading">
-            <header class="admin-card__head admin-card__head--compact">
-              <div>
-                <h2 id="publishedEventsHeading">Live Events</h2>
-                <p>Streaming from Firestore. Use <strong>&times;</strong> to delete an event.</p>
-              </div>
-              <span class="admin-count" id="publishedEventCount">0</span>
-            </header>
-
-            <ul class="admin-notice-list" id="publishedEventList">
-              <li class="admin-notice-list__empty" id="publishedEventEmpty">No events published yet. Your entries will appear here.</li>
-            </ul>
-          </section>
         </aside>
       </div>
+
+      <!-- ------------------------------------------------------------------
+           CURRENTLY LIVE — EVENTS
+           ------------------------------------------------------------------ -->
+      <section class="admin-card admin-live" aria-labelledby="publishedEventsHeading">
+        <header class="admin-card__head">
+          <div class="admin-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 id="publishedEventsHeading">Currently Live on Website</h2>
+            <p>Poster, title, date and status of every published event. Edit an event in place or remove it from the public calendar.</p>
+          </div>
+          <span class="admin-count" id="publishedEventCount">0</span>
+        </header>
+
+        <ol class="admin-live-list admin-live-list--events" id="publishedEventList">
+          <li class="admin-notice-list__empty" id="publishedEventEmpty">No events published yet. Your entries will appear here.</li>
+        </ol>
+      </section>
 
       <p class="admin-footnote">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -605,10 +646,12 @@
     <footer class="admin-footer">
       <div class="admin-credit">
         <p class="admin-credit__copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</p>
-        <p class="developer-credit">Developed by Md. Emdadul Hoque (N241038)</p>
       </div>
     </footer>
   </div>
+
+  <!-- Developer credit — full-bleed gold bar, seen on both views -->
+  <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
 
   <script type="module" src="js/admin.js"></script>
 </body>
