@@ -280,11 +280,12 @@
                 class="form-control admin-input admin-textarea"
                 id="noticeDescription"
                 name="description"
-                aria-describedby="noticeDescriptionError"
+                aria-describedby="noticeDescriptionHint noticeDescriptionError"
                 rows="5"
                 maxlength="600"
                 placeholder="Write the full notice details — venue, time, and any instructions for students."
                 required></textarea>
+              <p class="form-hint" id="noticeDescriptionHint">Paste full <strong>https://</strong> links (Google Forms, Facebook, etc.) — they become clickable on the public notice board.</p>
               <p class="form-error" id="noticeDescriptionError"></p>
             </div>
 

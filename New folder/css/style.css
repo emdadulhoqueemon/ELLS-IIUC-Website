@@ -653,7 +653,11 @@ body.nav-open .site-header {
   align-items: center;
   width: max-content;
   white-space: nowrap;
-  animation: newsTickerMarquee 38s linear infinite;
+  /* One full loop = one segment width. 18s is the readable default; js/notice-
+     board.js raises it (never lowers it) when a long line-up of notices would
+     otherwise stream past too quickly. */
+  --ticker-duration: 18s;
+  animation: newsTickerMarquee var(--ticker-duration) linear infinite;
   will-change: transform;
 }
 
@@ -662,6 +666,8 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
+/* Continuous marquee — the track holds two identical segments, so a -50%
+   shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
     transform: translateX(0);
@@ -3437,6 +3443,14 @@ textarea.form-control {
 
   50% {
     transform: translate3d(7px, 0, 0) rotate(calc(var(--cap-rot, 0deg) + 3.5deg));
+  }
+}
+
+/* Respect the user's motion preference: the news ticker becomes a still
+   headline strip instead of a marquee. */
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-track {
+    animation: none !important;
   }
 }
 
