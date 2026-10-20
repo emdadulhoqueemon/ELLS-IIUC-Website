@@ -38,11 +38,21 @@ export const firebaseConfig = {
 };
 
 /**
- * Accounts allowed to publish and delete notices.
+ * Accounts allowed to sign in to admin.html, publish and delete notices/events.
+ *
+ * Both addresses are FULL administrators with identical rights:
+ *   1. emdadulhoquex@gmail.com      — IT Secretary
+ *   2. ells.dell.iiuc95@gmail.com   — official ELLS club account
+ *
+ * Matching in admin.js is case-insensitive, so entries are stored lowercase.
+ *
  * ⚠️ This is a UI convenience only — the REAL enforcement lives in
- * firestore.rules (`isAdmin()`). Update both when the secretary changes.
+ * firestore.rules (`isAdminEmail()` / `isAdmin()`). Update both lists together.
  */
-export const ADMIN_EMAILS = ['emdadulhoquex@gmail.com'];
+export const ADMIN_EMAILS = [
+  'emdadulhoquex@gmail.com',    // IT Secretary
+  'ells.dell.iiuc95@gmail.com'  // Official ELLS club account
+];
 
 /** Firestore collection that powers the public notice board. */
 export const NOTICES_COLLECTION = 'notices';
