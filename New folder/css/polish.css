@@ -156,6 +156,32 @@ p {
   flex: 0 0 auto;
 }
 
+/* Home hero welcome badge — the first thing on index.html.
+   Deliberately NOT .eyebrow: the sentence is long, so it stays sentence-case
+   with tight tracking and is allowed to wrap instead of overflowing. */
+.hero-welcome {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-width: 100%;
+  margin: 0 auto 1.15rem;
+  padding: 0.44rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.05));
+  color: var(--accent-gold);
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.08);
+}
+
 /* Eyebrows inside cards / forms stay minimal (no decorative rules) */
 .card .eyebrow::before,
 .card .eyebrow::after,
@@ -804,16 +830,19 @@ main > .hero .container,
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   :root {
-    --polish-section-y: 1.5rem;
-    --polish-card-pad: 1rem;
+    /* Dense, app-like phone scale: every step is ~1.3px smaller than before so
+       long headings ("ELLS Committee — Autumn 2026", "Executive Committee
+       (Faculty Leadership)") fit one or two clean lines instead of spilling. */
+    --polish-section-y: 1.2rem;
+    --polish-card-pad: 0.88rem;
     --polish-radius: 12px;
-    --polish-gap: 1rem;
-    --fs-display: clamp(1.5rem, 6vw, 1.9rem);
-    --fs-section: clamp(1.26rem, 4.8vw, 1.55rem);
-    --fs-sub: clamp(1.04rem, 3.8vw, 1.22rem);
-    --fs-lead: 0.94rem;
-    --fs-body: 0.9rem;
-    --fs-eyebrow: 0.66rem;
+    --polish-gap: 0.85rem;
+    --fs-display: clamp(1.32rem, 5.3vw, 1.58rem);
+    --fs-section: clamp(1.06rem, 4.15vw, 1.3rem);
+    --fs-sub: clamp(0.94rem, 3.4vw, 1.08rem);
+    --fs-lead: 0.87rem;
+    --fs-body: 0.86rem;
+    --fs-eyebrow: 0.6rem;
   }
 
   html {
@@ -829,41 +858,53 @@ main > .hero .container,
   }
 
   .hero {
-    padding: 1.1rem 0 0.9rem !important;
+    padding: 0.8rem 0 0.65rem !important;
+  }
+
+  .hero-welcome {
+    margin-bottom: 0.62rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 14px;
+    font-size: 0.68rem !important;
+    line-height: 1.42 !important;
   }
 
   .hero h1 {
-    max-width: 22ch;
-    margin-bottom: 0.7rem;
+    max-width: 24ch;
+    margin-bottom: 0.58rem;
     font-size: var(--fs-display) !important;
-    line-height: 1.18 !important;
+    line-height: 1.16 !important;
     letter-spacing: -0.018em !important;
   }
 
   .hero-lead,
   .hero p.hero-lead {
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.9rem;
     font-size: var(--fs-lead) !important;
-    line-height: 1.55 !important;
+    line-height: 1.5 !important;
   }
 
   .section-intro,
   .section-head {
-    margin-bottom: 1.15rem;
+    margin-bottom: 0.95rem;
   }
 
   .section-intro h2,
   .section-head h2,
   h2 {
     font-size: var(--fs-section) !important;
-    line-height: 1.22 !important;
-    margin-bottom: 0.55rem;
+    line-height: 1.2 !important;
+    margin-bottom: 0.45rem;
     letter-spacing: -0.012em !important;
+    /* Long titles break on word boundaries, never mid-word orphans */
+    overflow-wrap: break-word;
+    hyphens: none;
   }
 
   h3 {
     font-size: var(--fs-sub) !important;
-    line-height: 1.3 !important;
+    line-height: 1.28 !important;
+    overflow-wrap: break-word;
   }
 
   .eyebrow {
@@ -1003,6 +1044,99 @@ main > .hero .container,
     margin-bottom: 0 !important;
   }
 
+  /* ------------------------------------------------------------------------
+     Committee headings & cards — the two long offenders on phones
+     ------------------------------------------------------------------------
+     style.css pins `.committee-subheading h3 { white-space: nowrap }`, which
+     pushed "Executive Committee (Faculty Leadership)" past the viewport edge.
+     Below 768px the heading is allowed to wrap, the decorative rule that
+     squeezed it is dropped, and the type steps down so it lands on one line
+     on most phones and two clean lines on the narrowest ones.
+     ------------------------------------------------------------------------ */
+  .committee-subheading {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.35rem 0 0.7rem 0 !important;
+  }
+
+  .committee-subheading:first-of-type {
+    margin-top: 0.35rem !important;
+  }
+
+  .committee-subheading h3 {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance;
+    min-width: 0;
+    max-width: 100%;
+    font-size: clamp(0.92rem, 3.5vw, 1.06rem) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.005em !important;
+    gap: 0.42rem;
+  }
+
+  .committee-subheading h3 svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+  }
+
+  .committee-subheading::after {
+    display: none;
+  }
+
+  .committee-grid {
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .committee-card {
+    padding: 0.82rem 0.88rem !important;
+    gap: 0.28rem;
+    border-radius: 12px !important;
+  }
+
+  .committee-card-header {
+    gap: 0.6rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  .committee-avatar {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.96rem !important;
+    line-height: 1.28 !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .committee-role-badge {
+    font-size: 0.6rem !important;
+    padding: 0.14rem 0.42rem !important;
+    margin-bottom: 0.28rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.5rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-contact-item {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
   .events-controls-section {
     padding: 0.9rem 0 0.35rem !important;
   }
@@ -1079,14 +1213,70 @@ main > .hero .container,
 
 @media (max-width: 480px) {
   :root {
-    --fs-display: clamp(1.34rem, 6.4vw, 1.62rem);
-    --fs-section: clamp(1.14rem, 5vw, 1.36rem);
-    --fs-body: 0.87rem;
-    --polish-card-pad: 0.85rem;
+    --fs-display: clamp(1.2rem, 5.9vw, 1.44rem);
+    --fs-section: clamp(1rem, 4.6vw, 1.2rem);
+    --fs-sub: clamp(0.88rem, 3.9vw, 1rem);
+    --fs-lead: 0.83rem;
+    --fs-body: 0.83rem;
+    --fs-eyebrow: 0.57rem;
+    --polish-section-y: 1rem;
+    --polish-card-pad: 0.8rem;
+    --polish-gap: 0.72rem;
   }
 
   .card {
-    padding: 0.85rem !important;
+    padding: 0.82rem !important;
+  }
+
+  .hero {
+    padding: 0.65rem 0 0.55rem !important;
+  }
+
+  .hero-welcome {
+    padding: 0.3rem 0.62rem;
+    font-size: 0.63rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-lead,
+  .hero p.hero-lead {
+    line-height: 1.45 !important;
+  }
+
+  .committee-subheading {
+    margin: 1.1rem 0 0.6rem 0 !important;
+  }
+
+  .committee-subheading h3 {
+    font-size: 0.88rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .committee-card {
+    padding: 0.72rem 0.78rem !important;
+  }
+
+  .committee-card-header {
+    gap: 0.52rem !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .committee-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.92rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.76rem !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.64rem !important;
   }
 
   .hero-actions .btn,
