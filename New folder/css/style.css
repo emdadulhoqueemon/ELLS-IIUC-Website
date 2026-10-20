@@ -3111,6 +3111,42 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
+   Footer legal block — copyright with the developer credit tucked directly
+   beneath it. The block keeps the copyright flush with the footer edge on
+   desktop while the credit sits perfectly centred underneath it; on mobile
+   (where .footer-bottom stacks) both lines centre across the page.
+   -------------------------------------------------------------------------- */
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  text-align: center;
+}
+
+.footer-legal .footer-copyright {
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Developer credit: one step smaller and softer than the copyright line,
+   with tight vertical rhythm so it reads as a signature, not a new block. */
+.developer-credit {
+  align-self: stretch;
+  width: auto;
+  margin: 0.1rem 0 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.015em;
+  text-align: center;
+  color: var(--text-muted);
+  opacity: 0.72;
+}
+
+/* --------------------------------------------------------------------------
    15. Featured Resource Card: Previous Question Bank (1st to 8th Semester)
    -------------------------------------------------------------------------- */
 .featured-resource-section {

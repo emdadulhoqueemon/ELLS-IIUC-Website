@@ -1009,6 +1009,52 @@
   color: var(--accent-gold);
 }
 
+/* --------------------------------------------------------------------------
+   Console credit block — copyright with the developer credit directly beneath
+   it. Centred on every viewport, matching the public site's footer treatment.
+   Shared by the login panel and the dashboard footer.
+   -------------------------------------------------------------------------- */
+.admin-credit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.admin-credit__copyright {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.admin-credit .developer-credit {
+  align-self: stretch;
+  width: auto;
+  margin: 0.1rem 0 0;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+/* Login screen: sits under the legal note, inside the sign-in card.
+   No extra rule/divider here — the legal note above already closes the card. */
+.admin-credit--login {
+  margin-top: 0.85rem;
+}
+
+/* Dashboard: full-width footer strip below the console content */
+.admin-footer {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.15rem var(--container-padding) 1.6rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
