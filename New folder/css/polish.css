@@ -569,6 +569,51 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
+   Notice cards (reuse the event-card shell, gold identity)
+   -------------------------------------------------------------------------- */
+.notice-card {
+  height: 100%;
+  border-top: 3px solid var(--accent-gold);
+}
+
+.notice-card .event-card-header {
+  align-items: flex-start;
+}
+
+.notice-card-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notice-card-stamp {
+  color: var(--accent-gold) !important;
+  font-weight: 700;
+}
+
+.notice-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition, 0.2s ease);
+}
+
+.notice-card-link:hover,
+.notice-card-link:focus-visible {
+  border-bottom-color: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
    Homepage notice board block
    -------------------------------------------------------------------------- */
 .section-notice-board {
