@@ -103,29 +103,12 @@
 
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker -->
-  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track">
-          <!-- Track Segment 1 -->
-          <div class="news-ticker-content">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
-          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
-          <div class="news-ticker-content" aria-hidden="true">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
         </div>
       </div>
     </div>
@@ -1397,5 +1380,6 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
 </body>
 </html>

@@ -107,29 +107,12 @@
   <!-- Mobile Drawer Backdrop Overlay -->
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker -->
-  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track">
-          <!-- Track Segment 1 -->
-          <div class="news-ticker-content">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
-          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
-          <div class="news-ticker-content" aria-hidden="true">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
         </div>
       </div>
     </div>
@@ -314,6 +297,36 @@
     </section>
 
     <!-- Featured Upcoming Events Preview -->
+    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
+    <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">FROM THE IT SECRETARY</span>
+          <h2 id="notice-board-heading">Official Notice Board</h2>
+          <p>Every announcement published by the ELLS committee, delivered live from our database.</p>
+          <span class="notice-live-pill" id="noticeLivePill" hidden>
+            <span class="notice-live-dot" aria-hidden="true"></span>Live
+          </span>
+        </div>
+
+        <div class="notice-board-state" id="noticeBoardStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="notice-board-state__spinner feed-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-notice-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-notice-status-title>Loading the notice board&hellip;</h3>
+            <p class="feed-state__text" data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Explore Upcoming Events</a>
+              <a href="membership.html#applicationFormCard" class="btn btn-secondary btn-sm">Join ELLS</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" id="noticeBoardGrid"></div>
+      </div>
+    </section>
+
     <section class="section-secondary" aria-labelledby="featured-events-heading">
       <div class="container">
         <div class="section-intro">
@@ -325,94 +338,22 @@
           </div>
         </div>
 
-        <div class="grid grid-3">
-          <!-- Featured Event 1 -->
-          <article class="event-card" data-event-id="evt-101">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">OCT</span>
-                <span class="event-date-day">14</span>
-              </div>
-              <span class="badge badge-gold">Poetry &amp; Slam</span>
+        <!-- Firestore-driven strip: the three next events on the calendar -->
+        <div class="feed-state feed-state--compact" id="homeEventsStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="feed-state__spinner notice-board-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-event-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-event-status-title>Loading upcoming events&hellip;</h3>
+            <p class="feed-state__text" data-event-status-text>Fetching the latest schedule from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Open the Full Calendar</a>
             </div>
-            <div class="event-card-body">
-              <h3>Autumn Open Mic &amp; Candlelit Verses</h3>
-              <p>An evening of student recitations, original lyricism, and acoustic interludes under the Great Hall chandeliers.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>7:00 PM – 9:30 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Athenaeum Salon, Room 204</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator">12 seats remaining</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Featured Event 2 -->
-          <article class="event-card" data-event-id="evt-102">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">OCT</span>
-                <span class="event-date-day">22</span>
-              </div>
-              <span class="badge badge-crimson">Masterclass</span>
-            </div>
-            <div class="event-card-body">
-              <h3>Crafting Compelling Non-Fiction Memoirs</h3>
-              <p>Special masterclass hosted by guest essayist Prof. Julian Sterling on voice, ethical memory, and sensory detail.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>4:30 PM – 6:30 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Humanities Auditorium B</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator seats-low">6 seats left</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Featured Event 3 -->
-          <article class="event-card" data-event-id="evt-103">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">NOV</span>
-                <span class="event-date-day">05</span>
-              </div>
-              <span class="badge badge-navy">Linguistics</span>
-            </div>
-            <div class="event-card-body">
-              <h3>The Secret Codes of Old English Dialects</h3>
-              <p>Uncovering phonetic shifts, Celtic borrowings, and lost idioms from Beowulf through Middle English transitions.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>5:00 PM – 7:00 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Online &amp; Seminar Room 4</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator">28 seats remaining</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
+
+        <div class="grid grid-3" id="homeEventsGrid"></div>
+
       </div>
     </section>
 
@@ -575,5 +516,8 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <!-- Live Firestore feeds (ES modules) -->
+  <script type="module" src="js/events-feed.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
 </body>
 </html>
