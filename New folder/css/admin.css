@@ -5,6 +5,13 @@
 
 .admin-body {
   display: block;
+  /* style.css offsets every page by 80px to clear the public site's fixed
+     header (body { padding-top: 80px }). The admin console has no site header
+     — its own .admin-topbar is sticky — so that offset would leave a dark
+     80px strip above the top bar (and push the 100vh login/dashboard past the
+     fold). Cancel it here; .admin-body outranks the bare body selector. */
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
   background:
     radial-gradient(circle at 12% 8%, rgba(212, 175, 55, 0.06), transparent 42%),
@@ -495,7 +502,8 @@
 
 .admin-topbar {
   position: sticky;
-  top: 0;
+  top: 0;               /* flush with the viewport edge — no gap, no margin */
+  margin: 0;
   z-index: 100;
   display: flex;
   align-items: center;
