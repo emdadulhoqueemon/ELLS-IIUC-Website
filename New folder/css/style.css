@@ -3115,7 +3115,7 @@ textarea.form-control {
 
 /* --------------------------------------------------------------------------
    Footer legal block — copyright only. The developer credit lives in its own
-   full-bleed gold bar at the very end of <body> (see .developer-credit-bar).
+   slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
    -------------------------------------------------------------------------- */
 .footer-legal {
   display: flex;
@@ -3131,31 +3131,38 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Developer credit bar — full-width gold strip, the last element on the page
+   Developer credit bar — a thin, quiet ribbon at the very end of the page
    --------------------------------------------------------------------------
    Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
-   spans the whole viewport instead of the footer's max-width container. It is
-   intentionally a different colour world from the dark footer above it: soft
-   gold (#d4af37) with near-black type (#0a111a) for maximum contrast.
+   spans the whole viewport instead of the footer's max-width container.
+
+   Deliberately understated: a barely-there white veil over the Midnight
+   background, a single hairline of muted gold, and soft off-white type. It
+   should read as a footnote — never as a coloured block competing with the
+   footer above it. Keep the padding minimal and the type small.
    -------------------------------------------------------------------------- */
 .developer-credit-bar {
   display: block;
   width: 100%;
   max-width: 100%;
-  margin: 20px 0 0;
-  padding: 12px 15px;
+  /* Flush against the footer: a ribbon belongs to the page, not floating
+     above it. The hairline below does the separating. */
+  margin: 0;
+  padding: 6px 15px;
   box-sizing: border-box;
-  background-color: #d4af37;
-  color: #0a111a;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Soft off-white — matches --text-primary without shouting */
+  color: #F8FAFC;
   font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
   text-align: center;
   border: 0;
-  /* Keeps the strip crisp against the dark page above it */
-  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.16) inset;
+  /* A whisper of ELLS gold instead of the old full gold fill */
+  border-top: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------

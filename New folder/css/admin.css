@@ -4,7 +4,7 @@
    ========================================================================== */
 
 .admin-body {
-  /* A column flex box so the gold developer bar always finishes the page:
+  /* A column flex box so the developer credit ribbon always finishes the page:
      whichever view (login or dashboard) is visible grows to fill the viewport
      and the bar sits flush underneath it. */
   display: flex;
@@ -1439,9 +1439,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   Console credit block — copyright only. The developer credit is a full-bleed
-   gold bar at the very end of <body> (style.css → .developer-credit-bar), so
-   it shows on both the login view and the dashboard.
+   Console credit block — copyright only. The developer credit is the slim
+   full-bleed ribbon at the very end of <body> (style.css → .developer-credit-bar),
+   so it shows on both the login view and the dashboard.
    -------------------------------------------------------------------------- */
 .admin-credit {
   display: flex;
