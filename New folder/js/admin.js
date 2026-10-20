@@ -13,6 +13,13 @@
  *
  * Security is enforced in the Firebase console (Authentication → Users) and by
  * Firestore Security Rules (firestore.rules in the project root).
+ *
+ * Authorised administrators — full, identical access to this console plus
+ * create / update / delete on `notices` and `events`:
+ *   • emdadulhoquex@gmail.com      (IT Secretary)
+ *   • ells.dell.iiuc95@gmail.com   (official ELLS club account)
+ * The list lives in ADMIN_EMAILS (firebase-config.js) and is mirrored in
+ * firestore.rules → isAdminEmail(); the UI check here is only a convenience.
  * ---------------------------------------------------------------------------
  */
 
@@ -115,13 +122,17 @@ function initAdminConsole() {
     auth,
     (user) => {
       // Firebase can authenticate any account in the project, but only the
-      // allowlisted address may use the console. Everyone else is signed
-      // straight back out (Firestore rules enforce the same boundary).
+      // allowlisted addresses may use the console. The allowlist is
+      // ADMIN_EMAILS in firebase-config.js and currently holds:
+      //   • emdadulhoquex@gmail.com      (IT Secretary)
+      //   • ells.dell.iiuc95@gmail.com   (official ELLS club account)
+      // Everyone else is signed straight back out (Firestore rules enforce
+      // the very same boundary server-side).
       if (user && !isAuthorizedAdmin(user)) {
         const rejected = user.email || 'This account';
         pendingAuthMessage =
           `${rejected} is not authorised to use the ELLS admin console. ` +
-          'Please sign in with the IT Secretary account.';
+          'Please sign in with an authorised admin account.';
         console.warn('[ELLS] Rejected non-admin sign-in:', rejected);
 
         signOut(auth).catch((error) => {
@@ -271,10 +282,20 @@ function initAdminConsole() {
     if (emailInput) emailInput.focus();
   }
 
+  /**
+   * Both allowlisted accounts are full administrators with identical rights:
+   *   • emdadulhoquex@gmail.com      (IT Secretary)
+   *   • ells.dell.iiuc95@gmail.com   (official ELLS club account)
+   * Matching is case-insensitive (and whitespace-tolerant) so a token whose
+   * email casing differs from the configured entry still grants access.
+   * Keep ADMIN_EMAILS in sync with firestore.rules → isAdminEmail().
+   */
   function isAuthorizedAdmin(user) {
-    const email = (user && user.email ? user.email : '').toLowerCase();
+    const email = (user && user.email ? user.email : '').trim().toLowerCase();
     if (!email) return false;
-    return ADMIN_EMAILS.some((allowed) => allowed.toLowerCase() === email);
+    return ADMIN_EMAILS.some(
+      (allowed) => String(allowed).trim().toLowerCase() === email
+    );
   }
 
   function updateSkipLinkTarget() {
@@ -1071,7 +1092,7 @@ function describeFirestoreError(error) {
 
   switch (code) {
     case 'permission-denied':
-      return 'Firestore blocked this action. Only the authorised IT Secretary account (see firestore.rules) may change notices or events.';
+      return 'Firestore blocked this action. Only an authorised ELLS admin account (see firestore.rules) may change notices or events.';
     case 'unavailable':
       return 'Cloud Firestore is unreachable right now. Check your connection and try again.';
     case 'failed-precondition':

@@ -17,32 +17,38 @@ Firestore collections used: **`notices`** and **`events`**.
 
 ---
 
-## The single admin account
+## The authorised admin accounts
+
+Both addresses are **full administrators with identical rights**.
 
 | | |
 | --- | --- |
-| **Authorised email** | `emdadulhoquex@gmail.com` |
-| Where it is enforced | `firestore.rules` → `isAdmin()` (real security boundary) |
+| **Authorised emails** | `emdadulhoquex@gmail.com` (IT Secretary)<br>`ells.dell.iiuc95@gmail.com` (official ELLS club account) |
+| Where it is enforced | `firestore.rules` → `isAdminEmail()` / `isAdmin()` (real security boundary) |
 | Where it is mirrored | `ADMIN_EMAILS` in `New folder/js/firebase-config.js` (UI guard) |
 
 * **Read** on `notices` and `events` → public, so `index.html` and `events.html`
   work for visitors.
-* **Create / update / delete** on `notices` and `events` → only
-  `emdadulhoquex@gmail.com`. This is the **only** address with write access
-  anywhere in the rules.
+* **Create / update / delete** on `notices` and `events` → only the two
+  addresses above. They are the **only** accounts with write access anywhere in
+  the rules, and each has the full set of permissions.
+* Matching is case-insensitive, so `Ells.Dell.IIUC95@gmail.com` still matches.
+* Either admin can update or delete documents created by the other; the stored
+  `authorEmail` / `authorUid` keep pointing at whoever created the entry.
 * Any other signed-in account is rejected by the rules **and** signed straight
   back out by `admin.js` with an “not authorised” message.
 * All other collections → denied.
 
-> If the secretary ever changes, update **both** `firestore.rules` and
+> If an admin changes, update **both** `firestore.rules` (`isAdminEmail()`) and
 > `ADMIN_EMAILS`, then redeploy the rules.
 
-## 1. Create the admin user (once)
+## 1. Create the admin users (once)
 
-Firebase console → **Authentication** → *Get started* → **Users** → *Add user*:
+Firebase console → **Authentication** → *Get started* → **Users** → *Add user*,
+once per account:
 
-* Email: `emdadulhoquex@gmail.com`
-* Password: a strong password you control
+* Email: `emdadulhoquex@gmail.com` — Password: a strong password you control
+* Email: `ells.dell.iiuc95@gmail.com` — Password: a strong password you control
 
 Make sure **Authentication → Sign-in method → Email/Password** is enabled.
 
@@ -60,10 +66,14 @@ document looks like:
   "date": "2026-10-27",
   "description": "All registered members are requested ...",
   "createdAt": "<server timestamp>",
-  "authorEmail": "emdadulhoquex@gmail.com",
+  "authorEmail": "<signed-in admin email>",
   "authorUid": "<firebase uid>"
 }
 ```
+
+`authorEmail` is always the signed-in admin's address, so it will be either
+`emdadulhoquex@gmail.com` or `ells.dell.iiuc95@gmail.com` — the rules reject any
+other value.
 
 The `events` collection appears the first time an event is published from the
 **Event Management** section of `admin.html`. Each document looks like:
@@ -78,7 +88,7 @@ The `events` collection appears the first time an event is published from the
   "venue": "Department of English, Campus Hall",
   "registrationLink": "https://forms.gle/...",
   "createdAt": "<server timestamp>",
-  "authorEmail": "emdadulhoquex@gmail.com",
+  "authorEmail": "<signed-in admin email>",
   "authorUid": "<firebase uid>"
 }
 ```
@@ -110,12 +120,14 @@ normally from the preview — no tunneling or local emulator needed.
 
 1. The three console steps above are done (user created, Firestore created,
    rules published).
-2. `firestore.rules` contains `emdadulhoquex@gmail.com`.
+2. `firestore.rules` contains **both** `emdadulhoquex@gmail.com` and
+   `ells.dell.iiuc95@gmail.com`.
 3. Open the preview → **`/admin.html`**.
 
 ### Test 1 — Login works
 
-1. Enter `emdadulhoquex@gmail.com` + the password from step 1.
+1. Enter `emdadulhoquex@gmail.com` **or** `ells.dell.iiuc95@gmail.com` + its
+   password from step 1.
 2. Expect: the “Verifying secure session” splash clears, the login form
    disappears and the **Admin Console** dashboard opens with the email in the
    top-right chip.
@@ -142,7 +154,7 @@ normally from the preview — no tunneling or local emulator needed.
 3. Expect: the homepage changes **without a reload** (real-time `onSnapshot`),
    and the green “Live from the ELLS notice board” pill is visible.
 
-### Test 4 — Only the admin address may write ★
+### Test 4 — Only the admin accounts may write ★
 
 **4a — the UI.** In the Firebase console create a second account, e.g.
 `tester@example.com` (Authentication → Users → Add user). Sign out of the admin
@@ -181,6 +193,10 @@ Click **Run** → the result must be **Denied**.
 Now change **only** the token payload to
 `{"email": "emdadulhoquex@gmail.com", "email_verified": true}` and click
 **Run** again → the result must be **Allowed**.
+
+Repeat with **only** the token payload changed to
+`{"email": "ells.dell.iiuc95@gmail.com", "email_verified": true}` → the result
+must be **Allowed** as well: both accounts have identical write access.
 
 Finally switch **Authenticated** off and Run once more → **Denied**
 (anonymous visitors can never write).

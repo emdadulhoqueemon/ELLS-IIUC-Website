@@ -9,20 +9,22 @@ rules_version = '2';
 // Model
 //   notices/{noticeId}
 //     • Anyone may READ  → the public homepage notice board.
-//     • ONLY the IT Secretary account may CREATE, UPDATE and DELETE:
-//           emdadulhoquex@gmail.com
+//     • ONLY the authorised admin accounts may CREATE, UPDATE and DELETE:
+//           emdadulhoquex@gmail.com      (IT Secretary)
+//           ells.dell.iiuc95@gmail.com   (official ELLS club account)
 //
 //   events/{eventId}
 //     • Anyone may READ  → the public events page (events.html).
-//     • ONLY the IT Secretary account may CREATE, UPDATE and DELETE:
-//           emdadulhoquex@gmail.com
+//     • ONLY the authorised admin accounts may CREATE, UPDATE and DELETE:
+//           emdadulhoquex@gmail.com      (IT Secretary)
+//           ells.dell.iiuc95@gmail.com   (official ELLS club account)
 //
 //     • Anonymous visitors and every other account are denied all writes.
 //     • Any other collection is denied entirely.
 //
-// ⚠️ The ONLY address allowed to write or delete ANY document is
-//    emdadulhoquex@gmail.com — there is no other admin, editor or moderator
-//    path in these rules. Keep the admin address below in sync with
+// ⚠️ The ONLY addresses allowed to write or delete ANY document are the two
+//    accounts in the allowlist below — there is no other admin, editor or
+//    moderator path in these rules. Keep the allowlist below in sync with
 //    ADMIN_EMAILS in New folder/js/firebase-config.js — the rules are the
 //    real security boundary; the JS constant only controls what the UI
 //    lets you do.
@@ -31,12 +33,22 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Single-admin allowlist: every write path below funnels through this.
+    // Admin allowlist: every write path below funnels through this.
+    // Both addresses are full administrators with identical rights.
+    // Compared case-insensitively so a differently-cased token still matches.
+    function isAdminEmail(email) {
+      return email is string
+        && email.lower() in [
+             'emdadulhoquex@gmail.com',     // IT Secretary
+             'ells.dell.iiuc95@gmail.com'   // Official ELLS club account
+           ];
+    }
+
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email == 'emdadulhoquex@gmail.com';
-      // Optional hardening — uncomment once the admin account has confirmed
-      // its address (Authentication → Users → verified badge):
+        && isAdminEmail(request.auth.token.email);
+      // Optional hardening — uncomment once BOTH admin accounts have confirmed
+      // their address (Authentication → Users → verified badge):
       //   && request.auth.token.email_verified == true
     }
 
@@ -54,7 +66,8 @@ service cloud.firestore {
         && request.resource.data.description.size() <= 600
         && request.resource.data.date is string
         && request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
-        && request.resource.data.authorUid == request.auth.uid;
+        && request.resource.data.authorEmail is string
+        && isAdminEmail(request.resource.data.authorEmail);
     }
 
     // Shape guard: every event written from the dashboard must match it.
@@ -85,15 +98,21 @@ service cloud.firestore {
         && request.resource.data.registrationLink is string
         && request.resource.data.registrationLink.size() <= 600
         && request.resource.data.registrationLink.matches('^https?://.+$')
-        && request.resource.data.authorUid == request.auth.uid;
+        && request.resource.data.authorEmail is string
+        && isAdminEmail(request.resource.data.authorEmail);
     }
 
     match /notices/{noticeId} {
       // Public notice board — readable by everyone, signed in or not.
       allow read: if true;
 
-      // Write access is limited to the single authorised admin address.
-      allow create, update: if isAdmin() && isValidNotice();
+      // Full create / update / delete access for both authorised admins.
+      // The new document must be attributed to the signed-in admin; on update
+      // the original author is preserved (either admin may edit either doc).
+      allow create: if isAdmin() && isValidNotice()
+        && request.resource.data.authorUid == request.auth.uid;
+      allow update: if isAdmin() && isValidNotice()
+        && request.resource.data.authorUid == resource.data.authorUid;
       allow delete: if isAdmin();
     }
 
@@ -101,8 +120,13 @@ service cloud.firestore {
       // Public events page — readable by everyone, signed in or not.
       allow read: if true;
 
-      // Write access is limited to the single authorised admin address.
-      allow create, update: if isAdmin() && isValidEvent();
+      // Full create / update / delete access for both authorised admins.
+      // The new document must be attributed to the signed-in admin; on update
+      // the original author is preserved (either admin may edit either doc).
+      allow create: if isAdmin() && isValidEvent()
+        && request.resource.data.authorUid == request.auth.uid;
+      allow update: if isAdmin() && isValidEvent()
+        && request.resource.data.authorUid == resource.data.authorUid;
       allow delete: if isAdmin();
     }
 

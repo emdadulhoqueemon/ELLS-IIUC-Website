@@ -22,6 +22,15 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/polish.css">
+
+  <noscript>
+    <style>
+      /* No JavaScript: show the Status Check and the 4-step form stacked. */
+      .membership-panel[hidden] { display: block !important; }
+      .membership-switch { display: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
@@ -132,30 +141,48 @@
 
   <main id="main-content">
     <!-- Header Banner -->
-    <section class="hero" style="padding-bottom: 3rem;">
-      <div class="container text-center" style="max-width: 840px;">
-        <span class="eyebrow" style="display: block; text-align: center; letter-spacing: 0.12em;">MEMBERSHIP STATUS CHECK</span>
-        <h1 style="text-align: center; font-size: clamp(2.1rem, 5vw, 3rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 0.6rem auto 1rem; max-width: 720px;">Check Your ELLS Membership Status</h1>
-        <p style="font-size: clamp(1rem, 2.5vw, 1.18rem); color: var(--text-secondary); margin-top: 1rem; text-align: center; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-          Enter your Student ID below to instantly verify your membership record — view your Name, ID, Semester, fee breakdown, and current Status.
-        </p>
+    <section class="hero" aria-labelledby="membership-heading">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">ELLS MEMBERSHIP</span>
+          <h1 id="membership-heading">Check Your ELLS Membership Status</h1>
+          <p class="hero-lead">
+            Enter your Student ID to instantly verify your membership record — or apply for
+            membership in four guided steps and generate your printable certificate.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Main Form Section -->
-    <section style="padding-top: 2rem;">
-      <div class="container" style="max-width: 840px;">
+    <section class="membership-section">
+      <div class="container membership-container">
         
         <!-- Notice if existing membership found in localStorage -->
         <div id="viewExistingMemberNotice" style="display: none;"></div>
 
-        <!-- Membership Status Check - Primary Default View (Restored) -->
-        <div id="membershipStatusCheck"></div>
+        <!-- Membership view switch: Status Check  |  Application Form -->
+        <div class="membership-switch" role="tablist" aria-label="Membership options">
+          <button type="button" class="membership-switch__btn" id="membershipTabStatus"
+                  role="tab" aria-selected="true" aria-controls="membershipStatusCheck"
+                  data-membership-target="membershipStatusCheck">
+            Check Status
+          </button>
+          <button type="button" class="membership-switch__btn" id="membershipTabApply"
+                  role="tab" aria-selected="false" aria-controls="applicationFormCard"
+                  data-membership-target="applicationFormCard">
+            Apply for Membership
+          </button>
+        </div>
+
+        <!-- ================= Membership Status Check ================= -->
+        <div class="membership-panel" id="membershipStatusCheck" role="tabpanel"
+             aria-labelledby="membershipTabStatus" tabindex="-1">
         <!-- Member Record Lookup Section (Google Apps Script API) -->
         <div class="card" id="memberRecordLookupCard" style="padding: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem;">
           <div class="section-intro" style="margin-bottom: 1.5rem;">
             <span class="eyebrow">MEMBERSHIP STATUS CHECK</span>
-            <h3 id="memberLookupHeading" style="margin: 0.5rem 0 0.4rem;">Membership Status Check</h3>
+            <h3 id="memberLookupHeading" style="margin: 0.5rem 0 0.4rem;">Enter Your Student ID</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
               Enter your Student ID to check your ELLS Club membership status, fee breakdown, and eligibility.
             </p>
@@ -182,18 +209,31 @@
           <div id="memberLookupResults" style="margin-top: 1rem;"></div>
         </div>
 
-        <!-- Divider with Apply Toggle -->
-        <div class="text-center" style="margin: 2.5rem 0 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(201,162,39,0.08) 0%, rgba(201,162,39,0.02) 100%); border: 1px solid rgba(201,162,39,0.15); border-radius: 12px;">
-          <h3 style="margin: 0 0 0.6rem; font-size: 1.25rem; text-align: center;">Ready to Join ELLS?</h3>
-          <p style="margin: 0 0 1rem; color: var(--text-secondary); font-size: 0.95rem; text-align: center;">New members complete our 4-step application to generate your printable certificate.</p>
-          <a href="#applicationFormCard" class="btn btn-primary" id="applyMembershipToggle" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-            <span>Apply for Membership</span>
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2;" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
+          <!-- CTA: jump into the restored 4-step application -->
+          <div class="membership-cta">
+            <div>
+              <h3>Ready to Join ELLS?</h3>
+              <p>New members complete our 4-step application to generate a printable certificate.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="applyMembershipToggle"
+                    data-membership-target="applicationFormCard">
+              <span>Apply for Membership</span>
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2;" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
         </div>
 
+        <!-- ================= Join ELLS — 4-Step Application ================= -->
+        <div class="membership-panel" id="applicationFormCard" role="tabpanel"
+             aria-labelledby="membershipTabApply" tabindex="-1" hidden>
+          <div class="section-intro">
+            <span class="eyebrow">JOIN ELLS</span>
+            <h2>Membership Application</h2>
+            <p>Complete the four steps below to join the fellowship and generate your printable Certificate of Membership.</p>
+          </div>
+
         <!-- 4-Step Application Form - Restored (generates printable certificate) -->
-        <div class="card" id="applicationFormCard" style="padding: clamp(1.8rem, 4vw, 3rem);">
+        <div class="card application-card" style="padding: clamp(1.8rem, 4vw, 3rem);">
           
           <!-- Wizard Step Progress -->
           <div class="wizard-progress" role="progressbar" aria-label="Application Progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
@@ -397,6 +437,7 @@
               </div>
             </div>
           </form>
+        </div>
         </div>
 
         <!-- Generated Digital Membership Pass & Certificate Display (Hidden by default) -->

@@ -4,10 +4,112 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initMembershipViews();
   initMembershipWizard();
   checkExistingMembership();
   initMemberRecordSearch();
 });
+
+/* ==========================================================================
+   Membership Views — Status Check vs. 4-Step Application
+   --------------------------------------------------------------------------
+   Both sections live in the page at the same time:
+     • #membershipStatusCheck   → the Student ID lookup (Google Apps Script)
+     • #applicationFormCard     → the restored 4-step wizard + certificate
+
+   They are two panes of one switch. With JavaScript disabled both stay
+   visible and simply stack, so nothing is ever lost. Deep links work too:
+     membership.html#membershipStatusCheck  → status pane
+     membership.html#applicationFormCard    → application pane
+   ========================================================================== */
+function initMembershipViews() {
+  const switchEl = document.querySelector('.membership-switch');
+  const panels = Array.from(document.querySelectorAll('.membership-panel'));
+  if (!panels.length) return;
+
+  const tabs = Array.from(
+    (switchEl || document).querySelectorAll('[role="tab"][data-membership-target]')
+  );
+  const triggers = Array.from(document.querySelectorAll('[data-membership-target]'));
+
+  const STATUS_PANEL = 'membershipStatusCheck';
+  const APPLY_PANEL = 'applicationFormCard';
+
+  function resolvePanelId(raw) {
+    const id = String(raw || '').replace(/^#/, '').trim();
+    if (id === APPLY_PANEL || id === 'membershipApplyPanel' || id === 'applyMembershipToggle') {
+      return APPLY_PANEL;
+    }
+    if (id === STATUS_PANEL) return STATUS_PANEL;
+    return '';
+  }
+
+  function activate(panelId, options) {
+    const id = resolvePanelId(panelId) || STATUS_PANEL;
+    const target = document.getElementById(id);
+
+    panels.forEach(panel => {
+      const isActive = panel === target;
+      panel.hidden = !isActive;
+      panel.classList.toggle('is-active', isActive);
+      panel.setAttribute('aria-hidden', String(!isActive));
+      // Restore a pane that a previous flow (e.g. the generated certificate)
+      // hid with an inline style.
+      if (isActive) panel.style.removeProperty('display');
+    });
+
+    tabs.forEach(tab => {
+      const isActive = tab.getAttribute('data-membership-target') === id;
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    if (options && options.scroll && target) {
+      const headerOffset = 92;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+    }
+  }
+
+  triggers.forEach(el => {
+    el.addEventListener('click', event => {
+      const id = resolvePanelId(el.getAttribute('data-membership-target'));
+      if (!id) return;
+      event.preventDefault();
+      // Keep focus on the control that was activated (WAI-ARIA tabs pattern);
+      // only the pane visibility and scroll position change.
+      activate(id, { scroll: true });
+    });
+  });
+
+  // Arrow-key navigation between the two tabs (WAI-ARIA tabs pattern).
+  if (switchEl) {
+    switchEl.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      const current = tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+      const delta = event.key === 'ArrowRight' ? 1 : -1;
+      const next = tabs[(current + delta + tabs.length) % tabs.length];
+      if (next) {
+        activate(next.getAttribute('data-membership-target'));
+        next.focus();
+      }
+    });
+  }
+
+  function activateFromHash() {
+    const id = resolvePanelId(window.location.hash);
+    if (id) activate(id, { scroll: true });
+  }
+
+  // Default view: the Status Check. A deep link (from "Join ELLS" anywhere on
+  // the site) switches straight to the application wizard instead.
+  activateFromHash();
+  if (!resolvePanelId(window.location.hash)) {
+    activate(STATUS_PANEL);
+  }
+  window.addEventListener('hashchange', activateFromHash);
+}
 
 /* ==========================================================================
    Google Apps Script API Endpoint
@@ -21,6 +123,43 @@ document.addEventListener('DOMContentLoaded', () => {
      {"error": "Student ID not found in our records"}
    ========================================================================== */
 const MEMBER_API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbweVB7pfq9ZMDIl6WBDsfv4vbTL9Fcj0qGxGeH_ydsYi_RCUlYWcN6Qpjn6BC2nbcW7/exec';
+
+/* ==========================================================================
+   Safe local storage
+   --------------------------------------------------------------------------
+   Storage can be unavailable (private mode, blocked third-party storage,
+   file:// previews). A failure must never stop the certificate from being
+   generated, so every access is guarded.
+   ========================================================================== */
+const MEMBER_STORAGE_KEY = 'ells-member';
+
+function readStoredMember() {
+  try {
+    const raw = window.localStorage ? window.localStorage.getItem(MEMBER_STORAGE_KEY) : null;
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    console.warn('[ELLS] Membership storage unavailable (read):', error);
+    return null;
+  }
+}
+
+function storeMember(memberData) {
+  try {
+    if (window.localStorage) {
+      window.localStorage.setItem(MEMBER_STORAGE_KEY, JSON.stringify(memberData));
+    }
+  } catch (error) {
+    console.warn('[ELLS] Membership storage unavailable (write):', error);
+  }
+}
+
+function clearStoredMember() {
+  try {
+    if (window.localStorage) window.localStorage.removeItem(MEMBER_STORAGE_KEY);
+  } catch (error) {
+    console.warn('[ELLS] Membership storage unavailable (clear):', error);
+  }
+}
 
 /* ==========================================================================
    Member Record Lookup (Google Apps Script API fetch)
@@ -547,7 +686,7 @@ function initMembershipWizard() {
         issued: issueDate
       };
 
-      localStorage.setItem('ells-member', JSON.stringify(memberData));
+      storeMember(memberData);
       renderMembershipPass(memberData);
 
       showToast(`Welcome to ELLS Club, ${fullName}! Your fellowship is confirmed.`, 'success');
@@ -559,7 +698,11 @@ function renderMembershipPass(memberData) {
   const formCard = document.getElementById('applicationFormCard');
   const passContainer = document.getElementById('membershipPassContainer');
 
-  if (formCard) formCard.style.display = 'none';
+  if (formCard) {
+    formCard.hidden = true;
+    formCard.classList.remove('is-active');
+    formCard.style.display = 'none';
+  }
   if (passContainer) {
     passContainer.style.display = 'block';
 
@@ -589,17 +732,16 @@ function renderMembershipPass(memberData) {
   const reapplyBtn = document.getElementById('reapplyBtn');
   if (reapplyBtn) {
     reapplyBtn.addEventListener('click', () => {
-      localStorage.removeItem('ells-member');
+      clearStoredMember();
       location.reload();
     });
   }
 }
 
 function checkExistingMembership() {
-  const savedMember = localStorage.getItem('ells-member');
-  if (savedMember) {
+  const memberData = readStoredMember();
+  if (memberData) {
     try {
-      const memberData = JSON.parse(savedMember);
       const viewExistingBtn = document.getElementById('viewExistingMemberNotice');
       if (viewExistingBtn) {
         viewExistingBtn.style.display = 'block';
