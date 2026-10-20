@@ -1175,6 +1175,9 @@ main > .hero .container,
     align-items: center;
     gap: 8px;
     padding: 0;
+    /* 5px top+bottom keeps the :focus-visible outline from being clipped by
+       overflow-y while still hugging the row on both sides */
+    padding-top: 5px;
     padding-bottom: 5px;
     margin: 0;
     width: 100%;
