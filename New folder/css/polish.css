@@ -398,10 +398,6 @@ main > .hero .container,
   padding: 0;
 }
 
-.event-card--poster:hover {
-  transform: translateY(-4px);
-}
-
 /* The media cell — always a perfect square */
 .event-card__poster {
   position: relative;
