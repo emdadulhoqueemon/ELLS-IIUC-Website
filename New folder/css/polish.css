@@ -404,37 +404,40 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Poster event cards — square poster left, details right (events.html feed)
+   Poster event cards (emitted by js/events-feed.js)
    --------------------------------------------------------------------------
-   .event-card--poster is the layout emitted by js/events-feed.js for every
-   Firestore event:
-
      .event-card--poster
        .event-card__poster      → 1:1 media (img or placeholder)
        .event-card__details     → header + body + footer
 
-   Desktop/tablet: two columns, poster square on the left.
-   Mobile: stacked, poster square on top.
+   Mobile-first, so the two layouts can never bleed into each other:
+
+     every width   stacked — 1:1 poster on top, details underneath
+                   (this is also the homepage strip, 3-up at ~360px a card)
+     ≥ 769px       #eventsGrid only: 38% poster panel | 62% details
+
+   The horizontal split lives in its own min-width block further down this
+   section and is scoped to the full-width feed on events.html — a split card
+   at three-up on the homepage would be far too narrow to read.
    -------------------------------------------------------------------------- */
 .event-card--poster {
   display: grid;
-  grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
   overflow: hidden;
   padding: 0;
 }
 
-/* The media cell — always a perfect square */
+/* The media cell — a perfect square while it is stacked or the text is short */
 .event-card__poster {
   position: relative;
-  align-self: center;
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   background:
     radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.16) 0%, transparent 60%),
     linear-gradient(140deg, #0B1120 0%, #132A24 55%, #0B1120 100%);
-  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .event-card__poster-img {
@@ -551,15 +554,108 @@ main > .hero .container,
   flex-wrap: wrap;
 }
 
-/* The events feed breathes better in two wide columns than three narrow ones */
-#eventsGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+/* --------------------------------------------------------------------------
+   Desktop / tablet (≥ 769px) — the horizontal card
+   --------------------------------------------------------------------------
+   Poster panel on the LEFT at 38% of the card (< 40%, as specified), details
+   on the RIGHT with the remaining 62%. Both grid cells stretch, so the media
+   panel runs edge to edge from the card's top border to its bottom border —
+   the old `align-self: center` left uneven dead space above and below the
+   poster (and a divider line that only covered the square), which is what
+   made the card look squeezed and misaligned.
+
+   Scoped to #eventsGrid on purpose: the homepage strip is a 3-up grid where
+   each column is only ~360px wide, far too narrow for a split card, so those
+   cards stay stacked (poster on top) at every width.
+
+   The poster keeps a 1:1 floor (its intrinsic size drives the row height);
+   once the text column grows past that, the panel simply gets taller and the
+   image crops itself via object-fit: cover — never stretched, never squashed.
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) {
+  #eventsGrid .event-card--poster {
+    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+    /* Slightly tighter than the global card pad: a horizontal card carries a
+       lot more content per row, and the 38% media panel eats the width. */
+    --polish-card-pad: clamp(1.1rem, 1.65vw, 1.5rem);
+  }
+
+  /* Fill the full height of the card, flush against every edge */
+  #eventsGrid .event-card__poster {
+    align-self: stretch;
+    justify-self: stretch;
+    width: 100%;
+    height: auto;
+    border-bottom: 0;
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  #eventsGrid .event-card__details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0;
+  }
+
+  /* Header: date badge and badges stay on one tidy line, wrapping if needed */
+  #eventsGrid .event-card--poster .event-card-header {
+    align-items: flex-start;
+    padding: var(--polish-card-pad) var(--polish-card-pad) 0.7rem;
+  }
+
+  #eventsGrid .event-card--poster .event-date-badge {
+    flex: 0 0 auto;
+  }
+
+  #eventsGrid .event-card--poster .event-card__badges {
+    flex: 1 1 auto;
+    min-width: 0;
+    row-gap: 0.35rem;
+  }
+
+  #eventsGrid .event-card--poster .event-card-body {
+    padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+  }
+
+  /* Long descriptions get clamped so every card in the row keeps its rhythm */
+  #eventsGrid .event-card--poster .event-card-body > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    overflow-wrap: anywhere;
+  }
+
+  #eventsGrid .event-card--poster .event-meta {
+    gap: 0.32rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.86rem;
+  }
+
+  #eventsGrid .event-card--poster .event-card-footer {
+    gap: 0.6rem;
+    row-gap: 0.5rem;
+    padding-top: 0.8rem;
+  }
+
+  /* The CTA never spills out of the details column */
+  #eventsGrid .event-card--poster .event-card-footer .btn {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+
+  #eventsGrid .event-card--poster .seats-indicator {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
 }
 
-@media (max-width: 1100px) {
-  #eventsGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* One event per row: a horizontal poster card only breathes at full width —
+   at two-up (~574px per card) the 38% poster column squeezed the details,
+   which is the layout bug this section fixes. */
+#eventsGrid {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 /* The ticker is display:flex in style.css, which would defeat [hidden] —
@@ -1387,12 +1483,12 @@ main > .hero .container,
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .event-card--poster {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
+  /* Stacked: the base rule is already a single column, so only the media
+     panel itself needs re-pinning here. */
   .event-card__poster {
     align-self: start;
+    aspect-ratio: 1 / 1;
+    height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--border-subtle);
   }
