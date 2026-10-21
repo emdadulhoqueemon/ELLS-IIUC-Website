@@ -488,15 +488,6 @@
   font-size: 0.78rem;
 }
 
-.admin-login__legal {
-  margin-top: 1.4rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.72rem;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
-
 /* ==========================================================================
    Dashboard
    ========================================================================== */
@@ -737,8 +728,10 @@
   margin-bottom: 0.25rem;
 }
 
+/* Card headers are title-only now (the helper paragraphs were removed), so
+   this stays as a safety net for any future one-line description. */
 .admin-card__head p {
-  margin: 0;
+  margin: 0.2rem 0 0;
   font-size: 0.84rem;
   line-height: 1.6;
   color: var(--text-muted);
@@ -749,6 +742,18 @@
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 1.25rem;
+}
+
+/* "Currently Live on Website" is title + counter now, so the counter belongs
+   on the right edge with the title free to use the remaining width. */
+.admin-live .admin-card__head {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-live .admin-card__head > div:not(.admin-card__icon) {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .admin-card__head--compact h2 {
@@ -1419,25 +1424,6 @@
   color: #FDA4AF;
 }
 
-/* --- Footnote ---------------------------------------------------------- */
-.admin-footnote {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  margin: 1.75rem 0 0;
-  font-size: 0.76rem;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
-
-.admin-footnote svg {
-  flex-shrink: 0;
-  width: 15px;
-  height: 15px;
-  margin-top: 0.1rem;
-  color: var(--accent-gold);
-}
-
 /* --------------------------------------------------------------------------
    Console credit block — copyright only. The developer credit is the slim
    full-bleed ribbon at the very end of <body> (style.css → .developer-credit-bar),
@@ -1686,8 +1672,7 @@
 }
 
 .admin-published-card code,
-.admin-main__head code,
-.admin-footnote code {
+.admin-main__head code {
   padding: 0.1rem 0.3rem;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.08);
@@ -1758,15 +1743,27 @@
   }
 }
 
-/* Category/Track <select> styled like the rest of the admin inputs. */
+/* --------------------------------------------------------------------------
+   <select> — Event Category and Event Status
+   --------------------------------------------------------------------------
+   The native arrow cannot be padded away, so it is replaced with an inline
+   SVG that is positioned inside the right padding. `appearance: none` plus a
+   fixed 2.5rem gutter keeps the label from ever colliding with the chevron,
+   and the full `padding` shorthand is restated here (not just padding-right)
+   so .admin-input's shorthand can never re-squeeze the right side.
+   -------------------------------------------------------------------------- */
 .admin-select {
   appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--bg-input);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A227' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.95rem center;
-  background-size: 15px 15px;
-  padding-right: 2.6rem;
+  background-size: 16px 16px;
+  padding: 0.85rem 2.75rem 0.85rem 1rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
 
@@ -1810,5 +1807,196 @@
 
   .admin-live-item__serial {
     min-width: 38px;
+  }
+}
+
+/* ==========================================================================
+   Compact mobile pass (≤ 768px)
+   ==========================================================================
+   The console is used from a phone as often as a laptop. Cards, headings and
+   controls step down here so labels and values stay on one line instead of
+   breaking mid-word, and the generous desktop padding no longer eats a third
+   of a 360px screen.
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* --- Page frame ------------------------------------------------------- */
+  .admin-main {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .admin-main__head {
+    gap: 0.75rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .admin-main__head--section {
+    margin-top: 1.9rem;
+  }
+
+  .admin-main__head h1 {
+    font-size: 1.35rem;
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+
+  .admin-main__head p {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .admin-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
+  }
+
+  /* --- Cards ------------------------------------------------------------ */
+  .admin-card {
+    padding: 0.95rem 0.85rem;
+    border-radius: 12px;
+  }
+
+  .admin-card__head {
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  .admin-card__head--compact {
+    margin-bottom: 0.85rem;
+  }
+
+  .admin-card__head h2 {
+    font-size: 1.02rem;
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+
+  .admin-card__head--compact h2 {
+    font-size: 0.94rem;
+  }
+
+  .admin-card__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .admin-card__icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .admin-grid {
+    gap: 0.85rem;
+  }
+
+  /* --- Form controls ---------------------------------------------------- */
+  .admin-input,
+  .admin-textarea {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .admin-textarea {
+    min-height: 96px;
+    padding-top: 0.7rem;
+    line-height: 1.55;
+  }
+
+  /* Must come after .admin-input: same specificity, and its padding shorthand
+     would otherwise collapse the 2.5rem chevron gutter back to 0.85rem. */
+  .admin-select {
+    padding: 0.72rem 2.5rem 0.72rem 0.85rem;
+    background-position: right 0.8rem center;
+    background-size: 15px 15px;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .admin-label-row {
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .form-label {
+    font-size: 0.84rem;
+  }
+
+  .admin-counter {
+    font-size: 0.68rem;
+    flex: 0 0 auto;
+  }
+
+  .form-hint {
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .admin-form-row {
+    gap: 0.6rem;
+  }
+
+  .admin-notice-preview {
+    padding: 0.85rem 0.9rem;
+  }
+
+  .admin-notice-preview h3 {
+    font-size: 1rem;
+  }
+
+  .admin-notice-preview p {
+    font-size: 0.82rem;
+  }
+
+  .admin-notice-preview__meta {
+    font-size: 0.76rem;
+  }
+
+  /* --- Currently Live rows --------------------------------------------- */
+  .admin-live {
+    margin-top: 1rem;
+  }
+
+  .admin-live-item {
+    gap: 0.55rem;
+    padding: 0.6rem 0.65rem;
+  }
+
+  .admin-live-item__title {
+    font-size: 0.86rem;
+    line-height: 1.3;
+  }
+
+  .admin-live-item__meta,
+  .admin-live-item__desc {
+    font-size: 0.72rem;
+  }
+
+  .admin-live-item__desc {
+    -webkit-line-clamp: 1;
+  }
+
+  .admin-live-action {
+    padding: 0.38rem 0.55rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* The shortest phones: two-digit date fields and action labels still fit. */
+@media (max-width: 400px) {
+  .admin-card {
+    padding: 0.85rem 0.72rem;
+  }
+
+  .admin-main__head h1 {
+    font-size: 1.2rem;
+  }
+
+  .admin-card__head h2 {
+    font-size: 0.96rem;
   }
 }
