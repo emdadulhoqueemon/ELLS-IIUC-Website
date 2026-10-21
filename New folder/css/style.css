@@ -3226,6 +3226,7 @@ textarea.form-control {
 .resource-card-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   background: rgba(212, 175, 55, 0.18);
   border: 1px solid var(--accent-gold);
@@ -3236,7 +3237,7 @@ textarea.form-control {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  margin: 0 auto 0.85rem auto;
   line-height: 1.25;
 }
 
@@ -3261,8 +3262,10 @@ textarea.form-control {
 .resource-tags-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 0.45rem;
-  margin-bottom: 1.2rem;
+  margin: 0 auto 1.2rem auto;
 }
 
 .resource-tag {
@@ -3322,12 +3325,14 @@ textarea.form-control {
 .resource-card-credit {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.75);
   margin-top: 0.8rem;
   padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
   position: relative;
   z-index: 2;
 }
@@ -3341,12 +3346,26 @@ textarea.form-control {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+  .resource-card-info {
+    text-align: center;
+  }
+  .resource-card-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .resource-btn-wrap {
     align-items: stretch;
+    justify-content: center;
     width: 100%;
   }
   .resource-drive-btn {
     width: 100%;
+    justify-content: center;
+  }
+  .resource-card-credit {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
   }
 }
 
