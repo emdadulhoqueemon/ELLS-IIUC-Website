@@ -412,25 +412,25 @@ main > .hero .container,
 
    Mobile-first, so the two layouts can never bleed into each other:
 
-     every width   stacked — 1:1 poster on top, details underneath
-                   (this is also the homepage strip, 3-up at ~360px a card)
-     ≥ 769px       #eventsGrid only: 38% poster panel | 62% details
+     ≤ 768px   column — 1:1 poster on top, details underneath
+     ≥ 769px   row    — 38% poster on the left, details on the right, 24px gap
 
-   The horizontal split lives in its own min-width block further down this
-   section and is scoped to the full-width feed on events.html — a split card
-   at three-up on the homepage would be far too narrow to read.
+   The row layout is the default for every poster card on desktop; the only
+   exception is the homepage strip (#homeEventsGrid, 3-up at ~360px a card),
+   which opts out with .event-card--home and stays stacked.
    -------------------------------------------------------------------------- */
 .event-card--poster {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
   overflow: hidden;
   padding: 0;
 }
 
-/* The media cell — a perfect square while it is stacked or the text is short */
+/* The media cell — a perfect square while stacked */
 .event-card__poster {
   position: relative;
+  flex: 0 0 auto;
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
@@ -508,13 +508,27 @@ main > .hero .container,
   padding: 0;
 }
 
+/* Date block left, track badge right — top-aligned so the two never collide,
+   at every width. */
 .event-card--poster .event-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: var(--polish-card-pad) var(--polish-card-pad) 0.85rem;
+}
+
+.event-card--poster .event-date-badge {
+  flex: 0 0 auto;
+}
+
+.event-card--poster .event-card__badges {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: right;
 }
 
 .event-card--poster .event-card-body {
@@ -555,70 +569,61 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Desktop / tablet (≥ 769px) — the horizontal card
+   Desktop / tablet (≥ 769px) — strict row layout
    --------------------------------------------------------------------------
-   Poster panel on the LEFT at 38% of the card (< 40%, as specified), details
-   on the RIGHT with the remaining 62%. Both grid cells stretch, so the media
-   panel runs edge to edge from the card's top border to its bottom border —
-   the old `align-self: center` left uneven dead space above and below the
-   poster (and a divider line that only covered the square), which is what
-   made the card look squeezed and misaligned.
+   A horizontal flex row: the 1:1 poster sits on the LEFT at 38% of the card,
+   the details fill the rest, and a 24px gutter separates them. The poster is
+   inset inside the card's own padding and centred with `align-self: center`,
+   so it stays a perfect square — `align-items: stretch` alone would stretch
+   it into a tall rectangle and break the 1:1 contract.
 
-   Scoped to #eventsGrid on purpose: the homepage strip is a 3-up grid where
-   each column is only ~360px wide, far too narrow for a split card, so those
-   cards stay stacked (poster on top) at every width.
-
-   The poster keeps a 1:1 floor (its intrinsic size drives the row height);
-   once the text column grows past that, the panel simply gets taller and the
-   image crops itself via object-fit: cover — never stretched, never squashed.
+   `flex-wrap` is deliberately left at `nowrap`: the two columns must never
+   drop under one another on desktop.
    -------------------------------------------------------------------------- */
 @media (min-width: 769px) {
-  #eventsGrid .event-card--poster {
-    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
-    /* Slightly tighter than the global card pad: a horizontal card carries a
-       lot more content per row, and the 38% media panel eats the width. */
-    --polish-card-pad: clamp(1.1rem, 1.65vw, 1.5rem);
+  .event-card--poster {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 24px;
+    padding: clamp(0.95rem, 1.4vw, 1.35rem);
   }
 
-  /* Fill the full height of the card, flush against every edge */
-  #eventsGrid .event-card__poster {
-    align-self: stretch;
-    justify-self: stretch;
-    width: 100%;
+  /* Left column — square poster, 38% of the inner width (≈36% of the card) */
+  .event-card--poster .event-card__poster {
+    flex: 0 0 38%;
+    width: 38%;
+    max-width: 38%;
+    aspect-ratio: 1 / 1;
     height: auto;
-    border-bottom: 0;
-    border-right: 1px solid var(--border-subtle);
+    align-self: center;
+    border: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
   }
 
-  #eventsGrid .event-card__details {
+  /* Right column — header / body / footer stacked, no double padding */
+  .event-card--poster .event-card__details {
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    min-width: 0;
     padding: 0;
   }
 
-  /* Header: date badge and badges stay on one tidy line, wrapping if needed */
-  #eventsGrid .event-card--poster .event-card-header {
+  .event-card--poster .event-card-header {
+    padding: 0 0 0.75rem;
     align-items: flex-start;
-    padding: var(--polish-card-pad) var(--polish-card-pad) 0.7rem;
   }
 
-  #eventsGrid .event-card--poster .event-date-badge {
-    flex: 0 0 auto;
-  }
-
-  #eventsGrid .event-card--poster .event-card__badges {
-    flex: 1 1 auto;
-    min-width: 0;
-    row-gap: 0.35rem;
-  }
-
-  #eventsGrid .event-card--poster .event-card-body {
-    padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+  .event-card--poster .event-card-body {
+    padding: 0;
   }
 
   /* Long descriptions get clamped so every card in the row keeps its rhythm */
-  #eventsGrid .event-card--poster .event-card-body > p {
+  .event-card--poster .event-card-body > p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
@@ -627,35 +632,71 @@ main > .hero .container,
     overflow-wrap: anywhere;
   }
 
-  #eventsGrid .event-card--poster .event-meta {
+  .event-card--poster .event-meta {
     gap: 0.32rem;
     margin-bottom: 0.85rem;
     font-size: 0.86rem;
   }
 
-  #eventsGrid .event-card--poster .event-card-footer {
+  .event-card--poster .event-card-footer {
     gap: 0.6rem;
     row-gap: 0.5rem;
     padding-top: 0.8rem;
   }
 
   /* The CTA never spills out of the details column */
-  #eventsGrid .event-card--poster .event-card-footer .btn {
+  .event-card--poster .event-card-footer .btn {
     flex: 0 1 auto;
     max-width: 100%;
   }
 
-  #eventsGrid .event-card--poster .seats-indicator {
+  .event-card--poster .seats-indicator {
     flex: 0 1 auto;
     min-width: 0;
   }
 }
 
-/* One event per row: a horizontal poster card only breathes at full width —
-   at two-up (~574px per card) the 38% poster column squeezed the details,
-   which is the layout bug this section fixes. */
+/* One card per row. The horizontal card needs the full container width — at
+   .grid-3's auto-fit three-up each card would be ~370px and the 38% poster
+   column would squeeze the details into a sliver. */
 #eventsGrid {
   grid-template-columns: minmax(0, 1fr);
+}
+
+/* --------------------------------------------------------------------------
+   Homepage strip — opt out of the row layout
+   --------------------------------------------------------------------------
+   #homeEventsGrid is a 3-up grid, so each card is only ~360px wide. Splitting
+   that into a poster + text column would leave ~200px for the details, so the
+   strip keeps the classic stacked card (poster on top) at every width.
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) {
+  .event-card--home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  .event-card--home .event-card__poster {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    align-self: start;
+    border: 0;
+    border-bottom: 1px solid var(--border-subtle);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .event-card--home .event-card-header {
+    padding: var(--polish-card-pad) var(--polish-card-pad) 0.7rem;
+  }
+
+  .event-card--home .event-card-body {
+    padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+  }
 }
 
 /* The ticker is display:flex in style.css, which would defeat [hidden] —
@@ -1005,30 +1046,17 @@ main > .hero .container,
   justify-content: flex-end;
 }
 
-.event-status-badge.status-closed {
-  background: rgba(148, 163, 184, 0.16);
-  border-color: rgba(148, 163, 184, 0.45);
-  color: #CBD5E1;
-}
-
-.event-status-badge.status-completed {
-  background: rgba(16, 185, 129, 0.14);
-  border-color: rgba(16, 185, 129, 0.4);
-  color: #6EE7B7;
-}
-
-/* Closed / completed cards stay legible but read as "past" */
+/* Closed / completed cards stay legible but read as "past". The status
+   itself is carried by the disabled CTA alone — no extra chip, no second
+   "Registration Closed" line in the footer. */
 .event-card--poster.is-registration-closed .event-card__poster-img {
   filter: saturate(0.55) brightness(0.86);
 }
 
-.event-card--poster.is-registration-closed .seats-indicator {
-  color: var(--text-muted);
-}
-
-.seats-indicator--closed,
-.seats-indicator--completed {
-  color: var(--text-muted) !important;
+/* When the footer holds only the CTA (closed / completed), pin it right so it
+   stays in the same place as on an open card. */
+.event-card--poster .event-card-footer > .btn {
+  margin-left: auto;
 }
 
 /* The disabled CTA: no pointer, no hover lift, no gold fill */
@@ -1483,18 +1511,45 @@ main > .hero .container,
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  /* Stacked: the base rule is already a single column, so only the media
-     panel itself needs re-pinning here. */
+  /* Stacked: the base rule is already a column, so only the media panel
+     itself needs re-pinning here. */
   .event-card__poster {
     align-self: start;
+    flex: 0 0 auto;
+    width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--border-subtle);
   }
 
+  /* Date block left, track badge right, both pinned to the top. nowrap stops
+     the badge dropping under the date and colliding with the title; a long
+     track name wraps inside its own badge instead of shoving the date. */
   .event-card--poster .event-card-header {
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
     padding: 0.95rem 0.95rem 0.6rem;
+  }
+
+  .event-card--poster .event-date-badge {
+    flex: 0 0 auto;
+  }
+
+  .event-card--poster .event-card__badges {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: right;
+  }
+
+  .event-card--poster .event-card__badges .badge {
+    white-space: normal;
+    text-align: right;
+    line-height: 1.3;
   }
 
   .event-card--poster .event-card-body {
