@@ -54,20 +54,17 @@ const EVENT_STATUS = {
   open: {
     key: 'open',
     label: 'Registration Open',
-    cta: 'Reg Now',
-    badge: 'status-open'
+    cta: 'Reg Now'
   },
   closed: {
     key: 'closed',
     label: 'Registration Closed',
-    cta: 'Reg Closed',
-    badge: 'status-closed'
+    cta: 'Reg Closed'
   },
   completed: {
     key: 'completed',
     label: 'Completed',
-    cta: 'Completed',
-    badge: 'status-completed'
+    cta: 'Completed'
   }
 };
 
@@ -297,15 +294,8 @@ function buildEventCard(evt, variant = '') {
   badge.textContent = evt.category || 'Event';
   badges.appendChild(badge);
 
-  /* Registration state is only advertised when it is NOT open — an "Open"
-     chip on every card would just be noise. */
-  if (status.key !== 'open') {
-    const statusChip = document.createElement('span');
-    statusChip.className = `badge event-status-badge ${status.badge}`;
-    statusChip.textContent = status.label;
-    badges.appendChild(statusChip);
-  }
-
+  /* One status indicator per card, and it is the CTA itself (bottom right).
+     A second "Registration Closed" chip up here just repeated the button. */
   header.append(dateBadge, badges);
 
   /* Body: title + description + meta + footer */
@@ -328,11 +318,18 @@ function buildEventCard(evt, variant = '') {
   const footer = document.createElement('div');
   footer.className = 'event-card-footer';
 
-  const seats = document.createElement('span');
-  seats.className = `seats-indicator seats-indicator--${status.key}`;
-  seats.textContent = status.key === 'open' ? 'Open Registration' : status.label;
+  /* "Open Registration" is useful context while seats can still be booked.
+     Once registration closes the disabled CTA already says so — a second
+     "Registration Closed" line on the left would be pure repetition, so the
+     footer keeps only the button (pinned to the right by CSS). */
+  if (status.key === 'open') {
+    const seats = document.createElement('span');
+    seats.className = 'seats-indicator seats-indicator--open';
+    seats.textContent = 'Open Registration';
+    footer.appendChild(seats);
+  }
 
-  footer.append(seats, buildRsvpControl(evt));
+  footer.appendChild(buildRsvpControl(evt));
 
   body.append(title, description, meta, footer);
   details.append(header, body);

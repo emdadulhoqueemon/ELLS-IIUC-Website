@@ -84,7 +84,7 @@
 
         <span class="admin-eyebrow">Secure Sign-In</span>
         <h2>Welcome back</h2>
-        <p class="admin-login__lead">Sign in with an admin account authorised for the ELLS Firebase project. Only authorised accounts can publish or delete notices and events.</p>
+        <p class="admin-login__lead">Sign in to manage ELLS notices and events.</p>
 
         <form id="adminLoginForm" class="admin-login__form" novalidate>
           <div class="form-group">
@@ -161,10 +161,6 @@
           </button>
         </form>
 
-        <p class="admin-login__legal">
-          This workspace is protected and intended for ELLS administrators. Access is verified with Firebase Authentication, and Firestore rules restrict notice and event changes to the authorised admin accounts.
-        </p>
-
         <div class="admin-credit admin-credit--login">
           <p class="admin-credit__copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</p>
         </div>
@@ -218,7 +214,7 @@
         <div>
           <span class="admin-eyebrow">Admin Console</span>
           <h1>Notice Management</h1>
-          <p>Publish official ELLS announcements straight to the public notice board. Every notice is stored in Cloud Firestore and appears on the homepage instantly.</p>
+          <p>Publish and manage official ELLS announcements for the public notice board.</p>
         </div>
         <div class="admin-main__meta">
           <span>Today</span>
@@ -239,7 +235,6 @@
             </div>
             <div>
               <h2 id="addNoticeHeading">Add New Notice</h2>
-              <p>All fields are required. Keep titles concise and descriptions under 600 characters.</p>
             </div>
           </header>
 
@@ -285,7 +280,7 @@
                 maxlength="600"
                 placeholder="Write the full notice details — venue, time, and any instructions for students."
                 required></textarea>
-              <p class="form-hint" id="noticeDescriptionHint">Paste full <strong>https://</strong> links (Google Forms, Facebook, etc.) — they become clickable on the public notice board.</p>
+              <p class="form-hint" id="noticeDescriptionHint">Full <strong>https://</strong> links become clickable.</p>
               <p class="form-error" id="noticeDescriptionError"></p>
             </div>
 
@@ -313,7 +308,6 @@
             <header class="admin-card__head admin-card__head--compact">
               <div>
                 <h2 id="previewHeading">Live Preview</h2>
-                <p>How this notice will appear to students.</p>
               </div>
               <span class="admin-tag">Public view</span>
             </header>
@@ -344,7 +338,6 @@
           </div>
           <div>
             <h2 id="publishedHeading">Currently Live on Website</h2>
-            <p>Every notice streaming from Firestore, newest first. Edit a notice in place or remove it from the public board.</p>
           </div>
           <span class="admin-count" id="publishedCount">0</span>
         </header>
@@ -361,7 +354,7 @@
         <div>
           <span class="admin-eyebrow">Admin Console</span>
           <h1 id="eventManagementHeading">Event Management</h1>
-          <p>Publish upcoming ELLS events straight to the public Events page. Every event is stored in the Cloud Firestore <code>events</code> collection and appears on events.html instantly.</p>
+          <p>Publish and manage official ELLS events for the public events page.</p>
         </div>
         <div class="admin-main__meta">
           <span>Live events</span>
@@ -383,7 +376,6 @@
             </div>
             <div>
               <h2 id="addEventHeading">Add New Event</h2>
-              <p>All fields are required. Keep the description short — one or two sentences shown on the event card.</p>
             </div>
           </header>
 
@@ -437,12 +429,11 @@
                 class="form-control admin-input admin-textarea"
                 id="eventDescription"
                 name="description"
-                aria-describedby="eventDescriptionError eventDescHint"
+                aria-describedby="eventDescriptionError"
                 rows="3"
                 maxlength="220"
                 placeholder="Short text — e.g., A fast-paced vocabulary showdown challenging students in linguistic precision and rapid contextual agility."
                 required></textarea>
-              <span class="form-hint" id="eventDescHint">Short text shown on the public event card.</span>
               <p class="form-error" id="eventDescriptionError"></p>
             </div>
 
@@ -506,7 +497,7 @@
                   id="eventPosterFile"
                   name="poster"
                   accept="image/png, image/jpeg, image/jpg"
-                  aria-describedby="eventPosterHint eventPosterFileError">
+                  aria-describedby="eventPosterFileError">
 
                 <label class="admin-upload__drop" for="eventPosterFile" id="eventPosterDrop">
                   <img class="admin-upload__thumb" id="eventPosterThumb" alt="" hidden>
@@ -529,22 +520,19 @@
                 </button>
               </div>
 
-              <span class="form-hint" id="eventPosterHint">Uploaded to ImgBB and shown as a square poster on the public events page.</span>
               <p class="form-error" id="eventPosterFileError"></p>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="eventStatus">Event Status</label>
               <select
-                class="form-control admin-input"
+                class="form-control admin-input admin-select"
                 id="eventStatus"
-                name="status"
-                aria-describedby="eventStatusHint">
+                name="status">
                 <option value="open" selected>Registration Open</option>
                 <option value="closed">Registration Closed</option>
                 <option value="completed">Completed</option>
               </select>
-              <span class="form-hint" id="eventStatusHint">Closed and completed events keep their card but the public <strong>Reg Now</strong> button is disabled.</span>
             </div>
 
             <div class="form-group">
@@ -586,7 +574,6 @@
             <header class="admin-card__head admin-card__head--compact">
               <div>
                 <h2 id="eventPreviewHeading">Live Preview</h2>
-                <p>How this event will appear on events.html.</p>
               </div>
               <span class="admin-tag">Public view</span>
             </header>
@@ -624,7 +611,6 @@
           </div>
           <div>
             <h2 id="publishedEventsHeading">Currently Live on Website</h2>
-            <p>Poster, title, date and status of every published event. Edit an event in place or remove it from the public calendar.</p>
           </div>
           <span class="admin-count" id="publishedEventCount">0</span>
         </header>
@@ -634,14 +620,6 @@
         </ol>
       </section>
 
-      <p class="admin-footnote">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M12 11v5"></path>
-          <path d="M12 7.8h.01"></path>
-        </svg>
-        <span>Secured with Firebase Authentication &middot; Notices and events are stored in the Cloud Firestore <code>notices</code> and <code>events</code> collections.</span>
-      </p>
     </main>
 
     <footer class="admin-footer">
