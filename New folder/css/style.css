@@ -156,6 +156,8 @@
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   /* Locked to dark: native widgets & form controls follow the Midnight theme
      instead of the visitor's OS light/dark preference */
@@ -175,6 +177,8 @@ textarea {
 }
 
 body {
+  margin: 0;
+  padding-top: 80px; /* offset for the fixed public header (admin overrides) */
   /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
      if the stylesheet above were ever truncated or a token removed. */
   background-color: var(--bg-primary, #0B1120);
@@ -359,18 +363,16 @@ section {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition);
-  will-change: transform;
+  will-change: top;
 }
 
 .site-header.scrolled {
@@ -651,7 +653,11 @@ body.nav-open .site-header {
   align-items: center;
   width: max-content;
   white-space: nowrap;
-  animation: newsTickerMarquee 38s linear infinite;
+  /* One full loop = one segment width. 18s is the readable default; js/notice-
+     board.js raises it (never lowers it) when a long line-up of notices would
+     otherwise stream past too quickly. */
+  --ticker-duration: 18s;
+  animation: newsTickerMarquee var(--ticker-duration) linear infinite;
   will-change: transform;
 }
 
@@ -660,6 +666,8 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
+/* Continuous marquee — the track holds two identical segments, so a -50%
+   shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
     transform: translateX(0);
@@ -2707,6 +2715,15 @@ textarea.form-control {
   line-height: 1.25;
 }
 
+/* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
+.committee-role-badge.badge-secretary-primary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(212, 175, 55, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
 .committee-card h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
@@ -2881,6 +2898,32 @@ textarea.form-control {
   margin-top: 1rem;
   font-size: 0.9rem;
   max-width: 320px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo-img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.footer-brand .logo-subtitle {
+  display: block;
+  text-align: center;
+  margin-top: 0.6rem;
 }
 
 /* Social Media Icons */
@@ -3077,6 +3120,58 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
+   Footer legal block — copyright only. The developer credit lives in its own
+   slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
+   -------------------------------------------------------------------------- */
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  text-align: center;
+}
+
+.footer-legal .footer-copyright {
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Developer credit bar — a thin, quiet ribbon at the very end of the page
+   --------------------------------------------------------------------------
+   Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
+   spans the whole viewport instead of the footer's max-width container.
+
+   Deliberately understated: a barely-there white veil over the Midnight
+   background, a single hairline of muted gold, and soft off-white type. It
+   should read as a footnote — never as a coloured block competing with the
+   footer above it. Keep the padding minimal and the type small.
+   -------------------------------------------------------------------------- */
+.developer-credit-bar {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* Flush against the footer: a ribbon belongs to the page, not floating
+     above it. The hairline below does the separating. */
+  margin: 0;
+  padding: 6px 15px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Soft off-white — matches --text-primary without shouting */
+  color: #F8FAFC;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  text-align: center;
+  border: 0;
+  /* A whisper of ELLS gold instead of the old full gold fill */
+  border-top: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
    15. Featured Resource Card: Previous Question Bank (1st to 8th Semester)
    -------------------------------------------------------------------------- */
 .featured-resource-section {
@@ -3089,10 +3184,24 @@ textarea.form-control {
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   color: #ffffff;
   border: none;
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 4vw, 2.4rem);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  border-radius: 0;
+  padding: clamp(1.6rem, 4vw, 2.4rem) 1rem;
+  box-shadow: none;
   overflow: hidden;
+}
+
+/* Desktop: restore rounded frame, generous padding and a subtle gold hairline so the card reads as a distinct panel. */
+@media (min-width: 769px) {
+  .featured-resource-card {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 4vw, 2.4rem);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.12);
+  }
+  .featured-resource-section > .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
 }
 
 .featured-resource-card::before {
@@ -3281,6 +3390,7 @@ textarea.form-control {
   .featured-resource-card {
     border-radius: 0;
     padding: 1.6rem 1rem;
+    border: none;
     box-shadow: none;
   }
   .resource-card-grid {
@@ -3436,6 +3546,14 @@ textarea.form-control {
 
   50% {
     transform: translate3d(7px, 0, 0) rotate(calc(var(--cap-rot, 0deg) + 3.5deg));
+  }
+}
+
+/* Respect the user's motion preference: the news ticker becomes a still
+   headline strip instead of a marquee. */
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-track {
+    animation: none !important;
   }
 }
 
