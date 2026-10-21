@@ -3183,11 +3183,25 @@ textarea.form-control {
   position: relative;
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   color: #ffffff;
-  border: 2px solid var(--accent-gold);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 4vw, 2.4rem);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.15);
+  border: none;
+  border-radius: 0;
+  padding: clamp(1.6rem, 4vw, 2.4rem) 1rem;
+  box-shadow: none;
   overflow: hidden;
+}
+
+/* Desktop: restore rounded frame, generous padding and a subtle gold hairline so the card reads as a distinct panel. */
+@media (min-width: 769px) {
+  .featured-resource-card {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 4vw, 2.4rem);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.12);
+  }
+  .featured-resource-section > .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
 }
 
 .featured-resource-card::before {
@@ -3215,12 +3229,24 @@ textarea.form-control {
 }
 
 .resource-card-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2.2rem;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  gap: 1.6rem;
   position: relative;
   z-index: 2;
+}
+
+.resource-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .resource-card-badge {
@@ -3248,7 +3274,8 @@ textarea.form-control {
   color: #ffffff;
   letter-spacing: -0.01em;
   line-height: 1.25;
-  margin-bottom: 0.6rem;
+  margin: 0 auto 0.6rem auto;
+  text-align: center;
 }
 
 .resource-card-desc {
@@ -3256,21 +3283,24 @@ textarea.form-control {
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
   max-width: 680px;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto;
+  text-align: center;
 }
 
 .resource-tags-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   margin: 0 auto 1.2rem auto;
+  width: 100%;
 }
 
 .resource-tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -3289,7 +3319,10 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  width: 100%;
   flex-shrink: 0;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .resource-drive-btn {
@@ -3307,6 +3340,8 @@ textarea.form-control {
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
   transition: all 0.25s ease;
   white-space: nowrap;
+  margin: 0 auto;
+  align-self: center !important;
 }
 
 .resource-drive-btn:hover {
@@ -3329,12 +3364,13 @@ textarea.form-control {
   gap: 0.45rem;
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.8rem;
+  margin: 0.8rem auto 0 auto;
   padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 
 .resource-card-credit strong {
@@ -3342,30 +3378,78 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  .featured-resource-section {
+    padding: 2.2rem 0 1rem 0;
+  }
+  .featured-resource-section > .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .featured-resource-card {
+    border-radius: 0;
+    padding: 1.6rem 1rem;
+    border: none;
+    box-shadow: none;
+  }
   .resource-card-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 1.3rem;
   }
   .resource-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
-  .resource-card-desc {
-    margin-left: auto;
-    margin-right: auto;
+  .resource-card-badge,
+  .resource-card-title,
+  .resource-card-desc,
+  .resource-tags-row,
+  .resource-btn-wrap,
+  .resource-drive-btn,
+  .resource-card-credit {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-self: center !important;
+    text-align: center !important;
+  }
+  .resource-tags-row {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   .resource-btn-wrap {
-    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     width: 100%;
+    padding: 0;
   }
   .resource-drive-btn {
     width: 100%;
-    justify-content: center;
-  }
-  .resource-card-credit {
-    flex-wrap: wrap;
+    max-width: 100%;
     justify-content: center;
     text-align: center;
+  }
+  .resource-card-credit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
   }
 }
 
