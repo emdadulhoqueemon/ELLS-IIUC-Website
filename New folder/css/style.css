@@ -156,6 +156,8 @@
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   /* Locked to dark: native widgets & form controls follow the Midnight theme
      instead of the visitor's OS light/dark preference */
@@ -175,6 +177,8 @@ textarea {
 }
 
 body {
+  margin: 0;
+  padding-top: 80px; /* offset for the fixed public header (admin overrides) */
   /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
      if the stylesheet above were ever truncated or a token removed. */
   background-color: var(--bg-primary, #0B1120);
@@ -359,18 +363,16 @@ section {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition);
-  will-change: transform;
+  will-change: top;
 }
 
 .site-header.scrolled {
@@ -651,7 +653,11 @@ body.nav-open .site-header {
   align-items: center;
   width: max-content;
   white-space: nowrap;
-  animation: newsTickerMarquee 38s linear infinite;
+  /* One full loop = one segment width. 18s is the readable default; js/notice-
+     board.js raises it (never lowers it) when a long line-up of notices would
+     otherwise stream past too quickly. */
+  --ticker-duration: 18s;
+  animation: newsTickerMarquee var(--ticker-duration) linear infinite;
   will-change: transform;
 }
 
@@ -660,6 +666,8 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
+/* Continuous marquee — the track holds two identical segments, so a -50%
+   shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
     transform: translateX(0);
@@ -857,10 +865,35 @@ body.nav-open .site-header {
 .hero-grid {
   display: block;
   max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .hero-content {
   max-width: 840px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content h1 {
+  text-align: center;
+  max-width: 12ch;
+}
+
+.hero-subheading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  margin: 1.1rem auto 0;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .hero-lead {
@@ -873,7 +906,15 @@ body.nav-open .site-header {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+  margin-top: 2.25rem;
+  width: 100%;
+}
+
+.hero-cta-single {
+  margin: 0 auto;
 }
 
 /* Hero Right: Autumn-2026 Event Calendar Poster & Notice Hub */
@@ -2707,6 +2748,15 @@ textarea.form-control {
   line-height: 1.25;
 }
 
+/* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
+.committee-role-badge.badge-secretary-primary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(212, 175, 55, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
 .committee-card h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
@@ -2881,6 +2931,32 @@ textarea.form-control {
   margin-top: 1rem;
   font-size: 0.9rem;
   max-width: 320px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo-img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.footer-brand .logo-subtitle {
+  display: block;
+  text-align: center;
+  margin-top: 0.6rem;
 }
 
 /* Social Media Icons */
@@ -3077,6 +3153,58 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
+   Footer legal block — copyright only. The developer credit lives in its own
+   slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
+   -------------------------------------------------------------------------- */
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  text-align: center;
+}
+
+.footer-legal .footer-copyright {
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Developer credit bar — a thin, quiet ribbon at the very end of the page
+   --------------------------------------------------------------------------
+   Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
+   spans the whole viewport instead of the footer's max-width container.
+
+   Deliberately understated: a barely-there white veil over the Midnight
+   background, a single hairline of muted gold, and soft off-white type. It
+   should read as a footnote — never as a coloured block competing with the
+   footer above it. Keep the padding minimal and the type small.
+   -------------------------------------------------------------------------- */
+.developer-credit-bar {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* Flush against the footer: a ribbon belongs to the page, not floating
+     above it. The hairline below does the separating. */
+  margin: 0;
+  padding: 6px 15px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Soft off-white — matches --text-primary without shouting */
+  color: #F8FAFC;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  text-align: center;
+  border: 0;
+  /* A whisper of ELLS gold instead of the old full gold fill */
+  border-top: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
    15. Featured Resource Card: Previous Question Bank (1st to 8th Semester)
    -------------------------------------------------------------------------- */
 .featured-resource-section {
@@ -3088,11 +3216,25 @@ textarea.form-control {
   position: relative;
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   color: #ffffff;
-  border: 2px solid var(--accent-gold);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 4vw, 2.4rem);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.15);
+  border: none;
+  border-radius: 0;
+  padding: clamp(1.6rem, 4vw, 2.4rem) 1rem;
+  box-shadow: none;
   overflow: hidden;
+}
+
+/* Desktop: restore rounded frame, generous padding and a subtle gold hairline so the card reads as a distinct panel. */
+@media (min-width: 769px) {
+  .featured-resource-card {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 4vw, 2.4rem);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.12);
+  }
+  .featured-resource-section > .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
 }
 
 .featured-resource-card::before {
@@ -3120,17 +3262,30 @@ textarea.form-control {
 }
 
 .resource-card-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2.2rem;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  gap: 1.6rem;
   position: relative;
   z-index: 2;
+}
+
+.resource-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .resource-card-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   background: rgba(212, 175, 55, 0.18);
   border: 1px solid var(--accent-gold);
@@ -3141,7 +3296,7 @@ textarea.form-control {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  margin: 0 auto 0.85rem auto;
   line-height: 1.25;
 }
 
@@ -3152,7 +3307,8 @@ textarea.form-control {
   color: #ffffff;
   letter-spacing: -0.01em;
   line-height: 1.25;
-  margin-bottom: 0.6rem;
+  margin: 0 auto 0.6rem auto;
+  text-align: center;
 }
 
 .resource-card-desc {
@@ -3160,19 +3316,24 @@ textarea.form-control {
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
   max-width: 680px;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto;
+  text-align: center;
 }
 
 .resource-tags-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  margin-bottom: 1.2rem;
+  margin: 0 auto 1.2rem auto;
+  width: 100%;
 }
 
 .resource-tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -3191,7 +3352,10 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  width: 100%;
   flex-shrink: 0;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .resource-drive-btn {
@@ -3209,6 +3373,8 @@ textarea.form-control {
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
   transition: all 0.25s ease;
   white-space: nowrap;
+  margin: 0 auto;
+  align-self: center !important;
 }
 
 .resource-drive-btn:hover {
@@ -3227,14 +3393,17 @@ textarea.form-control {
 .resource-card-credit {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.8rem;
+  margin: 0.8rem auto 0 auto;
   padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 
 .resource-card-credit strong {
@@ -3242,15 +3411,77 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
-  .resource-card-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .featured-resource-section {
+    padding: 2.2rem 0 1rem 0;
   }
-  .resource-btn-wrap {
-    align-items: stretch;
+  .featured-resource-section > .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .featured-resource-card {
+    border-radius: 0;
+    padding: 1.6rem 1rem;
+    border: none;
+    box-shadow: none;
+  }
+  .resource-card-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 1.3rem;
+  }
+  .resource-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .resource-card-badge,
+  .resource-card-title,
+  .resource-card-desc,
+  .resource-tags-row,
+  .resource-btn-wrap,
+  .resource-drive-btn,
+  .resource-card-credit {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-self: center !important;
+    text-align: center !important;
+  }
+  .resource-tags-row {
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
+  .resource-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+  }
   .resource-drive-btn {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .resource-card-credit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 100%;
   }
 }
@@ -3348,6 +3579,14 @@ textarea.form-control {
 
   50% {
     transform: translate3d(7px, 0, 0) rotate(calc(var(--cap-rot, 0deg) + 3.5deg));
+  }
+}
+
+/* Respect the user's motion preference: the news ticker becomes a still
+   headline strip instead of a marquee. */
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-track {
+    animation: none !important;
   }
 }
 
