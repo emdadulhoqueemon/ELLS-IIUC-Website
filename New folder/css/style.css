@@ -78,11 +78,11 @@
   --text-inverse: #0B1120;
   
   /* Primary Accent: Elegant Gold / Mustard (ELLS Logo) */
-  --accent-gold: #D4AF37;
-  --accent-gold-hover: #E2BC43;
-  --accent-gold-dark: #B89228;
-  --accent-gold-light: rgba(212, 175, 55, 0.14);
-  --accent-gold-glow: rgba(212, 175, 55, 0.22);
+  --accent-gold: #E2D4B7;
+  --accent-gold-hover: #EEE2C4;
+  --accent-gold-dark: #C9BC99;
+  --accent-gold-light: rgba(226, 212, 183, 0.14);
+  --accent-gold-glow: rgba(226, 212, 183, 0.22);
   
   /* Secondary Accent: Subtle Deep Green / Emerald (IIUC Logo) */
   --accent-green: #10B981;
@@ -99,13 +99,13 @@
   
   --border-subtle: #1E2E38;
   --border-strong: #2D3E50;
-  --border-accent: #D4AF37;
+  --border-accent: #E2D4B7;
   --border-green: rgba(31, 77, 62, 0.5);
   
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.22);
+  --shadow-gold: 0 8px 25px rgba(226, 212, 183, 0.22);
   --shadow-green: 0 8px 25px rgba(19, 42, 36, 0.45);
 
   /* Global Typography - Google Sans Flex font family */
@@ -125,7 +125,7 @@
   --transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Ambient Background: floating graduation-cap watermark */
-  --bg-caps-ink: #D4AF37;
+  --bg-caps-ink: #E2D4B7;
   --bg-caps-opacity: 0.045;
   --bg-caps-scale: 1;
   /* Translucent "veil" variants of the full-bleed section bands so the
@@ -163,7 +163,9 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
-  background-color: var(--bg-primary, #03120A);
+  /* Solid instant-paint fallback matches the gradient's darkest stop so no
+     flash of white/navy occurs before the gradient resolves. */
+  background-color: #0B1120;
 }
 
 body,
@@ -178,21 +180,19 @@ textarea {
 body {
   margin: 0;
   padding-top: 80px; /* offset for the fixed public header (admin overrides) */
-  /* Heritage canvas — deep forest green with a subtle gold-tinged dark green,
-     drifting slowly on a 24s ease loop. The solid --bg-primary background-color
-     paints behind everything as an instant-paint fallback so no flash of
-     white/navy occurs before the gradient resolves.
-     background-attachment: fixed keeps the gradient still while the page
-     scrolls (cheaper — no continuous repaint), and will-change hints the
-     compositor so the animation stays on the GPU. */
-  background-color: var(--bg-primary, #03120A);
-  background-image: linear-gradient(-45deg, #03120A, #082618, #0F2A17, #142A13, #0B2415);
-  background-size: 400% 400%;
-  background-position: 0% 50%;
+  /* Heritage canvas — the exact moody deep gradient used by the Academic
+     Resource Vault card, promoted to the page background:
+       0%   #0B1120  Midnight Blue (deepest anchor)
+       50%  #132A24  IIUC deep green-slate
+       100% #19382F  richer forest green
+     Static (no animation), fixed attachment so it stays put while scrolling —
+     cheap to paint and easy on battery. Solid background-color above acts as
+     a fallback. */
+  background-color: #0B1120;
+  background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
-  animation: heritageCanvas 24s ease infinite;
-  will-change: background-position;
+  background-size: cover;
   color: var(--text-primary, #F8FAFC);
   line-height: 1.65;
   font-weight: 400;
@@ -383,7 +383,7 @@ section {
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  border-bottom: 1px solid rgba(226, 212, 183, 0.35);
   will-change: top;
 }
 
@@ -625,7 +625,7 @@ body.nav-open .site-header {
    -------------------------------------------------------------------------- */
 .news-ticker-bar {
   background: linear-gradient(90deg, #070d18 0%, #0F172A 50%, #070d18 100%);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid rgba(226, 212, 183, 0.25);
   height: 38px;
   display: flex;
   align-items: center;
@@ -712,8 +712,8 @@ body.nav-open .site-header {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(212, 175, 55, 0.15);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(226, 212, 183, 0.15);
+  border: 1px solid rgba(226, 212, 183, 0.35);
   color: var(--accent-gold);
   padding: 0.15rem 0.55rem;
   border-radius: 4px;
@@ -732,7 +732,7 @@ body.nav-open .site-header {
 }
 
 .ticker-divider {
-  color: rgba(212, 175, 55, 0.4);
+  color: rgba(226, 212, 183, 0.4);
   font-size: 0.7rem;
 }
 
@@ -869,7 +869,7 @@ body.nav-open .site-header {
   padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 6vw, 5rem) 0;
   /* Base layer kept transparent so the ambient cap watermark (z-index: -1)
      shows through; the page canvas already paints --bg-primary. */
-  background: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+  background: radial-gradient(circle at 80% 20%, rgba(226, 212, 183, 0.08) 0%, transparent 60%),
               radial-gradient(circle at 10% 80%, rgba(19, 42, 36, 0.35) 0%, transparent 60%);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -939,7 +939,7 @@ body.nav-open .site-header {
   border: 1px solid var(--border-accent);
   border-radius: var(--radius-lg);
   padding: 1.75rem;
-  box-shadow: var(--shadow-lg), 0 0 20px rgba(212, 175, 55, 0.12);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(226, 212, 183, 0.12);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1176,9 +1176,9 @@ body.nav-open .site-header {
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  border: 1px solid rgba(226, 212, 183, 0.45);
   border-radius: var(--radius-md);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(226, 212, 183, 0.15);
   overflow: hidden;
   position: relative;
   color: var(--text-primary);
@@ -1188,7 +1188,7 @@ body.nav-open .site-header {
 
 .notice-board-banner:hover {
   border-color: var(--accent-gold);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(226, 212, 183, 0.25);
 }
 
 /* Fixed Badge on the Left */
@@ -1197,7 +1197,7 @@ body.nav-open .site-header {
   align-items: center;
   gap: 0.65rem;
   padding: 0.95rem 1.4rem;
-  background: linear-gradient(135deg, #D4AF37 0%, #B89228 100%);
+  background: linear-gradient(135deg, #E2D4B7 0%, #C9BC99 100%);
   color: #0B1120;
   font-weight: 800;
   font-size: 0.88rem;
@@ -1363,7 +1363,7 @@ body.nav-open .site-header {
   background: var(--accent-gold-hover);
   color: #0B1120;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 10px rgba(226, 212, 183, 0.4);
 }
 
 .notice-link-secondary {
@@ -1525,7 +1525,7 @@ body.nav-open .site-header {
   padding: clamp(3.5rem, 6vw, 5.5rem) 0;
   position: relative;
   /* Transparent base keeps the ambient cap watermark visible underneath */
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(226, 212, 183, 0.06) 0%, transparent 70%);
 }
 
 .section-pillars .section-intro {
@@ -1554,7 +1554,7 @@ body.nav-open .site-header {
   transform: translateY(-6px);
   border-color: var(--accent-gold);
   border-top-color: var(--accent-gold-hover);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(226, 212, 183, 0.15);
   background: var(--bg-card-hover);
 }
 
@@ -1562,8 +1562,8 @@ body.nav-open .site-header {
   width: 56px;
   height: 56px;
   border-radius: var(--radius-sm);
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(226, 212, 183, 0.1);
+  border: 1px solid rgba(226, 212, 183, 0.25);
   color: var(--accent-gold);
   margin-bottom: 1.5rem;
   transition: all var(--transition);
@@ -1574,7 +1574,7 @@ body.nav-open .site-header {
   color: #0B1120;
   border-color: var(--accent-gold);
   transform: scale(1.08) rotate(3deg);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 15px rgba(226, 212, 183, 0.4);
 }
 
 .section-pillars .card h3 {
@@ -1668,7 +1668,7 @@ body.nav-open .site-header {
 
 .search-input-wrap input:focus {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 3px rgba(226, 212, 183, 0.2);
   outline: none;
 }
 
@@ -1896,7 +1896,7 @@ dialog.rsvp-modal::backdrop {
 .form-control:focus {
   outline: none;
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 3px rgba(226, 212, 183, 0.2);
 }
 
 /* Modern HTML5 User-Valid / User-Invalid States */
@@ -1967,7 +1967,7 @@ textarea.form-control {
 
 .custom-checkbox-card:has(input:checked) {
   border-color: var(--accent-gold);
-  background-color: rgba(212, 175, 55, 0.15);
+  background-color: rgba(226, 212, 183, 0.15);
 }
 
 /* Tier Selection Cards */
@@ -2331,7 +2331,7 @@ textarea.form-control {
   height: 76px;
   border-radius: 50%;
   border: 1.5px dashed var(--accent-gold);
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(226, 212, 183, 0.08);
   color: var(--accent-gold);
   padding: 4px;
   box-sizing: border-box;
@@ -2372,7 +2372,7 @@ textarea.form-control {
   width: 150px;
   height: 150px;
   border-radius: var(--radius-full);
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(226, 212, 183, 0.25) 0%, transparent 70%);
 }
 
 .pass-header {
@@ -2403,7 +2403,7 @@ textarea.form-control {
 }
 
 .pass-tier-badge {
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(226, 212, 183, 0.2);
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   padding: 0.3rem 0.8rem;
@@ -2763,8 +2763,8 @@ textarea.form-control {
 /* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
 .committee-role-badge.badge-secretary-primary {
   border: 1.5px solid var(--accent-gold);
-  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(212, 175, 55, 0.22), 0 0 18px var(--accent-gold-glow);
-  background: rgba(212, 175, 55, 0.18);
+  box-shadow: 0 0 0 1px rgba(226, 212, 183, 0.2), 0 4px 12px rgba(226, 212, 183, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(226, 212, 183, 0.18);
   color: var(--accent-gold);
   font-weight: 800;
 }
@@ -3055,9 +3055,9 @@ textarea.form-control {
   margin-top: 1.6rem;
   padding: 1.25rem 1.4rem;
   background: linear-gradient(180deg, rgba(19, 42, 36, 0.75) 0%, rgba(11, 17, 32, 0.85) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(226, 212, 183, 0.3);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(226, 212, 183, 0.15);
   max-width: 320px;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
@@ -3065,7 +3065,7 @@ textarea.form-control {
 .partner-affiliation:hover {
   transform: translateY(-2px);
   border-color: var(--accent-gold);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 212, 183, 0.15);
 }
 
 .partner-logo-img {
@@ -3212,7 +3212,7 @@ textarea.form-control {
   text-align: center;
   border: 0;
   /* A whisper of ELLS gold instead of the old full gold fill */
-  border-top: 1px solid rgba(212, 175, 55, 0.16);
+  border-top: 1px solid rgba(226, 212, 183, 0.16);
   box-shadow: none;
 }
 
@@ -3238,10 +3238,10 @@ textarea.form-control {
 /* Desktop: restore rounded frame, generous padding and a subtle gold hairline so the card reads as a distinct panel. */
 @media (min-width: 769px) {
   .featured-resource-card {
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    border: 1px solid rgba(226, 212, 183, 0.35);
     border-radius: var(--radius-lg);
     padding: clamp(1.8rem, 4vw, 2.4rem);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(226, 212, 183, 0.12);
   }
   .featured-resource-section > .container {
     padding-left: var(--container-padding);
@@ -3257,7 +3257,7 @@ textarea.form-control {
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(226, 212, 183, 0.25) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -3299,7 +3299,7 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  background: rgba(212, 175, 55, 0.18);
+  background: rgba(226, 212, 183, 0.18);
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   padding: 0.28rem 0.75rem;
@@ -3375,14 +3375,14 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, #E2BC43 0%, #D4AF37 100%);
+  background: linear-gradient(135deg, #EEE2C4 0%, #E2D4B7 100%);
   color: #0B1120;
   font-size: 0.95rem;
   font-weight: 800;
   padding: 0.85rem 1.6rem;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 15px rgba(226, 212, 183, 0.35);
   transition: all 0.25s ease;
   white-space: nowrap;
   margin: 0 auto;
@@ -3393,7 +3393,7 @@ textarea.form-control {
   background: #F8FAFC;
   color: #0B1120;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.5);
 }
 
 .resource-drive-btn svg {
@@ -3527,7 +3527,7 @@ textarea.form-control {
   border: 0;
   margin: 0;
   padding: 0;
-  color: var(--bg-caps-ink, #D4AF37);
+  color: var(--bg-caps-ink, #E2D4B7);
   -webkit-user-select: none;
   user-select: none;
 }
@@ -3621,35 +3621,5 @@ textarea.form-control {
 @media print {
   .bg-caps {
     display: none !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Heritage Theme — animated forest-green canvas
-   --------------------------------------------------------------------------
-   A slow, GPU-friendly drift across four deep-forest stops keeps the
-   background alive without competing with foreground content. The animation
-   moves background-position between 0% 50% ↔ 100% 50% and alternates
-   direction via animation-direction: alternate so the motion is seamless
-   (no jarring snap on each cycle). Accessibility: users who prefer reduced
-   motion get a static, perfectly still gradient.
-   -------------------------------------------------------------------------- */
-@keyframes heritageCanvas {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body {
-    animation: none !important;
-    background-position: 0% 50% !important;
-    background-attachment: fixed !important;
   }
 }
