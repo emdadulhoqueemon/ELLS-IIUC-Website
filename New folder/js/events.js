@@ -3,6 +3,30 @@
  * Dynamic search, category filtering, native <dialog> RSVP system & seat management
  */
 
+/* Storage-safe RSVP helpers — never let blocked storage break the modal. */
+const RSVP_STORAGE_KEY = 'ells-rsvps';
+
+function readStoredRsvps() {
+  try {
+    const raw = window.localStorage ? window.localStorage.getItem(RSVP_STORAGE_KEY) : null;
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.warn('[ELLS] RSVP storage unavailable (read):', error);
+    return [];
+  }
+}
+
+function writeStoredRsvps(list) {
+  try {
+    if (window.localStorage) {
+      window.localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(list));
+    }
+  } catch (error) {
+    console.warn('[ELLS] RSVP storage unavailable (write):', error);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initEventFilters();
   initRsvpModal();
@@ -14,8 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function initEventFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const searchInput = document.getElementById('eventSearchInput');
-  const eventCards = document.querySelectorAll('.event-card');
   const noResultsMsg = document.getElementById('noEventsMatch');
+
+  // The Firestore feed (js/events-feed.js) replaces every card after load, so
+  // always read the cards fresh instead of freezing a NodeList up front.
+  const getEventCards = () => Array.from(document.querySelectorAll('.event-card'));
 
   let activeCategory = 'all';
   let searchQuery = '';
@@ -23,7 +50,7 @@ function initEventFilters() {
   function filterEvents() {
     let visibleCount = 0;
 
-    eventCards.forEach(card => {
+    getEventCards().forEach(card => {
       const category = (card.getAttribute('data-category') || '').toLowerCase();
       const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
       const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
@@ -37,15 +64,20 @@ function initEventFilters() {
                             meta.includes(searchQuery);
 
       if (matchesCategory && matchesSearch) {
-        card.style.display = 'flex';
+        // Clear the inline style so the stylesheet decides: legacy cards are
+        // flex columns, poster cards are grid (poster left / details right).
+        card.style.display = '';
         visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
 
+    /* With an empty Firestore collection the feed's own empty state is the
+       message — "no events match your filters" would be a lie and a duplicate. */
     if (noResultsMsg) {
-      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      const hasCards = getEventCards().length > 0;
+      noResultsMsg.style.display = hasCards && visibleCount === 0 ? 'block' : 'none';
     }
   }
 
@@ -66,6 +98,10 @@ function initEventFilters() {
       filterEvents();
     });
   }
+
+  // The live feed re-renders #eventsGrid at any time; keep the active
+  // category/search applied to the freshly built cards.
+  document.addEventListener('ells:events-updated', filterEvents);
 }
 
 /* --------------------------------------------------------------------------
@@ -74,7 +110,7 @@ function initEventFilters() {
 function initRsvpModal() {
   const modal = document.getElementById('rsvpModal');
   const rsvpForm = document.getElementById('rsvpForm');
-  const rsvpBtns = document.querySelectorAll('.open-rsvp-modal');
+
   const modalCloseBtn = document.getElementById('closeRsvpModal');
   const modalCancelBtn = document.getElementById('cancelRsvpModal');
   const modalEventTitle = document.getElementById('modalEventTitle');
@@ -83,33 +119,51 @@ function initRsvpModal() {
 
   if (!modal || !rsvpForm) return;
 
-  // Track RSVPs in localStorage
-  const savedRsvps = JSON.parse(localStorage.getItem('ells-rsvps') || '[]');
+  // Track RSVPs locally (storage-safe: private modes may throw)
+  const savedRsvps = readStoredRsvps();
 
   // Update UI for previously booked events
   updateBookedEvents(savedRsvps);
 
-  // Open Modal
-  rsvpBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.event-card');
-      if (!card) return;
+  // …and again whenever the live feed rebuilds the cards.
+  document.addEventListener('ells:events-updated', () => updateBookedEvents(savedRsvps));
 
-      const eventId = card.getAttribute('data-event-id');
-      const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
-      const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
+  /* Open Modal — delegated, because js/events-feed.js rebuilds every card
+     from Firestore after this module has already run. */
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('.open-rsvp-modal');
+    if (!btn) return;
 
-      if (savedRsvps.includes(eventId)) {
-        showToast('You have already reserved seats for this event!', 'info');
-        return;
-      }
+    const card = btn.closest('.event-card');
+    if (!card) return;
 
-      if (modalEventTitle) modalEventTitle.textContent = eventTitle;
-      if (modalEventDate) modalEventDate.textContent = eventDate.trim();
-      if (modalEventIdInput) modalEventIdInput.value = eventId;
+    const eventId = card.getAttribute('data-event-id');
+    const eventTitle = card.querySelector('h3')?.textContent || 'Society Event';
+    const eventDate = card.querySelector('.event-meta-item:first-child')?.textContent || '';
 
-      modal.showModal();
-    });
+    // Closed / completed events never open the RSVP dialog (the button is
+    // normally rendered non-interactive; this is the belt-and-braces guard).
+    const status = card.getAttribute('data-status') || 'open';
+    if (status === 'closed' || status === 'completed') {
+      showToast(
+        status === 'closed'
+          ? 'Registration for this event has closed.'
+          : 'This event has already taken place.',
+        'info'
+      );
+      return;
+    }
+
+    if (savedRsvps.includes(eventId)) {
+      showToast('You have already reserved seats for this event!', 'info');
+      return;
+    }
+
+    if (modalEventTitle) modalEventTitle.textContent = eventTitle;
+    if (modalEventDate) modalEventDate.textContent = eventDate.trim();
+    if (modalEventIdInput) modalEventIdInput.value = eventId;
+
+    modal.showModal();
   });
 
   // Close handlers
@@ -151,7 +205,7 @@ function initRsvpModal() {
     // Save to local storage
     if (eventId && !savedRsvps.includes(eventId)) {
       savedRsvps.push(eventId);
-      localStorage.setItem('ells-rsvps', JSON.stringify(savedRsvps));
+      writeStoredRsvps(savedRsvps);
     }
 
     closeModal();
@@ -163,7 +217,8 @@ function initRsvpModal() {
   function updateBookedEvents(rsvps) {
     rsvps.forEach(id => {
       const card = document.querySelector(`.event-card[data-event-id="${id}"]`);
-      if (card) {
+      if (card && card.getAttribute('data-status') !== 'closed'
+        && card.getAttribute('data-status') !== 'completed') {
         const btn = card.querySelector('.open-rsvp-modal');
         if (btn) {
           btn.textContent = 'Reserved ✓';
