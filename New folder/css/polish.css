@@ -1936,3 +1936,56 @@ main > .hero .container,
     display: none !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Mobile poster visibility guard
+   --------------------------------------------------------------------------
+   Belt-and-braces: regardless of what any earlier rule does, on ≤768px the
+   poster wrapper must render as a visible square tile at the top of the
+   card, the image must fill it, and the card itself must be a column so
+   the poster sits above the details. Any stray display:none or flex-direction
+   rule from a desktop/tablet block is overridden here.
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .event-card--poster {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    padding: 0 !important;
+  }
+
+  .event-card--poster .event-card__poster {
+    display: block !important;
+    position: relative !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    align-self: stretch !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .event-card--poster .event-card__poster-img,
+  .event-card--poster .event-card__poster-placeholder {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .event-card--poster .event-card__details {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+}
