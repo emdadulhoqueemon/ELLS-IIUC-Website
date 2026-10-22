@@ -865,10 +865,35 @@ body.nav-open .site-header {
 .hero-grid {
   display: block;
   max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .hero-content {
   max-width: 840px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content h1 {
+  text-align: center;
+  max-width: 12ch;
+}
+
+.hero-subheading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  margin: 1.1rem auto 0;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .hero-lead {
@@ -881,7 +906,15 @@ body.nav-open .site-header {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+  margin-top: 2.25rem;
+  width: 100%;
+}
+
+.hero-cta-single {
+  margin: 0 auto;
 }
 
 /* Hero Right: Autumn-2026 Event Calendar Poster & Notice Hub */
