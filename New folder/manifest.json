@@ -1,7 +1,7 @@
 {
   "name": "ELLS Club",
   "short_name": "ELLS",
-  "description": "The English Language and Literary Society (ELLS) - Department of English Language and Literature, IIUC.",
+  "description": "The English Language and Literary Society (ELLS) - Dept. of English Language & Literature, IIUC.",
   "start_url": ".",
   "scope": "./",
   "display": "standalone",
