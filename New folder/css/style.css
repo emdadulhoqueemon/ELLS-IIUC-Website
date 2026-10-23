@@ -59,20 +59,18 @@
    -------------------------------------------------------------------------- */
 :root {
   /* ==========================================================================
-     LOCKED THEME — Sophisticated Modern "Midnight Blue & Soft Gold"
-     This is the only palette the site ships with: every token below is the
-     permanent default and there is no light-mode override anywhere.
-     Palette: Deep Navy (#0B1120), Soft Cream (#F8FAFC), ELLS Gold (#D4AF37),
-     and Dark Slate with subtle IIUC Deep Green (#132A24) for eye comfort.
+     LOCKED HERITAGE THEME — IIUC Deep Forest Green & ELLS Gold
+     Permanent dark palette: deep forest canvas, rich IIUC-green cards, and the
+     signature ELLS gold accent. There is no light-mode override anywhere.
      ========================================================================== */
-  --bg-primary: #0B1120;
-  --bg-secondary: #0F172A;
-  --bg-card: #132A24;
-  --bg-card-subtle: #16322B;
-  --bg-card-hover: #193B32;
-  --bg-elevated: #111D33;
-  --bg-glass: rgba(11, 17, 32, 0.92);
-  --bg-input: #0D1627;
+  --bg-primary: #03120A;
+  --bg-secondary: #0A1F14;
+  --bg-card: #0F2A1D;
+  --bg-card-subtle: #123325;
+  --bg-card-hover: #16402D;
+  --bg-elevated: #0C2419;
+  --bg-glass: rgba(3, 18, 10, 0.92);
+  --bg-input: #0A1C12;
   
   --text-primary: #F8FAFC;
   --text-secondary: #CBD5E1;
@@ -80,11 +78,11 @@
   --text-inverse: #0B1120;
   
   /* Primary Accent: Elegant Gold / Mustard (ELLS Logo) */
-  --accent-gold: #D4AF37;
-  --accent-gold-hover: #E2BC43;
-  --accent-gold-dark: #B89228;
-  --accent-gold-light: rgba(212, 175, 55, 0.14);
-  --accent-gold-glow: rgba(212, 175, 55, 0.22);
+  --accent-gold: #E2D4B7;
+  --accent-gold-hover: #EEE2C4;
+  --accent-gold-dark: #C9BC99;
+  --accent-gold-light: rgba(226, 212, 183, 0.14);
+  --accent-gold-glow: rgba(226, 212, 183, 0.22);
   
   /* Secondary Accent: Subtle Deep Green / Emerald (IIUC Logo) */
   --accent-green: #10B981;
@@ -101,13 +99,13 @@
   
   --border-subtle: #1E2E38;
   --border-strong: #2D3E50;
-  --border-accent: #D4AF37;
+  --border-accent: #E2D4B7;
   --border-green: rgba(31, 77, 62, 0.5);
   
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.22);
+  --shadow-gold: 0 8px 25px rgba(226, 212, 183, 0.22);
   --shadow-green: 0 8px 25px rgba(19, 42, 36, 0.45);
 
   /* Global Typography - Google Sans Flex font family */
@@ -127,7 +125,7 @@
   --transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Ambient Background: floating graduation-cap watermark */
-  --bg-caps-ink: #D4AF37;
+  --bg-caps-ink: #E2D4B7;
   --bg-caps-opacity: 0.045;
   --bg-caps-scale: 1;
   /* Translucent "veil" variants of the full-bleed section bands so the
@@ -156,13 +154,18 @@
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
-  /* Locked to dark: native widgets & form controls follow the Midnight theme
-     instead of the visitor's OS light/dark preference */
+  /* Locked dark: native widgets follow the Heritage palette instead of the
+     visitor's OS light/dark preference. */
   color-scheme: dark;
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  /* Solid instant-paint fallback matches the gradient's darkest stop so no
+     flash of white/navy occurs before the gradient resolves. */
+  background-color: #0B1120;
 }
 
 body,
@@ -175,17 +178,30 @@ textarea {
 }
 
 body {
-  /* Permanent Midnight Blue canvas. Literal fallbacks keep the page dark even
-     if the stylesheet above were ever truncated or a token removed. */
-  background-color: var(--bg-primary, #0B1120);
+  margin: 0;
+  padding-top: 80px; /* offset for the fixed public header (admin overrides) */
+  /* Heritage canvas — the exact moody deep gradient used by the Academic
+     Resource Vault card, promoted to the page background:
+       0%   #0B1120  Midnight Blue (deepest anchor)
+       50%  #132A24  IIUC deep green-slate
+       100% #19382F  richer forest green
+     Static (no animation), fixed attachment so it stays put while scrolling —
+     cheap to paint and easy on battery. Solid background-color above acts as
+     a fallback. */
+  background-color: #0B1120;
+  background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--text-primary, #F8FAFC);
   line-height: 1.65;
   font-weight: 400;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background-color var(--transition), color var(--transition);
+  transition: color var(--transition);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   max-width: 100%;
   width: 100%;
@@ -359,18 +375,16 @@ section {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out;
   background-color: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition);
-  will-change: transform;
+  border-bottom: 1px solid rgba(226, 212, 183, 0.35);
+  will-change: top;
 }
 
 .site-header.scrolled {
@@ -611,7 +625,7 @@ body.nav-open .site-header {
    -------------------------------------------------------------------------- */
 .news-ticker-bar {
   background: linear-gradient(90deg, #070d18 0%, #0F172A 50%, #070d18 100%);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid rgba(226, 212, 183, 0.25);
   height: 38px;
   display: flex;
   align-items: center;
@@ -651,7 +665,11 @@ body.nav-open .site-header {
   align-items: center;
   width: max-content;
   white-space: nowrap;
-  animation: newsTickerMarquee 38s linear infinite;
+  /* One full loop = one segment width. 18s is the readable default; js/notice-
+     board.js raises it (never lowers it) when a long line-up of notices would
+     otherwise stream past too quickly. */
+  --ticker-duration: 18s;
+  animation: newsTickerMarquee var(--ticker-duration) linear infinite;
   will-change: transform;
 }
 
@@ -660,6 +678,8 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
+/* Continuous marquee — the track holds two identical segments, so a -50%
+   shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
     transform: translateX(0);
@@ -692,8 +712,8 @@ body.nav-open .site-header {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(212, 175, 55, 0.15);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(226, 212, 183, 0.15);
+  border: 1px solid rgba(226, 212, 183, 0.35);
   color: var(--accent-gold);
   padding: 0.15rem 0.55rem;
   border-radius: 4px;
@@ -712,7 +732,7 @@ body.nav-open .site-header {
 }
 
 .ticker-divider {
-  color: rgba(212, 175, 55, 0.4);
+  color: rgba(226, 212, 183, 0.4);
   font-size: 0.7rem;
 }
 
@@ -846,10 +866,10 @@ body.nav-open .site-header {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 6vw, 5rem) 0;
+  padding: clamp(5.5rem, 9vw, 8rem) 0 clamp(3.5rem, 6vw, 5rem) 0;
   /* Base layer kept transparent so the ambient cap watermark (z-index: -1)
      shows through; the page canvas already paints --bg-primary. */
-  background: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+  background: radial-gradient(circle at 80% 20%, rgba(226, 212, 183, 0.08) 0%, transparent 60%),
               radial-gradient(circle at 10% 80%, rgba(19, 42, 36, 0.35) 0%, transparent 60%);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -857,10 +877,35 @@ body.nav-open .site-header {
 .hero-grid {
   display: block;
   max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .hero-content {
   max-width: 840px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content h1 {
+  text-align: center;
+  max-width: 12ch;
+}
+
+.hero-subheading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  margin: 0.55rem auto 0;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .hero-lead {
@@ -873,7 +918,28 @@ body.nav-open .site-header {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+  margin-top: 2.25rem;
+  width: 100%;
+}
+
+.hero-cta-single {
+  margin: 0 auto;
+  background: transparent;
+  color: var(--accent-gold);
+  border: 1.5px solid var(--accent-gold);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.hero-cta-single:hover {
+  background: rgba(226, 212, 183, 0.12);
+  color: var(--accent-gold-hover);
+  border-color: var(--accent-gold-hover);
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.18);
+  transform: translateY(-2px);
 }
 
 /* Hero Right: Autumn-2026 Event Calendar Poster & Notice Hub */
@@ -886,7 +952,7 @@ body.nav-open .site-header {
   border: 1px solid var(--border-accent);
   border-radius: var(--radius-lg);
   padding: 1.75rem;
-  box-shadow: var(--shadow-lg), 0 0 20px rgba(212, 175, 55, 0.12);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(226, 212, 183, 0.12);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1123,9 +1189,9 @@ body.nav-open .site-header {
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  border: 1px solid rgba(226, 212, 183, 0.45);
   border-radius: var(--radius-md);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(226, 212, 183, 0.15);
   overflow: hidden;
   position: relative;
   color: var(--text-primary);
@@ -1135,7 +1201,7 @@ body.nav-open .site-header {
 
 .notice-board-banner:hover {
   border-color: var(--accent-gold);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(226, 212, 183, 0.25);
 }
 
 /* Fixed Badge on the Left */
@@ -1144,7 +1210,7 @@ body.nav-open .site-header {
   align-items: center;
   gap: 0.65rem;
   padding: 0.95rem 1.4rem;
-  background: linear-gradient(135deg, #D4AF37 0%, #B89228 100%);
+  background: linear-gradient(135deg, #E2D4B7 0%, #C9BC99 100%);
   color: #0B1120;
   font-weight: 800;
   font-size: 0.88rem;
@@ -1310,7 +1376,7 @@ body.nav-open .site-header {
   background: var(--accent-gold-hover);
   color: #0B1120;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 10px rgba(226, 212, 183, 0.4);
 }
 
 .notice-link-secondary {
@@ -1472,7 +1538,7 @@ body.nav-open .site-header {
   padding: clamp(3.5rem, 6vw, 5.5rem) 0;
   position: relative;
   /* Transparent base keeps the ambient cap watermark visible underneath */
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(226, 212, 183, 0.06) 0%, transparent 70%);
 }
 
 .section-pillars .section-intro {
@@ -1501,7 +1567,7 @@ body.nav-open .site-header {
   transform: translateY(-6px);
   border-color: var(--accent-gold);
   border-top-color: var(--accent-gold-hover);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(226, 212, 183, 0.15);
   background: var(--bg-card-hover);
 }
 
@@ -1509,8 +1575,8 @@ body.nav-open .site-header {
   width: 56px;
   height: 56px;
   border-radius: var(--radius-sm);
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(226, 212, 183, 0.1);
+  border: 1px solid rgba(226, 212, 183, 0.25);
   color: var(--accent-gold);
   margin-bottom: 1.5rem;
   transition: all var(--transition);
@@ -1521,7 +1587,7 @@ body.nav-open .site-header {
   color: #0B1120;
   border-color: var(--accent-gold);
   transform: scale(1.08) rotate(3deg);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 15px rgba(226, 212, 183, 0.4);
 }
 
 .section-pillars .card h3 {
@@ -1615,7 +1681,7 @@ body.nav-open .site-header {
 
 .search-input-wrap input:focus {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 3px rgba(226, 212, 183, 0.2);
   outline: none;
 }
 
@@ -1843,7 +1909,7 @@ dialog.rsvp-modal::backdrop {
 .form-control:focus {
   outline: none;
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 3px rgba(226, 212, 183, 0.2);
 }
 
 /* Modern HTML5 User-Valid / User-Invalid States */
@@ -1914,7 +1980,7 @@ textarea.form-control {
 
 .custom-checkbox-card:has(input:checked) {
   border-color: var(--accent-gold);
-  background-color: rgba(212, 175, 55, 0.15);
+  background-color: rgba(226, 212, 183, 0.15);
 }
 
 /* Tier Selection Cards */
@@ -2278,7 +2344,7 @@ textarea.form-control {
   height: 76px;
   border-radius: 50%;
   border: 1.5px dashed var(--accent-gold);
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(226, 212, 183, 0.08);
   color: var(--accent-gold);
   padding: 4px;
   box-sizing: border-box;
@@ -2319,7 +2385,7 @@ textarea.form-control {
   width: 150px;
   height: 150px;
   border-radius: var(--radius-full);
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(226, 212, 183, 0.25) 0%, transparent 70%);
 }
 
 .pass-header {
@@ -2350,7 +2416,7 @@ textarea.form-control {
 }
 
 .pass-tier-badge {
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(226, 212, 183, 0.2);
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   padding: 0.3rem 0.8rem;
@@ -2707,6 +2773,15 @@ textarea.form-control {
   line-height: 1.25;
 }
 
+/* Secretary Badge Highlight — visually distinguish primary Secretaries from Assistants */
+.committee-role-badge.badge-secretary-primary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(226, 212, 183, 0.2), 0 4px 12px rgba(226, 212, 183, 0.22), 0 0 18px var(--accent-gold-glow);
+  background: rgba(226, 212, 183, 0.18);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
 .committee-card h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
@@ -2883,6 +2958,32 @@ textarea.form-control {
   max-width: 320px;
 }
 
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand .site-logo-img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.footer-brand .logo-subtitle {
+  display: block;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
 /* Social Media Icons */
 .social-media-container {
   margin-top: 1.4rem;
@@ -2967,9 +3068,9 @@ textarea.form-control {
   margin-top: 1.6rem;
   padding: 1.25rem 1.4rem;
   background: linear-gradient(180deg, rgba(19, 42, 36, 0.75) 0%, rgba(11, 17, 32, 0.85) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(226, 212, 183, 0.3);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(226, 212, 183, 0.15);
   max-width: 320px;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
@@ -2977,7 +3078,7 @@ textarea.form-control {
 .partner-affiliation:hover {
   transform: translateY(-2px);
   border-color: var(--accent-gold);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 212, 183, 0.15);
 }
 
 .partner-logo-img {
@@ -3077,6 +3178,58 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
+   Footer legal block — copyright only. The developer credit lives in its own
+   slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
+   -------------------------------------------------------------------------- */
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  text-align: center;
+}
+
+.footer-legal .footer-copyright {
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Developer credit bar — a thin, quiet ribbon at the very end of the page
+   --------------------------------------------------------------------------
+   Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
+   spans the whole viewport instead of the footer's max-width container.
+
+   Deliberately understated: a barely-there white veil over the Midnight
+   background, a single hairline of muted gold, and soft off-white type. It
+   should read as a footnote — never as a coloured block competing with the
+   footer above it. Keep the padding minimal and the type small.
+   -------------------------------------------------------------------------- */
+.developer-credit-bar {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* Flush against the footer: a ribbon belongs to the page, not floating
+     above it. The hairline below does the separating. */
+  margin: 0;
+  padding: 6px 15px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Soft off-white — matches --text-primary without shouting */
+  color: #F8FAFC;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  text-align: center;
+  border: 0;
+  /* A whisper of ELLS gold instead of the old full gold fill */
+  border-top: 1px solid rgba(226, 212, 183, 0.16);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
    15. Featured Resource Card: Previous Question Bank (1st to 8th Semester)
    -------------------------------------------------------------------------- */
 .featured-resource-section {
@@ -3088,11 +3241,25 @@ textarea.form-control {
   position: relative;
   background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%);
   color: #ffffff;
-  border: 2px solid var(--accent-gold);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 4vw, 2.4rem);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.15);
+  border: none;
+  border-radius: 0;
+  padding: clamp(1.6rem, 4vw, 2.4rem) 1rem;
+  box-shadow: none;
   overflow: hidden;
+}
+
+/* Desktop: restore rounded frame, generous padding and a subtle gold hairline so the card reads as a distinct panel. */
+@media (min-width: 769px) {
+  .featured-resource-card {
+    border: 1px solid rgba(226, 212, 183, 0.35);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 4vw, 2.4rem);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(226, 212, 183, 0.12);
+  }
+  .featured-resource-section > .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
 }
 
 .featured-resource-card::before {
@@ -3103,7 +3270,7 @@ textarea.form-control {
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(226, 212, 183, 0.25) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -3120,19 +3287,32 @@ textarea.form-control {
 }
 
 .resource-card-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2.2rem;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  gap: 1.6rem;
   position: relative;
   z-index: 2;
+}
+
+.resource-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .resource-card-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  background: rgba(212, 175, 55, 0.18);
+  background: rgba(226, 212, 183, 0.18);
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   padding: 0.28rem 0.75rem;
@@ -3141,7 +3321,7 @@ textarea.form-control {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  margin: 0 auto 0.85rem auto;
   line-height: 1.25;
 }
 
@@ -3152,7 +3332,8 @@ textarea.form-control {
   color: #ffffff;
   letter-spacing: -0.01em;
   line-height: 1.25;
-  margin-bottom: 0.6rem;
+  margin: 0 auto 0.6rem auto;
+  text-align: center;
 }
 
 .resource-card-desc {
@@ -3160,19 +3341,24 @@ textarea.form-control {
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
   max-width: 680px;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto;
+  text-align: center;
 }
 
 .resource-tags-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  margin-bottom: 1.2rem;
+  margin: 0 auto 1.2rem auto;
+  width: 100%;
 }
 
 .resource-tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -3191,7 +3377,10 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  width: 100%;
   flex-shrink: 0;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .resource-drive-btn {
@@ -3199,23 +3388,27 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, #E2BC43 0%, #D4AF37 100%);
-  color: #0B1120;
+  background: transparent;
+  color: var(--accent-gold);
+  border: 1.5px solid var(--accent-gold);
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 0.85rem 1.6rem;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  box-shadow: none;
   transition: all 0.25s ease;
   white-space: nowrap;
+  margin: 0 auto;
+  align-self: center !important;
 }
 
 .resource-drive-btn:hover {
-  background: #F8FAFC;
-  color: #0B1120;
+  background: rgba(226, 212, 183, 0.12);
+  color: var(--accent-gold-hover);
+  border-color: var(--accent-gold-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.18);
 }
 
 .resource-drive-btn svg {
@@ -3227,14 +3420,17 @@ textarea.form-control {
 .resource-card-credit {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.8rem;
+  margin: 0.8rem auto 0 auto;
   padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 
 .resource-card-credit strong {
@@ -3242,15 +3438,77 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
-  .resource-card-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .featured-resource-section {
+    padding: 2.2rem 0 1rem 0;
   }
-  .resource-btn-wrap {
-    align-items: stretch;
+  .featured-resource-section > .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .featured-resource-card {
+    border-radius: 0;
+    padding: 1.6rem 1rem;
+    border: none;
+    box-shadow: none;
+  }
+  .resource-card-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 1.3rem;
+  }
+  .resource-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .resource-card-badge,
+  .resource-card-title,
+  .resource-card-desc,
+  .resource-tags-row,
+  .resource-btn-wrap,
+  .resource-drive-btn,
+  .resource-card-credit {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-self: center !important;
+    text-align: center !important;
+  }
+  .resource-tags-row {
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
+  .resource-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+  }
   .resource-drive-btn {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .resource-card-credit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 100%;
   }
 }
@@ -3284,7 +3542,7 @@ textarea.form-control {
   border: 0;
   margin: 0;
   padding: 0;
-  color: var(--bg-caps-ink, #D4AF37);
+  color: var(--bg-caps-ink, #E2D4B7);
   -webkit-user-select: none;
   user-select: none;
 }
@@ -3348,6 +3606,14 @@ textarea.form-control {
 
   50% {
     transform: translate3d(7px, 0, 0) rotate(calc(var(--cap-rot, 0deg) + 3.5deg));
+  }
+}
+
+/* Respect the user's motion preference: the news ticker becomes a still
+   headline strip instead of a marquee. */
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-track {
+    animation: none !important;
   }
 }
 
