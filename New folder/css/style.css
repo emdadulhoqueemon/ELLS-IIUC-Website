@@ -3,6 +3,7 @@
    Modern, Accessible, Responsive CSS Design System
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Asul:wght@400;700&display=swap');
 /* --------------------------------------------------------------------------
    0. Custom Font Faces: Google Sans Flex Family (Local TTF)
    -------------------------------------------------------------------------- */
@@ -109,10 +110,10 @@
   --shadow-green: 0 8px 25px rgba(19, 42, 36, 0.45);
 
   /* Global Typography - Google Sans Flex font family */
-  --font-primary: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-quote: 'Google Sans Flex', Georgia, serif;
+  --font-primary: 'Asul', 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, serif;
+  --font-sans: 'Asul', 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, serif;
+  --font-serif: 'Asul', 'Google Sans Flex', Georgia, serif;
+  --font-quote: 'Asul', 'Google Sans Flex', Georgia, serif;
 
   --radius-xs: 4px;
   --radius-sm: 8px;
@@ -162,7 +163,7 @@ html {
   color-scheme: dark;
   overflow-x: hidden;
   max-width: 100%;
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   /* Solid instant-paint fallback matches the gradient's darkest stop so no
      flash of white/navy occurs before the gradient resolves. */
   background-color: #0B1120;
@@ -174,7 +175,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
 }
 
 body {
@@ -247,7 +248,7 @@ img {
    2. Typography
    -------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   line-height: 1.25;
   color: var(--text-primary);
 }
@@ -478,7 +479,7 @@ body.nav-open .site-header {
 
 .logo-line-1,
 .logo-line-2 {
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -632,7 +633,7 @@ body.nav-open .site-header {
   position: relative;
   z-index: 990;
   overflow: hidden;
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
 }
 
 /* The badge/label column is gone: one inner flex row, ticker owns all of it */
@@ -1195,7 +1196,7 @@ body.nav-open .site-header {
   overflow: hidden;
   position: relative;
   color: var(--text-primary);
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   transition: box-shadow var(--transition), border-color var(--transition);
 }
 

@@ -99,7 +99,7 @@ section {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   color: var(--text-primary);
   text-wrap: balance;
 }
@@ -481,7 +481,7 @@ main > .hero .container,
 }
 
 .event-card__poster-mark {
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   font-size: clamp(1.5rem, 3.4vw, 2.15rem);
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -902,7 +902,7 @@ main > .hero .container,
   border-radius: 50%;
   background: radial-gradient(circle at 50% 35%, rgba(226, 212, 183, 0.2), transparent 70%);
   color: var(--accent-gold);
-  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.16em;
