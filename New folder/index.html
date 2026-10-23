@@ -22,6 +22,7 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/polish.css">
 </head>
 <body>
   <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
@@ -64,10 +65,10 @@
           <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="about.html" class="nav-link">About Us</a></li>
           <li><a href="events.html" class="nav-link">Events</a></li>
-          <li><a href="membership.html" class="nav-link">Membership</a></li>
+          <li><a href="membership.html#membershipStatusCheck" class="nav-link">Membership</a></li>
         </ul>
         <div class="mobile-nav-footer">
-          <a href="membership.html" class="btn btn-primary mobile-nav-cta">
+          <a href="membership.html#applicationFormCard" class="btn btn-primary mobile-nav-cta">
             <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -91,7 +92,7 @@
           </svg>
         </a>
 
-        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
+        <a href="membership.html#applicationFormCard" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <!-- Mobile Drawer Hamburger -->
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
@@ -106,29 +107,12 @@
   <!-- Mobile Drawer Backdrop Overlay -->
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker -->
-  <aside class="news-ticker-bar" aria-label="Urgent Updates">
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track">
-          <!-- Track Segment 1 -->
-          <div class="news-ticker-content">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
-          <!-- Track Segment 2 (Duplicate for continuous seamless loop) -->
-          <div class="news-ticker-content" aria-hidden="true">
-            <span class="ticker-item"><strong class="ticker-highlight">Theme: HUMANITIES 5.0 | Abstract Submission Deadline: 1 October 2026</strong> &nbsp;|&nbsp; 2nd International Conference (FAHIIUCIC 2026) • 26–27 Nov 2026 at IIUC Central Auditorium</span>
-            <a href="https://forms.gle/z41qURnFh4hLZLMQ8" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="Open Registration Form">Registration Form &rarr;</a>
-            <a href="https://www.facebook.com/share/p/19ExQLbaHz/" target="_blank" rel="noopener noreferrer" class="ticker-link-btn" title="View details on Facebook">Details &rarr;</a>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-            <span class="ticker-item"><strong class="ticker-highlight">Notice:</strong> Farewell &amp; Reception Autumn-2026 • 27 Sept (Sun) at 2:00 PM (IIUC Central Auditorium)</span>
-            <span class="ticker-divider" aria-hidden="true">✦</span>
-          </div>
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
         </div>
       </div>
     </div>
@@ -141,24 +125,48 @@
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
-            <span class="eyebrow">DEPARTMENT OF ENGLISH LANGUAGE &amp; LITERATURE • IIUC</span>
-            <h1 id="hero-heading">Where Words Find Voice and Thoughts Take Flight.</h1>
-            
-            <p class="hero-lead">
-              The English Language and Literary Society (ELLS) is a premier platform dedicated to nurturing the creative and intellectual potential of students. We foster a vibrant community where linguistic curiosity meets literary expression, empowering scholars to explore, debate, and elevate their communication skills through collaborative events and academic excellence in language and literature.
-            </p>
+            <h1 id="hero-heading">Welcome to the New World<br>of ELLS — DELL, IIUC</h1>
+
+            <p class="hero-subheading">Learn &bull; Speak &bull; Lead</p>
 
             <div class="hero-actions">
-              <a href="membership.html" class="btn btn-primary">
-                <span>Join ELLS Club</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </a>
-              <a href="events.html" class="btn btn-secondary">
+              <a href="events.html" class="btn btn-primary hero-cta-single">
                 <span>Explore Events &amp; Salons</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </a>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
+    <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">FROM THE IT SECRETARY</span>
+          <h2 id="notice-board-heading">Official Notice Board</h2>
+          <p>Every announcement published by the ELLS committee, delivered live from our database.</p>
+          <span class="notice-live-pill" id="noticeLivePill" hidden>
+            <span class="notice-live-dot" aria-hidden="true"></span>Live
+          </span>
+        </div>
+
+        <div class="notice-board-state" id="noticeBoardStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="notice-board-state__spinner feed-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-notice-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-notice-status-title>Loading the notice board&hellip;</h3>
+            <p class="feed-state__text" data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Explore Upcoming Events</a>
+              <a href="membership.html#applicationFormCard" class="btn btn-secondary btn-sm">Join ELLS</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" id="noticeBoardGrid"></div>
       </div>
     </section>
 
@@ -179,7 +187,7 @@
               <h2 id="resource-bank-heading" class="resource-card-title">Previous Question Bank (1st to 8th Semester)</h2>
               
               <p class="resource-card-desc">
-                Comprehensive archive of semester final questions and mid-term examination papers covering all 1st through 8th semester courses of the Department of English Language and Literature. Access organized course folders, study references, and past papers directly on Google Drive.
+                Access past exams, mid-term papers, and study materials for all semesters directly from our organized Google Drive folders.
               </p>
 
               <div class="resource-tags-row">
@@ -215,6 +223,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- Quick Stats Strip -->
     <section class="stats-strip" aria-label="Society Impact and Statistics">
@@ -314,102 +324,31 @@
     <!-- Featured Upcoming Events Preview -->
     <section class="section-secondary" aria-labelledby="featured-events-heading">
       <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
-          <div>
-            <span class="eyebrow">ON THE CALENDAR</span>
-            <h2 id="featured-events-heading">Upcoming Literary Gatherings</h2>
+        <div class="section-intro">
+          <span class="eyebrow">ON THE CALENDAR</span>
+          <h2 id="featured-events-heading">Upcoming Literary Gatherings</h2>
+          <p>Salons, competitions and workshops curated by the ELLS literary committee.</p>
+          <div class="section-head__actions">
+            <a href="events.html" class="btn btn-secondary btn-sm">View Full Calendar &rarr;</a>
           </div>
-          <a href="events.html" class="btn btn-secondary btn-sm">View Full Calendar &rarr;</a>
         </div>
 
-        <div class="grid grid-3">
-          <!-- Featured Event 1 -->
-          <article class="event-card" data-event-id="evt-101">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">OCT</span>
-                <span class="event-date-day">14</span>
-              </div>
-              <span class="badge badge-gold">Poetry &amp; Slam</span>
+        <!-- Firestore-driven strip: the three next events on the calendar -->
+        <div class="feed-state feed-state--compact" id="homeEventsStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="feed-state__spinner notice-board-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-event-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-event-status-title>Loading upcoming events&hellip;</h3>
+            <p class="feed-state__text" data-event-status-text>Fetching the latest schedule from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Open the Full Calendar</a>
             </div>
-            <div class="event-card-body">
-              <h3>Autumn Open Mic &amp; Candlelit Verses</h3>
-              <p>An evening of student recitations, original lyricism, and acoustic interludes under the Great Hall chandeliers.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>7:00 PM – 9:30 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Athenaeum Salon, Room 204</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator">12 seats remaining</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Featured Event 2 -->
-          <article class="event-card" data-event-id="evt-102">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">OCT</span>
-                <span class="event-date-day">22</span>
-              </div>
-              <span class="badge badge-crimson">Masterclass</span>
-            </div>
-            <div class="event-card-body">
-              <h3>Crafting Compelling Non-Fiction Memoirs</h3>
-              <p>Special masterclass hosted by guest essayist Prof. Julian Sterling on voice, ethical memory, and sensory detail.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>4:30 PM – 6:30 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Humanities Auditorium B</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator seats-low">6 seats left</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Featured Event 3 -->
-          <article class="event-card" data-event-id="evt-103">
-            <div class="event-card-header">
-              <div class="event-date-badge">
-                <span class="event-date-month">NOV</span>
-                <span class="event-date-day">05</span>
-              </div>
-              <span class="badge badge-navy">Linguistics</span>
-            </div>
-            <div class="event-card-body">
-              <h3>The Secret Codes of Old English Dialects</h3>
-              <p>Uncovering phonetic shifts, Celtic borrowings, and lost idioms from Beowulf through Middle English transitions.</p>
-              <div class="event-meta">
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>5:00 PM – 7:00 PM</span>
-                </div>
-                <div class="event-meta-item">
-                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Online &amp; Seminar Room 4</span>
-                </div>
-              </div>
-              <div class="event-card-footer">
-                <span class="seats-indicator">28 seats remaining</span>
-                <a href="events.html" class="btn btn-primary btn-sm">RSVP &rarr;</a>
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
+
+        <div class="grid grid-3" id="homeEventsGrid"></div>
+
       </div>
     </section>
 
@@ -478,14 +417,11 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="site-logo">
-            <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img">
-            <div class="logo-text">
-              <span class="logo-title">ELLS Club</span>
-              <span class="logo-subtitle">English Language &amp; Literary Society</span>
-            </div>
+          <div class="site-logo" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <img src="images/ells-logo.png" alt="ELLS Club Logo" class="site-logo-img" style="border-radius: 50%;">
+            <span class="logo-subtitle" style="display: block; text-align: center; margin-top: 0.6rem;">English Language &amp; Literary Society</span>
           </div>
-          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Department of English Language and Literature, International Islamic University Chittagong.</p>
+          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
 
           <!-- Social Media Icons with Integrated Facebook Link -->
           <div class="social-media-container">
@@ -524,7 +460,7 @@
           <div class="partner-affiliation">
             <img src="images/iiuc-logo.png" alt="IIUC Crest" class="partner-logo-img">
             <div class="partner-text">
-              <span>Department of English Language and Literature</span>
+              <span>Dept. of English Language &amp; Literature</span>
               <span>International Islamic University Chittagong</span>
             </div>
           </div>
@@ -536,7 +472,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About ELLS</a></li>
             <li><a href="events.html">Events &amp; Salons</a></li>
-            <li><a href="membership.html">Membership Application</a></li>
+            <li><a href="membership.html#membershipStatusCheck">Membership Application</a></li>
           </ul>
         </div>
 
@@ -556,19 +492,27 @@
             <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
             <li><a href="mailto:ells.dell.iiuc95@gmail.com">✉️ ells.dell.iiuc95@gmail.com</a></li>
             <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
-            <li><a href="membership.html">Inquire for Fellowship</a></li>
+            <li><a href="membership.html#membershipStatusCheck">Inquire for Fellowship</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div class="footer-quote">"Nulla dies sine linea — Not a day without a line."</div>
-        <div>&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
+        <div class="footer-legal">
+          <div class="footer-copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Developer credit — slim full-bleed ribbon, the last thing on the page -->
+  <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
+
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <!-- Live Firestore feeds (ES modules) -->
+  <script type="module" src="js/events-feed.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
 </body>
 </html>
