@@ -24,13 +24,6 @@
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/polish.css">
 
-  <noscript>
-    <style>
-      /* No JavaScript: show the Status Check and the 4-step form stacked. */
-      .membership-panel[hidden] { display: block !important; }
-      .membership-switch { display: none !important; }
-    </style>
-  </noscript>
 </head>
 <body>
   <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
@@ -75,7 +68,7 @@
           <li><a href="membership.html#membershipStatusCheck" class="nav-link active">Membership</a></li>
         </ul>
         <div class="mobile-nav-footer">
-          <a href="membership.html#applicationFormCard" class="btn btn-primary mobile-nav-cta">
+          <a href="membership.html" class="btn btn-primary mobile-nav-cta">
             <span>Join ELLS Club</span>
             <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -98,7 +91,7 @@
           </svg>
         </a>
 
-        <a href="membership.html#applicationFormCard" class="btn btn-primary btn-sm">Join ELLS</a>
+        <a href="membership.html" class="btn btn-primary btn-sm">Join ELLS</a>
 
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
           <span></span>
@@ -130,8 +123,7 @@
           <span class="eyebrow">ELLS MEMBERSHIP</span>
           <h1 id="membership-heading">Check Your ELLS Membership Status</h1>
           <p class="hero-lead">
-            Enter your Student ID to instantly verify your membership record — or apply for
-            membership in four guided steps and generate your printable certificate.
+            Enter your Student ID to instantly verify your membership record, fee breakdown, and fellowship eligibility.
           </p>
         </div>
       </div>
@@ -144,25 +136,8 @@
         <!-- Notice if existing membership found in localStorage -->
         <div id="viewExistingMemberNotice" style="display: none;"></div>
 
-        <!-- Membership view switch: Status Check  |  Application Form -->
-        <div class="membership-switch" role="tablist" aria-label="Membership options">
-          <button type="button" class="membership-switch__btn" id="membershipTabStatus"
-                  role="tab" aria-selected="true" aria-controls="membershipStatusCheck"
-                  data-membership-target="membershipStatusCheck">
-            Check Status
-          </button>
-          <button type="button" class="membership-switch__btn" id="membershipTabApply"
-                  role="tab" aria-selected="false" aria-controls="applicationFormCard"
-                  data-membership-target="applicationFormCard">
-            Apply for Membership
-          </button>
-        </div>
-
-        <!-- ================= Membership Status Check ================= -->
-        <div class="membership-panel" id="membershipStatusCheck" role="tabpanel"
-             aria-labelledby="membershipTabStatus" tabindex="-1">
         <!-- Member Record Lookup Section (Google Apps Script API) -->
-        <div class="card" id="memberRecordLookupCard" style="padding: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem;">
+        <div class="card" id="memberRecordLookupCard" style="padding: clamp(1.8rem, 4vw, 2.5rem);">
           <div class="section-intro" style="margin-bottom: 1.5rem;">
             <span class="eyebrow">MEMBERSHIP STATUS CHECK</span>
             <h3 id="memberLookupHeading" style="margin: 0.5rem 0 0.4rem;">Enter Your Student ID</h3>
@@ -192,352 +167,7 @@
           <div id="memberLookupResults" style="margin-top: 1rem;"></div>
         </div>
 
-          <!-- CTA: jump into the restored 4-step application -->
-          <div class="membership-cta">
-            <div>
-              <h3>Ready to Join ELLS?</h3>
-              <p>New members complete our 4-step application to generate a printable certificate.</p>
-            </div>
-            <button type="button" class="btn btn-primary" id="applyMembershipToggle"
-                    data-membership-target="applicationFormCard">
-              <span>Apply for Membership</span>
-              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2;" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-          </div>
-        </div>
 
-        <!-- ================= Join ELLS — 4-Step Application ================= -->
-        <div class="membership-panel" id="applicationFormCard" role="tabpanel"
-             aria-labelledby="membershipTabApply" tabindex="-1" hidden>
-          <div class="section-intro">
-            <span class="eyebrow">JOIN ELLS</span>
-            <h2>Membership Application</h2>
-            <p>Complete the four steps below to join the fellowship and generate your printable Certificate of Membership.</p>
-          </div>
-
-        <!-- 4-Step Application Form - Restored (generates printable certificate) -->
-        <div class="card application-card" style="padding: clamp(1.8rem, 4vw, 3rem);">
-          
-          <!-- Wizard Step Progress -->
-          <div class="wizard-progress" role="progressbar" aria-label="Application Progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
-            <div class="wizard-step-indicator active" data-step="1">
-              <div class="step-bubble">1</div>
-              <span class="step-label">Personal Info</span>
-            </div>
-            <div class="wizard-step-indicator" data-step="2">
-              <div class="step-bubble">2</div>
-              <span class="step-label">Interests</span>
-            </div>
-            <div class="wizard-step-indicator" data-step="3">
-              <div class="step-bubble">3</div>
-              <span class="step-label">Statement</span>
-            </div>
-            <div class="wizard-step-indicator" data-step="4">
-              <div class="step-bubble">4</div>
-              <span class="step-label">Review &amp; Tier</span>
-            </div>
-          </div>
-
-          <form id="membershipForm" novalidate>
-            <!-- Step 1: Personal Details -->
-            <div class="wizard-step active" data-step="1">
-              <h3 style="margin-bottom: 0.5rem;">Step 1: Personal &amp; Academic Details</h3>
-              <p style="margin-bottom: 2rem;">Please provide your basic contact information and academic or institutional affiliation.</p>
-
-              <div class="form-group">
-                <label for="fullName" class="form-label">Full Legal / Preferred Name <span class="required">*</span></label>
-                <input type="text" id="fullName" class="form-control" placeholder="e.g. (demo: Emdadul Hoque)" required>
-                <span class="form-error">Please enter your full name.</span>
-              </div>
-
-              <div class="grid grid-2" style="gap: 1.2rem;">
-                <div class="form-group">
-                  <label for="emailAddress" class="form-label">Email Address <span class="required">*</span></label>
-                  <input type="email" id="emailAddress" class="form-control" placeholder="demo: name@university.ac.bd" required>
-                  <span class="form-error">Please enter a valid email address.</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="phoneNumber" class="form-label">Contact Phone Number <span class="required">*</span></label>
-                  <input type="tel" id="phoneNumber" class="form-control" placeholder="demo: +880 **********" required>
-                  <span class="form-error">Please provide a valid phone number.</span>
-                </div>
-              </div>
-
-              <div class="grid grid-2" style="gap: 1.2rem;">
-                <div class="form-group">
-                  <label for="affiliation" class="form-label">Institutional / Academic Affiliation <span class="required">*</span></label>
-                  <input type="text" id="affiliation" class="form-control" placeholder="e.g. Dept. of English / Humanities" required>
-                  <span class="form-error">Please enter your department or affiliation.</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="studentId" class="form-label">Student / Scholar ID (Optional)</label>
-                  <input type="text" id="studentId" class="form-control" placeholder="e.g. STU-94021">
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 2: Literary Interests -->
-            <div class="wizard-step" data-step="2">
-              <h3 style="margin-bottom: 0.5rem;">Step 2: Literary Interests &amp; Focus Circles</h3>
-              <p style="margin-bottom: 1.5rem;">Select all fields and circles you wish to participate in within the ELLS Club.</p>
-
-              <div class="checkbox-grid">
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Poetry & Spoken Word" checked>
-                  <span>Poetry &amp; Spoken Word</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Fiction & Creative Prose">
-                  <span>Fiction &amp; Creative Prose</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Linguistics & Semiotics">
-                  <span>Linguistics &amp; Semiotics</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="The Scribe Journal Editorial">
-                  <span>The Scribe Editorial Board</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Great Books & World Classics">
-                  <span>Great Books &amp; Classics</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Debate, Rhetoric & Oratory">
-                  <span>Rhetoric &amp; Public Oratory</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Playwriting & Theatre">
-                  <span>Playwriting &amp; Dramatic Arts</span>
-                </label>
-                <label class="custom-checkbox-card">
-                  <input type="checkbox" name="literaryInterests" value="Memoir & Non-Fiction">
-                  <span>Memoir &amp; Non-Fiction</span>
-                </label>
-              </div>
-              <div id="interestsError" class="form-error" style="margin-top: 1rem;"></div>
-            </div>
-
-            <!-- Step 3: Statement of Intent -->
-            <div class="wizard-step" data-step="3">
-              <h3 style="margin-bottom: 0.5rem;">Step 3: Statement of Literary Intent</h3>
-              <p style="margin-bottom: 1.5rem;">Share a brief introduction to your literary interests and what you hope to explore with our society.</p>
-
-              <div class="form-group">
-                <label for="statementOfPurpose" class="form-label">Brief Statement of Intent <span class="required">*</span></label>
-                <textarea id="statementOfPurpose" class="form-control" rows="5" placeholder="Share why you wish to join ELLS Club, what themes you enjoy writing or discussing, or your aspirations for the upcoming semester..." required></textarea>
-                <div class="form-hint">
-                  <span>Min 15 words, recommended 50–150 words.</span>
-                  <span id="wordCountDisplay">0 / 150 words</span>
-                </div>
-                <span class="form-error">Please write a brief statement of intent.</span>
-              </div>
-
-              <div class="form-group">
-                <label for="favoriteAuthors" class="form-label">Favorite Authors, Poets, or Linguists (Optional)</label>
-                <input type="text" id="favoriteAuthors" class="form-control" placeholder="e.g. Virginia Woolf, Seamus Heaney, Noam Chomsky, Toni Morrison">
-              </div>
-
-              <div class="form-group">
-                <label for="portfolioLink" class="form-label">Link to Writing Sample / Portfolio (Optional)</label>
-                <input type="url" id="portfolioLink" class="form-control" placeholder="https://yourblog.com or Google Docs link">
-              </div>
-            </div>
-
-            <!-- Step 4: Tier Selection & Review -->
-            <div class="wizard-step" data-step="4">
-              <h3 style="margin-bottom: 0.5rem;">Step 4: Select Tier &amp; Final Review</h3>
-              <p style="margin-bottom: 1.5rem;">Choose your fellowship tier. Dues support guest lectures, publication printing, and student awards.</p>
-
-              <input type="hidden" id="selectedTierInput" value="Student Fellow">
-
-              <div class="tiers-grid">
-                <!-- Tier 1 -->
-                <div class="tier-card selected" data-tier="Student Fellow">
-                  <span class="badge badge-gold tier-badge-corner">Most Popular</span>
-                  <h4>Student Fellow</h4>
-                  <div class="tier-price">250 TK <span>/ semester</span></div>
-                  <p style="font-size: 0.85rem; color: var(--text-muted);">For undergraduate and graduate students currently enrolled.</p>
-                  <ul class="tier-perks">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Access to all weekly salons</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Free submission to The Scribe</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Peer workshop feedback</li>
-                  </ul>
-                </div>
-
-                <!-- Tier 2 -->
-                <div class="tier-card" data-tier="Faculty & Scholar">
-                  <h4>Faculty &amp; Scholar</h4>
-                  <div class="tier-price">2000 TK <span>/ year</span></div>
-                  <p style="font-size: 0.85rem; color: var(--text-muted);">For academic researchers, professors, and published writers.</p>
-                  <ul class="tier-perks">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Priority salon seating</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Guest panel moderation</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Annual print anthology copy</li>
-                  </ul>
-                </div>
-
-                <!-- Tier 3 -->
-                <div class="tier-card" data-tier="Patron Fellow">
-                  <h4>Patron Fellow</h4>
-                  <div class="tier-price">5000 TK <span>/ year</span></div>
-                  <p style="font-size: 0.85rem; color: var(--text-muted);">For alumni and benefactors sponsoring student writing grants.</p>
-                  <ul class="tier-perks">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> All Scholar privileges</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Invitation to Annual Gala</li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Named donor acknowledgment</li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- Application Summary Box -->
-              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
-                <h4 style="margin-bottom: 0.8rem; font-size: 1.05rem;">Application Summary</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; font-size: 0.9rem;">
-                  <div><strong style="color: var(--text-muted);">Candidate:</strong> <span id="reviewName">—</span></div>
-                  <div><strong style="color: var(--text-muted);">Email:</strong> <span id="reviewEmail">—</span></div>
-                  <div><strong style="color: var(--text-muted);">Affiliation:</strong> <span id="reviewAffiliation">—</span></div>
-                  <div><strong style="color: var(--text-muted);">Tier:</strong> <span id="reviewTier" class="text-gold" style="font-weight: 700;">STUDENT FELLOW</span></div>
-                  <div style="grid-column: 1 / -1;"><strong style="color: var(--text-muted);">Circles:</strong> <span id="reviewInterests">—</span></div>
-                </div>
-              </div>
-
-              <!-- Agreement Checkbox -->
-              <label class="custom-checkbox-card" style="margin-bottom: 1.5rem;">
-                <input type="checkbox" id="agreeCodeOfConduct" required>
-                <span style="font-size: 0.9rem;">I agree to uphold the <strong>ELLS Club Code of Intellectual Discourse</strong> and treat all peers with scholarly respect.</span>
-              </label>
-            </div>
-
-            <!-- Wizard Navigation Buttons -->
-            <div class="wizard-navigation">
-              <button type="button" class="btn btn-secondary" id="prevStepBtn" style="display: none;">&larr; Previous Step</button>
-              <div style="margin-left: auto;">
-                <button type="button" class="btn btn-primary" id="nextStepBtn">Next Step &rarr;</button>
-                <button type="submit" class="btn btn-crimson" id="submitMembershipBtn" style="display: none;">Submit Application &rarr;</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        </div>
-
-        <!-- Generated Digital Membership Pass & Certificate Display (Hidden by default) -->
-        <div id="membershipPassContainer" style="display: none;">
-          <!-- Screen-Only Welcoming Banner -->
-          <div class="cert-screen-greeting text-center" style="margin-bottom: 2rem;">
-            <span class="badge badge-gold" style="font-size: 0.9rem; padding: 0.4rem 1.2rem;">FELLOWSHIP CONFERRED</span>
-            <h2 style="margin-top: 0.8rem;">Welcome to the ELLS Club Fellowship</h2>
-            <p>Your provisional application has been successfully verified and registered in the Society archives.</p>
-          </div>
-
-          <!-- Official Certificate of Membership Frame -->
-          <div class="membership-certificate-frame" id="membershipCertificateFrame">
-            <!-- Corner Decorative Accents -->
-            <div class="cert-corner-ornament cert-corner-tl" aria-hidden="true"></div>
-            <div class="cert-corner-ornament cert-corner-tr" aria-hidden="true"></div>
-            <div class="cert-corner-ornament cert-corner-bl" aria-hidden="true"></div>
-            <div class="cert-corner-ornament cert-corner-br" aria-hidden="true"></div>
-
-            <div class="cert-inner-frame">
-              <!-- Certificate Formal Header -->
-              <div class="cert-formal-header">
-                <div class="cert-crests-row">
-                  <img src="images/iiuc-logo.png" alt="IIUC Crest" class="cert-crest-img">
-                  <div class="cert-institution-meta">
-                    <div class="cert-uni-title">International Islamic University Chittagong</div>
-                    <div class="cert-dept-title">Dept. of English Language &amp; Literature</div>
-                    <div class="cert-society-heading">English Language and Literary Society (ELLS)</div>
-                  </div>
-                  <img src="images/ells-logo.png" alt="ELLS Crest" class="cert-crest-img">
-                </div>
-
-                <div class="cert-title-block">
-                  <div class="cert-award-ribbon">
-                    <span>CERTIFICATE OF MEMBERSHIP</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Prominently Centered Dark Membership ID Card -->
-              <div class="membership-card-pass" id="digitalPass">
-                <div class="pass-header">
-                  <div class="pass-logo">
-                    <img src="images/ells-logo.png" alt="ELLS Club Crest" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; background: #ffffff; padding: 2px;">
-                    <span class="pass-org-name">ELLS CLUB</span>
-                  </div>
-                  <span class="pass-tier-badge" id="passTier">STUDENT FELLOW</span>
-                </div>
-
-                <div class="pass-body">
-                  <div class="pass-member-name" id="passMemberName">Eleanor Vance</div>
-                  <p style="color: rgba(255, 255, 255, 0.75); font-size: 0.85rem; margin-bottom: 0;">English Language &amp; Literary Society Fellow</p>
-
-                  <div class="pass-meta-grid">
-                    <div class="pass-meta-item">
-                      <label>MEMBER ID</label>
-                      <span id="passMemberId">ELLS-2026-8492</span>
-                    </div>
-                    <div class="pass-meta-item">
-                      <label>ISSUED ON</label>
-                      <span id="passIssuedDate">Sep 23, 2026</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="pass-footer">
-                  <div class="pass-seal-graphic">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                    <span>VERIFIED SCHOLAR PASS</span>
-                  </div>
-                  <span>VALID THROUGH 2027</span>
-                </div>
-              </div>
-
-              <!-- Formal Declaration Text -->
-              <div class="cert-declaration">
-                <p>This document certifies that the individual named above is an officially registered member of the English Language and Literary Society (ELLS), Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
-              </div>
-
-              <!-- Professional Dual Signature Block -->
-              <div class="cert-signature-section">
-                <div class="cert-sig-block cert-sig-left">
-                  <div class="cert-sig-line"></div>
-                  <div class="cert-sig-designation">GENERAL SECRETARY</div>
-                  <div class="cert-sig-sub">ELLS Executive Committee</div>
-                </div>
-
-                <div class="cert-official-seal-wrap">
-                  <div class="cert-seal-stamp">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <path d="m9 12 2 2 4-4"></path>
-                    </svg>
-                    <span class="cert-seal-tag">OFFICIAL SEAL</span>
-                    <span class="cert-seal-affil">ELLS • IIUC</span>
-                  </div>
-                </div>
-
-                <div class="cert-sig-block cert-sig-right">
-                  <div class="cert-sig-line"></div>
-                  <div class="cert-sig-designation">PRESIDENT, ELLS</div>
-                  <div class="cert-sig-sub">Dept. of ELL, IIUC</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="pass-actions" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-            <button type="button" class="btn btn-primary" id="printPassBtn">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-              <span>Print / Save Certificate</span>
-            </button>
-            <a href="events.html" class="btn btn-secondary">Browse Fellow Salons &rarr;</a>
-            <button type="button" class="btn btn-secondary" id="reapplyBtn">Submit Another Application</button>
-          </div>
-        </div>
 
       </div>
     </section>
