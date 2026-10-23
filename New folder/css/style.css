@@ -60,7 +60,7 @@
    -------------------------------------------------------------------------- */
 :root {
   /* ==========================================================================
-     SECTIONAL COLOR BLOCKING â€” Editorial Literary Consulting Theme
+     SECTIONAL COLOR BLOCKING Ã¢â‚¬â€ Editorial Literary Consulting Theme
      Palette:
        --bg-primary: #F4EFE6 (Soft Ivory - Base Canvas & Hero)
        --text-primary & --text-heading: #3B2516 (Deep Chocolate Brown)
@@ -152,7 +152,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   1b. Theme Lock â€” "Midnight Blue & Soft Gold" is the ONLY theme
+   1b. Theme Lock Ã¢â‚¬â€ "Midnight Blue & Soft Gold" is the ONLY theme
    --------------------------------------------------------------------------
    All colour tokens are declared once, permanently, on :root above, and are
    re-applied to <body> directly. There is deliberately no light token set and
@@ -251,7 +251,7 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   2. Typography â€” Serif for Headings, Clean Sans for Body
+   2. Typography Ã¢â‚¬â€ Serif for Headings, Clean Sans for Body
    -------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), Georgia, serif;
@@ -685,7 +685,7 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
-/* Continuous marquee â€” the track holds two identical segments, so a -50%
+/* Continuous marquee Ã¢â‚¬â€ the track holds two identical segments, so a -50%
    shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
@@ -2782,7 +2782,7 @@ textarea.form-control {
   line-height: 1.25;
 }
 
-/* Secretary Badge Highlight â€” visually distinguish primary Secretaries from Assistants */
+/* Secretary Badge Highlight Ã¢â‚¬â€ visually distinguish primary Secretaries from Assistants */
 .committee-role-badge.badge-secretary-primary {
   border: 1.5px solid var(--accent-gold);
   box-shadow: 0 0 0 1px rgba(226, 212, 183, 0.2), 0 4px 12px rgba(226, 212, 183, 0.22), 0 0 18px var(--accent-gold-glow);
@@ -3187,7 +3187,7 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Footer legal block â€” copyright only. The developer credit lives in its own
+   Footer legal block Ã¢â‚¬â€ copyright only. The developer credit lives in its own
    slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
    -------------------------------------------------------------------------- */
 .footer-legal {
@@ -3204,14 +3204,14 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Developer credit bar â€” a thin, quiet ribbon at the very end of the page
+   Developer credit bar Ã¢â‚¬â€ a thin, quiet ribbon at the very end of the page
    --------------------------------------------------------------------------
    Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
    spans the whole viewport instead of the footer's max-width container.
 
    Deliberately understated: a barely-there white veil over the Midnight
    background, a single hairline of muted gold, and soft off-white type. It
-   should read as a footnote â€” never as a coloured block competing with the
+   should read as a footnote Ã¢â‚¬â€ never as a coloured block competing with the
    footer above it. Keep the padding minimal and the type small.
    -------------------------------------------------------------------------- */
 .developer-credit-bar {
@@ -3224,7 +3224,7 @@ textarea.form-control {
   padding: 6px 15px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.05);
-  /* Soft off-white â€” matches --text-primary without shouting */
+  /* Soft off-white Ã¢â‚¬â€ matches --text-primary without shouting */
   color: #F8FAFC;
   font-family: inherit;
   font-size: 0.8rem;
@@ -3523,19 +3523,19 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   19. Ambient Global Background â€” Floating Graduation Caps (watermark layer)
+   19. Ambient Global Background Ã¢â‚¬â€ Floating Graduation Caps (watermark layer)
    --------------------------------------------------------------------------
    A decorative, full-viewport layer of graduation caps that drifts slowly
    across the page. Contract to keep the site safe and readable:
-     â€¢ z-index: -1            â†’ painted underneath every element of the page
-     â€¢ pointer-events: none   â†’ never blocks a click, tap, hover or selection
-     â€¢ opacity 0.03 â€“ 0.05    â†’ watermark subtlety only (see --bg-caps-opacity)
-     â€¢ position: fixed        â†’ zero impact on document flow / horizontal scroll
-     â€¢ aria-hidden in markup  â†’ invisible to assistive technology
+     Ã¢â‚¬Â¢ z-index: -1            Ã¢â€ â€™ painted underneath every element of the page
+     Ã¢â‚¬Â¢ pointer-events: none   Ã¢â€ â€™ never blocks a click, tap, hover or selection
+     Ã¢â‚¬Â¢ opacity 0.03 Ã¢â‚¬â€œ 0.05    Ã¢â€ â€™ watermark subtlety only (see --bg-caps-opacity)
+     Ã¢â‚¬Â¢ position: fixed        Ã¢â€ â€™ zero impact on document flow / horizontal scroll
+     Ã¢â‚¬Â¢ aria-hidden in markup  Ã¢â€ â€™ invisible to assistive technology
    The solid Midnight Blue background on <body> is untouched: the layer is
    painted above the page canvas and below the (translucent) full-bleed
    section bands, so it reads through them like a watermark on paper.
-   Pure CSS + inline SVG markup â€” no JavaScript and no icon CDN required.
+   Pure CSS + inline SVG markup Ã¢â‚¬â€ no JavaScript and no icon CDN required.
    -------------------------------------------------------------------------- */
 .bg-caps {
   position: fixed;
@@ -3653,12 +3653,24 @@ textarea.form-control {
 /* ==========================================================================
 
 /* ==========================================================================
-   SECTIONAL COLOR BLOCKING — Editorial Literary Consulting Design System
-   Full-width color-blocked bands with high-contrast flat editorial cards.
+
+/* ==========================================================================
+   SECTIONAL COLOR BLOCKING & CONTRAST REFINEMENT
+   Palette:
+     - Deep Brown: #3B2516
+     - Soft Ivory: #F4EFE6
+     - Olive Green: #958F68
    ========================================================================== */
 
-/* 1. Global Variables & Canvas (Light Ivory Base) */
+/* 1. Global Font ('Asul') */
 :root {
+  --font-primary: 'Asul', Georgia, serif !important;
+  --font-heading: 'Asul', Georgia, serif !important;
+  --font-body: 'Asul', Georgia, serif !important;
+  --font-serif: 'Asul', Georgia, serif !important;
+  --font-sans: 'Asul', Georgia, serif !important;
+  --font-quote: 'Asul', Georgia, serif !important;
+
   --bg-primary: #F4EFE6;
   --text-primary: #3B2516;
   --text-heading: #3B2516;
@@ -3669,9 +3681,22 @@ textarea.form-control {
   --color-olive: #958F68;
   --color-chocolate: #3B2516;
   --color-ivory: #F4EFE6;
+
+  --radius-xs: 0 !important;
+  --radius-sm: 0 !important;
+  --radius-md: 0 !important;
+  --radius-lg: 0 !important;
+  --radius-full: 0 !important;
 }
 
-/* Global Canvas & Base Styles */
+body:not(.admin-body),
+body:not(.admin-body) *,
+h1, h2, h3, h4, h5, h6,
+p, span, li, a, button, input, select, textarea, label {
+  font-family: 'Asul', Georgia, serif !important;
+}
+
+/* Global Canvas (Light Ivory Base) */
 html {
   background-color: #F4EFE6 !important;
   color-scheme: light;
@@ -3680,8 +3705,8 @@ html {
 body:not(.admin-body) {
   background: #F4EFE6 !important;
   background-color: #F4EFE6 !important;
+  background-image: none !important;
   color: #3B2516 !important;
-  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
 main:not(.admin-main),
@@ -3690,59 +3715,118 @@ main:not(.admin-main),
   background-color: transparent !important;
 }
 
-/* Typography: Serif for headings, clean sans for body */
-h1, h2, h3, h4, h5, h6,
-.hero h1,
-.section-intro h2,
-.section-head h2,
-.resource-card-title {
-  font-family: Georgia, 'Times New Roman', Garamond, 'Playfair Display', serif !important;
-}
-
-p, span, li, a, label, button, input, select, textarea {
-  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Base Header */
-.site-header {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  border-bottom: 1px solid rgba(59, 37, 22, 0.15) !important;
+/* 2. Top Navigation Bar */
+.site-header,
+header.site-header,
+header,
+.mobile-nav-panel {
+  background: #3B2516 !important;
+  background-color: #3B2516 !important;
+  background-image: none !important;
+  border-bottom: 1px solid rgba(244, 239, 230, 0.2) !important;
   box-shadow: none !important;
 }
 
+.site-header *,
 .site-header .nav-link,
 .site-header .logo-text,
+.site-header .logo-line-1,
+.site-header .logo-line-2,
 .site-header .logo-text-primary,
-.site-header .logo-text-secondary {
-  color: #3B2516 !important;
+.site-header .logo-text-secondary,
+.site-header a,
+.site-header span,
+.mobile-nav-panel * {
+  color: #F4EFE6 !important;
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: #8C7A54 !important;
+  color: #958F68 !important;
 }
 
-/* Hero Section (Light Ivory Base) */
+/* 3. Logos (Header & Footer) - Clean Circular Badges */
+.site-logo-img,
+.partner-logo-img,
+.site-logo img,
+.partner-affiliation img,
+.footer-logo img,
+.footer-brand .site-logo-img {
+  background-color: #FFFFFF !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  object-fit: contain !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.partner-affiliation {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 4. Visible Button Text & Developer Credit */
+.btn,
+.btn-primary,
+.btn-secondary,
+.resource-drive-btn,
+.notice-link-btn,
+.poster-action-btn,
+.hero-cta-single,
+.mobile-nav-cta,
+button.btn,
+a.btn,
+button,
+[class*="btn"] {
+  color: #F4EFE6 !important;
+  text-decoration: none !important;
+}
+
+.btn *,
+.btn-primary *,
+.btn-secondary *,
+.resource-drive-btn *,
+.notice-link-btn *,
+.poster-action-btn *,
+.hero-cta-single *,
+.mobile-nav-cta *,
+button * {
+  color: #F4EFE6 !important;
+  fill: currentColor !important;
+}
+
+/* Developer Credit Bar at very bottom of footer */
+.developer-credit-bar {
+  background: #26160B !important;
+  background-color: #26160B !important;
+  color: #F4EFE6 !important;
+  border-top: 1px solid rgba(244, 239, 230, 0.15) !important;
+  text-align: center !important;
+  padding: 8px 15px !important;
+}
+
+.developer-credit-bar,
+.developer-credit-bar * {
+  color: #F4EFE6 !important;
+}
+
+/* Hero Section */
 .hero {
   background: #F4EFE6 !important;
   background-color: #F4EFE6 !important;
   background-image: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
   color: #3B2516 !important;
+  border: none !important;
 }
 
 .hero h1,
 .hero-content h1,
 #hero-heading {
   color: #3B2516 !important;
-  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 .hero-subheading {
   color: #6B5444 !important;
-  font-family: Georgia, serif !important;
 }
 
 .hero-lead,
@@ -3751,7 +3835,8 @@ p, span, li, a, label, button, input, select, textarea {
 }
 
 .hero-actions .btn,
-.hero-cta-single {
+.hero-cta-single,
+.site-header .btn-primary {
   background: #8C7A54 !important;
   background-color: #8C7A54 !important;
   color: #F4EFE6 !important;
@@ -3761,14 +3846,15 @@ p, span, li, a, label, button, input, select, textarea {
 }
 
 .hero-actions .btn:hover,
-.hero-cta-single:hover {
+.hero-cta-single:hover,
+.site-header .btn-primary:hover {
   background: #756543 !important;
   color: #F4EFE6 !important;
 }
 
-/* 2. Sectional Color Blocking (The Core Design) */
+/* 5. Sectional Color Blocking & Card Contrast Fixes */
 
-/* --- SECTION BLOCK 1: Notice Board & Events Sections — Olive Green (#958F68) --- */
+/* --- Notice Board & Events Sections: Olive Green (#958F68) --- */
 .section-notice-board,
 #noticeBoard,
 .news-ticker-bar,
@@ -3785,58 +3871,59 @@ section[aria-labelledby="featured-events-heading"],
   color: #F4EFE6 !important;
 }
 
-/* Force ALL text inside Olive Green sections to Soft Ivory (#F4EFE6) */
-.section-notice-board *,
-#noticeBoard *,
-.news-ticker-bar *,
-.events-controls-section *,
-.events-grid-section *,
-.archive-band *,
-section[aria-labelledby="featured-events-heading"] * {
+/* Section headings and intro text inside Olive Green sections */
+.section-notice-board .section-intro *,
+.events-controls-section .section-intro *,
+.events-grid-section .section-intro *,
+.archive-band .section-intro *,
+section[aria-labelledby="featured-events-heading"] .section-intro * {
   color: #F4EFE6 !important;
 }
 
-.section-notice-board svg,
-#noticeBoard svg,
-.news-ticker-bar svg,
-.events-controls-section svg,
-.events-grid-section svg,
-.archive-band svg,
-section[aria-labelledby="featured-events-heading"] svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
-  color: #F4EFE6 !important;
-}
-
-/* Cards inside Olive Green sections */
-.section-notice-board .card,
+/* The 'No Notices Right Now' card & upcoming event cards: Soft Ivory (#F4EFE6) background with Deep Brown (#3B2516) text */
+.section-notice-board .notice-board-state,
+.section-notice-board .feed-state,
 .section-notice-board .notice-card,
 .section-notice-board .notice-poster-card,
 .section-notice-board .notice-board-banner,
-.section-notice-board .notice-board-state,
-.section-notice-board .feed-state,
 .events-grid-section .event-card,
 .events-grid-section .event-card--poster,
+.events-grid-section .feed-state,
 .archive-band__inner,
 section[aria-labelledby="featured-events-heading"] .event-card,
 section[aria-labelledby="featured-events-heading"] .feed-state {
-  background: rgba(0, 0, 0, 0.12) !important;
-  background-color: rgba(0, 0, 0, 0.12) !important;
+  background: #F4EFE6 !important;
+  background-color: #F4EFE6 !important;
   background-image: none !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  color: #F4EFE6 !important;
+  color: #3B2516 !important;
 }
 
-/* Buttons inside Olive Green sections */
+/* Force all text inside these nested cards to Deep Brown (#3B2516) */
+.section-notice-board .notice-board-state *,
+.section-notice-board .feed-state *,
+.section-notice-board .notice-card *,
+.section-notice-board .notice-poster-card *,
+.section-notice-board .notice-board-banner *,
+.events-grid-section .event-card *,
+.events-grid-section .event-card--poster *,
+.events-grid-section .feed-state *,
+.archive-band__inner *,
+section[aria-labelledby="featured-events-heading"] .event-card *,
+section[aria-labelledby="featured-events-heading"] .feed-state * {
+  color: #3B2516 !important;
+}
+
+/* Buttons inside nested Ivory cards in Olive sections: Deep Brown (#3B2516) background with Soft Ivory (#F4EFE6) text */
 .section-notice-board .btn,
-.section-notice-board .btn-primary,
 .section-notice-board .notice-link-btn,
 .events-grid-section .btn,
-.events-grid-section .btn-primary,
 .archive-band .btn,
-section[aria-labelledby="featured-events-heading"] .btn {
+section[aria-labelledby="featured-events-heading"] .btn,
+.event-card .btn,
+.notice-card .btn {
   background: #3B2516 !important;
   background-color: #3B2516 !important;
   color: #F4EFE6 !important;
@@ -3848,12 +3935,23 @@ section[aria-labelledby="featured-events-heading"] .btn {
 .section-notice-board .btn:hover,
 .events-grid-section .btn:hover,
 .archive-band .btn:hover,
-section[aria-labelledby="featured-events-heading"] .btn:hover {
+section[aria-labelledby="featured-events-heading"] .btn:hover,
+.event-card .btn:hover,
+.notice-card .btn:hover {
   background: #26160B !important;
   color: #F4EFE6 !important;
 }
 
-/* --- SECTION BLOCK 2: Four Pillars & Committee Sections — Deep Chocolate Brown (#3B2516) --- */
+.section-notice-board .btn *,
+.events-grid-section .btn *,
+.archive-band .btn *,
+section[aria-labelledby="featured-events-heading"] .btn *,
+.event-card .btn * {
+  color: #F4EFE6 !important;
+  fill: currentColor !important;
+}
+
+/* --- Four Pillars & Committee Sections: Deep Chocolate Brown (#3B2516) --- */
 .section-pillars,
 .stats-strip,
 #committee,
@@ -3871,37 +3969,21 @@ section#wings,
   color: #F4EFE6 !important;
 }
 
-/* Force ALL text inside Deep Chocolate Brown sections to Soft Ivory (#F4EFE6) */
 .section-pillars *,
 .stats-strip *,
 #committee *,
 section#committee *,
 #wings *,
 section#wings *,
-.section-testimonials *,
 .site-footer * {
   color: #F4EFE6 !important;
 }
 
-.section-pillars svg,
-.stats-strip svg,
-#committee svg,
-#wings svg,
-.section-testimonials svg,
-.site-footer svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
-  color: #F4EFE6 !important;
-}
-
-/* Cards inside Four Pillars & Committee sections */
+/* Four Pillars cards & SVG icons visibility */
 .section-pillars .card,
-.section-pillars .pillar-card,
-#committee .committee-card,
-#wings .card,
-.team-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
+.section-pillars .pillar-card {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
   background-image: none !important;
   border: none !important;
   border-radius: 0 !important;
@@ -3909,23 +3991,49 @@ section#wings *,
   color: #F4EFE6 !important;
 }
 
-.section-pillars .card .card-icon-wrap {
+.section-pillars .card-icon-wrap {
   background: #F4EFE6 !important;
-  color: #3B2516 !important;
+  background-color: #F4EFE6 !important;
   border-radius: 0 !important;
   border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
 }
 
-.section-pillars .card .card-icon-wrap svg {
+/* Force SVG icons inside Four Pillars cards to Deep Brown (#3B2516) */
+.section-pillars .card-icon-wrap svg,
+.section-pillars .card-icon-wrap svg *,
+.section-pillars .card svg,
+.section-pillars .card svg * {
+  fill: #3B2516 !important;
+  stroke: #3B2516 !important;
   color: #3B2516 !important;
-  fill: currentColor !important;
 }
 
-/* --- SECTION BLOCK 3: Resource Vault / Highlight Cards (Inside Dark Sections) --- */
-/* Cards placed inside Deep Chocolate blocks: Soft Ivory (#F4EFE6) background, Deep Brown (#3B2516) text */
-.featured-resource-card,
-.section-testimonials .card,
-.card-highlight {
+/* Committee cards */
+#committee .committee-card,
+#wings .card,
+.team-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #F4EFE6 !important;
+}
+
+/* --- Academic Resource Vault (Inside Dark Section) --- */
+/* Remove ugly unnecessary borders from container and cards */
+.featured-resource-section {
+  background: #3B2516 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.featured-resource-card {
   background: #F4EFE6 !important;
   background-color: #F4EFE6 !important;
   background-image: none !important;
@@ -3935,38 +4043,31 @@ section#wings *,
   box-shadow: none !important;
 }
 
-.featured-resource-card *,
-.section-testimonials .card *,
-.card-highlight * {
+.featured-resource-card::before,
+.featured-resource-card::after {
+  display: none !important;
+}
+
+.featured-resource-card * {
   color: #3B2516 !important;
 }
 
-.featured-resource-card h1,
-.featured-resource-card h2,
-.featured-resource-card h3,
-.featured-resource-card h4,
-.featured-resource-card .resource-card-title {
-  color: #3B2516 !important;
-  font-family: Georgia, serif !important;
-}
-
-.featured-resource-card .resource-card-desc,
-.featured-resource-card .resource-card-credit,
-.featured-resource-card .resource-card-credit strong {
-  color: #3B2516 !important;
+.featured-resource-card .resource-card-grid,
+.featured-resource-card .resource-card-info,
+.featured-resource-card .resource-card-badge,
+.featured-resource-card .resource-tag,
+.featured-resource-card .resource-card-credit {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .featured-resource-card .resource-card-badge {
   background: rgba(59, 37, 22, 0.08) !important;
-  color: #3B2516 !important;
-  border: none !important;
   border-radius: 0 !important;
 }
 
 .featured-resource-card .resource-tag {
   background: #E8E0D2 !important;
-  color: #3B2516 !important;
-  border: none !important;
   border-radius: 0 !important;
 }
 
@@ -3989,7 +4090,7 @@ section#wings *,
   fill: currentColor !important;
 }
 
-/* 3. UI & Typography: Flat Editorial & Zero Border-Radius */
+/* Flat UI & Zero Border Radius */
 .card,
 [class*="-card"],
 .event-card,
@@ -4016,46 +4117,12 @@ textarea,
 dialog {
   border-radius: 0 !important;
   box-shadow: none !important;
-  transform: none !important;
 }
 
-/* Default Buttons on Light Canvas */
-body:not(.admin-body) .btn-primary,
-body:not(.admin-body) a.btn-primary,
-body:not(.admin-body) button.btn-primary,
-.site-header .btn-primary {
-  background: #8C7A54 !important;
-  background-color: #8C7A54 !important;
-  color: #F4EFE6 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-body:not(.admin-body) .btn-primary:hover,
-body:not(.admin-body) a.btn-primary:hover,
-body:not(.admin-body) button.btn-primary:hover,
-.site-header .btn-primary:hover {
-  background: #756543 !important;
-  color: #F4EFE6 !important;
-}
-
-body:not(.admin-body) .btn-secondary,
-body:not(.admin-body) a.btn-secondary,
-body:not(.admin-body) button.btn-secondary {
-  background: transparent !important;
-  color: #3B2516 !important;
-  border: 1px solid #3B2516 !important;
-  border-radius: 0 !important;
-}
-
-body:not(.admin-body) .btn-secondary:hover {
-  background: #3B2516 !important;
-  color: #F4EFE6 !important;
-}
-
-/* 4. Admin Console Isolation: Clean #FFFFFF background with #333333 text */
+/* 6. Admin Console Strict Isolation */
+html:has(.admin-body),
 body.admin-body,
+.admin-body,
 .admin-console,
 .dashboard,
 .admin-main,
@@ -4063,9 +4130,17 @@ body.admin-body,
 .admin-login,
 .admin-login__panel,
 .admin-login__card,
-.admin-card {
+.admin-card,
+.admin-notice-card,
+.admin-preview-card,
+.admin-live,
+form.admin-form,
+.admin-form,
+.admin-input-wrap,
+section.admin-card {
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
+  background-image: none !important;
   color: #333333 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
@@ -4074,14 +4149,19 @@ body.admin-body *,
 .admin-console *,
 .dashboard *,
 .admin-main *,
-.admin-card * {
+.admin-card *,
+.admin-login *,
+section.admin-card * {
   color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body.admin-body h1,
 body.admin-body h2,
 body.admin-body h3,
 body.admin-body h4,
+body.admin-body h5,
+body.admin-body h6,
 .admin-card h1,
 .admin-card h2,
 .admin-card h3,
@@ -4090,9 +4170,22 @@ body.admin-body h4,
   color: #111111 !important;
 }
 
+body.admin-body input,
+body.admin-body select,
+body.admin-body textarea,
+.admin-card input,
+.admin-card select,
+.admin-card textarea {
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #CCCCCC !important;
+  border-radius: 4px !important;
+}
+
 body.admin-body .btn-primary,
-body.admin-body button.btn-primary {
+body.admin-body button.btn-primary,
+.admin-card .btn-primary {
   background-color: #111827 !important;
   color: #FFFFFF !important;
-  border-radius: 6px !important;
+  border-radius: 4px !important;
 }

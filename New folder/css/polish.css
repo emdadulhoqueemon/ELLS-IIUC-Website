@@ -1,17 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Asul:wght@400;700&display=swap');
 /* ==========================================================================
-   ELLS Club â€” Site-Wide Polish Layer
+   ELLS Club Ã¢â‚¬â€ Site-Wide Polish Layer
    --------------------------------------------------------------------------
    Loaded LAST on every public page (after style.css + responsive.css) so it
    is the single authority for:
 
      1. Header / sticky navbar geometry (fixed, full-width, 9999, top 0.3s)
-     2. Typography scale â€” larger, cleaner, centred on desktop & tablet
+     2. Typography scale Ã¢â‚¬â€ larger, cleaner, centred on desktop & tablet
      3. Section-heading rhythm and perfect horizontal alignment
      4. Card alignment: equal heights, consistent padding, tidy inner flow
      5. Membership page: Status Check + "Apply for Membership" wizard switch
      6. Compact mobile overrides (the site must stay dense on phones)
 
-   Every rule here is intentional â€” keep the file ordered top-to-bottom; the
+   Every rule here is intentional Ã¢â‚¬â€ keep the file ordered top-to-bottom; the
    mobile block at the bottom is the final authority below 768px.
    ========================================================================== */
 
@@ -39,7 +40,7 @@
 /* --------------------------------------------------------------------------
    2. Sticky navbar geometry
    --------------------------------------------------------------------------
-   JavaScript (js/main.js â†’ initHeaderScroll) drives `header.style.top`:
+   JavaScript (js/main.js Ã¢â€ â€™ initHeaderScroll) drives `header.style.top`:
    scrolling down hides it, scrolling up restores `top: 0`.
    These declarations guarantee the layout contract the script depends on.
    -------------------------------------------------------------------------- */
@@ -77,7 +78,7 @@ html.nav-open .site-header {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 
-/* In-page anchors (#committee, #wings, #applicationFormCard â€¦) must land
+/* In-page anchors (#committee, #wings, #applicationFormCard Ã¢â‚¬Â¦) must land
    below the fixed header instead of underneath it. */
 html {
   scroll-padding-top: 96px;
@@ -88,7 +89,7 @@ html {
 }
 
 /* --------------------------------------------------------------------------
-   3. Typography â€” larger, cleaner, centred
+   3. Typography Ã¢â‚¬â€ larger, cleaner, centred
    -------------------------------------------------------------------------- */
 .container {
   max-width: var(--polish-container);
@@ -156,7 +157,7 @@ p {
   flex: 0 0 auto;
 }
 
-/* Home hero welcome badge â€” the first thing on index.html.
+/* Home hero welcome badge Ã¢â‚¬â€ the first thing on index.html.
    Deliberately NOT .eyebrow: the sentence is long, so it stays sentence-case
    with tight tracking and is allowed to wrap instead of overflowing. */
 .hero-welcome {
@@ -191,7 +192,7 @@ p {
 }
 
 /* --------------------------------------------------------------------------
-   4. Hero & section headings â€” perfectly centred on desktop/tablet
+   4. Hero & section headings Ã¢â‚¬â€ perfectly centred on desktop/tablet
    -------------------------------------------------------------------------- */
 .hero {
   text-align: center;
@@ -296,7 +297,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   5. Cards â€” equal heights, consistent padding, tidy inner alignment
+   5. Cards Ã¢â‚¬â€ equal heights, consistent padding, tidy inner alignment
    -------------------------------------------------------------------------- */
 .grid,
 .grid-2,
@@ -407,13 +408,13 @@ main > .hero .container,
    Poster event cards (emitted by js/events-feed.js)
    --------------------------------------------------------------------------
      .event-card--poster
-       .event-card__poster      â†’ 1:1 media (img or placeholder)
-       .event-card__details     â†’ header + body + footer
+       .event-card__poster      Ã¢â€ â€™ 1:1 media (img or placeholder)
+       .event-card__details     Ã¢â€ â€™ header + body + footer
 
    Mobile-first, so the two layouts can never bleed into each other:
 
-     â‰¤ 768px   column â€” 1:1 poster on top, details underneath
-     â‰¥ 769px   row    â€” 38% poster on the left, details on the right, 24px gap
+     Ã¢â€°Â¤ 768px   column Ã¢â‚¬â€ 1:1 poster on top, details underneath
+     Ã¢â€°Â¥ 769px   row    Ã¢â‚¬â€ 38% poster on the left, details on the right, 24px gap
 
    The row layout is the default for every poster card on desktop; the only
    exception is the homepage strip (#homeEventsGrid, 3-up at ~360px a card),
@@ -427,7 +428,7 @@ main > .hero .container,
   padding: 0;
 }
 
-/* The media cell â€” a perfect square while stacked */
+/* The media cell Ã¢â‚¬â€ a perfect square while stacked */
 .event-card__poster {
   position: relative;
   flex: 0 0 auto;
@@ -504,7 +505,7 @@ main > .hero .container,
   padding: 0;
 }
 
-/* Date block left, track badge right â€” top-aligned so the two never collide,
+/* Date block left, track badge right Ã¢â‚¬â€ top-aligned so the two never collide,
    at every width. */
 .event-card--poster .event-card-header {
   display: flex;
@@ -565,12 +566,12 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Desktop / tablet (â‰¥ 769px) â€” strict row layout
+   Desktop / tablet (Ã¢â€°Â¥ 769px) Ã¢â‚¬â€ strict row layout
    --------------------------------------------------------------------------
    A horizontal flex row: the 1:1 poster sits on the LEFT at 38% of the card,
    the details fill the rest, and a 24px gutter separates them. The poster is
    inset inside the card's own padding and centred with `align-self: center`,
-   so it stays a perfect square â€” `align-items: stretch` alone would stretch
+   so it stays a perfect square Ã¢â‚¬â€ `align-items: stretch` alone would stretch
    it into a tall rectangle and break the 1:1 contract.
 
    `flex-wrap` is deliberately left at `nowrap`: the two columns must never
@@ -586,7 +587,7 @@ main > .hero .container,
     padding: clamp(0.95rem, 1.4vw, 1.35rem);
   }
 
-  /* Left column â€” square poster, 38% of the inner width (â‰ˆ36% of the card) */
+  /* Left column Ã¢â‚¬â€ square poster, 38% of the inner width (Ã¢â€°Ë†36% of the card) */
   .event-card--poster .event-card__poster {
     flex: 0 0 38%;
     width: 38%;
@@ -600,7 +601,7 @@ main > .hero .container,
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
   }
 
-  /* Right column â€” header / body / footer stacked, no double padding */
+  /* Right column Ã¢â‚¬â€ header / body / footer stacked, no double padding */
   .event-card--poster .event-card__details {
     flex: 1 1 auto;
     min-width: 0;
@@ -652,7 +653,7 @@ main > .hero .container,
   }
 }
 
-/* One card per row. The horizontal card needs the full container width â€” at
+/* One card per row. The horizontal card needs the full container width Ã¢â‚¬â€ at
    .grid-3's auto-fit three-up each card would be ~370px and the 38% poster
    column would squeeze the details into a sliver. */
 #eventsGrid {
@@ -660,7 +661,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Homepage strip â€” opt out of the row layout
+   Homepage strip Ã¢â‚¬â€ opt out of the row layout
    --------------------------------------------------------------------------
    #homeEventsGrid is a 3-up grid, so each card is only ~360px wide. Splitting
    that into a poster + text column would leave ~200px for the details, so the
@@ -695,7 +696,7 @@ main > .hero .container,
   }
 }
 
-/* The ticker is display:flex in style.css, which would defeat [hidden] â€”
+/* The ticker is display:flex in style.css, which would defeat [hidden] Ã¢â‚¬â€
    it must disappear completely until Firestore returns at least one notice. */
 .news-ticker-bar[hidden] {
   display: none !important;
@@ -748,7 +749,7 @@ main > .hero .container,
 
 /* External-link hint: this always opens a new tab */
 .notice-link::after {
-  content: 'â†—';
+  content: 'Ã¢â€ â€”';
   display: inline-block;
   margin-left: 0.18em;
   font-size: 0.8em;
@@ -807,7 +808,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Past-events archive pointer (events.html) â€” the listing itself is dynamic
+   Past-events archive pointer (events.html) Ã¢â‚¬â€ the listing itself is dynamic
    now, so only a branded callout remains here.
    -------------------------------------------------------------------------- */
 .archive-band {
@@ -849,7 +850,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   Empty / loading / error states â€” the ELLS-themed "nothing here yet" panel
+   Empty / loading / error states Ã¢â‚¬â€ the ELLS-themed "nothing here yet" panel
    --------------------------------------------------------------------------
    Shared by the public event feed (#eventsFeedStatus), the homepage strip
    (#homeEventsStatus) and the notice board (#noticeBoardStatus). Rendered
@@ -882,7 +883,7 @@ main > .hero .container,
   max-width: 46ch;
 }
 
-/* Monogram badge â€” the ELLS mark inside a gold ring */
+/* Monogram badge Ã¢â‚¬â€ the ELLS mark inside a gold ring */
 .feed-state__monogram {
   display: grid;
   place-items: center;
@@ -937,7 +938,7 @@ main > .hero .container,
   margin-top: 0.9rem;
 }
 
-/* Only the genuine "empty" state offers a next step â€” not loading or error. */
+/* Only the genuine "empty" state offers a next step Ã¢â‚¬â€ not loading or error. */
 .feed-state[data-state="empty"] .feed-state__actions,
 .notice-board-state[data-state="empty"] .feed-state__actions {
   display: flex;
@@ -1038,7 +1039,7 @@ main > .hero .container,
 }
 
 /* Closed / completed cards stay legible but read as "past". The status
-   itself is carried by the disabled CTA alone â€” no extra chip, no second
+   itself is carried by the disabled CTA alone Ã¢â‚¬â€ no extra chip, no second
    "Registration Closed" line in the footer. */
 .event-card--poster.is-registration-closed .event-card__poster-img {
   filter: saturate(0.55) brightness(0.86);
@@ -1073,13 +1074,13 @@ main > .hero .container,
 }
 
 .event-cta-disabled::before {
-  content: 'ðŸ”’';
+  content: 'Ã°Å¸â€â€™';
   font-size: 0.8rem;
   line-height: 1;
 }
 
 .btn.event-cta-disabled.is-completed::before {
-  content: 'âœ“';
+  content: 'Ã¢Å“â€œ';
   color: var(--accent-green, #10B981);
 }
 
@@ -1169,7 +1170,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   6. Buttons â€” uniform height and centred label flow
+   6. Buttons Ã¢â‚¬â€ uniform height and centred label flow
    -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
@@ -1182,7 +1183,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   7. Membership page â€” Status Check + Application switching
+   7. Membership page Ã¢â‚¬â€ Status Check + Application switching
    -------------------------------------------------------------------------- */
 .membership-switch {
   display: flex;
@@ -1248,7 +1249,7 @@ main > .hero .container,
   .membership-panel { animation: none; }
 }
 
-/* Application wizard â€” centred progress, tidy step headings */
+/* Application wizard Ã¢â‚¬â€ centred progress, tidy step headings */
 #applicationFormCard > * {
   width: 100%;
 }
@@ -1315,7 +1316,7 @@ main > .hero .container,
   margin-top: 0;
 }
 
-/* Cross-sell strip from Status Check â†’ Application */
+/* Cross-sell strip from Status Check Ã¢â€ â€™ Application */
 .membership-cta {
   display: flex;
   align-items: center;
@@ -1377,7 +1378,7 @@ main > .hero .container,
 }
 
 /* --------------------------------------------------------------------------
-   9. Mobile & small tablets â€” compact, never oversized
+   9. Mobile & small tablets Ã¢â‚¬â€ compact, never oversized
    --------------------------------------------------------------------------
    This block is the last word below 768px so it always beats the desktop
    scale above and the legacy rules in responsive.css.
@@ -1385,7 +1386,7 @@ main > .hero .container,
 @media (max-width: 768px) {
   :root {
     /* Dense, app-like phone scale: every step is ~1.3px smaller than before so
-       long headings ("ELLS Committee â€” Autumn 2026", "Executive Committee
+       long headings ("ELLS Committee Ã¢â‚¬â€ Autumn 2026", "Executive Committee
        (Faculty Leadership)") fit one or two clean lines instead of spilling. */
     --polish-section-y: 1.2rem;
     --polish-card-pad: 0.88rem;
@@ -1599,7 +1600,7 @@ main > .hero .container,
     font-size: 0.82rem;
   }
 
-  /* Inner cards carry inline desktop padding â€” compact them on phones */
+  /* Inner cards carry inline desktop padding Ã¢â‚¬â€ compact them on phones */
   #applicationFormCard .application-card,
   #memberRecordLookupCard {
     padding: 0.95rem !important;
@@ -1628,7 +1629,7 @@ main > .hero .container,
   }
 
   /* ------------------------------------------------------------------------
-     Committee headings & cards â€” the two long offenders on phones
+     Committee headings & cards Ã¢â‚¬â€ the two long offenders on phones
      ------------------------------------------------------------------------
      style.css pins `.committee-subheading h3 { white-space: nowrap }`, which
      pushed "Executive Committee (Faculty Leadership)" past the viewport edge.
@@ -1736,7 +1737,7 @@ main > .hero .container,
   }
 
   /* ------------------------------------------------------------------------
-     Events category pills â€” horizontal swipe strip
+     Events category pills Ã¢â‚¬â€ horizontal swipe strip
      ------------------------------------------------------------------------
      Below 768px the eight category buttons no longer fit. They become a
      single non-wrapping rail that scrolls sideways with momentum, and the
@@ -1840,7 +1841,7 @@ main > .hero .container,
   #memberLookupForm .form-group,
   #memberLookupForm .btn {
     width: 100%;
-    /* column axis â†’ flex-basis is a HEIGHT: never let it inflate the field */
+    /* column axis Ã¢â€ â€™ flex-basis is a HEIGHT: never let it inflate the field */
     flex: 0 0 auto !important;
     min-height: 0;
     margin-top: 0 !important;
@@ -1958,7 +1959,7 @@ main > .hero .container,
 /* --------------------------------------------------------------------------
    Mobile poster visibility guard
    --------------------------------------------------------------------------
-   Belt-and-braces: regardless of what any earlier rule does, on â‰¤768px the
+   Belt-and-braces: regardless of what any earlier rule does, on Ã¢â€°Â¤768px the
    poster wrapper must render as a visible square tile at the top of the
    card, the image must fill it, and the card itself must be a column so
    the poster sits above the details. Any stray display:none or flex-direction
@@ -2026,13 +2027,22 @@ main > .hero .container,
 /* ==========================================================================
 
 /* ==========================================================================
-   SECTIONAL COLOR BLOCKING — Editorial Literary Consulting Authority Layer
-   Loaded last on all public pages to enforce full-width color blocking,
-   serif editorial headings, zero border-radius, and flat contrast cards.
+   SECTIONAL COLOR BLOCKING & CONTRAST REFINEMENT
+   Palette:
+     - Deep Brown: #3B2516
+     - Soft Ivory: #F4EFE6
+     - Olive Green: #958F68
    ========================================================================== */
 
-/* 1. Global Variables & Canvas (Light Ivory Base) */
+/* 1. Global Font ('Asul') */
 :root {
+  --font-primary: 'Asul', Georgia, serif !important;
+  --font-heading: 'Asul', Georgia, serif !important;
+  --font-body: 'Asul', Georgia, serif !important;
+  --font-serif: 'Asul', Georgia, serif !important;
+  --font-sans: 'Asul', Georgia, serif !important;
+  --font-quote: 'Asul', Georgia, serif !important;
+
   --bg-primary: #F4EFE6;
   --text-primary: #3B2516;
   --text-heading: #3B2516;
@@ -2044,11 +2054,6 @@ main > .hero .container,
   --color-chocolate: #3B2516;
   --color-ivory: #F4EFE6;
 
-  --font-serif: Georgia, 'Times New Roman', Garamond, 'Playfair Display', serif;
-  --font-heading: Georgia, 'Times New Roman', Garamond, 'Playfair Display', serif;
-  --font-primary: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
   --radius-xs: 0 !important;
   --radius-sm: 0 !important;
   --radius-md: 0 !important;
@@ -2056,7 +2061,14 @@ main > .hero .container,
   --radius-full: 0 !important;
 }
 
-/* Global Canvas & Base */
+body:not(.admin-body),
+body:not(.admin-body) *,
+h1, h2, h3, h4, h5, h6,
+p, span, li, a, button, input, select, textarea, label {
+  font-family: 'Asul', Georgia, serif !important;
+}
+
+/* Global Canvas (Light Ivory Base) */
 html {
   background-color: #F4EFE6 !important;
   color-scheme: light;
@@ -2067,7 +2079,6 @@ body:not(.admin-body) {
   background-color: #F4EFE6 !important;
   background-image: none !important;
   color: #3B2516 !important;
-  font-family: var(--font-sans) !important;
 }
 
 main:not(.admin-main),
@@ -2076,62 +2087,118 @@ main:not(.admin-main),
   background-color: transparent !important;
 }
 
-/* Typography: Serif for Headings, Clean Sans for Body */
-h1, h2, h3, h4, h5, h6,
-.hero h1,
-.hero-content h1,
-#hero-heading,
-.section-intro h2,
-.section-head h2,
-.resource-card-title {
-  font-family: Georgia, 'Times New Roman', Garamond, 'Playfair Display', serif !important;
-  color: #3B2516;
-}
-
-p, span, li, a, label, button, input, select, textarea {
-  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Base Header */
-.site-header {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  border-bottom: 1px solid rgba(59, 37, 22, 0.15) !important;
+/* 2. Top Navigation Bar */
+.site-header,
+header.site-header,
+header,
+.mobile-nav-panel {
+  background: #3B2516 !important;
+  background-color: #3B2516 !important;
+  background-image: none !important;
+  border-bottom: 1px solid rgba(244, 239, 230, 0.2) !important;
   box-shadow: none !important;
 }
 
+.site-header *,
 .site-header .nav-link,
 .site-header .logo-text,
+.site-header .logo-line-1,
+.site-header .logo-line-2,
 .site-header .logo-text-primary,
-.site-header .logo-text-secondary {
-  color: #3B2516 !important;
+.site-header .logo-text-secondary,
+.site-header a,
+.site-header span,
+.mobile-nav-panel * {
+  color: #F4EFE6 !important;
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: #8C7A54 !important;
+  color: #958F68 !important;
 }
 
-/* Hero Section (Light Ivory Base) */
+/* 3. Logos (Header & Footer) - Clean Circular Badges */
+.site-logo-img,
+.partner-logo-img,
+.site-logo img,
+.partner-affiliation img,
+.footer-logo img,
+.footer-brand .site-logo-img {
+  background-color: #FFFFFF !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  object-fit: contain !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.partner-affiliation {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 4. Visible Button Text & Developer Credit */
+.btn,
+.btn-primary,
+.btn-secondary,
+.resource-drive-btn,
+.notice-link-btn,
+.poster-action-btn,
+.hero-cta-single,
+.mobile-nav-cta,
+button.btn,
+a.btn,
+button,
+[class*="btn"] {
+  color: #F4EFE6 !important;
+  text-decoration: none !important;
+}
+
+.btn *,
+.btn-primary *,
+.btn-secondary *,
+.resource-drive-btn *,
+.notice-link-btn *,
+.poster-action-btn *,
+.hero-cta-single *,
+.mobile-nav-cta *,
+button * {
+  color: #F4EFE6 !important;
+  fill: currentColor !important;
+}
+
+/* Developer Credit Bar at very bottom of footer */
+.developer-credit-bar {
+  background: #26160B !important;
+  background-color: #26160B !important;
+  color: #F4EFE6 !important;
+  border-top: 1px solid rgba(244, 239, 230, 0.15) !important;
+  text-align: center !important;
+  padding: 8px 15px !important;
+}
+
+.developer-credit-bar,
+.developer-credit-bar * {
+  color: #F4EFE6 !important;
+}
+
+/* Hero Section */
 .hero {
   background: #F4EFE6 !important;
   background-color: #F4EFE6 !important;
   background-image: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
   color: #3B2516 !important;
+  border: none !important;
 }
 
 .hero h1,
 .hero-content h1,
 #hero-heading {
   color: #3B2516 !important;
-  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 .hero-subheading {
   color: #6B5444 !important;
-  font-family: Georgia, serif !important;
 }
 
 .hero-lead,
@@ -2157,9 +2224,9 @@ p, span, li, a, label, button, input, select, textarea {
   color: #F4EFE6 !important;
 }
 
-/* 2. Sectional Color Blocking (The Core Design) */
+/* 5. Sectional Color Blocking & Card Contrast Fixes */
 
-/* --- SECTION BLOCK 1: Notice Board & Events Sections — Olive Green (#958F68) --- */
+/* --- Notice Board & Events Sections: Olive Green (#958F68) --- */
 .section-notice-board,
 #noticeBoard,
 .news-ticker-bar,
@@ -2176,58 +2243,59 @@ section[aria-labelledby="featured-events-heading"],
   color: #F4EFE6 !important;
 }
 
-/* Force ALL text inside Olive Green sections to Soft Ivory (#F4EFE6) */
-.section-notice-board *,
-#noticeBoard *,
-.news-ticker-bar *,
-.events-controls-section *,
-.events-grid-section *,
-.archive-band *,
-section[aria-labelledby="featured-events-heading"] * {
+/* Section headings and intro text inside Olive Green sections */
+.section-notice-board .section-intro *,
+.events-controls-section .section-intro *,
+.events-grid-section .section-intro *,
+.archive-band .section-intro *,
+section[aria-labelledby="featured-events-heading"] .section-intro * {
   color: #F4EFE6 !important;
 }
 
-.section-notice-board svg,
-#noticeBoard svg,
-.news-ticker-bar svg,
-.events-controls-section svg,
-.events-grid-section svg,
-.archive-band svg,
-section[aria-labelledby="featured-events-heading"] svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
-  color: #F4EFE6 !important;
-}
-
-/* Cards inside Olive Green sections */
-.section-notice-board .card,
+/* The 'No Notices Right Now' card & upcoming event cards: Soft Ivory (#F4EFE6) background with Deep Brown (#3B2516) text */
+.section-notice-board .notice-board-state,
+.section-notice-board .feed-state,
 .section-notice-board .notice-card,
 .section-notice-board .notice-poster-card,
 .section-notice-board .notice-board-banner,
-.section-notice-board .notice-board-state,
-.section-notice-board .feed-state,
 .events-grid-section .event-card,
 .events-grid-section .event-card--poster,
+.events-grid-section .feed-state,
 .archive-band__inner,
 section[aria-labelledby="featured-events-heading"] .event-card,
 section[aria-labelledby="featured-events-heading"] .feed-state {
-  background: rgba(0, 0, 0, 0.12) !important;
-  background-color: rgba(0, 0, 0, 0.12) !important;
+  background: #F4EFE6 !important;
+  background-color: #F4EFE6 !important;
   background-image: none !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  color: #F4EFE6 !important;
+  color: #3B2516 !important;
 }
 
-/* Buttons inside Olive Green sections */
+/* Force all text inside these nested cards to Deep Brown (#3B2516) */
+.section-notice-board .notice-board-state *,
+.section-notice-board .feed-state *,
+.section-notice-board .notice-card *,
+.section-notice-board .notice-poster-card *,
+.section-notice-board .notice-board-banner *,
+.events-grid-section .event-card *,
+.events-grid-section .event-card--poster *,
+.events-grid-section .feed-state *,
+.archive-band__inner *,
+section[aria-labelledby="featured-events-heading"] .event-card *,
+section[aria-labelledby="featured-events-heading"] .feed-state * {
+  color: #3B2516 !important;
+}
+
+/* Buttons inside nested Ivory cards in Olive sections: Deep Brown (#3B2516) background with Soft Ivory (#F4EFE6) text */
 .section-notice-board .btn,
-.section-notice-board .btn-primary,
 .section-notice-board .notice-link-btn,
 .events-grid-section .btn,
-.events-grid-section .btn-primary,
 .archive-band .btn,
-section[aria-labelledby="featured-events-heading"] .btn {
+section[aria-labelledby="featured-events-heading"] .btn,
+.event-card .btn,
+.notice-card .btn {
   background: #3B2516 !important;
   background-color: #3B2516 !important;
   color: #F4EFE6 !important;
@@ -2239,12 +2307,23 @@ section[aria-labelledby="featured-events-heading"] .btn {
 .section-notice-board .btn:hover,
 .events-grid-section .btn:hover,
 .archive-band .btn:hover,
-section[aria-labelledby="featured-events-heading"] .btn:hover {
+section[aria-labelledby="featured-events-heading"] .btn:hover,
+.event-card .btn:hover,
+.notice-card .btn:hover {
   background: #26160B !important;
   color: #F4EFE6 !important;
 }
 
-/* --- SECTION BLOCK 2: Four Pillars & Committee Sections — Deep Chocolate Brown (#3B2516) --- */
+.section-notice-board .btn *,
+.events-grid-section .btn *,
+.archive-band .btn *,
+section[aria-labelledby="featured-events-heading"] .btn *,
+.event-card .btn * {
+  color: #F4EFE6 !important;
+  fill: currentColor !important;
+}
+
+/* --- Four Pillars & Committee Sections: Deep Chocolate Brown (#3B2516) --- */
 .section-pillars,
 .stats-strip,
 #committee,
@@ -2262,37 +2341,21 @@ section#wings,
   color: #F4EFE6 !important;
 }
 
-/* Force ALL text inside Deep Chocolate Brown sections to Soft Ivory (#F4EFE6) */
 .section-pillars *,
 .stats-strip *,
 #committee *,
 section#committee *,
 #wings *,
 section#wings *,
-.section-testimonials *,
 .site-footer * {
   color: #F4EFE6 !important;
 }
 
-.section-pillars svg,
-.stats-strip svg,
-#committee svg,
-#wings svg,
-.section-testimonials svg,
-.site-footer svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
-  color: #F4EFE6 !important;
-}
-
-/* Cards inside Four Pillars & Committee sections */
+/* Four Pillars cards & SVG icons visibility */
 .section-pillars .card,
-.section-pillars .pillar-card,
-#committee .committee-card,
-#wings .card,
-.team-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
+.section-pillars .pillar-card {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
   background-image: none !important;
   border: none !important;
   border-radius: 0 !important;
@@ -2300,23 +2363,49 @@ section#wings *,
   color: #F4EFE6 !important;
 }
 
-.section-pillars .card .card-icon-wrap {
+.section-pillars .card-icon-wrap {
   background: #F4EFE6 !important;
-  color: #3B2516 !important;
+  background-color: #F4EFE6 !important;
   border-radius: 0 !important;
   border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
 }
 
-.section-pillars .card .card-icon-wrap svg {
+/* Force SVG icons inside Four Pillars cards to Deep Brown (#3B2516) */
+.section-pillars .card-icon-wrap svg,
+.section-pillars .card-icon-wrap svg *,
+.section-pillars .card svg,
+.section-pillars .card svg * {
+  fill: #3B2516 !important;
+  stroke: #3B2516 !important;
   color: #3B2516 !important;
-  fill: currentColor !important;
 }
 
-/* --- SECTION BLOCK 3: Resource Vault / Highlight Cards (Inside Dark Sections) --- */
-/* Cards placed inside Deep Chocolate blocks: Soft Ivory (#F4EFE6) background, Deep Brown (#3B2516) text */
-.featured-resource-card,
-.section-testimonials .card,
-.card-highlight {
+/* Committee cards */
+#committee .committee-card,
+#wings .card,
+.team-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #F4EFE6 !important;
+}
+
+/* --- Academic Resource Vault (Inside Dark Section) --- */
+/* Remove ugly unnecessary borders from container and cards */
+.featured-resource-section {
+  background: #3B2516 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.featured-resource-card {
   background: #F4EFE6 !important;
   background-color: #F4EFE6 !important;
   background-image: none !important;
@@ -2326,38 +2415,31 @@ section#wings *,
   box-shadow: none !important;
 }
 
-.featured-resource-card *,
-.section-testimonials .card *,
-.card-highlight * {
+.featured-resource-card::before,
+.featured-resource-card::after {
+  display: none !important;
+}
+
+.featured-resource-card * {
   color: #3B2516 !important;
 }
 
-.featured-resource-card h1,
-.featured-resource-card h2,
-.featured-resource-card h3,
-.featured-resource-card h4,
-.featured-resource-card .resource-card-title {
-  color: #3B2516 !important;
-  font-family: Georgia, serif !important;
-}
-
-.featured-resource-card .resource-card-desc,
-.featured-resource-card .resource-card-credit,
-.featured-resource-card .resource-card-credit strong {
-  color: #3B2516 !important;
+.featured-resource-card .resource-card-grid,
+.featured-resource-card .resource-card-info,
+.featured-resource-card .resource-card-badge,
+.featured-resource-card .resource-tag,
+.featured-resource-card .resource-card-credit {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .featured-resource-card .resource-card-badge {
   background: rgba(59, 37, 22, 0.08) !important;
-  color: #3B2516 !important;
-  border: none !important;
   border-radius: 0 !important;
 }
 
 .featured-resource-card .resource-tag {
   background: #E8E0D2 !important;
-  color: #3B2516 !important;
-  border: none !important;
   border-radius: 0 !important;
 }
 
@@ -2380,7 +2462,7 @@ section#wings *,
   fill: currentColor !important;
 }
 
-/* 3. UI & Typography: Flat Editorial & Zero Border-Radius */
+/* Flat UI & Zero Border Radius */
 .card,
 [class*="-card"],
 .event-card,
@@ -2407,44 +2489,12 @@ textarea,
 dialog {
   border-radius: 0 !important;
   box-shadow: none !important;
-  transform: none !important;
 }
 
-/* Default Buttons on Light Canvas */
-body:not(.admin-body) .btn-primary,
-body:not(.admin-body) a.btn-primary,
-body:not(.admin-body) button.btn-primary {
-  background: #8C7A54 !important;
-  background-color: #8C7A54 !important;
-  color: #F4EFE6 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-body:not(.admin-body) .btn-primary:hover,
-body:not(.admin-body) a.btn-primary:hover,
-body:not(.admin-body) button.btn-primary:hover {
-  background: #756543 !important;
-  color: #F4EFE6 !important;
-}
-
-body:not(.admin-body) .btn-secondary,
-body:not(.admin-body) a.btn-secondary,
-body:not(.admin-body) button.btn-secondary {
-  background: transparent !important;
-  color: #3B2516 !important;
-  border: 1px solid #3B2516 !important;
-  border-radius: 0 !important;
-}
-
-body:not(.admin-body) .btn-secondary:hover {
-  background: #3B2516 !important;
-  color: #F4EFE6 !important;
-}
-
-/* 4. Admin Console Isolation: Clean #FFFFFF background with #333333 text */
+/* 6. Admin Console Strict Isolation */
+html:has(.admin-body),
 body.admin-body,
+.admin-body,
 .admin-console,
 .dashboard,
 .admin-main,
@@ -2452,9 +2502,17 @@ body.admin-body,
 .admin-login,
 .admin-login__panel,
 .admin-login__card,
-.admin-card {
+.admin-card,
+.admin-notice-card,
+.admin-preview-card,
+.admin-live,
+form.admin-form,
+.admin-form,
+.admin-input-wrap,
+section.admin-card {
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
+  background-image: none !important;
   color: #333333 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
@@ -2463,14 +2521,19 @@ body.admin-body *,
 .admin-console *,
 .dashboard *,
 .admin-main *,
-.admin-card * {
+.admin-card *,
+.admin-login *,
+section.admin-card * {
   color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body.admin-body h1,
 body.admin-body h2,
 body.admin-body h3,
 body.admin-body h4,
+body.admin-body h5,
+body.admin-body h6,
 .admin-card h1,
 .admin-card h2,
 .admin-card h3,
@@ -2479,9 +2542,22 @@ body.admin-body h4,
   color: #111111 !important;
 }
 
+body.admin-body input,
+body.admin-body select,
+body.admin-body textarea,
+.admin-card input,
+.admin-card select,
+.admin-card textarea {
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #CCCCCC !important;
+  border-radius: 4px !important;
+}
+
 body.admin-body .btn-primary,
-body.admin-body button.btn-primary {
+body.admin-body button.btn-primary,
+.admin-card .btn-primary {
   background-color: #111827 !important;
   color: #FFFFFF !important;
-  border-radius: 6px !important;
+  border-radius: 4px !important;
 }
