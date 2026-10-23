@@ -1121,12 +1121,36 @@ main > .hero .container,
 #memberRecordLookupCard {
   align-items: stretch;
   text-align: left;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) !important;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(226, 212, 183, 0.06), rgba(25, 56, 47, 0.45));
+  border: 1px solid rgba(226, 212, 183, 0.18);
+  box-shadow:
+    0 1px 0 rgba(226, 212, 183, 0.08) inset,
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 #memberRecordLookupCard .section-intro,
 #memberRecordLookupCard .section-intro p,
 #memberRecordLookupCard .section-intro h3 {
   text-align: center;
+}
+
+#memberRecordLookupCard .section-intro h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.6vw, 1.9rem);
+  color: var(--text-primary);
+}
+
+#memberRecordLookupCard .member-lookup-form {
+  margin-top: 1.2rem;
+}
+
+#memberRecordLookupCard #memberLookupResults {
+  margin-top: 1.4rem;
 }
 
 /* Stat strips, CTA banners and featured resources stretch full width */
@@ -1274,7 +1298,8 @@ main > .hero .container,
 }
 
 .membership-container {
-  max-width: 900px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 /* The anchor target must clear the fixed header when deep-linked */
