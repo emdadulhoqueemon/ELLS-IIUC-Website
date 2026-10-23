@@ -140,6 +140,36 @@
       </div>
     </section>
 
+    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
+    <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">FROM THE IT SECRETARY</span>
+          <h2 id="notice-board-heading">Official Notice Board</h2>
+          <p>Every announcement published by the ELLS committee, delivered live from our database.</p>
+          <span class="notice-live-pill" id="noticeLivePill" hidden>
+            <span class="notice-live-dot" aria-hidden="true"></span>Live
+          </span>
+        </div>
+
+        <div class="notice-board-state" id="noticeBoardStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="notice-board-state__spinner feed-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-notice-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-notice-status-title>Loading the notice board&hellip;</h3>
+            <p class="feed-state__text" data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Explore Upcoming Events</a>
+              <a href="membership.html#applicationFormCard" class="btn btn-secondary btn-sm">Join ELLS</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" id="noticeBoardGrid"></div>
+      </div>
+    </section>
+
     <!-- Featured Academic Resource: Previous Question Bank -->
     <section class="featured-resource-section" aria-labelledby="resource-bank-heading">
       <div class="container">
@@ -193,6 +223,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- Quick Stats Strip -->
     <section class="stats-strip" aria-label="Society Impact and Statistics">
@@ -290,36 +322,6 @@
     </section>
 
     <!-- Featured Upcoming Events Preview -->
-    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
-    <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
-      <div class="container">
-        <div class="section-intro">
-          <span class="eyebrow">FROM THE IT SECRETARY</span>
-          <h2 id="notice-board-heading">Official Notice Board</h2>
-          <p>Every announcement published by the ELLS committee, delivered live from our database.</p>
-          <span class="notice-live-pill" id="noticeLivePill" hidden>
-            <span class="notice-live-dot" aria-hidden="true"></span>Live
-          </span>
-        </div>
-
-        <div class="notice-board-state" id="noticeBoardStatus" data-state="loading" role="status" aria-live="polite">
-          <div class="feed-state__inner">
-            <span class="notice-board-state__spinner feed-state__spinner" aria-hidden="true"></span>
-            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
-            <span class="feed-state__eyebrow" data-notice-status-eyebrow>One moment</span>
-            <h3 class="feed-state__title" data-notice-status-title>Loading the notice board&hellip;</h3>
-            <p class="feed-state__text" data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
-            <div class="feed-state__actions">
-              <a href="events.html" class="btn btn-primary btn-sm">Explore Upcoming Events</a>
-              <a href="membership.html#applicationFormCard" class="btn btn-secondary btn-sm">Join ELLS</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-3" id="noticeBoardGrid"></div>
-      </div>
-    </section>
-
     <section class="section-secondary" aria-labelledby="featured-events-heading">
       <div class="container">
         <div class="section-intro">
