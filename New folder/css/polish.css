@@ -2031,3 +2031,133 @@ main > .hero .container,
     flex: 1 1 auto !important;
   }
 }
+
+/* ==========================================================================
+   Premium visual layer — glass surfaces, soft-pressed CTAs, scroll reveal
+   Visual-only overrides: no component structure or responsive layout changes.
+   ========================================================================== */
+
+/* Glassmorphism on the site's primary content panels. */
+.card,
+.event-card,
+.committee-card,
+.featured-resource-card,
+.notice-board-banner {
+  background: rgba(15, 42, 29, 0.4);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Keep the committee tier hairlines and add a glass edge to the vault panel. */
+.committee-card.advisory-card,
+.committee-card.faculty-card,
+.committee-card.student-card {
+  border-top-width: 3px;
+}
+
+.committee-card.advisory-card {
+  border-top-color: var(--accent-gold);
+}
+
+.committee-card.faculty-card {
+  border-top-color: var(--accent-green);
+}
+
+.committee-card.student-card {
+  border-top-color: var(--border-strong);
+}
+
+.featured-resource-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Retain the site's established accent glow on hover while keeping the glass tint. */
+.card:hover,
+.event-card:hover,
+.committee-card:hover {
+  background: rgba(15, 42, 29, 0.56);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.notice-board-banner:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Soft neumorphic primary actions in biscuit/off-white. */
+.btn-primary {
+  background: #E6DAB9;
+  color: #12382A;
+  border-color: transparent;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5),
+              -2px -2px 8px rgba(230, 218, 185, 0.1);
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease,
+              transform 180ms ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #E6DAB9;
+  color: #12382A;
+  border-color: transparent;
+  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.24),
+              inset -2px -2px 6px rgba(255, 255, 255, 0.28),
+              0 0 0 2px rgba(230, 218, 185, 0.16);
+  transform: translateY(0);
+}
+
+.btn-primary:active {
+  background: #DCCDA5;
+  color: #12382A;
+  box-shadow: inset 4px 4px 9px rgba(0, 0, 0, 0.3),
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
+}
+
+/* Fixed-attachment Heritage gradient gives the page a gentle parallax feel. */
+body {
+  background-attachment: fixed;
+}
+
+/* Progressive enhancement: reveal content as it enters the viewport.
+   Individual `scale` avoids interfering with existing hover transforms. */
+@supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+  .card,
+  .event-card,
+  .committee-card,
+  .notice-board-banner,
+  .featured-resource-card {
+    animation: premium-card-reveal 700ms linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% entry 100%;
+  }
+
+  @keyframes premium-card-reveal {
+    from {
+      opacity: 0;
+      scale: 0.95;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-primary:hover,
+  .btn-primary:focus-visible,
+  .btn-primary:active {
+    transition: none;
+  }
+
+  .card,
+  .event-card,
+  .committee-card,
+  .notice-board-banner,
+  .featured-resource-card {
+    animation: none !important;
+    scale: 1 !important;
+  }
+}
