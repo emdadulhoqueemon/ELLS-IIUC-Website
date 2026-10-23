@@ -44,10 +44,10 @@
     position: sticky;
     top: 0;
     z-index: 10000;
-    background-color: rgba(11, 17, 32, 0.98) !important;
+    background-color: #E8D1A7 !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
+    border-bottom: 1px solid #84592B !important;
     width: 100%;
     max-width: 100%;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -107,7 +107,7 @@
   .logo-line-2 {
     font-size: 0.72rem !important;
     letter-spacing: 0.03em !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
     white-space: nowrap;
   }
 
@@ -148,7 +148,7 @@
     max-width: 100vw !important;
     height: calc(100vh - 70px) !important;
     height: calc(100dvh - 70px) !important;
-    background-color: #0B1120 !important;
+    background-color: #E8D1A7 !important;
     z-index: 9999 !important;
     padding: 1.5rem 1.5rem 2.5rem 1.5rem !important;
     box-sizing: border-box !important;
@@ -159,7 +159,7 @@
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: none !important;
 
     /* Proper overlay appearance: fade and slide down without moving background text */
     opacity: 0 !important;
@@ -199,7 +199,7 @@
   .nav-link {
     font-size: 1.15rem !important;
     font-weight: 600 !important;
-    color: #cbd5e1 !important;
+    color: #442D1C !important;
     width: 100% !important;
     padding: 1rem 0.5rem !important;
     display: flex !important;
@@ -216,23 +216,23 @@
 
   .nav-link:hover,
   .nav-link:focus {
-    color: #D4AF37 !important;
+    color: #743014 !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(212, 175, 55, 0.08) !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
   }
 
   .nav-link.active {
-    color: #D4AF37 !important;
+    color: #743014 !important;
     font-weight: 700 !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(212, 175, 55, 0.12) !important;
+    background-color: rgba(116, 48, 20, 0.10) !important;
   }
 
   .nav-link.active::after {
     display: inline-block !important;
     content: '→' !important;
     font-size: 1.15rem !important;
-    color: #D4AF37 !important;
+    color: #743014 !important;
     position: static !important;
     width: auto !important;
     height: auto !important;
@@ -269,7 +269,7 @@
     padding: 0.75rem 1rem !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: var(--radius-sm) !important;
-    color: #cbd5e1 !important;
+    color: #442D1C !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
     transition: all var(--transition) !important;
@@ -277,9 +277,9 @@
   }
 
   .mobile-nav-social:hover {
-    color: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    background-color: rgba(212, 175, 55, 0.08) !important;
+    color: #743014 !important;
+    border-color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
   }
 
   /* Backdrop Overlay */
@@ -290,7 +290,7 @@
     width: 100vw !important;
     height: calc(100vh - 70px) !important;
     height: calc(100dvh - 70px) !important;
-    background: rgba(11, 17, 32, 0.75) !important;
+    background: rgba(68, 45, 28, 0.32) !important;
     z-index: 9998 !important;
     opacity: 0 !important;
     pointer-events: none !important;
@@ -794,7 +794,7 @@
     font-size: 0.68rem !important;
     letter-spacing: 0.02em !important;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .site-logo-img {
@@ -1036,7 +1036,7 @@
     margin: 0 auto !important;
     padding: 8mm 9mm !important;
     background: #ffffff !important;
-    border: 3.5px double #D4AF37 !important;
+    border: 3.5px double #743014 !important;
     border-radius: 8px !important;
     position: relative !important;
     box-shadow: none !important;
@@ -1053,7 +1053,7 @@
     position: absolute !important;
     width: 22px !important;
     height: 22px !important;
-    border-color: #D4AF37 !important;
+    border-color: #743014 !important;
     border-style: solid !important;
   }
 
@@ -1068,7 +1068,7 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     flex: 1 !important;
-    border: 1.5px solid #0B1120 !important;
+    border: 1.5px solid #E8D1A7 !important;
     border-radius: 4px !important;
     padding: 6mm 8mm !important;
     box-sizing: border-box !important;
@@ -1108,7 +1108,7 @@
     font-size: 1.15rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.04em !important;
-    color: #0B1120 !important;
+    color: #E8D1A7 !important;
     text-transform: uppercase !important;
     margin-bottom: 0.2rem !important;
     line-height: 1.25 !important;
@@ -1131,7 +1131,7 @@
   .cert-society-heading {
     font-size: 0.84rem !important;
     font-weight: 700 !important;
-    color: #D4AF37 !important;
+    color: #743014 !important;
     letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
     line-height: 1.3 !important;
@@ -1140,9 +1140,9 @@
 
   .cert-award-ribbon {
     display: inline-block !important;
-    background: rgba(212, 175, 55, 0.12) !important;
-    border: 1.5px solid #D4AF37 !important;
-    color: #D4AF37 !important;
+    background: rgba(116, 48, 20, 0.10) !important;
+    border: 1.5px solid #743014 !important;
+    color: #743014 !important;
     padding: 0.28rem 1.3rem !important;
     border-radius: 6px !important;
     font-size: 0.78rem !important;
@@ -1155,9 +1155,9 @@
   .membership-card-pass {
     display: block !important;
     position: relative !important;
-    background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%) !important;
-    color: #ffffff !important;
-    border: 2.5px solid #D4AF37 !important;
+    background: linear-gradient(135deg, #E8D1A7 0%, #132A24 50%, #19382F 100%) !important;
+    color: #442D1C !important;
+    border: 2.5px solid #743014 !important;
     border-radius: 14px !important;
     padding: 1.6rem 2.2rem !important;
     width: 100% !important;
@@ -1207,13 +1207,13 @@
     font-size: 1.15rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.05em !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .pass-tier-badge {
     background: rgba(212, 175, 55, 0.25) !important;
-    border: 1px solid #D4AF37 !important;
-    color: #D4AF37 !important;
+    border: 1px solid #743014 !important;
+    color: #743014 !important;
     padding: 0.3rem 0.85rem !important;
     border-radius: 9999px !important;
     font-size: 0.75rem !important;
@@ -1230,7 +1230,7 @@
     font-family: var(--font-serif), Georgia, serif !important;
     font-size: 1.7rem !important;
     font-weight: 800 !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
     letter-spacing: 0.02em !important;
     margin-bottom: 0.25rem !important;
     line-height: 1.2 !important;
@@ -1254,7 +1254,7 @@
     font-size: 0.7rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.12em !important;
-    color: #D4AF37 !important;
+    color: #743014 !important;
     margin-bottom: 0.2rem !important;
     font-weight: 700 !important;
   }
@@ -1263,7 +1263,7 @@
     font-family: 'Google Sans Flex', var(--font-primary), monospace !important;
     font-size: 0.95rem !important;
     font-weight: 600 !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .pass-footer {
@@ -1281,11 +1281,11 @@
     display: flex !important;
     align-items: center !important;
     gap: 0.4rem !important;
-    color: #D4AF37 !important;
+    color: #743014 !important;
   }
 
   .pass-seal-graphic svg {
-    fill: #D4AF37 !important;
+    fill: #743014 !important;
   }
 
   /* 8. Formal Declaration Text */
@@ -1332,14 +1332,14 @@
   .cert-sig-line {
     width: 155px !important;
     height: 1.5px !important;
-    background: #0B1120 !important;
+    background: #E8D1A7 !important;
     margin: 0 auto 0.45rem auto !important;
   }
 
   .cert-sig-designation {
     font-weight: 700 !important;
     font-size: 0.82rem !important;
-    color: #0B1120 !important;
+    color: #E8D1A7 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.04em !important;
     min-height: 1.25rem !important;
@@ -1367,22 +1367,22 @@
     width: 72px !important;
     height: 72px !important;
     border-radius: 50% !important;
-    border: 1.5px dashed #D4AF37 !important;
-    background: rgba(212, 175, 55, 0.08) !important;
-    color: #D4AF37 !important;
+    border: 1.5px dashed #743014 !important;
+    background: rgba(116, 48, 20, 0.07) !important;
+    color: #743014 !important;
     padding: 3px !important;
     box-sizing: border-box !important;
   }
 
   .cert-seal-stamp svg {
-    stroke: #D4AF37 !important;
+    stroke: #743014 !important;
   }
 
   .cert-seal-tag {
     font-size: 0.56rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.08em !important;
-    color: #D4AF37 !important;
+    color: #743014 !important;
     margin-top: 2px !important;
   }
 
@@ -1433,3 +1433,171 @@
     transform: rotate(var(--cap-rot, 0deg));
   }
 }
+
+
+/* ==========================================================================
+   AUTUMN ACADEMIA — Responsive Vintage Overrides (Flat, no gradients/shadows)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .site-header { background: #E8D1A7 !important; background-color: #E8D1A7 !important; }
+}
+
+/* Mobile Devices (max-width: 768px) — Vintage flat */
+@media (max-width: 768px) {
+  /* Header — flat Golden Batter */
+  .site-header {
+    background-color: #E8D1A7 !important;
+    background: #E8D1A7 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid #84592B !important;
+    box-shadow: none !important;
+  }
+  .logo-line-1,
+  .logo-line-2 {
+    color: #442D1C !important;
+  }
+  .site-logo-img { border-color: #84592B !important; }
+
+  /* Mobile navigation drawer — flat vintage paper */
+  .main-nav {
+    background-color: #E8D1A7 !important;
+    background: #E8D1A7 !important;
+    border-top: 1px solid #84592B !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+  .nav-links li {
+    border-bottom: 1px solid rgba(132, 89, 43, 0.18) !important;
+  }
+  .nav-link {
+    color: #442D1C !important;
+  }
+  .nav-link:hover,
+  .nav-link:focus {
+    color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
+  }
+  .nav-link.active {
+    color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.10) !important;
+  }
+  .nav-link.active::after {
+    color: #743014 !important;
+  }
+  .mobile-nav-footer {
+    border-top: 1px solid #84592B !important;
+  }
+  .mobile-nav-social {
+    border: 1px solid #84592B !important;
+    color: #84592B !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+  }
+  .mobile-nav-social:hover {
+    color: #743014 !important;
+    border-color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
+  }
+  .mobile-nav-social svg { fill: currentColor !important; }
+  .nav-backdrop {
+    background: rgba(68, 45, 28, 0.32) !important;
+  }
+
+  /* Stats, cards — ensure flat vintage on mobile */
+  .stats-grid { gap: 0 !important; }
+  .stat-item { border-bottom: 1px solid #84592B !important; border-right: none !important; }
+  .stat-number { color: #442D1C !important; }
+  .stat-label { color: #442D1C !important; }
+
+  /* Buttons on mobile — 4px, flat Spiced Wine */
+  .hero-actions .btn,
+  .mobile-nav-cta {
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+  .mobile-nav-cta {
+    background: #743014 !important;
+    color: #E8D1A7 !important;
+    border: 1px solid #743014 !important;
+    background-image: none !important;
+  }
+
+  /* Ensure no pill shapes remain */
+  .filter-btn,
+  .committee-pill,
+  .search-input-wrap input {
+    border-radius: 4px !important;
+  }
+
+  /* News ticker mobile — flat Olive Harvest */
+  .news-ticker-bar {
+    background: #9D9167 !important;
+    background-image: none !important;
+    border-bottom: 1px solid #84592B !important;
+  }
+
+  /* Notice board banner mobile — flat */
+  .notice-board-banner {
+    background: #9D9167 !important;
+    background-image: none !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+  .notice-board-badge {
+    background: #743014 !important;
+    color: #E8D1A7 !important;
+    box-shadow: none !important;
+  }
+
+  /* Footer mobile — flat */
+  .footer-grid { gap: 2rem !important; }
+  .partner-affiliation {
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+
+  /* Cards on mobile — flat */
+  .card, .event-card, .committee-card, .tier-card {
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-line-1,
+  .logo-line-2 {
+    color: #442D1C !important;
+  }
+  .site-logo-img {
+    border-color: #84592B !important;
+  }
+  .membership-card-pass {
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+  .membership-certificate-frame {
+    border: 3px double #743014 !important;
+    background: #E8D1A7 !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+  .member-cert-actions .btn { border-radius: 4px !important; }
+}
+
+/* Ensure all buttons globally have 4px, no pill */
+@media (max-width: 768px) {
+  .btn, .btn-sm, .filter-btn, .committee-pill, .ticker-link-btn {
+    border-radius: 4px !important;
+  }
+}
+

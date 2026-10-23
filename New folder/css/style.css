@@ -59,82 +59,85 @@
    -------------------------------------------------------------------------- */
 :root {
   /* ==========================================================================
-     LOCKED THEME — Sophisticated Modern "Midnight Blue & Soft Gold"
-     This is the only palette the site ships with: every token below is the
-     permanent default and there is no light-mode override anywhere.
-     Palette: Deep Navy (#0B1120), Soft Cream (#F8FAFC), ELLS Gold (#D4AF37),
-     and Dark Slate with subtle IIUC Deep Green (#132A24) for eye comfort.
+     AUTUMN ACADEMIA — Vintage Literary Journal (Flat, Organic, Elegant)
+     Strictly flat design: no glassmorphism, no gradients, no heavy shadows.
+     Palette: Golden Batter (#E8D1A7), Cowhide Cocoa (#442D1C),
+              Spiced Wine (#743014), Olive Harvest (#9D9167),
+              Toasted Caramel (#84592B)
      ========================================================================== */
-  --bg-primary: #0B1120;
-  --bg-secondary: #0F172A;
-  --bg-card: #132A24;
-  --bg-card-subtle: #16322B;
-  --bg-card-hover: #193B32;
-  --bg-elevated: #111D33;
-  --bg-glass: rgba(11, 17, 32, 0.92);
-  --bg-input: #0D1627;
-  
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
-  --text-inverse: #0B1120;
-  
-  /* Primary Accent: Elegant Gold / Mustard (ELLS Logo) */
-  --accent-gold: #D4AF37;
-  --accent-gold-hover: #E2BC43;
-  --accent-gold-dark: #B89228;
-  --accent-gold-light: rgba(212, 175, 55, 0.14);
-  --accent-gold-glow: rgba(212, 175, 55, 0.22);
-  
-  /* Secondary Accent: Subtle Deep Green / Emerald (IIUC Logo) */
-  --accent-green: #10B981;
-  --accent-green-dark: #059669;
-  --accent-green-light: rgba(16, 185, 129, 0.14);
-  --accent-green-slate: #132A24;
-  --accent-green-border: rgba(16, 185, 129, 0.35);
+  --bg-primary: #E8D1A7;
+  --bg-secondary: #9D9167;
+  --bg-card: #9D9167;
+  --bg-card-subtle: #9D9167;
+  --bg-card-hover: #A89C75;
+  --bg-elevated: #E8D1A7;
+  --bg-glass: #E8D1A7;
+  --bg-input: #EFE3BF;
+  --bg-secondary-veil: #9D9167;
+  --bg-card-veil: #9D9167;
 
-  --accent-crimson: #E11D48;
-  --accent-crimson-dark: #9F1239;
-  --accent-crimson-light: rgba(225, 29, 72, 0.14);
-  --accent-navy: #152438;
-  --accent-navy-light: #1E293B;
-  
-  --border-subtle: #1E2E38;
-  --border-strong: #2D3E50;
-  --border-accent: #D4AF37;
-  --border-green: rgba(31, 77, 62, 0.5);
-  
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.22);
-  --shadow-green: 0 8px 25px rgba(19, 42, 36, 0.45);
+  --text-primary: #442D1C;
+  --text-secondary: #84592B;
+  --text-muted: #84592B;
+  --text-inverse: #E8D1A7;
+  --text-heading: #442D1C;
+  --text-on-card: #442D1C;
 
-  /* Global Typography - Google Sans Flex font family */
+  /* Primary Accent & CTA */
+  --accent-primary: #743014;
+  --btn-bg: #743014;
+  --accent-gold: #743014;
+  --accent-gold-hover: #8A3818;
+  --accent-gold-dark: #5A250F;
+  --accent-gold-light: rgba(116, 48, 20, 0.10);
+  --accent-gold-glow: none;
+
+  /* Secondary Accent mapped to same vintage family for cohesion */
+  --accent-green: #84592B;
+  --accent-green-dark: #5E3D1E;
+  --accent-green-light: rgba(132, 89, 43, 0.10);
+  --accent-green-slate: #9D9167;
+  --accent-green-border: rgba(132, 89, 43, 0.35);
+
+  --accent-crimson: #743014;
+  --accent-crimson-dark: #5A250F;
+  --accent-crimson-light: rgba(116, 48, 20, 0.10);
+  --accent-navy: #9D9167;
+  --accent-navy-light: #E8D1A7;
+
+  --border-color: #84592B;
+  --border-subtle: #84592B;
+  --border-strong: #84592B;
+  --border-accent: #743014;
+  --border-green: #84592B;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-gold: none;
+  --shadow-green: none;
+  --shadow-xl: none;
+
+  /* Global Typography - Google Sans Flex remains, elegant for vintage journal */
   --font-primary: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-serif: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-quote: 'Google Sans Flex', Georgia, serif;
 
   --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-full: 9999px;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-full: 4px;
 
   --container-width: 1200px;
   --container-padding: clamp(1rem, 4vw, 2.5rem);
-  --transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: 0.2s ease;
 
-  /* Ambient Background: floating graduation-cap watermark */
-  --bg-caps-ink: #D4AF37;
-  --bg-caps-opacity: 0.045;
+  /* Ambient Background: subtle vintage watermark */
+  --bg-caps-ink: #84592B;
+  --bg-caps-opacity: 0.04;
   --bg-caps-scale: 1;
-  /* Translucent "veil" variants of the full-bleed section bands so the
-     animated cap layer (painted at z-index: -1) can read through them.
-     They composite to virtually the same colour as their solid twins. */
-  --bg-secondary-veil: rgba(15, 23, 42, 0.68);
-  --bg-card-veil: rgba(19, 42, 36, 0.72);
 }
 
 /* --------------------------------------------------------------------------
@@ -159,7 +162,7 @@ html {
   font-size: 16px;
   /* Locked to dark: native widgets & form controls follow the Midnight theme
      instead of the visitor's OS light/dark preference */
-  color-scheme: dark;
+  color-scheme: light;
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
@@ -3372,3 +3375,1032 @@ textarea.form-control {
     display: none !important;
   }
 }
+
+
+
+/* ==========================================================================
+   AUTUMN ACADEMIA — Flat Vintage Override
+   Strict: No glassmorphism, neumorphism, heavy drop shadows, gradients.
+   All surfaces are flat, organic, elegant — vintage literary journal.
+   ========================================================================== */
+
+/* Global canvas */
+html {
+  color-scheme: light;
+  background-color: #E8D1A7;
+}
+body {
+  background-color: #E8D1A7 !important;
+  background-image: none !important;
+  color: #442D1C !important;
+}
+body::before, body::after {
+  background: none !important;
+}
+
+/* Headings & text */
+h1, h2, h3, h4, h5, h6 {
+  color: #442D1C !important;
+}
+p {
+  color: #84592B;
+}
+a {
+  color: inherit;
+}
+.text-gold { color: #743014 !important; }
+.text-crimson { color: #743014 !important; }
+.eyebrow {
+  color: #743014 !important;
+}
+
+/* Remove all heavy shadows, glassmorphism, gradients globally */
+* {
+  box-shadow: none !important;
+}
+*:not(.btn):not(.card):not(.event-card) {
+  /* allow subtle flat borders instead of shadows */
+}
+
+/* Header — flat, no blur, no gradient */
+.site-header {
+  background-color: #E8D1A7 !important;
+  background-image: none !important;
+  background: #E8D1A7 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid #84592B !important;
+  box-shadow: none !important;
+}
+.site-header.scrolled {
+  box-shadow: none !important;
+  background-color: #E8D1A7 !important;
+}
+.header-container {
+  background: transparent;
+}
+.site-logo-img,
+.site-logo-img.logo-lg,
+.site-logo-img.logo-sm {
+  background-color: #ffffff;
+  border: 2px solid #84592B !important;
+  box-shadow: none !important;
+}
+.site-logo:hover .site-logo-img {
+  box-shadow: none !important;
+  transform: none;
+}
+.logo-emblem {
+  background: #E8D1A7 !important;
+  background-image: none !important;
+  border: 2px solid #743014 !important;
+  color: #743014 !important;
+  box-shadow: none !important;
+}
+.logo-line-1, .logo-line-2 {
+  color: #442D1C !important;
+}
+.logo-title { color: #442D1C !important; }
+.logo-subtitle { color: #743014 !important; }
+
+/* Navigation */
+.main-nav { background: transparent; }
+.nav-link { color: #442D1C !important; }
+.nav-link::after { background: #743014 !important; }
+.nav-link:hover { color: #743014 !important; }
+.nav-link.active { color: #743014 !important; }
+.header-social-link {
+  border: 1px solid #84592B !important;
+  color: #442D1C !important;
+  background: transparent !important;
+}
+.header-social-link svg { fill: #442D1C !important; }
+.header-social-link:hover {
+  border-color: #743014 !important;
+  background: #E8D1A7 !important;
+  color: #743014 !important;
+}
+.mobile-nav-toggle {
+  border: 1px solid #84592B !important;
+  background: transparent !important;
+}
+.mobile-nav-toggle span { background-color: #442D1C !important; }
+
+/* News Ticker — flat Olive Harvest */
+.news-ticker-bar {
+  background: #9D9167 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #84592B !important;
+  box-shadow: none !important;
+}
+.news-ticker-window {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+.news-ticker-content { color: #442D1C !important; }
+.ticker-item { color: #442D1C !important; }
+.ticker-highlight { color: #442D1C !important; font-weight: 800; }
+.ticker-link-btn {
+  background: #743014 !important;
+  background-image: none !important;
+  border: 1px solid #743014 !important;
+  color: #E8D1A7 !important;
+  border-radius: 4px !important;
+}
+.ticker-link-btn:hover {
+  background: #5A250F !important;
+  color: #E8D1A7 !important;
+}
+.ticker-divider { color: #84592B !important; }
+
+/* Buttons — flat Spiced Wine, 4px radius, no pill */
+.btn {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+}
+.btn-primary {
+  background-color: #743014 !important;
+  background-image: none !important;
+  color: #E8D1A7 !important;
+  border: 1px solid #743014 !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+.btn-primary:hover {
+  background-color: #5A250F !important;
+  border-color: #5A250F !important;
+  color: #E8D1A7 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.btn-secondary {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.btn-secondary:hover {
+  background-color: #9D9167 !important;
+  border-color: #743014 !important;
+  color: #442D1C !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.btn-crimson {
+  background-color: #743014 !important;
+  color: #E8D1A7 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.btn-crimson:hover {
+  background-color: #5A250F !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.btn-outline-gold {
+  background-color: transparent !important;
+  color: #743014 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+}
+.btn-outline-gold:hover {
+  background-color: #743014 !important;
+  color: #E8D1A7 !important;
+  box-shadow: none !important;
+}
+.btn-sm { border-radius: 4px !important; }
+
+/* Badges — flat, 4px */
+.badge {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.badge-gold {
+  background-color: rgba(116, 48, 20, 0.10) !important;
+  color: #743014 !important;
+  border: 1px solid #743014 !important;
+}
+.badge-crimson {
+  background-color: rgba(116, 48, 20, 0.10) !important;
+  color: #743014 !important;
+  border: 1px solid #743014 !important;
+}
+.badge-navy {
+  background-color: #E8D1A7 !important;
+  color: #84592B !important;
+  border: 1px solid #84592B !important;
+}
+
+/* Hero — flat Golden Batter canvas, no gradients */
+.hero {
+  background: #E8D1A7 !important;
+  background-color: #E8D1A7 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #84592B !important;
+  box-shadow: none !important;
+}
+.hero::before, .hero::after { background: none !important; }
+.hero-lead { color: #84592B !important; }
+
+/* Hero notice poster card — flat Olive Harvest */
+.notice-poster-card {
+  background: #9D9167 !important;
+  background-image: none !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.notice-poster-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background-color: #9D9167 !important;
+  border-color: #84592B !important;
+}
+.notice-poster-header { border-bottom: 1px solid #84592B !important; }
+.poster-badge {
+  background: rgba(116, 48, 20, 0.08) !important;
+  color: #743014 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+}
+.live-dot-mini { background-color: #743014 !important; box-shadow: none !important; }
+.poster-tag {
+  background: rgba(116, 48, 20, 0.10) !important;
+  color: #743014 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+}
+.notice-poster-body h3 { color: #442D1C !important; }
+.poster-notice-item {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+}
+.poster-notice-item:hover { border-color: #743014 !important; }
+.poster-notice-item strong { color: #442D1C !important; }
+.poster-notice-item p { color: #84592B !important; }
+.poster-chip {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+}
+.poster-chip-highlight {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+  border-color: #743014 !important;
+}
+.poster-action-btn { border-radius: 4px !important; }
+.poster-action-btn.btn-register {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+}
+.poster-action-btn.btn-register:hover { background: #5A250F !important; box-shadow: none !important; }
+.poster-action-btn.btn-details {
+  background: #E8D1A7 !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+}
+.poster-action-btn.btn-details:hover {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+  border-color: #743014 !important;
+}
+.notice-poster-footer { border-top: 1px solid #84592B !important; }
+.org-title { color: #442D1C !important; }
+.org-sub { color: #84592B !important; }
+.poster-crest-img { border: 1px solid #84592B !important; background: #ffffff; }
+
+/* Dynamic Notice Board / Latest Updates — flat */
+.hero-notice-board-wrap { background: transparent; }
+.notice-board-banner {
+  background: #9D9167 !important;
+  background-image: none !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  color: #442D1C !important;
+}
+.notice-board-banner:hover { box-shadow: none !important; border-color: #84592B !important; }
+.notice-board-badge {
+  background: #743014 !important;
+  background-image: none !important;
+  color: #E8D1A7 !important;
+  box-shadow: none !important;
+  border-radius: 4px 0 0 4px !important;
+}
+.notice-badge-dot { background-color: #E8D1A7 !important; box-shadow: none !important; }
+.notice-badge-tag { background: rgba(68, 45, 28, 0.15) !important; color: #E8D1A7 !important; border-radius: 4px !important; }
+.notice-marquee-window { mask-image: none !important; -webkit-mask-image: none !important; }
+.notice-item { color: #442D1C !important; }
+.notice-item-title { color: #442D1C !important; }
+.notice-item-desc { color: #442D1C !important; }
+.notice-pill {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #442D1C !important;
+  border-radius: 4px !important;
+}
+.notice-pill svg { stroke: #743014 !important; }
+.notice-pill-deadline {
+  background: #743014 !important;
+  border-color: #743014 !important;
+  color: #E8D1A7 !important;
+}
+.notice-pill-deadline strong { color: #E8D1A7 !important; }
+.notice-link-btn {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.notice-link-btn:hover { background: #5A250F !important; color: #E8D1A7 !important; transform: none !important; box-shadow: none !important; }
+.notice-link-secondary {
+  background: #E8D1A7 !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+}
+.notice-link-secondary:hover { background: #743014 !important; color: #E8D1A7 !important; border-color: #743014 !important; }
+.notice-separator { color: #84592B !important; }
+.notice-pause-indicator {
+  background: rgba(232, 209, 167, 0.4) !important;
+  border-left: 1px solid #84592B !important;
+  color: #84592B !important;
+}
+.notice-board-banner:hover .notice-pause-indicator { color: #743014 !important; }
+
+/* Stats Strip — flat Olive Harvest */
+.stats-strip {
+  background-color: #9D9167 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #84592B !important;
+  border-top: 1px solid #84592B !important;
+  box-shadow: none !important;
+}
+.stat-item { border-right: 1px solid #84592B !important; }
+.stat-number { color: #442D1C !important; }
+.stat-label { color: #442D1C !important; }
+
+/* Feature Cards & Pillars — flat Olive Harvest, no shadows, 4px */
+.card {
+  background: #9D9167 !important;
+  background-color: #9D9167 !important;
+  background-image: none !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  color: #442D1C !important;
+}
+.card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #743014 !important;
+  background-color: #9D9167 !important;
+}
+.card-icon-wrap {
+  background-color: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #743014 !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.card:hover .card-icon-wrap {
+  background-color: #743014 !important;
+  color: #E8D1A7 !important;
+  border-color: #743014 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.card h3 { color: #442D1C !important; }
+.card p { color: #442D1C !important; }
+.card-link { color: #743014 !important; }
+.card-link:hover { color: #5A250F !important; }
+
+/* Four Pillars refinements — no glossy effects */
+.section-pillars {
+  background: #E8D1A7 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.section-pillars .card {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-top: 3px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.section-pillars .card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #84592B !important;
+  border-top-color: #743014 !important;
+  background: #9D9167 !important;
+}
+.section-pillars .card-icon-wrap {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #743014 !important;
+}
+.section-pillars .card:hover .card-icon-wrap {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+  border-color: #743014 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.section-pillars .card p { color: #442D1C !important; }
+.section-pillars .card-link:hover { color: #5A250F !important; transform: none !important; }
+
+/* Events Cards & Filter System — flat */
+.event-filters { background: transparent; }
+.filter-pills { background: transparent; }
+.filter-btn {
+  background-color: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.filter-btn:hover {
+  background-color: #9D9167 !important;
+  border-color: #84592B !important;
+  color: #442D1C !important;
+}
+.filter-btn.active {
+  background-color: #743014 !important;
+  border-color: #743014 !important;
+  color: #E8D1A7 !important;
+}
+.search-input-wrap input {
+  background-color: #EFE3BF !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  color: #442D1C !important;
+  background-image: none !important;
+}
+.search-input-wrap input:focus {
+  border-color: #743014 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.search-input-wrap svg { fill: #84592B !important; }
+
+.event-card {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.event-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #743014 !important;
+  background-color: #9D9167 !important;
+}
+.event-card-header { background: transparent; }
+.event-date-badge {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+}
+.event-date-month { color: #743014 !important; }
+.event-date-day { color: #442D1C !important; }
+.event-card-body h3 { color: #442D1C !important; }
+.event-meta { color: #84592B !important; }
+.event-meta-item svg { fill: #743014 !important; }
+.event-card-footer { border-top: 1px solid #84592B !important; }
+.seats-indicator { color: #84592B !important; }
+.seats-indicator.seats-low { color: #743014 !important; }
+
+/* Dialog Modal — flat */
+dialog.rsvp-modal {
+  background: #E8D1A7 !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+dialog.rsvp-modal::backdrop {
+  background: rgba(68, 45, 28, 0.45) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.modal-header {
+  background: #9D9167 !important;
+  border-bottom: 1px solid #84592B !important;
+}
+.modal-close-btn:hover { color: #743014 !important; background: rgba(116,48,20,0.08) !important; }
+.modal-footer { border-top: 1px solid #84592B !important; }
+
+/* Form Controls — flat, 4px, Toasted Caramel borders */
+.form-label { color: #442D1C !important; }
+.form-label .required { color: #743014 !important; }
+.form-control {
+  background-color: #EFE3BF !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  color: #442D1C !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.form-control:focus {
+  border-color: #743014 !important;
+  box-shadow: none !important;
+}
+.form-control:user-invalid {
+  border-color: #743014 !important;
+  background-color: rgba(116,48,20,0.06) !important;
+}
+.form-control:user-valid { border-color: #84592B !important; }
+.form-hint { color: #84592B !important; }
+.form-error { color: #743014 !important; }
+
+/* Checkbox & Radio — flat */
+.checkbox-grid { background: transparent; }
+.custom-checkbox-card {
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  background: #E8D1A7 !important;
+}
+.custom-checkbox-card:hover {
+  border-color: #743014 !important;
+  background: #E8D1A7 !important;
+}
+.custom-checkbox-card input[type="checkbox"],
+.custom-checkbox-card input[type="radio"] { accent-color: #743014 !important; }
+.custom-checkbox-card:has(input:checked) {
+  border-color: #743014 !important;
+  background-color: rgba(116,48,20,0.08) !important;
+}
+
+/* Tier Selection Cards — flat */
+.tiers-grid { background: transparent; }
+.tier-card {
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  background: #9D9167 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.tier-card:hover {
+  border-color: #743014 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  background-color: #9D9167 !important;
+}
+.tier-card.selected {
+  border-color: #743014 !important;
+  background: #9D9167 !important;
+  box-shadow: none !important;
+}
+.tier-badge-corner { background: transparent; }
+.tier-price { color: #442D1C !important; }
+.tier-price span { color: #84592B !important; }
+.tier-perks li svg { fill: #743014 !important; }
+
+/* Wizard — flat */
+.wizard-progress::before { background-color: #84592B !important; background-image: none !important; }
+.wizard-step-indicator { background: #E8D1A7 !important; }
+.step-bubble {
+  background: #E8D1A7 !important;
+  border: 2px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+}
+.wizard-step-indicator.active .step-bubble {
+  background: #743014 !important;
+  border-color: #743014 !important;
+  color: #E8D1A7 !important;
+  box-shadow: none !important;
+}
+.wizard-step-indicator.completed .step-bubble {
+  background: #E8D1A7 !important;
+  border-color: #743014 !important;
+  color: #743014 !important;
+}
+.step-label { color: #84592B !important; }
+.wizard-step-indicator.active .step-label { color: #442D1C !important; }
+.wizard-navigation { border-top: 1px solid #84592B !important; }
+
+/* Certificate Frame — vintage paper, flat, no heavy shadows */
+.membership-certificate-frame {
+  background: #E8D1A7 !important;
+  background-image: none !important;
+  border: 3px double #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.cert-corner-ornament { border-color: #743014 !important; }
+.cert-inner-frame {
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+}
+.cert-formal-header { border-bottom: 1px solid #84592B !important; }
+.cert-crest-img { filter: none !important; }
+.cert-uni-title { color: #442D1C !important; }
+.cert-dept-title { color: #84592B !important; }
+.cert-society-heading { color: #743014 !important; }
+.cert-award-ribbon {
+  background: rgba(116,48,20,0.08) !important;
+  border: 1px solid #743014 !important;
+  color: #743014 !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.cert-declaration p { color: #84592B !important; }
+.cert-signature-section { border-top: 1px dashed #84592B !important; }
+.cert-sig-line { background: #442D1C !important; }
+.cert-sig-designation { color: #442D1C !important; }
+.cert-sig-sub { color: #84592B !important; }
+.cert-seal-stamp {
+  border: 1px dashed #743014 !important;
+  background: rgba(116,48,20,0.06) !important;
+  color: #743014 !important;
+}
+.cert-seal-tag { color: #743014 !important; }
+.cert-seal-affil { color: #84592B !important; }
+
+/* Membership Card Pass — flat vintage, no gradients */
+.membership-card-pass {
+  background: #9D9167 !important;
+  background-image: none !important;
+  color: #442D1C !important;
+  border: 2px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.membership-card-pass::before { display: none !important; background: none !important; }
+.pass-header { background: transparent; }
+.pass-logo svg { fill: #743014 !important; }
+.pass-org-name { color: #442D1C !important; }
+.pass-tier-badge {
+  background: rgba(116,48,20,0.10) !important;
+  border: 1px solid #743014 !important;
+  color: #743014 !important;
+  border-radius: 4px !important;
+}
+.pass-member-name { color: #442D1C !important; }
+.pass-meta-item label { color: #743014 !important; }
+.pass-meta-item span { color: #442D1C !important; }
+.pass-footer {
+  border-top: 1px solid #84592B !important;
+  color: #84592B !important;
+}
+.pass-seal-graphic { color: #743014 !important; }
+
+/* Toast — flat */
+.toast-container { background: transparent; }
+.toast {
+  background: #E8D1A7 !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+  border-left: 4px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.toast.toast-success { border-left-color: #743014 !important; }
+.toast.toast-error { border-left-color: #743014 !important; }
+.toast-success .toast-icon { fill: #743014 !important; }
+
+/* Timeline — flat, no gradients */
+.timeline::before {
+  background: #84592B !important;
+  background-image: none !important;
+}
+.timeline-marker {
+  background: #E8D1A7 !important;
+  border: 3px solid #743014 !important;
+}
+.timeline-year { color: #743014 !important; }
+.timeline-content {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+/* Team & Executive Board — flat */
+.team-card {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.team-card:hover {
+  transform: none !important;
+  border-color: #743014 !important;
+  box-shadow: none !important;
+}
+.team-avatar-box {
+  background: #E8D1A7 !important;
+  background-image: none !important;
+}
+.team-avatar-frame {
+  border: 3px solid #743014 !important;
+  background: #E8D1A7 !important;
+}
+.team-avatar-frame svg { fill: #84592B !important; }
+.team-info h4 { color: #442D1C !important; }
+.team-role { color: #743014 !important; }
+.team-bio { color: #84592B !important; }
+
+/* Committee Section & Profile Cards — flat Olive Harvest */
+.committee-subheading h3 { color: #442D1C !important; }
+.committee-subheading::after {
+  background: #84592B !important;
+  background-image: none !important;
+}
+.committee-card {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.committee-card:hover {
+  transform: none !important;
+  border-color: #743014 !important;
+  box-shadow: none !important;
+  background-color: #9D9167 !important;
+}
+.committee-card.advisory-card {
+  border-top: 3px solid #743014 !important;
+  background: #9D9167 !important;
+  background-image: none !important;
+}
+.committee-card.faculty-card { border-top: 3px solid #84592B !important; }
+.committee-card.student-card { border-top: 3px solid #84592B !important; }
+.committee-avatar {
+  border: 2px solid #743014 !important;
+  background: #E8D1A7 !important;
+  color: #743014 !important;
+}
+.advisory-card .committee-avatar,
+.faculty-card .committee-avatar {
+  background: #E8D1A7 !important;
+  color: #743014 !important;
+  border-color: #743014 !important;
+}
+.committee-role-badge {
+  background: rgba(116,48,20,0.08) !important;
+  color: #743014 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.committee-card h4 { color: #442D1C !important; }
+.committee-designation { color: #84592B !important; }
+.committee-meta-pill {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+}
+.committee-contacts { border-top: 1px solid #84592B !important; }
+.committee-contact-item { color: #84592B !important; }
+.committee-contact-item:hover { color: #743014 !important; }
+.committee-contact-item svg { fill: #743014 !important; }
+.committee-toolbar {
+  background: #9D9167 !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.committee-pill {
+  background: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+}
+.committee-pill:hover, .committee-pill.active {
+  background: #743014 !important;
+  border-color: #743014 !important;
+  color: #E8D1A7 !important;
+}
+
+/* Newsletter & CTA Box — flat */
+.cta-banner {
+  background: #9D9167 !important;
+  background-image: none !important;
+  color: #442D1C !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.cta-banner h2 { color: #442D1C !important; }
+.cta-banner p { color: #442D1C !important; }
+.newsletter-input {
+  border-radius: 4px !important;
+  border: 1px solid #84592B !important;
+  background: #EFE3BF !important;
+  color: #442D1C !important;
+  background-image: none !important;
+}
+.newsletter-input::placeholder { color: #84592B !important; }
+.newsletter-input:focus {
+  border-color: #743014 !important;
+  background: #EFE3BF !important;
+}
+
+/* Footer — flat Golden Batter with Olive accents */
+.site-footer {
+  background-color: #E8D1A7 !important;
+  background-image: none !important;
+  border-top: 1px solid #84592B !important;
+  box-shadow: none !important;
+}
+.footer-brand p { color: #84592B !important; }
+.social-media-title { color: #743014 !important; }
+.social-icon {
+  background-color: #E8D1A7 !important;
+  border: 1px solid #84592B !important;
+  color: #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.social-icon:hover {
+  transform: none !important;
+  color: #E8D1A7 !important;
+  background-color: #743014 !important;
+  border-color: #743014 !important;
+  box-shadow: none !important;
+}
+.social-icon.social-facebook:hover,
+.social-icon.social-instagram:hover,
+.social-icon.social-youtube:hover,
+.social-icon.social-linkedin:hover {
+  background: #743014 !important;
+  background-image: none !important;
+  border-color: #743014 !important;
+  box-shadow: none !important;
+}
+.partner-affiliation {
+  background: #9D9167 !important;
+  background-image: none !important;
+  border: 1px solid #84592B !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.partner-affiliation:hover {
+  transform: none !important;
+  border-color: #743014 !important;
+  box-shadow: none !important;
+}
+.partner-logo-img {
+  border: 2px solid #84592B !important;
+  box-shadow: none !important;
+}
+.partner-affiliation:hover .partner-logo-img { transform: none !important; }
+.partner-text span:first-child { color: #743014 !important; }
+.partner-text span:last-child { color: #442D1C !important; }
+.footer-col h4 { color: #442D1C !important; }
+.footer-links li span, .footer-links li a { color: #84592B !important; }
+.footer-links a:hover { color: #743014 !important; padding-left: 2px !important; }
+.footer-bottom {
+  border-top: 1px solid #84592B !important;
+  color: #84592B !important;
+}
+.footer-quote { color: #84592B !important; }
+
+/* Featured Resource Card — flat, no gradients */
+.featured-resource-section { background: transparent; }
+.featured-resource-card {
+  background: #743014 !important;
+  background-image: none !important;
+  color: #E8D1A7 !important;
+  border: 1px solid #743014 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.featured-resource-card::before, .featured-resource-card::after { display: none !important; background: none !important; }
+.resource-card-badge {
+  background: rgba(232, 209, 167, 0.15) !important;
+  border: 1px solid #E8D1A7 !important;
+  color: #E8D1A7 !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.resource-card-title { color: #E8D1A7 !important; }
+.resource-card-desc { color: #E8D1A7 !important; }
+.resource-tag {
+  background: rgba(232, 209, 167, 0.12) !important;
+  border: 1px solid rgba(232, 209, 167, 0.35) !important;
+  color: #E8D1A7 !important;
+  border-radius: 4px !important;
+  background-image: none !important;
+}
+.resource-drive-btn {
+  background: #E8D1A7 !important;
+  background-image: none !important;
+  color: #442D1C !important;
+  border: 1px solid #E8D1A7 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.resource-drive-btn:hover {
+  background: #9D9167 !important;
+  color: #442D1C !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #9D9167 !important;
+}
+.resource-card-credit {
+  color: rgba(232, 209, 167, 0.85) !important;
+  border-top: 1px solid rgba(232, 209, 167, 0.25) !important;
+}
+.resource-card-credit strong { color: #E8D1A7 !important; }
+
+/* Secondary sections — flat Olive Harvest veil removed */
+.section-secondary {
+  background-color: #9D9167 !important;
+  background-image: none !important;
+}
+
+/* Ambient caps watermark — subtle Toasted Caramel on Golden Batter */
+.bg-caps { color: #84592B !important; background: none !important; border: 0 !important; }
+.bg-caps__cap { opacity: 0.04 !important; }
+
+/* Skip link — flat */
+.skip-link {
+  background: #743014 !important;
+  color: #E8D1A7 !important;
+  border-radius: 4px !important;
+}
+
+/* Focus visible — flat vintage */
+:focus-visible {
+  outline: 2px solid #743014 !important;
+  outline-offset: 2px !important;
+}
+
+/* Remove any remaining gradients, shadows, blurs that slipped through */
+[class*="gradient"], [style*="gradient"] {
+  background-image: none !important;
+}
+
+/* Enforce 4px radius on all commonly pill-shaped elements */
+.search-input-wrap input,
+.filter-btn,
+.committee-pill,
+.btn,
+.ticker-link-btn,
+.poster-action-btn,
+.notice-pill,
+.badge,
+.resource-tag,
+.pass-tier-badge {
+  border-radius: 4px !important;
+}
+
+/* Ensure card text inside Olive Harvest has high contrast Cowhide Cocoa */
+.card p,
+.card h3,
+.card-link,
+.event-card p,
+.event-card h3,
+.committee-card p,
+.committee-card h4,
+.team-card p,
+.timeline-content p,
+.timeline-content h4 {
+  color: #442D1C !important;
+}
+.card p, .event-card p, .committee-card p { color: #442D1C !important; }
+.event-card .event-meta span, .event-card .event-meta-item span { color: #84592B !important; }
+
+/* Table / list overrides if any */
+table { border-collapse: collapse; }
+table th, table td { border: 1px solid #84592B !important; }
+
+/* Print still respects vintage but ensure paper is warm */
+@media print {
+  body { background: #ffffff !important; }
+}
+
+/* Remove transform lifts for vintage flat feel */
+.card:hover,
+.event-card:hover,
+.team-card:hover,
+.committee-card:hover,
+.notice-poster-card:hover,
+.tier-card:hover,
+.cta-banner,
+.featured-resource-card,
+.partner-affiliation:hover,
+.social-icon:hover {
+  transform: none !important;
+}
+
