@@ -1,0 +1,2209 @@
+/* ==========================================================================
+   ELLS Club — Site-Wide Polish Layer
+   --------------------------------------------------------------------------
+   Loaded LAST on every public page (after style.css + responsive.css) so it
+   is the single authority for:
+
+     1. Header / sticky navbar geometry (fixed, full-width, 9999, top 0.3s)
+     2. Typography scale — larger, cleaner, centred on desktop & tablet
+     3. Section-heading rhythm and perfect horizontal alignment
+     4. Card alignment: equal heights, consistent padding, tidy inner flow
+     5. Membership page: Status Check + "Apply for Membership" wizard switch
+     6. Compact mobile overrides (the site must stay dense on phones)
+
+   Every rule here is intentional — keep the file ordered top-to-bottom; the
+   mobile block at the bottom is the final authority below 768px.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --polish-container: 1180px;
+  --polish-section-y: clamp(3.25rem, 5.5vw, 5rem);
+  --polish-head-max: 780px;
+  --polish-lead-max: 680px;
+  --polish-card-pad: clamp(1.4rem, 2.1vw, 1.9rem);
+  --polish-radius: 18px;
+  --polish-gap: clamp(1.15rem, 2vw, 1.85rem);
+
+  /* Fluid type ramp (desktop / tablet) */
+  --fs-display: clamp(2.4rem, 4.6vw, 3.45rem);
+  --fs-section: clamp(1.95rem, 3.6vw, 2.7rem);
+  --fs-sub: clamp(1.3rem, 2vw, 1.6rem);
+  --fs-lead: clamp(1.02rem, 1.35vw, 1.14rem);
+  --fs-body: clamp(0.97rem, 1.05vw, 1.02rem);
+  --fs-eyebrow: 0.76rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. Sticky navbar geometry
+   --------------------------------------------------------------------------
+   JavaScript (js/main.js → initHeaderScroll) drives `header.style.top`:
+   scrolling down hides it, scrolling up restores `top: 0`.
+   These declarations guarantee the layout contract the script depends on.
+   -------------------------------------------------------------------------- */
+.site-header,
+header.site-header,
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: 9999;
+  transition: top 0.3s ease-in-out, box-shadow 0.3s ease,
+              background-color 0.3s ease;
+  will-change: top;
+}
+
+/* Legacy class: hiding is now done with `top`, never with a transform.
+   Neutralised so an old cached class can never leave the bar off-screen. */
+.site-header.header-hidden,
+header.header-hidden {
+  transform: translateY(0);
+}
+
+/* While the mobile drawer is open the bar must always be visible. */
+body.nav-open .site-header,
+body.nav-open header,
+html.nav-open .site-header {
+  top: 0 !important;
+  transform: translateY(0) !important;
+}
+
+.site-header.scrolled {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* In-page anchors (#committee, #wings, #applicationFormCard …) must land
+   below the fixed header instead of underneath it. */
+html {
+  scroll-padding-top: 96px;
+}
+
+:target {
+  scroll-margin-top: 96px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography — larger, cleaner, centred
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: var(--polish-container);
+}
+
+section {
+  padding: var(--polish-section-y) 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+}
+
+h2 {
+  font-size: var(--fs-section);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--fs-sub);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+}
+
+p {
+  font-size: var(--fs-body);
+  line-height: 1.68;
+}
+
+/* Eyebrow labels: consistent width, weight and optical centring */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.85rem;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  flex: 0 0 auto;
+}
+
+/* Home hero welcome badge — the first thing on index.html.
+   Deliberately NOT .eyebrow: the sentence is long, so it stays sentence-case
+   with tight tracking and is allowed to wrap instead of overflowing. */
+.hero-welcome {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-width: 100%;
+  margin: 0 auto 1.15rem;
+  padding: 0.44rem 1rem;
+  border: 1px solid rgba(226, 212, 183, 0.42);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(226, 212, 183, 0.16), rgba(226, 212, 183, 0.05));
+  color: var(--accent-gold);
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.08);
+}
+
+/* Eyebrows inside cards / forms stay minimal (no decorative rules) */
+.card .eyebrow::before,
+.card .eyebrow::after,
+#memberRecordLookupCard .eyebrow::before,
+#memberRecordLookupCard .eyebrow::after {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero & section headings — perfectly centred on desktop/tablet
+   -------------------------------------------------------------------------- */
+.hero {
+  text-align: center;
+  padding: clamp(2.75rem, 5vw, 4.5rem) 0 clamp(2rem, 3.5vw, 3rem) 0;
+}
+
+.hero .container {
+  display: block;
+}
+
+.hero .hero-grid {
+  display: block;
+  margin: 0 auto;
+}
+
+.hero .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.hero h1 {
+  max-width: 22ch;
+  margin: 0 auto 1.15rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.hero-lead,
+.hero p.hero-lead {
+  max-width: var(--polish-lead-max);
+  margin: 0 auto 2rem;
+  text-align: center;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Shared section intro / head block */
+.section-intro,
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: var(--polish-head-max);
+  margin: 0 auto clamp(2rem, 3.2vw, 2.75rem);
+}
+
+.section-intro h2,
+.section-head h2 {
+  margin: 0 0 0.9rem;
+  text-align: center;
+  font-size: var(--fs-section);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.section-intro p,
+.section-head p {
+  margin: 0 auto;
+  max-width: var(--polish-lead-max);
+  text-align: center;
+  font-size: var(--fs-lead);
+  line-height: 1.68;
+  color: var(--text-secondary);
+}
+
+.section-intro > .eyebrow:first-child,
+.section-head > .eyebrow:first-child {
+  margin-top: 0;
+}
+
+.section-head__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+/* Page hero variants written inline in the markup get the same treatment */
+main > .hero .container,
+.hero > .container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. Cards — equal heights, consistent padding, tidy inner alignment
+   -------------------------------------------------------------------------- */
+.grid,
+.grid-2,
+.grid-3,
+.grid-4 {
+  align-items: stretch;
+  justify-items: stretch;
+  gap: var(--polish-gap);
+}
+
+.grid > * {
+  height: 100%;
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100%;
+  padding: var(--polish-card-pad);
+  border-radius: var(--polish-radius);
+  text-align: left;
+}
+
+/* Keep intrinsic-width children (icons, badges, buttons) from stretching */
+.card > .card-icon-wrap,
+.card > .badge,
+.card > .card-link,
+.card > .btn {
+  align-self: flex-start;
+}
+
+.card h2,
+.card h3,
+.card h4,
+.card p,
+.card li {
+  text-align: left;
+}
+
+.card h3,
+.card h4 {
+  margin: 0 0 0.6rem;
+  line-height: 1.3;
+}
+
+.card p {
+  color: var(--text-secondary);
+  line-height: 1.68;
+}
+
+.card .card-icon-wrap {
+  flex: 0 0 auto;
+  margin-bottom: 1.1rem;
+}
+
+.card .card-link {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+/* Cards that are genuinely centred widgets keep a centred inner flow */
+.tier-card,
+.card--center,
+.card--center h2,
+.card--center h3,
+.card--center h4,
+.card--center p {
+  text-align: center;
+}
+
+.tier-card,
+.card--center {
+  align-items: center;
+}
+
+/* Event cards: align the header, body and footer on one vertical rhythm */
+.event-card {
+  height: 100%;
+  border-radius: var(--polish-radius);
+}
+
+.event-card-header,
+.event-card-body {
+  padding-left: var(--polish-card-pad);
+  padding-right: var(--polish-card-pad);
+}
+
+.event-card-header {
+  padding-top: var(--polish-card-pad);
+}
+
+.event-card-body {
+  padding-bottom: var(--polish-card-pad);
+}
+
+.event-card-body h3 {
+  font-size: clamp(1.15rem, 1.55vw, 1.35rem);
+  line-height: 1.3;
+  margin: 0 0 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Poster event cards (emitted by js/events-feed.js)
+   --------------------------------------------------------------------------
+     .event-card--poster
+       .event-card__poster      → 1:1 media (img or placeholder)
+       .event-card__details     → header + body + footer
+
+   Mobile-first, so the two layouts can never bleed into each other:
+
+     ≤ 768px   column — 1:1 poster on top, details underneath
+     ≥ 769px   row    — 38% poster on the left, details on the right, 24px gap
+
+   The row layout is the default for every poster card on desktop; the only
+   exception is the homepage strip (#homeEventsGrid, 3-up at ~360px a card),
+   which opts out with .event-card--home and stays stacked.
+   -------------------------------------------------------------------------- */
+.event-card--poster {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* The media cell — a perfect square while stacked */
+.event-card__poster {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(226, 212, 183, 0.16) 0%, transparent 60%),
+    linear-gradient(140deg, #0B1120 0%, #132A24 55%, #0B1120 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.event-card__poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.event-card--poster:hover .event-card__poster-img {
+  transform: scale(1.04);
+}
+
+/* Fallback: midnight-blue panel with the soft-gold ELLS mark */
+.event-card__poster-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(226, 212, 183, 0.22) 0%, transparent 62%),
+    linear-gradient(150deg, #0B1120 0%, #16233d 48%, #0B1120 100%);
+}
+
+.event-card__poster-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(226, 212, 183, 0.32);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.event-card__poster-mark {
+  font-family: var(--font-primary);
+  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: var(--accent-gold);
+  text-shadow: 0 2px 18px rgba(226, 212, 183, 0.35);
+}
+
+.event-card__poster-caption {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(248, 250, 252, 0.72);
+  max-width: 90%;
+  overflow-wrap: anywhere;
+}
+
+/* Details column */
+.event-card__details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+}
+
+/* Date block left, track badge right — top-aligned so the two never collide,
+   at every width. */
+.event-card--poster .event-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  padding: var(--polish-card-pad) var(--polish-card-pad) 0.85rem;
+}
+
+.event-card--poster .event-date-badge {
+  flex: 0 0 auto;
+}
+
+.event-card--poster .event-card__badges {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: right;
+}
+
+.event-card--poster .event-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+}
+
+.event-card--poster .event-card-body h3 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.28;
+}
+
+.event-card--poster .event-card-body > p {
+  margin: 0 0 0.9rem;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.event-card--poster .event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+
+.event-card--poster .event-card-footer {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Desktop / tablet (≥ 769px) — strict row layout
+   --------------------------------------------------------------------------
+   A horizontal flex row: the 1:1 poster sits on the LEFT at 38% of the card,
+   the details fill the rest, and a 24px gutter separates them. The poster is
+   inset inside the card's own padding and centred with `align-self: center`,
+   so it stays a perfect square — `align-items: stretch` alone would stretch
+   it into a tall rectangle and break the 1:1 contract.
+
+   `flex-wrap` is deliberately left at `nowrap`: the two columns must never
+   drop under one another on desktop.
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) {
+  .event-card--poster {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 24px;
+    padding: clamp(0.95rem, 1.4vw, 1.35rem);
+  }
+
+  /* Left column — square poster, 38% of the inner width (≈36% of the card) */
+  .event-card--poster .event-card__poster {
+    flex: 0 0 38%;
+    width: 38%;
+    max-width: 38%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    align-self: center;
+    border: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Right column — header / body / footer stacked, no double padding */
+  .event-card--poster .event-card__details {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .event-card--poster .event-card-header {
+    padding: 0 0 0.75rem;
+    align-items: flex-start;
+  }
+
+  .event-card--poster .event-card-body {
+    padding: 0;
+  }
+
+  /* Long descriptions get clamped so every card in the row keeps its rhythm */
+  .event-card--poster .event-card-body > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    overflow-wrap: anywhere;
+  }
+
+  .event-card--poster .event-meta {
+    gap: 0.32rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.86rem;
+  }
+
+  .event-card--poster .event-card-footer {
+    gap: 0.6rem;
+    row-gap: 0.5rem;
+    padding-top: 0.8rem;
+  }
+
+  /* The CTA never spills out of the details column */
+  .event-card--poster .event-card-footer .btn {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+
+  .event-card--poster .seats-indicator {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
+
+/* One card per row. The horizontal card needs the full container width — at
+   .grid-3's auto-fit three-up each card would be ~370px and the 38% poster
+   column would squeeze the details into a sliver. */
+#eventsGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* --------------------------------------------------------------------------
+   Homepage strip — opt out of the row layout
+   --------------------------------------------------------------------------
+   #homeEventsGrid is a 3-up grid, so each card is only ~360px wide. Splitting
+   that into a poster + text column would leave ~200px for the details, so the
+   strip keeps the classic stacked card (poster on top) at every width.
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) {
+  .event-card--home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  .event-card--home .event-card__poster {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    align-self: start;
+    border: 0;
+    border-bottom: 1px solid var(--border-subtle);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .event-card--home .event-card-header {
+    padding: var(--polish-card-pad) var(--polish-card-pad) 0.7rem;
+  }
+
+  .event-card--home .event-card-body {
+    padding: 0 var(--polish-card-pad) var(--polish-card-pad);
+  }
+}
+
+/* The ticker is display:flex in style.css, which would defeat [hidden] —
+   it must disappear completely until Firestore returns at least one notice. */
+.news-ticker-bar[hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Notice cards (reuse the event-card shell, gold identity)
+   -------------------------------------------------------------------------- */
+.notice-card {
+  height: 100%;
+  border-top: 3px solid var(--accent-gold);
+}
+
+.notice-card .event-card-header {
+  align-items: flex-start;
+}
+
+.notice-card-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* A pasted Google Form URL must wrap inside the card, never force it wider */
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   Inline links inside a notice description (js/notice-board.js linkifies any
+   http(s) URL the IT Secretary types into the notice body)
+   -------------------------------------------------------------------------- */
+.notice-link {
+  color: var(--accent-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(226, 212, 183, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  border-radius: 3px;
+  padding: 0 1px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: color var(--transition, 0.2s ease),
+              background-color var(--transition, 0.2s ease),
+              text-decoration-color var(--transition, 0.2s ease);
+}
+
+/* External-link hint: this always opens a new tab */
+.notice-link::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: 0.18em;
+  font-size: 0.8em;
+  line-height: 1;
+  transform: translateY(-0.08em);
+  opacity: 0.75;
+}
+
+.notice-link:hover {
+  color: #F3D98B;
+  background-color: rgba(226, 212, 183, 0.14);
+  text-decoration-color: currentColor;
+}
+
+.notice-link:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+  color: #F3D98B;
+  background-color: rgba(226, 212, 183, 0.14);
+}
+
+.notice-card-stamp {
+  color: var(--accent-gold) !important;
+  font-weight: 700;
+}
+
+.notice-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition, 0.2s ease);
+}
+
+.notice-card-link:hover,
+.notice-card-link:focus-visible {
+  border-bottom-color: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Homepage notice board block
+   -------------------------------------------------------------------------- */
+.section-notice-board {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(226, 212, 183, 0.07), transparent 55%),
+    var(--bg-primary, #0B1120);
+}
+
+.section-notice-board .section-intro {
+  margin-bottom: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* --------------------------------------------------------------------------
+   Past-events archive pointer (events.html) — the listing itself is dynamic
+   now, so only a branded callout remains here.
+   -------------------------------------------------------------------------- */
+.archive-band {
+  padding: 3rem 0;
+}
+
+.archive-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: clamp(1.2rem, 3vw, 1.8rem) clamp(1.1rem, 3vw, 1.8rem);
+  border: 1px solid rgba(226, 212, 183, 0.28);
+  border-radius: var(--polish-radius);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(226, 212, 183, 0.12), transparent 55%),
+    linear-gradient(140deg, rgba(11, 17, 32, 0.9), rgba(19, 42, 36, 0.55));
+}
+
+.archive-band__copy {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.archive-band__copy h2 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+}
+
+.archive-band__copy p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.archive-band__cta {
+  flex: 0 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Empty / loading / error states — the ELLS-themed "nothing here yet" panel
+   --------------------------------------------------------------------------
+   Shared by the public event feed (#eventsFeedStatus), the homepage strip
+   (#homeEventsStatus) and the notice board (#noticeBoardStatus). Rendered
+   by js/events-feed.js and js/notice-board.js; the panel is hidden entirely
+   once there is real content.
+   -------------------------------------------------------------------------- */
+.feed-state,
+.notice-board-state {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1.1rem, 3vw, 2rem);
+  border: 1px solid rgba(226, 212, 183, 0.28);
+  border-radius: var(--polish-radius);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(226, 212, 183, 0.14) 0%, transparent 62%),
+    linear-gradient(160deg, rgba(11, 17, 32, 0.92) 0%, rgba(19, 42, 36, 0.55) 100%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  text-align: center;
+}
+
+.feed-state[hidden],
+.notice-board-state[hidden] {
+  display: none !important;
+}
+
+.feed-state__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 46ch;
+}
+
+/* Monogram badge — the ELLS mark inside a gold ring */
+.feed-state__monogram {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(226, 212, 183, 0.55);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(226, 212, 183, 0.2), transparent 70%);
+  color: var(--accent-gold);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  box-shadow: 0 0 0 6px rgba(226, 212, 183, 0.06);
+}
+
+.feed-state__eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.feed-state__title {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.feed-state__text {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.feed-state__actions,
+.notice-board-state .feed-state__actions {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+
+/* Only the genuine "empty" state offers a next step — not loading or error. */
+.feed-state[data-state="empty"] .feed-state__actions,
+.notice-board-state[data-state="empty"] .feed-state__actions {
+  display: flex;
+}
+
+/* Compact variant for the homepage strip */
+.feed-state--compact {
+  padding: 1.35rem 1.1rem;
+}
+
+.feed-state--compact .feed-state__monogram {
+  width: 54px;
+  height: 54px;
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.feed-state--compact .feed-state__title {
+  font-size: 1.15rem;
+}
+
+.feed-state--compact .feed-state__text {
+  font-size: 0.86rem;
+}
+
+/* Spinner */
+.feed-state__spinner,
+.notice-board-state__spinner {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 0.35rem;
+  border: 2px solid rgba(226, 212, 183, 0.25);
+  border-top-color: var(--accent-gold);
+  border-radius: 50%;
+  animation: feedStateSpin 0.9s linear infinite;
+}
+
+.feed-state__spinner[hidden],
+.notice-board-state__spinner[hidden] {
+  display: none !important;
+}
+
+@keyframes feedStateSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Once content exists the monogram would double up with the spinner */
+.feed-state[data-state="ready"],
+.notice-board-state[data-state="ready"] {
+  display: none !important;
+}
+
+/* Live pill above the notice board */
+.notice-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-green, #10B981);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.notice-live-pill[hidden] {
+  display: none !important;
+}
+
+.notice-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 0 currentColor;
+  animation: noticeLivePulse 2s ease-out infinite;
+}
+
+@keyframes noticeLivePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Event registration status (set in the admin console)
+   -------------------------------------------------------------------------- */
+.event-card__badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Closed / completed cards stay legible but read as "past". The status
+   itself is carried by the disabled CTA alone — no extra chip, no second
+   "Registration Closed" line in the footer. */
+.event-card--poster.is-registration-closed .event-card__poster-img {
+  filter: saturate(0.55) brightness(0.86);
+}
+
+/* When the footer holds only the CTA (closed / completed), pin it right so it
+   stays in the same place as on an open card. */
+.event-card--poster .event-card-footer > .btn {
+  margin-left: auto;
+}
+
+/* The disabled CTA: no pointer, no hover lift, no gold fill */
+.event-cta-disabled,
+.btn.event-cta-disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.event-cta-disabled::before {
+  content: '🔒';
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.btn.event-cta-disabled.is-completed::before {
+  content: '✓';
+  color: var(--accent-green, #10B981);
+}
+
+.event-cta-disabled:hover,
+.event-cta-disabled:focus {
+  border-color: var(--border-strong);
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+/* Committee / people cards */
+.committee-card {
+  height: 100%;
+  border-radius: var(--polish-radius);
+}
+
+.committee-card-header {
+  align-items: center;
+}
+
+/* Membership status result card keeps its data rows left aligned */
+.member-status-card,
+.member-status-card * {
+  text-align: left;
+}
+
+/* Form cards inside the membership page stay readable (not centred copy) */
+#applicationFormCard,
+#memberRecordLookupCard {
+  align-items: stretch;
+  text-align: left;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) !important;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(226, 212, 183, 0.06), rgba(25, 56, 47, 0.45));
+  border: 1px solid rgba(226, 212, 183, 0.18);
+  box-shadow:
+    0 1px 0 rgba(226, 212, 183, 0.08) inset,
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+#memberRecordLookupCard .section-intro,
+#memberRecordLookupCard .section-intro p,
+#memberRecordLookupCard .section-intro h3 {
+  text-align: center;
+}
+
+#memberRecordLookupCard .section-intro h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.6vw, 1.9rem);
+  color: var(--text-primary);
+}
+
+#memberRecordLookupCard .member-lookup-form {
+  margin-top: 1.2rem;
+}
+
+#memberRecordLookupCard #memberLookupResults {
+  margin-top: 1.4rem;
+}
+
+/* Stat strips, CTA banners and featured resources stretch full width */
+.stats-strip .container,
+.cta-banner,
+.featured-resource-card {
+  width: 100%;
+}
+
+/* Filter toolbars: centred under the centred section headings */
+.event-filters,
+.committee-toolbar {
+  justify-content: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.filter-pills,
+.committee-nav-pills {
+  justify-content: center;
+}
+
+.search-input-wrap {
+  flex: 0 1 320px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons — uniform height and centred label flow
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   7. Membership page — Status Check + Application switching
+   -------------------------------------------------------------------------- */
+.membership-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto clamp(1.75rem, 3vw, 2.5rem);
+  padding: 0.35rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.membership-switch__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 0.72rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+              transform var(--transition);
+  white-space: nowrap;
+}
+
+.membership-switch__btn:hover {
+  color: var(--text-primary);
+}
+
+.membership-switch__btn:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.membership-switch__btn[aria-selected='true'] {
+  background: var(--accent-gold);
+  color: #0b1120;
+  box-shadow: 0 4px 16px rgba(226, 212, 183, 0.28);
+}
+
+.membership-panel[hidden] {
+  display: none !important;
+}
+
+.membership-panel {
+  animation: membershipPanelIn 0.35s ease both;
+}
+
+@keyframes membershipPanelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .membership-panel { animation: none; }
+}
+
+/* Application wizard — centred progress, tidy step headings */
+#applicationFormCard > * {
+  width: 100%;
+}
+
+#applicationFormCard .wizard-progress {
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+#applicationFormCard .wizard-step > h3 {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
+#applicationFormCard .wizard-step > p {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 1.75rem;
+}
+
+#applicationFormCard .wizard-navigation {
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* The 4-step form supplies its own card shell */
+#applicationFormCard .form-group {
+  text-align: left;
+}
+
+#applicationFormCard .tier-card {
+  text-align: center;
+  align-items: center;
+}
+
+/* Membership layout shell */
+.membership-section {
+  padding-top: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.membership-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* The anchor target must clear the fixed header when deep-linked */
+.membership-panel,
+#membershipStatusCheck,
+#applicationFormCard {
+  scroll-margin-top: 104px;
+}
+
+.membership-panel:focus {
+  outline: none;
+}
+
+/* responsive.css applies card padding to #applicationFormCard; the pane is a
+   wrapper now, so it must stay flush with the container. */
+#applicationFormCard.membership-panel,
+#membershipStatusCheck.membership-panel {
+  padding: 0 !important;
+}
+
+.membership-panel + .membership-panel {
+  margin-top: 0;
+}
+
+/* Cross-sell strip from Status Check → Application */
+.membership-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+  padding: clamp(1.15rem, 2.2vw, 1.65rem);
+  border: 1px solid rgba(226, 212, 183, 0.28);
+  border-radius: var(--polish-radius);
+  background: linear-gradient(135deg, rgba(226, 212, 183, 0.10) 0%, rgba(226, 212, 183, 0.02) 100%);
+}
+
+.membership-cta h3 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  text-align: left;
+}
+
+.membership-cta p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+/* The application pane supplies its own spacing */
+#applicationFormCard .application-card {
+  margin: 0;
+}
+
+#applicationFormCard .section-intro {
+  margin-bottom: clamp(1.25rem, 2.2vw, 1.75rem);
+}
+
+/* --------------------------------------------------------------------------
+   8. Utility helpers
+   -------------------------------------------------------------------------- */
+.is-align-center {
+  text-align: center;
+}
+
+.is-align-center > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Mobile & small tablets — compact, never oversized
+   --------------------------------------------------------------------------
+   This block is the last word below 768px so it always beats the desktop
+   scale above and the legacy rules in responsive.css.
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    /* Dense, app-like phone scale: every step is ~1.3px smaller than before so
+       long headings ("ELLS Committee — Autumn 2026", "Executive Committee
+       (Faculty Leadership)") fit one or two clean lines instead of spilling. */
+    --polish-section-y: 1.2rem;
+    --polish-card-pad: 0.88rem;
+    --polish-radius: 12px;
+    --polish-gap: 0.85rem;
+    --fs-display: clamp(1.32rem, 5.3vw, 1.58rem);
+    --fs-section: clamp(1.06rem, 4.15vw, 1.3rem);
+    --fs-sub: clamp(0.94rem, 3.4vw, 1.08rem);
+    --fs-lead: 0.87rem;
+    --fs-body: 0.86rem;
+    --fs-eyebrow: 0.6rem;
+  }
+
+  html {
+    scroll-padding-top: 84px;
+  }
+
+  :target {
+    scroll-margin-top: 84px;
+  }
+
+  section {
+    padding: var(--polish-section-y) 0 !important;
+  }
+
+  .hero {
+    padding: 0.8rem 0 0.65rem !important;
+  }
+
+  .hero-welcome {
+    margin-bottom: 0.62rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 14px;
+    font-size: 0.68rem !important;
+    line-height: 1.42 !important;
+  }
+
+  .hero h1 {
+    max-width: 24ch;
+    margin-bottom: 0.58rem;
+    font-size: var(--fs-display) !important;
+    line-height: 1.16 !important;
+    letter-spacing: -0.018em !important;
+  }
+
+  .hero-lead,
+  .hero p.hero-lead {
+    margin-bottom: 0.9rem;
+    font-size: var(--fs-lead) !important;
+    line-height: 1.5 !important;
+  }
+
+  .section-intro,
+  .section-head {
+    margin-bottom: 0.95rem;
+  }
+
+  .section-intro h2,
+  .section-head h2,
+  h2 {
+    font-size: var(--fs-section) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.012em !important;
+    /* Long titles break on word boundaries, never mid-word orphans */
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+
+  h3 {
+    font-size: var(--fs-sub) !important;
+    line-height: 1.28 !important;
+    overflow-wrap: break-word;
+  }
+
+  .eyebrow {
+    font-size: var(--fs-eyebrow) !important;
+    letter-spacing: 0.14em !important;
+    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    width: 14px;
+  }
+
+  .hero-actions,
+  .section-head__actions {
+    width: 100%;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+  }
+
+  .hero-actions .btn,
+  .section-head__actions .btn {
+    flex: 0 1 auto;
+  }
+
+  .grid,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    gap: 0.9rem !important;
+  }
+
+  .card {
+    padding: 0.95rem !important;
+    border-radius: 12px !important;
+  }
+
+  .card h3,
+  .card h4 {
+    margin-bottom: 0.4rem;
+  }
+
+  .card .card-icon-wrap {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.75rem;
+  }
+
+  .card .card-link {
+    padding-top: 0.7rem;
+  }
+
+  .event-card-header,
+  .event-card-body {
+    padding-left: 0.95rem !important;
+    padding-right: 0.95rem !important;
+  }
+
+  .event-card-body h3 {
+    font-size: 1rem !important;
+  }
+
+  /* Poster cards stack: square poster on top, details directly below */
+  #eventsGrid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Stacked: the base rule is already a column, so only the media panel
+     itself needs re-pinning here. */
+  .event-card__poster {
+    align-self: start;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Date block left, track badge right/inline. On narrow screens wrap so a
+     long track name drops to its own line under the date instead of awkwardly
+     floating at the top-right corner, but stay inline (center-aligned with the
+     date) whenever both fit in one row. */
+  .event-card--poster .event-card-header {
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.95rem 0.95rem 0.6rem;
+  }
+
+  .event-card--poster .event-date-badge {
+    flex: 0 0 auto;
+  }
+
+  .event-card--poster .event-card__badges {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+  }
+
+  .event-card--poster .event-card__badges .badge {
+    white-space: normal;
+    text-align: left;
+    line-height: 1.3;
+  }
+
+  .event-card--poster .event-card-body {
+    padding: 0 0.95rem 0.95rem;
+  }
+
+  .event-card--poster .event-card-body h3 {
+    font-size: 1.02rem !important;
+  }
+
+  .event-card__poster-mark {
+    font-size: 1.55rem;
+  }
+
+  .event-card__poster-caption {
+    font-size: 0.6rem;
+  }
+
+  .membership-switch {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.28rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .membership-switch__btn {
+    flex: 1 1 0;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  /* Inner cards carry inline desktop padding — compact them on phones */
+  #applicationFormCard .application-card,
+  #memberRecordLookupCard {
+    padding: 0.95rem !important;
+  }
+
+  .membership-cta {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 0.85rem;
+    margin-top: 1.15rem;
+    padding: 0.95rem;
+  }
+
+  .membership-cta h3,
+  .membership-cta p {
+    text-align: center;
+  }
+
+  .membership-cta .btn {
+    width: 100%;
+  }
+
+  #membershipStatusCheck .card {
+    margin-bottom: 0 !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Committee headings & cards — the two long offenders on phones
+     ------------------------------------------------------------------------
+     style.css pins `.committee-subheading h3 { white-space: nowrap }`, which
+     pushed "Executive Committee (Faculty Leadership)" past the viewport edge.
+     Below 768px the heading is allowed to wrap, the decorative rule that
+     squeezed it is dropped, and the type steps down so it lands on one line
+     on most phones and two clean lines on the narrowest ones.
+     ------------------------------------------------------------------------ */
+  .committee-subheading {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.35rem 0 0.7rem 0 !important;
+  }
+
+  .committee-subheading:first-of-type {
+    margin-top: 0.35rem !important;
+  }
+
+  .committee-subheading h3 {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance;
+    min-width: 0;
+    max-width: 100%;
+    font-size: clamp(0.92rem, 3.5vw, 1.06rem) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.005em !important;
+    gap: 0.42rem;
+  }
+
+  .committee-subheading h3 svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+  }
+
+  .committee-subheading::after {
+    display: none;
+  }
+
+  .committee-grid {
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .committee-card {
+    padding: 0.82rem 0.88rem !important;
+    gap: 0.28rem;
+    border-radius: 12px !important;
+  }
+
+  .committee-card-header {
+    gap: 0.6rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  .committee-avatar {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.96rem !important;
+    line-height: 1.28 !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .committee-role-badge {
+    font-size: 0.6rem !important;
+    padding: 0.14rem 0.42rem !important;
+    margin-bottom: 0.28rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.5rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .committee-contact-item {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .events-controls-section {
+    padding: 0.9rem 0 0.35rem !important;
+  }
+
+  .events-grid-section {
+    padding-top: 0.35rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  .event-filters,
+  .committee-toolbar {
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ------------------------------------------------------------------------
+     Events category pills — horizontal swipe strip
+     ------------------------------------------------------------------------
+     Below 768px the eight category buttons no longer fit. They become a
+     single non-wrapping rail that scrolls sideways with momentum, and the
+     scrollbar is hidden so it reads as a native app carousel.
+
+     `justify-content: flex-start` is essential: the desktop rule centres the
+     pills, and a centred flex container that overflows clips the FIRST items
+     beyond the left edge, where no amount of scrolling can reach them.
+     ------------------------------------------------------------------------ */
+  .event-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    /* 5px top+bottom keeps the :focus-visible outline from being clipped by
+       overflow-y while still hugging the row on both sides */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    /* Firefox + legacy IE/Edge: no visible scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* WebKit/Blink: no visible scrollbar */
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .filter-pills .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .search-input-wrap {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  /* Featured resource banner stacks cleanly instead of squeezing two columns */
+  .resource-card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.1rem;
+    text-align: center;
+  }
+
+  .resource-card-info,
+  .resource-card-title,
+  .resource-card-desc {
+    text-align: center;
+  }
+
+  .resource-tags-row,
+  .resource-card-credit {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .resource-btn-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ------------------------------------------------------------------------
+     Student ID lookup: full-width field + button, stacked with compact spacing
+     ------------------------------------------------------------------------
+     The markup carries inline flex values tuned for the desktop ROW layout:
+       form           display:flex; align-items:flex-end
+       .form-group    flex: 1 1 260px
+       button         align-self: flex-end
+     Stacking the form into a COLUMN turns that 260px flex-basis into a 260px
+     HEIGHT, which opened the huge empty gap between the Student ID field and
+     the Check Status button. Both children are pinned to their natural height
+     here so the button lands directly under the field.
+     ------------------------------------------------------------------------ */
+  #memberLookupForm {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0.7rem !important;
+  }
+
+  #memberLookupForm .form-group,
+  #memberLookupForm .btn {
+    width: 100%;
+    /* column axis → flex-basis is a HEIGHT: never let it inflate the field */
+    flex: 0 0 auto !important;
+    min-height: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  #memberLookupForm .btn {
+    align-self: stretch !important;
+    height: auto;
+  }
+
+  #applicationFormCard .wizard-step > h3 {
+    margin-bottom: 1rem;
+  }
+
+  #applicationFormCard .wizard-step > p {
+    margin-bottom: 1.1rem;
+  }
+
+  #applicationFormCard .wizard-navigation {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --fs-display: clamp(1.2rem, 5.9vw, 1.44rem);
+    --fs-section: clamp(1rem, 4.6vw, 1.2rem);
+    --fs-sub: clamp(0.88rem, 3.9vw, 1rem);
+    --fs-lead: 0.83rem;
+    --fs-body: 0.83rem;
+    --fs-eyebrow: 0.57rem;
+    --polish-section-y: 1rem;
+    --polish-card-pad: 0.8rem;
+    --polish-gap: 0.72rem;
+  }
+
+  .card {
+    padding: 0.82rem !important;
+  }
+
+  .hero {
+    padding: 0.65rem 0 0.55rem !important;
+  }
+
+  .hero-welcome {
+    padding: 0.3rem 0.62rem;
+    font-size: 0.63rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-lead,
+  .hero p.hero-lead {
+    line-height: 1.45 !important;
+  }
+
+  .committee-subheading {
+    margin: 1.1rem 0 0.6rem 0 !important;
+  }
+
+  .committee-subheading h3 {
+    font-size: 0.88rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .committee-card {
+    padding: 0.72rem 0.78rem !important;
+  }
+
+  .committee-card-header {
+    gap: 0.52rem !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .committee-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .committee-card h4 {
+    font-size: 0.92rem !important;
+  }
+
+  .committee-designation {
+    font-size: 0.76rem !important;
+  }
+
+  .committee-meta-pill {
+    font-size: 0.64rem !important;
+  }
+
+  .hero-actions .btn,
+  .section-head__actions .btn,
+  .membership-switch__btn {
+    font-size: 0.8rem;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    display: none;
+  }
+}
+
+/* Printing: never print the sticky chrome */
+@media print {
+  .site-header,
+  .membership-switch,
+  #membershipStatusCheck,
+  .membership-cta {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile poster visibility guard
+   --------------------------------------------------------------------------
+   Belt-and-braces: regardless of what any earlier rule does, on ≤768px the
+   poster wrapper must render as a visible square tile at the top of the
+   card, the image must fill it, and the card itself must be a column so
+   the poster sits above the details. Any stray display:none or flex-direction
+   rule from a desktop/tablet block is overridden here.
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .event-card--poster {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    padding: 0 !important;
+  }
+
+  .event-card--poster .event-card__poster {
+    display: block !important;
+    position: relative !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    align-self: stretch !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .event-card--poster .event-card__poster-img,
+  .event-card--poster .event-card__poster-placeholder {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .event-card--poster .event-card__details {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .event-card--poster .event-card-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0.6rem !important;
+  }
+
+  .event-card--poster .event-card__badges {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    flex: 1 1 auto !important;
+  }
+}
+
+/* ==========================================================================
+   Oxford Library — flat, sharp, matte visual system
+   CSS-only theme override; DOM structure and layout rules remain untouched.
+   ========================================================================== */
+
+:root {
+  --bg-primary: #2C0E14;
+  --bg-secondary: #2C0E14;
+  --bg-card: #42141E;
+  --bg-card-hover: #42141E;
+  --bg-card-subtle: #42141E;
+  --text-primary: #F4F0E6;
+  --text-secondary: #F4F0E6;
+  --text-muted: #F4F0E6;
+  --text-inverse: #F4F0E6;
+  --accent-gold: #F4F0E6;
+  --accent-gold-hover: #F4F0E6;
+  --accent-green: #F4F0E6;
+  --border-subtle: rgba(244, 240, 230, 0.3);
+  --border-strong: #F4F0E6;
+}
+
+/* Strip all inherited decorative effects, including old theme layers. */
+*,
+*::before,
+*::after {
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  animation: none !important;
+  transition: none !important;
+  border-color: rgba(244, 240, 230, 0.3) !important;
+}
+
+.bg-caps {
+  display: none !important;
+}
+
+html,
+body {
+  background: #2C0E14 !important;
+  background-image: none !important;
+  background-attachment: scroll !important;
+  color: #F4F0E6 !important;
+}
+
+body,
+body * {
+  color: #F4F0E6 !important;
+}
+
+body * {
+  background-color: transparent !important;
+}
+
+/* Matte burgundy chrome and section canvases. */
+.site-header,
+.site-header nav,
+.mobile-nav,
+.mobile-nav-panel,
+.site-footer,
+.developer-credit-bar,
+main,
+main > section,
+.section-secondary,
+.section-tertiary,
+.membership-section,
+.admin-main,
+.admin-sidebar {
+  background-color: #2C0E14 !important;
+}
+
+/* Main content cards and panels use one flat, lighter oxblood surface. */
+.card,
+[class*="-card"],
+.event-card,
+.committee-card,
+.featured-resource-card,
+.notice-board-banner,
+.notice-board-state,
+.admin-card,
+#memberRecordLookupCard,
+#memberLookupResults > *,
+.resource-card-grid,
+.resource-card-info {
+  background-color: #42141E !important;
+  border-color: rgba(244, 240, 230, 0.3) !important;
+}
+
+/* Preserve the committee category hairlines, now in uniform ivory. */
+.committee-card.advisory-card,
+.committee-card.faculty-card,
+.committee-card.student-card {
+  border-top-color: #F4F0E6 !important;
+}
+
+/* Crisp, square form controls with clear ivory outlines. */
+input,
+select,
+textarea,
+.form-control,
+.search-input {
+  background-color: #42141E !important;
+  color: #F4F0E6 !important;
+  border: 1px solid #F4F0E6 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(244, 240, 230, 0.72) !important;
+  opacity: 1;
+}
+
+/* Transparent ivory-outline actions; crimson fill is the only hover accent. */
+.btn-primary,
+button.btn-primary,
+a.btn-primary {
+  background-color: transparent !important;
+  color: #F4F0E6 !important;
+  border: 1.5px solid #F4F0E6 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-primary:active {
+  background-color: #7A1B29 !important;
+  color: #F4F0E6 !important;
+  border-color: #F4F0E6 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+/* Remove lift and transform effects from the former animated/glass cards. */
+.card:hover,
+.event-card:hover,
+.committee-card:hover,
+.notice-board-banner:hover,
+.featured-resource-card:hover,
+button:hover,
+a:hover {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+/* Remove all residual hover lifts and transforms for a print-flat interface. */
+*:hover,
+*:focus-visible,
+*:active {
+  transform: none !important;
+}
+
+/* All icon art follows the same crisp ivory ink. */
+svg,
+svg *,
+.icon,
+[class*="icon"] {
+  color: #F4F0E6 !important;
+}
+
+svg {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
