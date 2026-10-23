@@ -2033,131 +2033,177 @@ main > .hero .container,
 }
 
 /* ==========================================================================
-   Premium visual layer — glass surfaces, soft-pressed CTAs, scroll reveal
-   Visual-only overrides: no component structure or responsive layout changes.
+   Oxford Library — flat, sharp, matte visual system
+   CSS-only theme override; DOM structure and layout rules remain untouched.
    ========================================================================== */
 
-/* Glassmorphism on the site's primary content panels. */
+:root {
+  --bg-primary: #2C0E14;
+  --bg-secondary: #2C0E14;
+  --bg-card: #42141E;
+  --bg-card-hover: #42141E;
+  --bg-card-subtle: #42141E;
+  --text-primary: #F4F0E6;
+  --text-secondary: #F4F0E6;
+  --text-muted: #F4F0E6;
+  --text-inverse: #F4F0E6;
+  --accent-gold: #F4F0E6;
+  --accent-gold-hover: #F4F0E6;
+  --accent-green: #F4F0E6;
+  --border-subtle: rgba(244, 240, 230, 0.3);
+  --border-strong: #F4F0E6;
+}
+
+/* Strip all inherited decorative effects, including old theme layers. */
+*,
+*::before,
+*::after {
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  animation: none !important;
+  transition: none !important;
+  border-color: rgba(244, 240, 230, 0.3) !important;
+}
+
+.bg-caps {
+  display: none !important;
+}
+
+html,
+body {
+  background: #2C0E14 !important;
+  background-image: none !important;
+  background-attachment: scroll !important;
+  color: #F4F0E6 !important;
+}
+
+body,
+body * {
+  color: #F4F0E6 !important;
+}
+
+body * {
+  background-color: transparent !important;
+}
+
+/* Matte burgundy chrome and section canvases. */
+.site-header,
+.site-header nav,
+.mobile-nav,
+.mobile-nav-panel,
+.site-footer,
+.developer-credit-bar,
+main,
+main > section,
+.section-secondary,
+.section-tertiary,
+.membership-section,
+.admin-main,
+.admin-sidebar {
+  background-color: #2C0E14 !important;
+}
+
+/* Main content cards and panels use one flat, lighter oxblood surface. */
 .card,
+[class*="-card"],
 .event-card,
 .committee-card,
 .featured-resource-card,
-.notice-board-banner {
-  background: rgba(15, 42, 29, 0.4);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-color: rgba(255, 255, 255, 0.08);
+.notice-board-banner,
+.notice-board-state,
+.admin-card,
+#memberRecordLookupCard,
+#memberLookupResults > *,
+.resource-card-grid,
+.resource-card-info {
+  background-color: #42141E !important;
+  border-color: rgba(244, 240, 230, 0.3) !important;
 }
 
-/* Keep the committee tier hairlines and add a glass edge to the vault panel. */
+/* Preserve the committee category hairlines, now in uniform ivory. */
 .committee-card.advisory-card,
 .committee-card.faculty-card,
 .committee-card.student-card {
-  border-top-width: 3px;
+  border-top-color: #F4F0E6 !important;
 }
 
-.committee-card.advisory-card {
-  border-top-color: var(--accent-gold);
+/* Crisp, square form controls with clear ivory outlines. */
+input,
+select,
+textarea,
+.form-control,
+.search-input {
+  background-color: #42141E !important;
+  color: #F4F0E6 !important;
+  border: 1px solid #F4F0E6 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
-.committee-card.faculty-card {
-  border-top-color: var(--accent-green);
+input::placeholder,
+textarea::placeholder {
+  color: rgba(244, 240, 230, 0.72) !important;
+  opacity: 1;
 }
 
-.committee-card.student-card {
-  border-top-color: var(--border-strong);
-}
-
-.featured-resource-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Retain the site's established accent glow on hover while keeping the glass tint. */
-.card:hover,
-.event-card:hover,
-.committee-card:hover {
-  background: rgba(15, 42, 29, 0.56);
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-.notice-board-banner:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-/* Soft neumorphic primary actions in biscuit/off-white. */
-.btn-primary {
-  background: #E6DAB9;
-  color: #12382A;
-  border-color: transparent;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5),
-              -2px -2px 8px rgba(230, 218, 185, 0.1);
-  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease,
-              transform 180ms ease;
+/* Transparent ivory-outline actions; crimson fill is the only hover accent. */
+.btn-primary,
+button.btn-primary,
+a.btn-primary {
+  background-color: transparent !important;
+  color: #F4F0E6 !important;
+  border: 1.5px solid #F4F0E6 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
 }
 
 .btn-primary:hover,
-.btn-primary:focus-visible {
-  background: #E6DAB9;
-  color: #12382A;
-  border-color: transparent;
-  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.24),
-              inset -2px -2px 6px rgba(255, 255, 255, 0.28),
-              0 0 0 2px rgba(230, 218, 185, 0.16);
-  transform: translateY(0);
-}
-
+.btn-primary:focus-visible,
 .btn-primary:active {
-  background: #DCCDA5;
-  color: #12382A;
-  box-shadow: inset 4px 4px 9px rgba(0, 0, 0, 0.3),
-              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
-  transform: translateY(1px);
+  background-color: #7A1B29 !important;
+  color: #F4F0E6 !important;
+  border-color: #F4F0E6 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
 }
 
-/* Fixed-attachment Heritage gradient gives the page a gentle parallax feel. */
-body {
-  background-attachment: fixed;
+/* Remove lift and transform effects from the former animated/glass cards. */
+.card:hover,
+.event-card:hover,
+.committee-card:hover,
+.notice-board-banner:hover,
+.featured-resource-card:hover,
+button:hover,
+a:hover {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
 }
 
-/* Progressive enhancement: reveal content as it enters the viewport.
-   Individual `scale` avoids interfering with existing hover transforms. */
-@supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
-  .card,
-  .event-card,
-  .committee-card,
-  .notice-board-banner,
-  .featured-resource-card {
-    animation: premium-card-reveal 700ms linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% entry 100%;
-  }
-
-  @keyframes premium-card-reveal {
-    from {
-      opacity: 0;
-      scale: 0.95;
-    }
-    to {
-      opacity: 1;
-      scale: 1;
-    }
-  }
+/* Remove all residual hover lifts and transforms for a print-flat interface. */
+*:hover,
+*:focus-visible,
+*:active {
+  transform: none !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .btn-primary,
-  .btn-primary:hover,
-  .btn-primary:focus-visible,
-  .btn-primary:active {
-    transition: none;
-  }
+/* All icon art follows the same crisp ivory ink. */
+svg,
+svg *,
+.icon,
+[class*="icon"] {
+  color: #F4F0E6 !important;
+}
 
-  .card,
-  .event-card,
-  .committee-card,
-  .notice-board-banner,
-  .featured-resource-card {
-    animation: none !important;
-    scale: 1 !important;
-  }
+svg {
+  fill: currentColor !important;
+  stroke: currentColor !important;
 }
