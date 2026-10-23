@@ -6,8 +6,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0B1120",
-  "theme_color": "#0B1120",
+  "background_color": "#E8D1A7",
+  "theme_color": "#E8D1A7",
   "icons": [
     {
       "src": "images/ells-logo.png",

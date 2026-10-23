@@ -48,12 +48,12 @@
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 9999;
-    transition: top 0.3s ease-in-out;
-    background-color: rgba(11, 17, 32, 0.98) !important;
+    z-index: 10000;
+    background-color: #E8D1A7 !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(226, 212, 183, 0.35) !important;
+    border-bottom: 1px solid #84592B !important;
+    width: 100%;
     max-width: 100%;
     will-change: top;
   }
@@ -108,7 +108,7 @@
   .logo-line-2 {
     font-size: 0.72rem !important;
     letter-spacing: 0.03em !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
     white-space: nowrap;
   }
 
@@ -149,7 +149,7 @@
     max-width: 100vw !important;
     height: calc(100vh - 70px) !important;
     height: calc(100dvh - 70px) !important;
-    background-color: #0B1120 !important;
+    background-color: #E8D1A7 !important;
     z-index: 9999 !important;
     padding: 1.5rem 1.5rem 2.5rem 1.5rem !important;
     box-sizing: border-box !important;
@@ -159,8 +159,8 @@
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    border-top: 1px solid rgba(226, 212, 183, 0.3) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+    box-shadow: none !important;
 
     /* Proper overlay appearance: fade and slide down without moving background text */
     opacity: 0 !important;
@@ -200,7 +200,7 @@
   .nav-link {
     font-size: 1.15rem !important;
     font-weight: 600 !important;
-    color: #cbd5e1 !important;
+    color: #442D1C !important;
     width: 100% !important;
     padding: 1rem 0.5rem !important;
     display: flex !important;
@@ -217,23 +217,23 @@
 
   .nav-link:hover,
   .nav-link:focus {
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(226, 212, 183, 0.08) !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
   }
 
   .nav-link.active {
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     font-weight: 700 !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(226, 212, 183, 0.12) !important;
+    background-color: rgba(116, 48, 20, 0.10) !important;
   }
 
   .nav-link.active::after {
     display: inline-block !important;
     content: '→' !important;
     font-size: 1.15rem !important;
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     position: static !important;
     width: auto !important;
     height: auto !important;
@@ -270,7 +270,7 @@
     padding: 0.75rem 1rem !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: var(--radius-sm) !important;
-    color: #cbd5e1 !important;
+    color: #442D1C !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
     transition: all var(--transition) !important;
@@ -278,9 +278,9 @@
   }
 
   .mobile-nav-social:hover {
-    color: #E2D4B7 !important;
-    border-color: #E2D4B7 !important;
-    background-color: rgba(226, 212, 183, 0.08) !important;
+    color: #743014 !important;
+    border-color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
   }
 
   /* Backdrop Overlay */
@@ -291,7 +291,7 @@
     width: 100vw !important;
     height: calc(100vh - 70px) !important;
     height: calc(100dvh - 70px) !important;
-    background: rgba(11, 17, 32, 0.75) !important;
+    background: rgba(68, 45, 28, 0.32) !important;
     z-index: 9998 !important;
     opacity: 0 !important;
     pointer-events: none !important;
@@ -821,7 +821,7 @@
     font-size: 0.68rem !important;
     letter-spacing: 0.02em !important;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .site-logo-img {
@@ -1063,7 +1063,7 @@
     margin: 0 auto !important;
     padding: 8mm 9mm !important;
     background: #ffffff !important;
-    border: 3.5px double #E2D4B7 !important;
+    border: 3.5px double #743014 !important;
     border-radius: 8px !important;
     position: relative !important;
     box-shadow: none !important;
@@ -1080,7 +1080,7 @@
     position: absolute !important;
     width: 22px !important;
     height: 22px !important;
-    border-color: #E2D4B7 !important;
+    border-color: #743014 !important;
     border-style: solid !important;
   }
 
@@ -1095,7 +1095,7 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     flex: 1 !important;
-    border: 1.5px solid #0B1120 !important;
+    border: 1.5px solid #E8D1A7 !important;
     border-radius: 4px !important;
     padding: 6mm 8mm !important;
     box-sizing: border-box !important;
@@ -1135,7 +1135,7 @@
     font-size: 1.15rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.04em !important;
-    color: #0B1120 !important;
+    color: #E8D1A7 !important;
     text-transform: uppercase !important;
     margin-bottom: 0.2rem !important;
     line-height: 1.25 !important;
@@ -1158,7 +1158,7 @@
   .cert-society-heading {
     font-size: 0.84rem !important;
     font-weight: 700 !important;
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
     line-height: 1.3 !important;
@@ -1167,9 +1167,9 @@
 
   .cert-award-ribbon {
     display: inline-block !important;
-    background: rgba(226, 212, 183, 0.12) !important;
-    border: 1.5px solid #E2D4B7 !important;
-    color: #E2D4B7 !important;
+    background: rgba(116, 48, 20, 0.10) !important;
+    border: 1.5px solid #743014 !important;
+    color: #743014 !important;
     padding: 0.28rem 1.3rem !important;
     border-radius: 6px !important;
     font-size: 0.78rem !important;
@@ -1182,9 +1182,9 @@
   .membership-card-pass {
     display: block !important;
     position: relative !important;
-    background: linear-gradient(135deg, #0B1120 0%, #132A24 50%, #19382F 100%) !important;
-    color: #ffffff !important;
-    border: 2.5px solid #E2D4B7 !important;
+    background: linear-gradient(135deg, #E8D1A7 0%, #132A24 50%, #19382F 100%) !important;
+    color: #442D1C !important;
+    border: 2.5px solid #743014 !important;
     border-radius: 14px !important;
     padding: 1.6rem 2.2rem !important;
     width: 100% !important;
@@ -1234,13 +1234,13 @@
     font-size: 1.15rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.05em !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .pass-tier-badge {
-    background: rgba(226, 212, 183, 0.25) !important;
-    border: 1px solid #E2D4B7 !important;
-    color: #E2D4B7 !important;
+    background: rgba(212, 175, 55, 0.25) !important;
+    border: 1px solid #743014 !important;
+    color: #743014 !important;
     padding: 0.3rem 0.85rem !important;
     border-radius: 9999px !important;
     font-size: 0.75rem !important;
@@ -1257,7 +1257,7 @@
     font-family: var(--font-serif), Georgia, serif !important;
     font-size: 1.7rem !important;
     font-weight: 800 !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
     letter-spacing: 0.02em !important;
     margin-bottom: 0.25rem !important;
     line-height: 1.2 !important;
@@ -1281,7 +1281,7 @@
     font-size: 0.7rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.12em !important;
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     margin-bottom: 0.2rem !important;
     font-weight: 700 !important;
   }
@@ -1290,7 +1290,7 @@
     font-family: 'Google Sans Flex', var(--font-primary), monospace !important;
     font-size: 0.95rem !important;
     font-weight: 600 !important;
-    color: #ffffff !important;
+    color: #442D1C !important;
   }
 
   .pass-footer {
@@ -1308,11 +1308,11 @@
     display: flex !important;
     align-items: center !important;
     gap: 0.4rem !important;
-    color: #E2D4B7 !important;
+    color: #743014 !important;
   }
 
   .pass-seal-graphic svg {
-    fill: #E2D4B7 !important;
+    fill: #743014 !important;
   }
 
   /* 8. Formal Declaration Text */
@@ -1359,14 +1359,14 @@
   .cert-sig-line {
     width: 155px !important;
     height: 1.5px !important;
-    background: #0B1120 !important;
+    background: #E8D1A7 !important;
     margin: 0 auto 0.45rem auto !important;
   }
 
   .cert-sig-designation {
     font-weight: 700 !important;
     font-size: 0.82rem !important;
-    color: #0B1120 !important;
+    color: #E8D1A7 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.04em !important;
     min-height: 1.25rem !important;
@@ -1394,22 +1394,22 @@
     width: 72px !important;
     height: 72px !important;
     border-radius: 50% !important;
-    border: 1.5px dashed #E2D4B7 !important;
-    background: rgba(226, 212, 183, 0.08) !important;
-    color: #E2D4B7 !important;
+    border: 1.5px dashed #743014 !important;
+    background: rgba(116, 48, 20, 0.07) !important;
+    color: #743014 !important;
     padding: 3px !important;
     box-sizing: border-box !important;
   }
 
   .cert-seal-stamp svg {
-    stroke: #E2D4B7 !important;
+    stroke: #743014 !important;
   }
 
   .cert-seal-tag {
     font-size: 0.56rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.08em !important;
-    color: #E2D4B7 !important;
+    color: #743014 !important;
     margin-top: 2px !important;
   }
 
@@ -1460,431 +1460,171 @@
     transform: rotate(var(--cap-rot, 0deg));
   }
 }
+
+
 /* ==========================================================================
-   PREMIUM COMPACT MOBILE EXPERIENCE — App-like density for 768px & 480px
-   Goal: 30-40% less vertical whitespace, tighter typography & component gaps,
-   while keeping Midnight Blue & Soft Gold legibility. These overrides are
-   intentionally last in the file so they win over earlier mobile rules.
+   AUTUMN ACADEMIA — Responsive Vintage Overrides (Flat, no gradients/shadows)
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   Compact Typography — 768px
-   Proportional reduction + tighter line-height / letter-spacing for density
-   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .site-header { background: #E8D1A7 !important; background-color: #E8D1A7 !important; }
+}
+
+/* Mobile Devices (max-width: 768px) — Vintage flat */
 @media (max-width: 768px) {
-  h1 {
-    font-size: clamp(1.55rem, 5.2vw, 1.95rem) !important;
-    line-height: 1.18 !important;
-    letter-spacing: -0.018em !important;
-    margin-bottom: 0.45rem !important;
+  /* Header — flat Golden Batter */
+  .site-header {
+    background-color: #E8D1A7 !important;
+    background: #E8D1A7 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid #84592B !important;
+    box-shadow: none !important;
   }
-  h2 {
-    font-size: clamp(1.25rem, 4.6vw, 1.6rem) !important;
-    line-height: 1.22 !important;
-    letter-spacing: -0.012em !important;
-    margin-bottom: 0.4rem !important;
+  .logo-line-1,
+  .logo-line-2 {
+    color: #442D1C !important;
   }
-  h3 {
-    font-size: clamp(1.02rem, 3.8vw, 1.22rem) !important;
-    line-height: 1.26 !important;
-    letter-spacing: -0.008em !important;
-    margin-bottom: 0.35rem !important;
+  .site-logo-img { border-color: #84592B !important; }
+
+  /* Mobile navigation drawer — flat vintage paper */
+  .main-nav {
+    background-color: #E8D1A7 !important;
+    background: #E8D1A7 !important;
+    border-top: 1px solid #84592B !important;
+    box-shadow: none !important;
+    background-image: none !important;
   }
-  h4 {
-    font-size: 0.98rem !important;
-    line-height: 1.28 !important;
-    letter-spacing: -0.005em !important;
-    margin-bottom: 0.3rem !important;
+  .nav-links li {
+    border-bottom: 1px solid rgba(132, 89, 43, 0.18) !important;
   }
-  .hero h1 {
-    font-size: clamp(1.5rem, 6vw, 1.92rem) !important;
-    line-height: 1.16 !important;
-    letter-spacing: -0.02em !important;
-    margin-bottom: 0.45rem !important;
+  .nav-link {
+    color: #442D1C !important;
   }
-  .hero p,
-  .hero-lead,
-  .section-intro p,
-  .section-intro .hero-lead {
-    font-size: 0.88rem !important;
-    line-height: 1.42 !important;
-    letter-spacing: -0.005em !important;
-    margin-bottom: 0.65rem !important;
+  .nav-link:hover,
+  .nav-link:focus {
+    color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
   }
-  .eyebrow {
-    font-size: 0.68rem !important;
-    letter-spacing: 0.1em !important;
-    margin-bottom: 0.32rem !important;
-    line-height: 1.2 !important;
+  .nav-link.active {
+    color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.10) !important;
   }
-  p {
-    font-size: 0.88rem !important;
-    line-height: 1.48 !important;
-    letter-spacing: -0.006em !important;
-    margin-bottom: 0.55rem !important;
+  .nav-link.active::after {
+    color: #743014 !important;
   }
-  .stat-number {
-    font-size: clamp(1.5rem, 5vw, 1.9rem) !important;
-    line-height: 1.1 !important;
-    margin-bottom: 0.2rem !important;
+  .mobile-nav-footer {
+    border-top: 1px solid #84592B !important;
   }
-  .stat-label {
-    font-size: 0.78rem !important;
-    line-height: 1.25 !important;
+  .mobile-nav-social {
+    border: 1px solid #84592B !important;
+    color: #84592B !important;
+    border-radius: 4px !important;
+    background: transparent !important;
   }
-  .card h3,
-  .committee-card h4,
-  .event-card-body h3 {
-    line-height: 1.25 !important;
-    letter-spacing: -0.008em !important;
+  .mobile-nav-social:hover {
+    color: #743014 !important;
+    border-color: #743014 !important;
+    background-color: rgba(116, 48, 20, 0.07) !important;
+  }
+  .mobile-nav-social svg { fill: currentColor !important; }
+  .nav-backdrop {
+    background: rgba(68, 45, 28, 0.32) !important;
   }
 
-  /* ------------------------------------------------------------------------
-     Reduce Whitespace — Global Sections 30-40% tighter on mobile
-     ------------------------------------------------------------------------ */
-  section {
-    padding: 1.9rem 0 !important;
+  /* Stats, cards — ensure flat vintage on mobile */
+  .stats-grid { gap: 0 !important; }
+  .stat-item { border-bottom: 1px solid #84592B !important; border-right: none !important; }
+  .stat-number { color: #442D1C !important; }
+  .stat-label { color: #442D1C !important; }
+
+  /* Buttons on mobile — 4px, flat Spiced Wine */
+  .hero-actions .btn,
+  .mobile-nav-cta {
+    border-radius: 4px !important;
+    box-shadow: none !important;
   }
-  .hero {
-    padding: 1.6rem 0 1.2rem 0 !important;
-  }
-  .section-secondary {
-    padding: 1.7rem 0 !important;
-  }
-  .section-pillars {
-    padding: 1.8rem 0 !important;
-  }
-  .stats-strip {
-    padding: 1.2rem 0 !important;
-  }
-  .section-intro {
-    margin-bottom: 1.1rem !important;
-    max-width: 100% !important;
-  }
-  .section-intro h2 {
-    margin-bottom: 0.35rem !important;
-  }
-  .section-intro p {
-    margin-bottom: 0 !important;
-  }
-  .container {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 0.45rem !important;
+  .mobile-nav-cta {
+    background: #743014 !important;
+    color: #E8D1A7 !important;
+    border: 1px solid #743014 !important;
+    background-image: none !important;
   }
 
-  /* ------------------------------------------------------------------------
-     Compact Components — tighter padding & gaps, more content per screen
-     ------------------------------------------------------------------------ */
-  .card {
-    padding: 0.95rem !important;
-    gap: 0.5rem !important;
-  }
-  .card-icon-wrap {
-    width: 42px !important;
-    height: 42px !important;
-    margin-bottom: 0.6rem !important;
-  }
-  .card-icon-wrap svg {
-    width: 20px !important;
-    height: 20px !important;
-  }
-  .card p {
-    margin-bottom: 0.55rem !important;
-    font-size: 0.86rem !important;
-    line-height: 1.45 !important;
-  }
-  .grid, .grid-2, .grid-3, .grid-4, .tiers-grid {
-    gap: 0.85rem !important;
-  }
-  .committee-grid {
-    gap: 0.8rem !important;
-    margin-bottom: 1.1rem !important;
-  }
-  .committee-card {
-    padding: 0.9rem !important;
-    gap: 0.4rem !important;
-  }
-  .committee-card-header {
-    margin-bottom: 0.5rem !important;
-    gap: 0.6rem !important;
-  }
-  .committee-subheading {
-    margin: 1.6rem 0 0.8rem 0 !important;
-    gap: 0.7rem !important;
-  }
-  .committee-toolbar {
-    padding: 0.7rem 0.85rem !important;
-    margin-bottom: 1.1rem !important;
-    gap: 0.6rem !important;
-  }
-  .committee-pill {
-    padding: 0.32rem 0.7rem !important;
-    font-size: 0.78rem !important;
-  }
-  .event-card {
-    border-radius: 10px !important;
-  }
-  .event-card-header {
-    padding: 0.85rem 0.9rem 0.5rem 0.9rem !important;
-    gap: 0.5rem !important;
-  }
-  .event-card-body {
-    padding: 0 0.9rem 0.85rem 0.9rem !important;
-  }
-  .event-card-body h3 {
-    margin-bottom: 0.35rem !important;
-    font-size: 1.02rem !important;
-  }
-  .event-meta {
-    gap: 0.28rem !important;
-    margin: 0.5rem 0 0.6rem 0 !important;
-    font-size: 0.81rem !important;
-  }
-  .event-card-footer {
-    padding-top: 0.55rem !important;
-    margin-top: 0.5rem !important;
-  }
-  .event-date-badge {
-    padding: 0.32rem 0.45rem !important;
-    min-width: 48px !important;
-  }
-  .event-date-month {
-    font-size: 0.68rem !important;
-  }
-  .event-date-day {
-    font-size: 1.15rem !important;
-  }
-  .notice-poster-card {
-    padding: 0.95rem !important;
-    gap: 0.6rem !important;
-  }
-  .notice-board-banner,
-  .cta-banner {
-    padding: 0.9rem !important;
-  }
-  .cta-banner {
-    padding: 1.2rem !important;
-  }
-  .cta-banner h2 {
-    margin-bottom: 0.4rem !important;
-  }
-  .cta-banner p {
-    margin-bottom: 0.8rem !important;
-  }
-  .hero-actions {
-    gap: 0.55rem !important;
-    margin-top: 0.4rem !important;
-  }
-  .hero-actions .btn {
-    padding: 0.65rem 1rem !important;
-    font-size: 0.88rem !important;
-  }
-  .btn {
-    padding: 0.6rem 1.1rem !important;
-    font-size: 0.88rem !important;
-    gap: 0.4rem !important;
-  }
-  .btn-sm {
-    padding: 0.42rem 0.75rem !important;
-    font-size: 0.8rem !important;
-  }
-  .badge {
-    padding: 0.18rem 0.45rem !important;
-    font-size: 0.68rem !important;
+  /* Ensure no pill shapes remain */
+  .filter-btn,
+  .committee-pill,
+  .search-input-wrap input {
+    border-radius: 4px !important;
   }
 
-  /* Footer — compact, app-like */
-  .site-footer {
-    padding: 1.6rem 0 0.9rem 0 !important;
+  /* News ticker mobile — flat Olive Harvest */
+  .news-ticker-bar {
+    background: #9D9167 !important;
+    background-image: none !important;
+    border-bottom: 1px solid #84592B !important;
   }
-  .footer-grid {
-    gap: 1.1rem !important;
-    margin-bottom: 1.2rem !important;
+
+  /* Notice board banner mobile — flat */
+  .notice-board-banner {
+    background: #9D9167 !important;
+    background-image: none !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
   }
-  .footer-brand p {
-    margin-top: 0.6rem !important;
-    font-size: 0.84rem !important;
-    line-height: 1.45 !important;
+  .notice-board-badge {
+    background: #743014 !important;
+    color: #E8D1A7 !important;
+    box-shadow: none !important;
   }
-  .social-media-container {
-    margin-top: 0.8rem !important;
-  }
+
+  /* Footer mobile — flat */
+  .footer-grid { gap: 2rem !important; }
   .partner-affiliation {
-    margin-top: 0.9rem !important;
-    padding: 0.85rem 1rem !important;
-    gap: 0.5rem !important;
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    box-shadow: none !important;
+    background-image: none !important;
   }
-  .footer-col h4 {
-    margin-bottom: 0.5rem !important;
-    font-size: 0.82rem !important;
-  }
-  .footer-links {
-    gap: 0.4rem !important;
-  }
-  .footer-links li {
-    font-size: 0.82rem !important;
-    line-height: 1.35 !important;
-  }
-  .footer-bottom {
-    padding-top: 0.9rem !important;
-    gap: 0.6rem !important;
-    font-size: 0.78rem !important;
-  }
-  .footer-quote {
-    font-size: 0.88rem !important;
+
+  /* Cards on mobile — flat */
+  .card, .event-card, .committee-card, .tier-card {
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
   }
 }
 
-/* --------------------------------------------------------------------------
-   Extra Compact — 480px (small phones)
-   Even tighter density while keeping legible
-   -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-  h1 {
-    font-size: clamp(1.32rem, 5.8vw, 1.65rem) !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.02em !important;
-    margin-bottom: 0.35rem !important;
+  .logo-line-1,
+  .logo-line-2 {
+    color: #442D1C !important;
   }
-  h2 {
-    font-size: clamp(1.12rem, 5vw, 1.38rem) !important;
-    line-height: 1.18 !important;
-    margin-bottom: 0.32rem !important;
+  .site-logo-img {
+    border-color: #84592B !important;
   }
-  h3 {
-    font-size: 0.98rem !important;
-    line-height: 1.22 !important;
-    margin-bottom: 0.3rem !important;
+  .membership-card-pass {
+    background: #9D9167 !important;
+    border: 1px solid #84592B !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    background-image: none !important;
   }
-  h4 {
-    font-size: 0.92rem !important;
-    line-height: 1.25 !important;
+  .membership-certificate-frame {
+    border: 3px double #743014 !important;
+    background: #E8D1A7 !important;
+    box-shadow: none !important;
+    background-image: none !important;
   }
-  .hero h1 {
-    font-size: clamp(1.32rem, 6.5vw, 1.68rem) !important;
-    line-height: 1.12 !important;
-    margin-bottom: 0.35rem !important;
-  }
-  .hero p,
-  .hero-lead,
-  .section-intro p {
-    font-size: 0.84rem !important;
-    line-height: 1.38 !important;
-    margin-bottom: 0.5rem !important;
-  }
-  .eyebrow {
-    font-size: 0.62rem !important;
-    letter-spacing: 0.08em !important;
-    margin-bottom: 0.25rem !important;
-  }
-  p {
-    font-size: 0.84rem !important;
-    line-height: 1.42 !important;
-    margin-bottom: 0.45rem !important;
-  }
-  section {
-    padding: 1.4rem 0 !important;
-  }
-  .hero {
-    padding: 1.2rem 0 0.9rem 0 !important;
-  }
-  .section-secondary {
-    padding: 1.3rem 0 !important;
-  }
-  .section-pillars,
-  .stats-strip {
-    padding: 1.1rem 0 !important;
-  }
-  .section-intro {
-    margin-bottom: 0.9rem !important;
-  }
-  .container {
-    padding-left: 0.85rem !important;
-    padding-right: 0.85rem !important;
-  }
-  .card {
-    padding: 0.8rem !important;
-    border-radius: 10px !important;
-  }
-  .grid, .grid-2, .grid-3, .grid-4, .tiers-grid, .committee-grid {
-    gap: 0.7rem !important;
-  }
-  .committee-card {
-    padding: 0.75rem !important;
-  }
-  .committee-card h4 {
-    font-size: 0.95rem !important;
-  }
-  .committee-avatar {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 0.82rem !important;
-  }
-  .committee-role-badge {
-    font-size: 0.62rem !important;
-    padding: 0.15rem 0.4rem !important;
-  }
-  .committee-subheading {
-    margin: 1.2rem 0 0.6rem 0 !important;
-  }
-  .committee-subheading h3 {
-    font-size: 0.98rem !important;
-  }
-  .committee-toolbar {
-    padding: 0.6rem 0.7rem !important;
-    margin-bottom: 0.9rem !important;
-  }
-  .event-card-header {
-    padding: 0.7rem 0.75rem 0.45rem 0.75rem !important;
-  }
-  .event-card-body {
-    padding: 0 0.75rem 0.7rem 0.75rem !important;
-  }
-  .event-card-body h3 {
-    font-size: 0.96rem !important;
-  }
-  .event-meta {
-    font-size: 0.77rem !important;
-    gap: 0.22rem !important;
-    margin: 0.4rem 0 0.5rem 0 !important;
-  }
-  .event-card-footer {
-    padding-top: 0.45rem !important;
-  }
-  .notice-poster-card {
-    padding: 0.8rem !important;
-  }
-  .cta-banner {
-    padding: 1rem !important;
-    border-radius: 12px !important;
-  }
-  .btn {
-    padding: 0.55rem 0.9rem !important;
-    font-size: 0.84rem !important;
-  }
-  .btn-sm {
-    padding: 0.38rem 0.65rem !important;
-    font-size: 0.76rem !important;
-  }
-  .site-footer {
-    padding: 1.2rem 0 0.7rem 0 !important;
-  }
-  .footer-grid {
-    gap: 0.85rem !important;
-    margin-bottom: 1rem !important;
-  }
-  .footer-col h4 {
-    font-size: 0.78rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-  .footer-links {
-    gap: 0.32rem !important;
-  }
-  .footer-bottom {
-    padding-top: 0.7rem !important;
-    font-size: 0.74rem !important;
+  .member-cert-actions .btn { border-radius: 4px !important; }
+}
+
+/* Ensure all buttons globally have 4px, no pill */
+@media (max-width: 768px) {
+  .btn, .btn-sm, .filter-btn, .committee-pill, .ticker-link-btn {
+    border-radius: 4px !important;
   }
 }
+
