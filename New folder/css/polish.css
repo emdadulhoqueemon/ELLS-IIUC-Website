@@ -1523,13 +1523,14 @@ main > .hero .container,
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  /* Date block left, track badge right, both pinned to the top. nowrap stops
-     the badge dropping under the date and colliding with the title; a long
-     track name wraps inside its own badge instead of shoving the date. */
+  /* Date block left, track badge right/inline. On narrow screens wrap so a
+     long track name drops to its own line under the date instead of awkwardly
+     floating at the top-right corner, but stay inline (center-aligned with the
+     date) whenever both fit in one row. */
   .event-card--poster .event-card-header {
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 0.6rem;
     padding: 0.95rem 0.95rem 0.6rem;
   }
@@ -1541,14 +1542,15 @@ main > .hero .container,
   .event-card--poster .event-card__badges {
     flex: 1 1 auto;
     min-width: 0;
-    justify-content: flex-end;
-    align-items: flex-start;
-    text-align: right;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
   }
 
   .event-card--poster .event-card__badges .badge {
     white-space: normal;
-    text-align: right;
+    text-align: left;
     line-height: 1.3;
   }
 
@@ -1986,6 +1988,21 @@ main > .hero .container,
     flex-direction: column !important;
     width: 100% !important;
     min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .event-card--poster .event-card-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0.6rem !important;
+  }
+
+  .event-card--poster .event-card__badges {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
     flex: 1 1 auto !important;
   }
 }

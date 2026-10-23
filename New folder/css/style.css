@@ -866,7 +866,7 @@ body.nav-open .site-header {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 6vw, 5rem) 0;
+  padding: clamp(5.5rem, 9vw, 8rem) 0 clamp(3.5rem, 6vw, 5rem) 0;
   /* Base layer kept transparent so the ambient cap watermark (z-index: -1)
      shows through; the page canvas already paints --bg-primary. */
   background: radial-gradient(circle at 80% 20%, rgba(226, 212, 183, 0.08) 0%, transparent 60%),
@@ -903,7 +903,7 @@ body.nav-open .site-header {
   font-style: italic;
   color: var(--accent-gold);
   letter-spacing: 0.04em;
-  margin: 1.1rem auto 0;
+  margin: 0.55rem auto 0;
   line-height: 1.35;
   text-align: center;
 }
@@ -927,6 +927,19 @@ body.nav-open .site-header {
 
 .hero-cta-single {
   margin: 0 auto;
+  background: transparent;
+  color: var(--accent-gold);
+  border: 1.5px solid var(--accent-gold);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.hero-cta-single:hover {
+  background: rgba(226, 212, 183, 0.12);
+  color: var(--accent-gold-hover);
+  border-color: var(--accent-gold-hover);
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.18);
+  transform: translateY(-2px);
 }
 
 /* Hero Right: Autumn-2026 Event Calendar Poster & Notice Hub */
@@ -3375,14 +3388,15 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, #EEE2C4 0%, #E2D4B7 100%);
-  color: #0B1120;
+  background: transparent;
+  color: var(--accent-gold);
+  border: 1.5px solid var(--accent-gold);
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 0.85rem 1.6rem;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(226, 212, 183, 0.35);
+  box-shadow: none;
   transition: all 0.25s ease;
   white-space: nowrap;
   margin: 0 auto;
@@ -3390,10 +3404,11 @@ textarea.form-control {
 }
 
 .resource-drive-btn:hover {
-  background: #F8FAFC;
-  color: #0B1120;
+  background: rgba(226, 212, 183, 0.12);
+  color: var(--accent-gold-hover);
+  border-color: var(--accent-gold-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.5);
+  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.18);
 }
 
 .resource-drive-btn svg {
