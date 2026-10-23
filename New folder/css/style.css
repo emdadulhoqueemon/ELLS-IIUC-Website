@@ -60,7 +60,7 @@
    -------------------------------------------------------------------------- */
 :root {
   /* ==========================================================================
-     SECTIONAL COLOR BLOCKING Ã¢â‚¬â€ Editorial Literary Consulting Theme
+     SECTIONAL COLOR BLOCKING ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Editorial Literary Consulting Theme
      Palette:
        --bg-primary: #F4EFE6 (Soft Ivory - Base Canvas & Hero)
        --text-primary & --text-heading: #3B2516 (Deep Chocolate Brown)
@@ -152,7 +152,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   1b. Theme Lock Ã¢â‚¬â€ "Midnight Blue & Soft Gold" is the ONLY theme
+   1b. Theme Lock ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â "Midnight Blue & Soft Gold" is the ONLY theme
    --------------------------------------------------------------------------
    All colour tokens are declared once, permanently, on :root above, and are
    re-applied to <body> directly. There is deliberately no light token set and
@@ -251,7 +251,7 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   2. Typography Ã¢â‚¬â€ Serif for Headings, Clean Sans for Body
+   2. Typography ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Serif for Headings, Clean Sans for Body
    -------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), Georgia, serif;
@@ -685,7 +685,7 @@ body.nav-open .site-header {
   animation-play-state: paused !important;
 }
 
-/* Continuous marquee Ã¢â‚¬â€ the track holds two identical segments, so a -50%
+/* Continuous marquee ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â the track holds two identical segments, so a -50%
    shift lands the second copy exactly where the first one started. */
 @keyframes newsTickerMarquee {
   0% {
@@ -2782,7 +2782,7 @@ textarea.form-control {
   line-height: 1.25;
 }
 
-/* Secretary Badge Highlight Ã¢â‚¬â€ visually distinguish primary Secretaries from Assistants */
+/* Secretary Badge Highlight ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â visually distinguish primary Secretaries from Assistants */
 .committee-role-badge.badge-secretary-primary {
   border: 1.5px solid var(--accent-gold);
   box-shadow: 0 0 0 1px rgba(226, 212, 183, 0.2), 0 4px 12px rgba(226, 212, 183, 0.22), 0 0 18px var(--accent-gold-glow);
@@ -3187,7 +3187,7 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Footer legal block Ã¢â‚¬â€ copyright only. The developer credit lives in its own
+   Footer legal block ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â copyright only. The developer credit lives in its own
    slim full-bleed ribbon at the very end of <body> (see .developer-credit-bar).
    -------------------------------------------------------------------------- */
 .footer-legal {
@@ -3204,14 +3204,14 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   Developer credit bar Ã¢â‚¬â€ a thin, quiet ribbon at the very end of the page
+   Developer credit bar ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a thin, quiet ribbon at the very end of the page
    --------------------------------------------------------------------------
    Sits OUTSIDE <footer class="site-footer"> as a direct child of <body>, so it
    spans the whole viewport instead of the footer's max-width container.
 
    Deliberately understated: a barely-there white veil over the Midnight
    background, a single hairline of muted gold, and soft off-white type. It
-   should read as a footnote Ã¢â‚¬â€ never as a coloured block competing with the
+   should read as a footnote ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â never as a coloured block competing with the
    footer above it. Keep the padding minimal and the type small.
    -------------------------------------------------------------------------- */
 .developer-credit-bar {
@@ -3224,7 +3224,7 @@ textarea.form-control {
   padding: 6px 15px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.05);
-  /* Soft off-white Ã¢â‚¬â€ matches --text-primary without shouting */
+  /* Soft off-white ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â matches --text-primary without shouting */
   color: #F8FAFC;
   font-family: inherit;
   font-size: 0.8rem;
@@ -3523,19 +3523,19 @@ textarea.form-control {
 }
 
 /* --------------------------------------------------------------------------
-   19. Ambient Global Background Ã¢â‚¬â€ Floating Graduation Caps (watermark layer)
+   19. Ambient Global Background ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Floating Graduation Caps (watermark layer)
    --------------------------------------------------------------------------
    A decorative, full-viewport layer of graduation caps that drifts slowly
    across the page. Contract to keep the site safe and readable:
-     Ã¢â‚¬Â¢ z-index: -1            Ã¢â€ â€™ painted underneath every element of the page
-     Ã¢â‚¬Â¢ pointer-events: none   Ã¢â€ â€™ never blocks a click, tap, hover or selection
-     Ã¢â‚¬Â¢ opacity 0.03 Ã¢â‚¬â€œ 0.05    Ã¢â€ â€™ watermark subtlety only (see --bg-caps-opacity)
-     Ã¢â‚¬Â¢ position: fixed        Ã¢â€ â€™ zero impact on document flow / horizontal scroll
-     Ã¢â‚¬Â¢ aria-hidden in markup  Ã¢â€ â€™ invisible to assistive technology
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ z-index: -1            ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ painted underneath every element of the page
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ pointer-events: none   ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ never blocks a click, tap, hover or selection
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ opacity 0.03 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ 0.05    ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ watermark subtlety only (see --bg-caps-opacity)
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ position: fixed        ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ zero impact on document flow / horizontal scroll
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ aria-hidden in markup  ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ invisible to assistive technology
    The solid Midnight Blue background on <body> is untouched: the layer is
    painted above the page canvas and below the (translucent) full-bleed
    section bands, so it reads through them like a watermark on paper.
-   Pure CSS + inline SVG markup Ã¢â‚¬â€ no JavaScript and no icon CDN required.
+   Pure CSS + inline SVG markup ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â no JavaScript and no icon CDN required.
    -------------------------------------------------------------------------- */
 .bg-caps {
   position: fixed;
@@ -3655,14 +3655,16 @@ textarea.form-control {
 /* ==========================================================================
 
 /* ==========================================================================
-   SECTIONAL COLOR BLOCKING & CONTRAST REFINEMENT
+   ROYAL NAVY & GOLD — Theme & Contrast Authority Layer
    Palette:
-     - Deep Brown: #3B2516
-     - Soft Ivory: #F4EFE6
-     - Olive Green: #958F68
+     - Deep Royal Navy Blue: #0A1128 (Canvas, body, html, hero)
+     - Lighter Navy: #1C2541 (Cards, Notice Board, Vault, Event cards)
+     - Crisp Off-White: #F0F4F8 (Headings & Primary Text)
+     - Muted Silver: #A0AAB2 (Secondary Text)
+     - Premium Gold: #D4AF37 (Buttons, Accents, Card Icons)
    ========================================================================== */
 
-/* 1. Global Font ('Asul') */
+/* 1. Global Typography (Keep 'Asul') */
 :root {
   --font-primary: 'Asul', Georgia, serif !important;
   --font-heading: 'Asul', Georgia, serif !important;
@@ -3671,22 +3673,15 @@ textarea.form-control {
   --font-sans: 'Asul', Georgia, serif !important;
   --font-quote: 'Asul', Georgia, serif !important;
 
-  --bg-primary: #F4EFE6;
-  --text-primary: #3B2516;
-  --text-heading: #3B2516;
-  --accent-primary: #8C7A54;
-  --btn-bg: #8C7A54;
-  --text-inverse: #F4EFE6;
-
-  --color-olive: #958F68;
-  --color-chocolate: #3B2516;
-  --color-ivory: #F4EFE6;
-
-  --radius-xs: 0 !important;
-  --radius-sm: 0 !important;
-  --radius-md: 0 !important;
-  --radius-lg: 0 !important;
-  --radius-full: 0 !important;
+  --bg-primary: #0A1128;
+  --bg-card: #1C2541;
+  --bg-secondary: #1C2541;
+  --text-primary: #F0F4F8;
+  --text-heading: #F0F4F8;
+  --text-secondary: #A0AAB2;
+  --accent-primary: #D4AF37;
+  --btn-bg: #D4AF37;
+  --border-radius: 8px;
 }
 
 body:not(.admin-body),
@@ -3696,17 +3691,17 @@ p, span, li, a, button, input, select, textarea, label {
   font-family: 'Asul', Georgia, serif !important;
 }
 
-/* Global Canvas (Light Ivory Base) */
+/* 2. Royal Navy Canvas & Base */
 html {
-  background-color: #F4EFE6 !important;
-  color-scheme: light;
+  background-color: #0A1128 !important;
+  color-scheme: dark;
 }
 
 body:not(.admin-body) {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
+  background: #0A1128 !important;
+  background-color: #0A1128 !important;
   background-image: none !important;
-  color: #3B2516 !important;
+  color: #F0F4F8 !important;
 }
 
 main:not(.admin-main),
@@ -3715,16 +3710,31 @@ main:not(.admin-main),
   background-color: transparent !important;
 }
 
-/* 2. Top Navigation Bar */
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.hero-content h1,
+#hero-heading,
+.section-intro h2,
+.section-head h2,
+.resource-card-title {
+  color: #F0F4F8 !important;
+  font-family: 'Asul', Georgia, serif !important;
+}
+
+p, span, li, a {
+  color: #F0F4F8;
+}
+
+/* Header / Top Navigation Bar */
 .site-header,
 header.site-header,
 header,
 .mobile-nav-panel {
-  background: #3B2516 !important;
-  background-color: #3B2516 !important;
+  background: #0A1128 !important;
+  background-color: #0A1128 !important;
   background-image: none !important;
-  border-bottom: 1px solid rgba(244, 239, 230, 0.2) !important;
-  box-shadow: none !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
 .site-header *,
@@ -3737,15 +3747,39 @@ header,
 .site-header a,
 .site-header span,
 .mobile-nav-panel * {
-  color: #F4EFE6 !important;
+  color: #F0F4F8 !important;
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: #958F68 !important;
+  color: #D4AF37 !important;
 }
 
-/* 3. Logos (Header & Footer) - Clean Circular Badges */
+/* Hero Section */
+.hero {
+  background: #0A1128 !important;
+  background-color: #0A1128 !important;
+  background-image: none !important;
+  color: #F0F4F8 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
+
+.hero h1,
+.hero-content h1,
+#hero-heading {
+  color: #F0F4F8 !important;
+}
+
+.hero-subheading {
+  color: #D4AF37 !important;
+}
+
+.hero-lead,
+.hero p {
+  color: #A0AAB2 !important;
+}
+
+/* 3. Logos (Header & Footer) - Clean Circular White Badges */
 .site-logo-img,
 .partner-logo-img,
 .site-logo img,
@@ -3757,7 +3791,7 @@ header,
   padding: 4px !important;
   object-fit: contain !important;
   border: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
 }
 
 .partner-affiliation {
@@ -3765,96 +3799,87 @@ header,
   box-shadow: none !important;
 }
 
-/* 4. Visible Button Text & Developer Credit */
+/* 4. Buttons (Gold Background with Deep Navy Text & Hover Glow) */
 .btn,
 .btn-primary,
-.btn-secondary,
 .resource-drive-btn,
 .notice-link-btn,
-.poster-action-btn,
+.poster-action-btn.btn-register,
 .hero-cta-single,
 .mobile-nav-cta,
-button.btn,
-a.btn,
-button,
-[class*="btn"] {
-  color: #F4EFE6 !important;
+button.btn-primary,
+a.btn-primary,
+.site-header .btn-primary {
+  background: #D4AF37 !important;
+  background-color: #D4AF37 !important;
+  background-image: none !important;
+  color: #0A1128 !important;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
   text-decoration: none !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.2s ease !important;
 }
 
 .btn *,
 .btn-primary *,
-.btn-secondary *,
 .resource-drive-btn *,
 .notice-link-btn *,
-.poster-action-btn *,
+.poster-action-btn.btn-register *,
 .hero-cta-single *,
 .mobile-nav-cta *,
-button * {
-  color: #F4EFE6 !important;
+button.btn-primary *,
+a.btn-primary * {
+  color: #0A1128 !important;
+  fill: #0A1128 !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.resource-drive-btn:hover,
+.notice-link-btn:hover,
+.poster-action-btn.btn-register:hover,
+.hero-cta-single:hover,
+button.btn-primary:hover,
+a.btn-primary:hover,
+.site-header .btn-primary:hover {
+  background: #E5C358 !important;
+  background-color: #E5C358 !important;
+  border-color: #E5C358 !important;
+  color: #0A1128 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-secondary,
+a.btn-secondary,
+button.btn-secondary,
+.btn-outline-gold,
+.poster-action-btn.btn-details {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #D4AF37 !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 8px !important;
+}
+
+.btn-secondary *,
+a.btn-secondary *,
+button.btn-secondary * {
+  color: #D4AF37 !important;
   fill: currentColor !important;
 }
 
-/* Developer Credit Bar at very bottom of footer */
-.developer-credit-bar {
-  background: #26160B !important;
-  background-color: #26160B !important;
-  color: #F4EFE6 !important;
-  border-top: 1px solid rgba(244, 239, 230, 0.15) !important;
-  text-align: center !important;
-  padding: 8px 15px !important;
+.btn-secondary:hover,
+a.btn-secondary:hover,
+button.btn-secondary:hover {
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #F0F4F8 !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
 }
 
-.developer-credit-bar,
-.developer-credit-bar * {
-  color: #F4EFE6 !important;
-}
-
-/* Hero Section */
-.hero {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  background-image: none !important;
-  color: #3B2516 !important;
-  border: none !important;
-}
-
-.hero h1,
-.hero-content h1,
-#hero-heading {
-  color: #3B2516 !important;
-}
-
-.hero-subheading {
-  color: #6B5444 !important;
-}
-
-.hero-lead,
-.hero p {
-  color: #3B2516 !important;
-}
-
-.hero-actions .btn,
-.hero-cta-single,
-.site-header .btn-primary {
-  background: #8C7A54 !important;
-  background-color: #8C7A54 !important;
-  color: #F4EFE6 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-.hero-actions .btn:hover,
-.hero-cta-single:hover,
-.site-header .btn-primary:hover {
-  background: #756543 !important;
-  color: #F4EFE6 !important;
-}
-
-/* 5. Sectional Color Blocking & Card Contrast Fixes */
-
-/* --- Notice Board & Events Sections: Olive Green (#958F68) --- */
+/* 5. Sections & Cards (Lighter Navy #1C2541, 8px Radius) */
 .section-notice-board,
 #noticeBoard,
 .news-ticker-bar,
@@ -3862,96 +3887,7 @@ button * {
 .events-grid-section,
 .archive-band,
 section[aria-labelledby="featured-events-heading"],
-.section-secondary[aria-labelledby="featured-events-heading"] {
-  background: #958F68 !important;
-  background-color: #958F68 !important;
-  background-image: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #F4EFE6 !important;
-}
-
-/* Section headings and intro text inside Olive Green sections */
-.section-notice-board .section-intro *,
-.events-controls-section .section-intro *,
-.events-grid-section .section-intro *,
-.archive-band .section-intro *,
-section[aria-labelledby="featured-events-heading"] .section-intro * {
-  color: #F4EFE6 !important;
-}
-
-/* The 'No Notices Right Now' card & upcoming event cards: Soft Ivory (#F4EFE6) background with Deep Brown (#3B2516) text */
-.section-notice-board .notice-board-state,
-.section-notice-board .feed-state,
-.section-notice-board .notice-card,
-.section-notice-board .notice-poster-card,
-.section-notice-board .notice-board-banner,
-.events-grid-section .event-card,
-.events-grid-section .event-card--poster,
-.events-grid-section .feed-state,
-.archive-band__inner,
-section[aria-labelledby="featured-events-heading"] .event-card,
-section[aria-labelledby="featured-events-heading"] .feed-state {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  background-image: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  color: #3B2516 !important;
-}
-
-/* Force all text inside these nested cards to Deep Brown (#3B2516) */
-.section-notice-board .notice-board-state *,
-.section-notice-board .feed-state *,
-.section-notice-board .notice-card *,
-.section-notice-board .notice-poster-card *,
-.section-notice-board .notice-board-banner *,
-.events-grid-section .event-card *,
-.events-grid-section .event-card--poster *,
-.events-grid-section .feed-state *,
-.archive-band__inner *,
-section[aria-labelledby="featured-events-heading"] .event-card *,
-section[aria-labelledby="featured-events-heading"] .feed-state * {
-  color: #3B2516 !important;
-}
-
-/* Buttons inside nested Ivory cards in Olive sections: Deep Brown (#3B2516) background with Soft Ivory (#F4EFE6) text */
-.section-notice-board .btn,
-.section-notice-board .notice-link-btn,
-.events-grid-section .btn,
-.archive-band .btn,
-section[aria-labelledby="featured-events-heading"] .btn,
-.event-card .btn,
-.notice-card .btn {
-  background: #3B2516 !important;
-  background-color: #3B2516 !important;
-  color: #F4EFE6 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-.section-notice-board .btn:hover,
-.events-grid-section .btn:hover,
-.archive-band .btn:hover,
-section[aria-labelledby="featured-events-heading"] .btn:hover,
-.event-card .btn:hover,
-.notice-card .btn:hover {
-  background: #26160B !important;
-  color: #F4EFE6 !important;
-}
-
-.section-notice-board .btn *,
-.events-grid-section .btn *,
-.archive-band .btn *,
-section[aria-labelledby="featured-events-heading"] .btn *,
-.event-card .btn * {
-  color: #F4EFE6 !important;
-  fill: currentColor !important;
-}
-
-/* --- Four Pillars & Committee Sections: Deep Chocolate Brown (#3B2516) --- */
+.section-secondary,
 .section-pillars,
 .stats-strip,
 #committee,
@@ -3961,41 +3897,86 @@ section#wings,
 .section-testimonials,
 .featured-resource-section,
 .site-footer {
-  background: #3B2516 !important;
-  background-color: #3B2516 !important;
+  background: #0A1128 !important;
+  background-color: #0A1128 !important;
   background-image: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #F4EFE6 !important;
+  color: #F0F4F8 !important;
 }
 
-.section-pillars *,
-.stats-strip *,
-#committee *,
-section#committee *,
-#wings *,
-section#wings *,
-.site-footer * {
-  color: #F4EFE6 !important;
+.news-ticker-bar {
+  background: #1C2541 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
 }
 
-/* Four Pillars cards & SVG icons visibility */
-.section-pillars .card,
-.section-pillars .pillar-card {
-  background: rgba(255, 255, 255, 0.06) !important;
-  background-color: rgba(255, 255, 255, 0.06) !important;
+/* All Cards use Lighter Navy (#1C2541) with border-radius: 8px */
+.card,
+[class*="-card"],
+.event-card,
+.event-card--poster,
+.event-card__details,
+.notice-card,
+.notice-poster-card,
+.notice-board-banner,
+.notice-board-state,
+.feed-state,
+.featured-resource-card,
+.archive-band__inner,
+.committee-card,
+.team-card,
+.tier-card {
+  background: #1C2541 !important;
+  background-color: #1C2541 !important;
   background-image: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  color: #F4EFE6 !important;
+  color: #F0F4F8 !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
+.card:hover,
+.event-card:hover,
+.committee-card:hover,
+.notice-poster-card:hover,
+.notice-board-banner:hover {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Card typography */
+.card *,
+[class*="-card"] *,
+.event-card *,
+.committee-card *,
+.notice-card *,
+.notice-board-state *,
+.feed-state *,
+.featured-resource-card * {
+  color: #F0F4F8;
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+.event-card h1, .event-card h2, .event-card h3, .event-card h4,
+.notice-card h1, .notice-card h2, .notice-card h3, .notice-card h4,
+.featured-resource-card h1, .featured-resource-card h2, .featured-resource-card h3, .featured-resource-card h4,
+.resource-card-title {
+  color: #F0F4F8 !important;
+}
+
+.card p,
+.event-card p,
+.notice-card p,
+.featured-resource-card p,
+.resource-card-desc {
+  color: #A0AAB2 !important;
+}
+
+/* Four Pillars & Card Icons — Gold (#D4AF37) */
+.card-icon-wrap,
 .section-pillars .card-icon-wrap {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  border-radius: 0 !important;
-  border: none !important;
+  background: rgba(212, 175, 55, 0.12) !important;
+  background-color: rgba(212, 175, 55, 0.12) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 8px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -4003,120 +3984,65 @@ section#wings *,
   height: 48px !important;
 }
 
-/* Force SVG icons inside Four Pillars cards to Deep Brown (#3B2516) */
+.card-icon-wrap svg,
+.card-icon-wrap svg *,
 .section-pillars .card-icon-wrap svg,
 .section-pillars .card-icon-wrap svg *,
 .section-pillars .card svg,
-.section-pillars .card svg * {
-  fill: #3B2516 !important;
-  stroke: #3B2516 !important;
-  color: #3B2516 !important;
+.section-pillars .card svg *,
+.card svg {
+  fill: #D4AF37 !important;
+  stroke: #D4AF37 !important;
+  color: #D4AF37 !important;
 }
 
-/* Committee cards */
-#committee .committee-card,
-#wings .card,
-.team-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  color: #F4EFE6 !important;
-}
-
-/* --- Academic Resource Vault (Inside Dark Section) --- */
-/* Remove ugly unnecessary borders from container and cards */
+/* Academic Resource Vault */
 .featured-resource-section {
-  background: #3B2516 !important;
   border: none !important;
-  box-shadow: none !important;
 }
 
 .featured-resource-card {
-  background: #F4EFE6 !important;
-  background-color: #F4EFE6 !important;
-  background-image: none !important;
-  color: #3B2516 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-.featured-resource-card::before,
-.featured-resource-card::after {
-  display: none !important;
-}
-
-.featured-resource-card * {
-  color: #3B2516 !important;
-}
-
-.featured-resource-card .resource-card-grid,
-.featured-resource-card .resource-card-info,
-.featured-resource-card .resource-card-badge,
-.featured-resource-card .resource-tag,
-.featured-resource-card .resource-card-credit {
-  border: none !important;
-  box-shadow: none !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 8px !important;
+  padding: clamp(1.8rem, 4vw, 2.6rem) !important;
 }
 
 .featured-resource-card .resource-card-badge {
-  background: rgba(59, 37, 22, 0.08) !important;
-  border-radius: 0 !important;
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #D4AF37 !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 6px !important;
 }
 
 .featured-resource-card .resource-tag {
-  background: #E8E0D2 !important;
-  border-radius: 0 !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: #F0F4F8 !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 6px !important;
 }
 
-.featured-resource-card .resource-drive-btn {
-  background: #3B2516 !important;
-  background-color: #3B2516 !important;
-  color: #F4EFE6 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+.featured-resource-card .resource-card-credit {
+  color: #A0AAB2 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
 }
 
-.featured-resource-card .resource-drive-btn:hover {
-  background: #8C7A54 !important;
-  color: #F4EFE6 !important;
+.featured-resource-card .resource-card-credit strong {
+  color: #D4AF37 !important;
 }
 
-.featured-resource-card .resource-drive-btn * {
-  color: #F4EFE6 !important;
-  fill: currentColor !important;
+/* Developer Credit Bar */
+.developer-credit-bar {
+  background: #060A18 !important;
+  background-color: #060A18 !important;
+  color: #A0AAB2 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  text-align: center !important;
+  padding: 8px 15px !important;
 }
 
-/* Flat UI & Zero Border Radius */
-.card,
-[class*="-card"],
-.event-card,
-.committee-card,
-.team-card,
-.tier-card,
-.notice-poster-card,
-.notice-card,
-.notice-board-banner,
-.notice-board-state,
-.feed-state,
-.featured-resource-card,
-.btn,
-.btn-primary,
-.btn-secondary,
-.filter-btn,
-.committee-pill,
-.badge,
-.resource-tag,
-.search-input-wrap input,
-input:not([type="checkbox"]):not([type="radio"]),
-select,
-textarea,
-dialog {
-  border-radius: 0 !important;
-  box-shadow: none !important;
+.developer-credit-bar,
+.developer-credit-bar * {
+  color: #A0AAB2 !important;
 }
 
 /* 6. Admin Console Strict Isolation */
