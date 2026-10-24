@@ -3667,6 +3667,10 @@ textarea.form-control {
      - Solid 1px Dusty Taupe borders for all cards, partitions, and inputs
      - Inputs: Antique Ivory (#EDEDDC) bg, Forest Moss (#3B3F2F) text, Dusty Taupe (#D8B7B0) border
      - Buttons: Faded Gold (#BFA76F) bg, Forest Moss (#3B3F2F) text
+     
+   EVENT CARD MOBILE FIXES:
+     - Mobile posters guaranteed visible: display: block !important, min-height: 200px !important, width/height: 100%, object-fit: cover
+     - Empty state badge centered: min-height: 200px !important, display: flex !important, center alignment
    ========================================================================== */
 
 /* 1. Global Variables & Typography ('Asul' serif) */
@@ -3873,7 +3877,6 @@ button#restorePassBtn,
   background: #BFA76F !important;
   background-color: #BFA76F !important;
   background-image: none !important;
-  color: #333333 !important;
   color: #3B3F2F !important;
   border: 1px solid #BFA76F !important;
   border-radius: 6px !important;
@@ -4059,10 +4062,89 @@ section#wings,
   color: #EDEDDC !important;
 }
 
+/* EVENT CARDS: Poster Container, Images & Fallback Badge Centering */
 .event-card__poster,
+.event-poster,
+.event-image-container,
 .event-card--poster .event-card__poster {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  min-height: 200px !important;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+  background: #4B3B2A !important;
   border: none !important;
   border-bottom: 1px solid #D8B7B0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.event-card__poster img,
+.event-card__poster-img,
+.event-poster img,
+.event-image-container img,
+.event-card--poster .event-card__poster img,
+.event-card--poster .event-card__poster-img {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  box-shadow: none !important;
+}
+
+/* Centered Empty State Fallback Container */
+.event-card__poster-placeholder,
+.event-card--poster .event-card__poster-placeholder,
+.event-card__poster:empty,
+.event-poster:empty,
+.event-image-container:empty {
+  min-height: 200px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 1.5rem 1rem !important;
+  gap: 0.65rem !important;
+  background: #4B3B2A !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-shadow: none !important;
+}
+
+.event-card__poster-mark {
+  font-family: 'Asul', Georgia, serif !important;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.16em !important;
+  line-height: 1 !important;
+  color: #BFA76F !important;
+  margin: 0 !important;
+  text-shadow: none !important;
+}
+
+.event-card__poster-caption {
+  display: inline-block !important;
+  font-family: 'Asul', Georgia, serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #EDEDDC !important;
+  background: #3B3F2F !important;
+  border: 1px solid #D8B7B0 !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 4px !important;
+  margin: 0 !important;
+  text-align: center !important;
+  max-width: 90% !important;
+  overflow-wrap: anywhere !important;
   box-shadow: none !important;
 }
 
@@ -4464,4 +4546,85 @@ section.admin-card,
 .admin-upload:hover {
   background: #5A4733 !important;
   border-color: #BFA76F !important;
+}
+
+/* 9. Dedicated Mobile Event Card Query (≤ 768px) */
+@media (max-width: 768px) {
+  .event-card--poster {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .event-card__poster,
+  .event-poster,
+  .event-image-container,
+  .event-card--poster .event-card__poster {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 200px !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    background: #4B3B2A !important;
+    border: none !important;
+    border-bottom: 1px solid #D8B7B0 !important;
+    box-shadow: none !important;
+  }
+
+  .event-card__poster img,
+  .event-card__poster-img,
+  .event-poster img,
+  .event-image-container img,
+  .event-card--poster .event-card__poster img,
+  .event-card--poster .event-card__poster-img {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    box-shadow: none !important;
+  }
+
+  .event-card__poster-placeholder,
+  .event-card--poster .event-card__poster-placeholder,
+  .event-card__poster:empty,
+  .event-poster:empty,
+  .event-image-container:empty {
+    min-height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 1.5rem 1rem !important;
+    gap: 0.65rem !important;
+    background: #4B3B2A !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none !important;
+  }
+
+  .event-card__poster-caption {
+    display: inline-block !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: #EDEDDC !important;
+    background: #3B3F2F !important;
+    border: 1px solid #D8B7B0 !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 4px !important;
+    margin: 0 !important;
+    text-align: center !important;
+    max-width: 90% !important;
+    overflow-wrap: anywhere !important;
+    box-shadow: none !important;
+  }
 }
