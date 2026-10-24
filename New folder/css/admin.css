@@ -2005,3 +2005,98 @@
     font-size: 0.96rem;
   }
 }
+
+
+/* ==========================================================================
+   MODERN NEO-GLASS OVERRIDES FOR ADMIN CONSOLE
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .admin-body {
+  background: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
+  background-attachment: fixed !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__brand {
+  background: rgba(8, 20, 25, 0.88) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__panel {
+  background: transparent !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__card {
+  background: rgba(17, 39, 51, 0.7) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-card {
+  background: rgba(17, 39, 51, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input {
+  background-color: rgba(10, 25, 30, 0.75) !important;
+  background: rgba(10, 25, 30, 0.75) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+  color-scheme: dark !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input:focus {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input::placeholder {
+  color: #64748B !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-topbar {
+  background: rgba(10, 25, 30, 0.82) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-btn-primary,
+html[data-theme="modern-neo-glass"] .admin-submit,
+html[data-theme="modern-neo-glass"] #adminLoginBtn {
+  background: linear-gradient(90deg, #10B981 0%, #0284C7 100%) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.28) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-btn-primary:hover,
+html[data-theme="modern-neo-glass"] .admin-submit:hover,
+html[data-theme="modern-neo-glass"] #adminLoginBtn:hover {
+  background: linear-gradient(90deg, #059669 0%, #0369A1 100%) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.38) !important;
+  transform: translateY(-1px) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-logout {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-logout:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}

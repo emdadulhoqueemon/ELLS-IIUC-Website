@@ -3673,8 +3673,21 @@ textarea.form-control {
      - Empty state badge centered: min-height: 200px !important, display: flex !important, center alignment
    ========================================================================== */
 
-/* 1. Global Variables & Typography ('Asul' serif) */
-:root {
+/* ==========================================================================
+   DYNAMIC DUAL THEME ARCHITECTURE: Dark Academia & Modern Neo-Glass
+   ========================================================================== */
+
+/* Universal Font Enforcement across all themes */
+*, *::before, *::after {
+  font-family: 'Asul', Georgia, serif !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 1 VARIABLES: DARK ACADEMIA (Default Aesthetic Mode)
+   Flat Design · Forest Moss · Antique Ivory · Faded Gold · NO Drop Shadows
+   -------------------------------------------------------------------------- */
+:root,
+html[data-theme="dark-academia"] {
   --font-primary: 'Asul', Georgia, serif !important;
   --font-heading: 'Asul', Georgia, serif !important;
   --font-body: 'Asul', Georgia, serif !important;
@@ -3711,25 +3724,327 @@ textarea.form-control {
   --border-subtle: #D8B7B0 !important;
   --border-strong: #D8B7B0 !important;
   --border-radius: 6px !important;
+  --card-radius: 6px !important;
+  --card-shadow: none !important;
+  --btn-shadow: none !important;
 }
 
-*, *::before, *::after {
+/* --------------------------------------------------------------------------
+   THEME 2 VARIABLES: MODERN NEO-GLASS (Dark Greenish-Blue Aesthetic Mode)
+   Glassmorphism · Deep Teal Gradient · Emerald to Blue Accents · 12px Radius
+   -------------------------------------------------------------------------- */
+html[data-theme="modern-neo-glass"] {
+  --font-primary: 'Asul', Georgia, serif !important;
+  --font-heading: 'Asul', Georgia, serif !important;
+  --font-body: 'Asul', Georgia, serif !important;
+  --font-serif: 'Asul', Georgia, serif !important;
+  --font-sans: 'Asul', Georgia, serif !important;
+  --font-quote: 'Asul', Georgia, serif !important;
+
+  /* Modern Neo-Glass Palette */
+  --bg-primary: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
+  --bg-canvas: #0A191E !important;
+  --bg-card: rgba(17, 39, 51, 0.65) !important;
+  --bg-secondary: rgba(15, 44, 61, 0.7) !important;
+  --bg-chestnut: rgba(12, 33, 46, 0.75) !important;
+  --bg-card-subtle: rgba(17, 39, 51, 0.5) !important;
+  --bg-card-hover: rgba(23, 53, 69, 0.8) !important;
+  --bg-elevated: rgba(19, 45, 59, 0.75) !important;
+  --bg-drawer: #0A191E !important;
+  --bg-input: rgba(10, 25, 30, 0.75) !important;
+
+  --text-primary: #FFFFFF !important;
+  --text-heading: #FFFFFF !important;
+  --text-secondary: #CBD5E1 !important;
+  --text-muted: #94A3B8 !important;
+  --text-inverse: #0A191E !important;
+
+  --accent-primary: linear-gradient(90deg, #10B981 0%, #0284C7 100%) !important;
+  --btn-bg: linear-gradient(90deg, #10B981 0%, #0284C7 100%) !important;
+  --btn-bg-hover: linear-gradient(90deg, #059669 0%, #0369A1 100%) !important;
+  --btn-text: #FFFFFF !important;
+  --accent-gold: #10B981 !important;
+  --accent-gold-hover: #34D399 !important;
+
+  --border-color: rgba(255, 255, 255, 0.08) !important;
+  --border-subtle: rgba(255, 255, 255, 0.08) !important;
+  --border-strong: rgba(255, 255, 255, 0.16) !important;
+  --border-radius: 12px !important;
+  --card-radius: 12px !important;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  --btn-shadow: 0 4px 16px rgba(16, 185, 129, 0.28) !important;
+}
+
+/* ==========================================================================
+   THEME SWITCHER COMPONENT STYLING
+   ========================================================================== */
+.theme-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  z-index: 100;
+}
+
+.theme-switcher-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.7rem;
   font-family: 'Asul', Georgia, serif !important;
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1.2;
+}
+
+.theme-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* Active Icon Switching */
+html[data-theme="dark-academia"] .theme-icon--glass,
+:root:not([data-theme="modern-neo-glass"]) .theme-icon--glass {
+  display: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-icon--academia {
+  display: none !important;
+}
+
+.theme-chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.theme-switcher.is-open .theme-chevron {
+  transform: rotate(180deg);
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 215px;
+  padding: 0.45rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+.theme-switcher.is-open .theme-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  font-family: 'Asul', Georgia, serif !important;
+}
+
+.theme-option-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.theme-option-dot--academia {
+  background: #3B3F2F;
+  border: 2px solid #BFA76F;
+}
+
+.theme-option-dot--glass {
+  background: linear-gradient(135deg, #10B981 0%, #0284C7 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
+}
+
+.theme-option-label {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  line-height: 1.25;
+}
+
+.theme-option-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.theme-option-subtitle {
+  font-size: 0.64rem;
+  opacity: 0.72;
+}
+
+.theme-option-check {
+  font-size: 0.75rem;
+  font-weight: 800;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.theme-option.is-active .theme-option-check {
+  opacity: 1;
+}
+
+.admin-login__theme-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .theme-switcher-text {
+    display: none;
+  }
+  .theme-switcher-toggle {
+    padding: 0.35rem 0.5rem;
+  }
+}
+
+/* Theme Switcher in Dark Academia Mode */
+html[data-theme="dark-academia"] .theme-switcher-toggle,
+:root:not([data-theme="modern-neo-glass"]) .theme-switcher-toggle {
+  background: #4B3B2A !important;
+  color: #EDEDDC !important;
+  border: 1px solid #D8B7B0 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark-academia"] .theme-switcher-toggle:hover,
+:root:not([data-theme="modern-neo-glass"]) .theme-switcher-toggle:hover {
+  background: #5A4733 !important;
+  color: #EDEDDC !important;
+}
+
+html[data-theme="dark-academia"] .theme-dropdown,
+:root:not([data-theme="modern-neo-glass"]) .theme-dropdown {
+  background: #4B3B2A !important;
+  border: 1px solid #D8B7B0 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark-academia"] .theme-option,
+:root:not([data-theme="modern-neo-glass"]) .theme-option {
+  color: #EDEDDC !important;
+}
+
+html[data-theme="dark-academia"] .theme-option:hover,
+:root:not([data-theme="modern-neo-glass"]) .theme-option:hover {
+  background: #5A4733 !important;
+  color: #EDEDDC !important;
+}
+
+html[data-theme="dark-academia"] .theme-option.is-active,
+:root:not([data-theme="modern-neo-glass"]) .theme-option.is-active {
+  background: #3B3F2F !important;
+  color: #EDEDDC !important;
+  border-left: 3px solid #BFA76F !important;
+}
+
+html[data-theme="dark-academia"] .theme-option.is-active .theme-option-check,
+:root:not([data-theme="modern-neo-glass"]) .theme-option.is-active .theme-option-check {
+  color: #BFA76F !important;
+}
+
+/* Theme Switcher in Modern Neo-Glass Mode */
+html[data-theme="modern-neo-glass"] .theme-switcher-toggle {
+  background: rgba(17, 39, 51, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-switcher-toggle:hover {
+  background: rgba(23, 53, 69, 0.9) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-dropdown {
+  background: rgba(12, 28, 38, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #FFFFFF !important;
+  border-left: 3px solid #10B981 !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active .theme-option-check {
+  color: #10B981 !important;
+}
+
+/* ==========================================================================
+   THEME 1: DARK ACADEMIA RULES (Strict Flat Aesthetic, Scoped)
+   ========================================================================== */
+html[data-theme="dark-academia"] *,
+html[data-theme="dark-academia"] *::before,
+html[data-theme="dark-academia"] *::after,
+:root:not([data-theme="modern-neo-glass"]) *,
+:root:not([data-theme="modern-neo-glass"]) *::before,
+:root:not([data-theme="modern-neo-glass"]) *::after {
   box-shadow: none !important;
   text-shadow: none !important;
   filter: none !important;
 }
 
-/* 2. Global Canvas (Forest Moss #3B3F2F) */
-html {
+html[data-theme="dark-academia"],
+:root:not([data-theme="modern-neo-glass"]) {
   background-color: #3B3F2F !important;
   background: #3B3F2F !important;
   color-scheme: dark !important;
 }
 
-body,
-html body,
-body.admin-body {
+html[data-theme="dark-academia"] body,
+html[data-theme="dark-academia"] body.admin-body,
+:root:not([data-theme="modern-neo-glass"]) body,
+:root:not([data-theme="modern-neo-glass"]) body.admin-body {
   background-color: #3B3F2F !important;
   background: #3B3F2F !important;
   background-image: none !important;
@@ -3737,38 +4052,67 @@ body.admin-body {
   box-shadow: none !important;
 }
 
-main,
-#main-content,
-.main-wrapper {
+html[data-theme="dark-academia"] main,
+html[data-theme="dark-academia"] #main-content,
+html[data-theme="dark-academia"] .main-wrapper,
+:root:not([data-theme="modern-neo-glass"]) main,
+:root:not([data-theme="modern-neo-glass"]) #main-content,
+:root:not([data-theme="modern-neo-glass"]) .main-wrapper {
   background: transparent !important;
   background-color: transparent !important;
 }
 
-h1, h2, h3, h4, h5, h6,
-.hero h1,
-.hero-content h1,
-#hero-heading,
-.section-intro h2,
-.section-head h2,
-.resource-card-title,
-.admin-card h1,
-.admin-card h2,
-.admin-card h3,
-.admin-main h1,
-.admin-main h2 {
+html[data-theme="dark-academia"] h1,
+html[data-theme="dark-academia"] h2,
+html[data-theme="dark-academia"] h3,
+html[data-theme="dark-academia"] h4,
+html[data-theme="dark-academia"] h5,
+html[data-theme="dark-academia"] h6,
+html[data-theme="dark-academia"] .hero h1,
+html[data-theme="dark-academia"] .hero-content h1,
+html[data-theme="dark-academia"] #hero-heading,
+html[data-theme="dark-academia"] .section-intro h2,
+html[data-theme="dark-academia"] .section-head h2,
+html[data-theme="dark-academia"] .resource-card-title,
+html[data-theme="dark-academia"] .admin-card h1,
+html[data-theme="dark-academia"] .admin-card h2,
+html[data-theme="dark-academia"] .admin-card h3,
+html[data-theme="dark-academia"] .admin-main h1,
+html[data-theme="dark-academia"] .admin-main h2,
+:root:not([data-theme="modern-neo-glass"]) h1,
+:root:not([data-theme="modern-neo-glass"]) h2,
+:root:not([data-theme="modern-neo-glass"]) h3,
+:root:not([data-theme="modern-neo-glass"]) h4,
+:root:not([data-theme="modern-neo-glass"]) h5,
+:root:not([data-theme="modern-neo-glass"]) h6,
+:root:not([data-theme="modern-neo-glass"]) .hero h1,
+:root:not([data-theme="modern-neo-glass"]) .hero-content h1,
+:root:not([data-theme="modern-neo-glass"]) #hero-heading {
   color: #EDEDDC !important;
 }
 
-p, span, li, a, label {
+html[data-theme="dark-academia"] p,
+html[data-theme="dark-academia"] span,
+html[data-theme="dark-academia"] li,
+html[data-theme="dark-academia"] a,
+html[data-theme="dark-academia"] label,
+:root:not([data-theme="modern-neo-glass"]) p,
+:root:not([data-theme="modern-neo-glass"]) span,
+:root:not([data-theme="modern-neo-glass"]) li,
+:root:not([data-theme="modern-neo-glass"]) a,
+:root:not([data-theme="modern-neo-glass"]) label {
   color: #EDEDDC;
 }
 
-/* 3. Top Navigation & Footer */
-.site-header,
-header.site-header,
-header,
-.admin-topbar,
-header.admin-topbar {
+/* Dark Academia Header & Footer */
+html[data-theme="dark-academia"] .site-header,
+html[data-theme="dark-academia"] header.site-header,
+html[data-theme="dark-academia"] header,
+html[data-theme="dark-academia"] .admin-topbar,
+html[data-theme="dark-academia"] header.admin-topbar,
+:root:not([data-theme="modern-neo-glass"]) .site-header,
+:root:not([data-theme="modern-neo-glass"]) header.site-header,
+:root:not([data-theme="modern-neo-glass"]) .admin-topbar {
   background: #3B3F2F !important;
   background-color: #3B3F2F !important;
   background-image: none !important;
@@ -3776,30 +4120,36 @@ header.admin-topbar {
   box-shadow: none !important;
 }
 
-.site-header *,
-.site-header .nav-link,
-.site-header .logo-text,
-.site-header .logo-line-1,
-.site-header .logo-line-2,
-.site-header a,
-.site-header span,
-.admin-topbar *,
-.admin-topbar span,
-.admin-topbar strong {
+html[data-theme="dark-academia"] .site-header *,
+html[data-theme="dark-academia"] .site-header .nav-link,
+html[data-theme="dark-academia"] .site-header .logo-text,
+html[data-theme="dark-academia"] .site-header .logo-line-1,
+html[data-theme="dark-academia"] .site-header .logo-line-2,
+html[data-theme="dark-academia"] .site-header a,
+html[data-theme="dark-academia"] .site-header span,
+html[data-theme="dark-academia"] .admin-topbar *,
+html[data-theme="dark-academia"] .admin-topbar span,
+html[data-theme="dark-academia"] .admin-topbar strong,
+:root:not([data-theme="modern-neo-glass"]) .site-header *,
+:root:not([data-theme="modern-neo-glass"]) .site-header .nav-link {
   color: #EDEDDC !important;
 }
 
-.site-header .nav-link:hover,
-.site-header .nav-link.active {
+html[data-theme="dark-academia"] .site-header .nav-link:hover,
+html[data-theme="dark-academia"] .site-header .nav-link.active,
+:root:not([data-theme="modern-neo-glass"]) .site-header .nav-link:hover,
+:root:not([data-theme="modern-neo-glass"]) .site-header .nav-link.active {
   color: #BFA76F !important;
 }
 
-.site-logo-img,
-.partner-logo-img,
-.site-logo img,
-.partner-affiliation img,
-.footer-logo img,
-.footer-brand .site-logo-img {
+html[data-theme="dark-academia"] .site-logo-img,
+html[data-theme="dark-academia"] .partner-logo-img,
+html[data-theme="dark-academia"] .site-logo img,
+html[data-theme="dark-academia"] .partner-affiliation img,
+html[data-theme="dark-academia"] .footer-logo img,
+html[data-theme="dark-academia"] .footer-brand .site-logo-img,
+:root:not([data-theme="modern-neo-glass"]) .site-logo-img,
+:root:not([data-theme="modern-neo-glass"]) .partner-logo-img {
   background-color: #EDEDDC !important;
   border-radius: 50% !important;
   padding: 4px !important;
@@ -3808,13 +4158,15 @@ header.admin-topbar {
   box-shadow: none !important;
 }
 
-.partner-affiliation {
+html[data-theme="dark-academia"] .partner-affiliation,
+:root:not([data-theme="modern-neo-glass"]) .partner-affiliation {
   background: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
   box-shadow: none !important;
 }
 
-.site-footer {
+html[data-theme="dark-academia"] .site-footer,
+:root:not([data-theme="modern-neo-glass"]) .site-footer {
   background: #3B3F2F !important;
   background-color: #3B3F2F !important;
   border-top: 1px solid #D8B7B0 !important;
@@ -3822,21 +4174,26 @@ header.admin-topbar {
   box-shadow: none !important;
 }
 
-.site-footer * {
+html[data-theme="dark-academia"] .site-footer *,
+:root:not([data-theme="modern-neo-glass"]) .site-footer * {
   color: #EDEDDC;
 }
 
-.site-footer h3,
-.site-footer h4,
-.site-footer strong {
+html[data-theme="dark-academia"] .site-footer h3,
+html[data-theme="dark-academia"] .site-footer h4,
+html[data-theme="dark-academia"] .site-footer strong,
+:root:not([data-theme="modern-neo-glass"]) .site-footer h3,
+:root:not([data-theme="modern-neo-glass"]) .site-footer h4 {
   color: #EDEDDC !important;
 }
 
-.site-footer a:hover {
+html[data-theme="dark-academia"] .site-footer a:hover,
+:root:not([data-theme="modern-neo-glass"]) .site-footer a:hover {
   color: #BFA76F !important;
 }
 
-.developer-credit-bar {
+html[data-theme="dark-academia"] .developer-credit-bar,
+:root:not([data-theme="modern-neo-glass"]) .developer-credit-bar {
   background: #2F3325 !important;
   background-color: #2F3325 !important;
   border-top: 1px solid #D8B7B0 !important;
@@ -3844,36 +4201,45 @@ header.admin-topbar {
   box-shadow: none !important;
 }
 
-.developer-credit-bar * {
+html[data-theme="dark-academia"] .developer-credit-bar *,
+:root:not([data-theme="modern-neo-glass"]) .developer-credit-bar * {
   color: #EDEDDC !important;
 }
 
-.developer-credit-bar a {
+html[data-theme="dark-academia"] .developer-credit-bar a,
+:root:not([data-theme="modern-neo-glass"]) .developer-credit-bar a {
   color: #BFA76F !important;
 }
 
-/* 4. ALL Buttons: Faded Gold (#BFA76F) with Forest Moss (#3B3F2F) Text */
-.btn,
-.btn-primary,
-.resource-drive-btn,
-.notice-link-btn,
-.poster-action-btn.btn-register,
-.hero-cta-single,
-.mobile-nav-cta,
-button.btn-primary,
-a.btn-primary,
-.site-header .btn-primary,
-#memberLookupBtn,
-#restorePassBtn,
-button#memberLookupBtn,
-button#restorePassBtn,
-.member-lookup-form .btn-primary,
-#adminLoginBtn,
-.admin-submit,
-.admin-card .btn-primary,
-.admin-main .btn-primary,
-.admin-form-actions .btn-primary,
-.admin-login__form .btn-primary {
+/* Dark Academia Buttons: Faded Gold (#BFA76F) with Forest Moss (#3B3F2F) Text */
+html[data-theme="dark-academia"] .btn,
+html[data-theme="dark-academia"] .btn-primary,
+html[data-theme="dark-academia"] .resource-drive-btn,
+html[data-theme="dark-academia"] .notice-link-btn,
+html[data-theme="dark-academia"] .poster-action-btn.btn-register,
+html[data-theme="dark-academia"] .hero-cta-single,
+html[data-theme="dark-academia"] .mobile-nav-cta,
+html[data-theme="dark-academia"] button.btn-primary,
+html[data-theme="dark-academia"] a.btn-primary,
+html[data-theme="dark-academia"] .site-header .btn-primary,
+html[data-theme="dark-academia"] #memberLookupBtn,
+html[data-theme="dark-academia"] #restorePassBtn,
+html[data-theme="dark-academia"] button#memberLookupBtn,
+html[data-theme="dark-academia"] button#restorePassBtn,
+html[data-theme="dark-academia"] .member-lookup-form .btn-primary,
+html[data-theme="dark-academia"] #adminLoginBtn,
+html[data-theme="dark-academia"] .admin-submit,
+html[data-theme="dark-academia"] .admin-card .btn-primary,
+html[data-theme="dark-academia"] .admin-main .btn-primary,
+html[data-theme="dark-academia"] .admin-form-actions .btn-primary,
+html[data-theme="dark-academia"] .admin-login__form .btn-primary,
+html[data-theme="dark-academia"] .event-card-footer .btn,
+html[data-theme="dark-academia"] .event-card-footer > .btn,
+html[data-theme="dark-academia"] .filter-btn.active,
+html[data-theme="dark-academia"] .committee-pill.active,
+:root:not([data-theme="modern-neo-glass"]) .btn,
+:root:not([data-theme="modern-neo-glass"]) .btn-primary,
+:root:not([data-theme="modern-neo-glass"]) .hero-cta-single {
   background: #BFA76F !important;
   background-color: #BFA76F !important;
   background-image: none !important;
@@ -3887,40 +4253,25 @@ button#restorePassBtn,
   cursor: pointer !important;
 }
 
-.btn *,
-.btn-primary *,
-.resource-drive-btn *,
-.notice-link-btn *,
-.poster-action-btn.btn-register *,
-.hero-cta-single *,
-.mobile-nav-cta *,
-button.btn-primary *,
-a.btn-primary *,
-#memberLookupBtn *,
-#restorePassBtn *,
-button#memberLookupBtn *,
-button#restorePassBtn *,
-#adminLoginBtn *,
-.admin-submit * {
+html[data-theme="dark-academia"] .btn *,
+html[data-theme="dark-academia"] .btn-primary *,
+html[data-theme="dark-academia"] .hero-cta-single *,
+:root:not([data-theme="modern-neo-glass"]) .btn *,
+:root:not([data-theme="modern-neo-glass"]) .btn-primary * {
   color: #3B3F2F !important;
   fill: #3B3F2F !important;
   stroke: #3B3F2F !important;
 }
 
-.btn:hover,
-.btn-primary:hover,
-.resource-drive-btn:hover,
-.notice-link-btn:hover,
-.poster-action-btn.btn-register:hover,
-.hero-cta-single:hover,
-button.btn-primary:hover,
-a.btn-primary:hover,
-.site-header .btn-primary:hover,
-#memberLookupBtn:hover,
-#restorePassBtn:hover,
-#adminLoginBtn:hover,
-.admin-submit:hover,
-.admin-card .btn-primary:hover {
+html[data-theme="dark-academia"] .btn:hover,
+html[data-theme="dark-academia"] .btn-primary:hover,
+html[data-theme="dark-academia"] .hero-cta-single:hover,
+html[data-theme="dark-academia"] #memberLookupBtn:hover,
+html[data-theme="dark-academia"] #restorePassBtn:hover,
+html[data-theme="dark-academia"] #adminLoginBtn:hover,
+html[data-theme="dark-academia"] .admin-submit:hover,
+:root:not([data-theme="modern-neo-glass"]) .btn:hover,
+:root:not([data-theme="modern-neo-glass"]) .btn-primary:hover {
   background: #D4BE85 !important;
   background-color: #D4BE85 !important;
   border-color: #D4BE85 !important;
@@ -3929,15 +4280,19 @@ a.btn-primary:hover,
   transform: none !important;
 }
 
-.btn-secondary,
-a.btn-secondary,
-button.btn-secondary,
-.poster-action-btn.btn-details,
-.admin-card .btn-secondary,
-.admin-main .btn-secondary,
-.admin-form-actions .btn-secondary,
-.admin-logout,
-.admin-btn-logout {
+html[data-theme="dark-academia"] .btn-secondary,
+html[data-theme="dark-academia"] a.btn-secondary,
+html[data-theme="dark-academia"] button.btn-secondary,
+html[data-theme="dark-academia"] .poster-action-btn.btn-details,
+html[data-theme="dark-academia"] .admin-card .btn-secondary,
+html[data-theme="dark-academia"] .admin-main .btn-secondary,
+html[data-theme="dark-academia"] .admin-form-actions .btn-secondary,
+html[data-theme="dark-academia"] .admin-logout,
+html[data-theme="dark-academia"] .admin-btn-logout,
+html[data-theme="dark-academia"] .filter-btn,
+html[data-theme="dark-academia"] .committee-pill,
+:root:not([data-theme="modern-neo-glass"]) .btn-secondary,
+:root:not([data-theme="modern-neo-glass"]) .filter-btn {
   background: rgba(191, 167, 111, 0.15) !important;
   background-color: rgba(191, 167, 111, 0.15) !important;
   color: #EDEDDC !important;
@@ -3946,74 +4301,77 @@ button.btn-secondary,
   box-shadow: none !important;
 }
 
-.btn-secondary *,
-a.btn-secondary *,
-button.btn-secondary * {
+html[data-theme="dark-academia"] .btn-secondary *,
+html[data-theme="dark-academia"] a.btn-secondary *,
+:root:not([data-theme="modern-neo-glass"]) .btn-secondary * {
   color: #EDEDDC !important;
-  fill: currentColor !important;
 }
 
-.btn-secondary:hover,
-a.btn-secondary:hover,
-button.btn-secondary:hover {
+html[data-theme="dark-academia"] .btn-secondary:hover,
+html[data-theme="dark-academia"] a.btn-secondary:hover,
+html[data-theme="dark-academia"] .filter-btn:hover,
+html[data-theme="dark-academia"] .committee-pill:hover,
+:root:not([data-theme="modern-neo-glass"]) .btn-secondary:hover {
   background: #BFA76F !important;
   color: #3B3F2F !important;
   border-color: #BFA76F !important;
   box-shadow: none !important;
 }
 
-.btn-secondary:hover *,
-a.btn-secondary:hover *,
-button.btn-secondary:hover * {
+html[data-theme="dark-academia"] .btn-secondary:hover *,
+:root:not([data-theme="modern-neo-glass"]) .btn-secondary:hover * {
   color: #3B3F2F !important;
 }
 
-/* 5. Sections & Base Canvas */
-.hero,
-.section-notice-board,
-#noticeBoard,
-.events-controls-section,
-.events-grid-section,
-.archive-band,
-section[aria-labelledby="featured-events-heading"],
-.section-secondary,
-.section-pillars,
-.stats-strip,
-#committee,
-section#committee,
-#wings,
-section#wings,
-.section-testimonials,
-.featured-resource-section,
-.membership-section,
-#membershipStatusCheck {
+/* Dark Academia Sections Canvas */
+html[data-theme="dark-academia"] .hero,
+html[data-theme="dark-academia"] .section-notice-board,
+html[data-theme="dark-academia"] #noticeBoard,
+html[data-theme="dark-academia"] .events-controls-section,
+html[data-theme="dark-academia"] .events-grid-section,
+html[data-theme="dark-academia"] .archive-band,
+html[data-theme="dark-academia"] section[aria-labelledby="featured-events-heading"],
+html[data-theme="dark-academia"] .section-secondary,
+html[data-theme="dark-academia"] .section-pillars,
+html[data-theme="dark-academia"] .stats-strip,
+html[data-theme="dark-academia"] #committee,
+html[data-theme="dark-academia"] section#committee,
+html[data-theme="dark-academia"] #wings,
+html[data-theme="dark-academia"] section#wings,
+html[data-theme="dark-academia"] .section-testimonials,
+html[data-theme="dark-academia"] .featured-resource-section,
+html[data-theme="dark-academia"] .membership-section,
+html[data-theme="dark-academia"] #membershipStatusCheck,
+:root:not([data-theme="modern-neo-glass"]) .hero,
+:root:not([data-theme="modern-neo-glass"]) .section-notice-board {
   background: #3B3F2F !important;
   background-color: #3B3F2F !important;
   background-image: none !important;
   color: #EDEDDC !important;
 }
 
-.news-ticker-bar {
+html[data-theme="dark-academia"] .news-ticker-bar,
+:root:not([data-theme="modern-neo-glass"]) .news-ticker-bar {
   background: #4B3B2A !important;
   border: none !important;
   border-bottom: 1px solid #D8B7B0 !important;
   box-shadow: none !important;
 }
 
-/* 6. Section & Card Background Distribution (Oxford Brown, Muted Olive, Deep Chestnut) */
-
-/* CATEGORY A: Oxford Brown (#4B3B2A) -> Notice Board, Four Pillars, Membership Card */
-.notice-card,
-.notice-poster-card,
-.notice-board-banner,
-.notice-board-state,
-.feed-state,
-.archive-band__inner,
-.section-pillars .card,
-.pillar-card,
-#memberRecordLookupCard,
-.membership-card-pass,
-.membership-container .card {
+/* Dark Academia Cards (Oxford Brown #4B3B2A, Muted Olive #85614B, Deep Chestnut #8B2C1F) */
+html[data-theme="dark-academia"] .notice-card,
+html[data-theme="dark-academia"] .notice-poster-card,
+html[data-theme="dark-academia"] .notice-board-banner,
+html[data-theme="dark-academia"] .notice-board-state,
+html[data-theme="dark-academia"] .feed-state,
+html[data-theme="dark-academia"] .archive-band__inner,
+html[data-theme="dark-academia"] .section-pillars .card,
+html[data-theme="dark-academia"] .pillar-card,
+html[data-theme="dark-academia"] #memberRecordLookupCard,
+html[data-theme="dark-academia"] .membership-card-pass,
+html[data-theme="dark-academia"] .membership-container .card,
+:root:not([data-theme="modern-neo-glass"]) .notice-card,
+:root:not([data-theme="modern-neo-glass"]) .notice-board-banner {
   background: #4B3B2A !important;
   background-color: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
@@ -4022,38 +4380,37 @@ section#wings,
   color: #EDEDDC !important;
 }
 
-.notice-badge,
-.notice-date-badge {
+html[data-theme="dark-academia"] .notice-badge,
+html[data-theme="dark-academia"] .notice-date-badge,
+:root:not([data-theme="modern-neo-glass"]) .notice-badge {
   background: #3B3F2F !important;
   border: 1px solid #D8B7B0 !important;
   color: #EDEDDC !important;
 }
 
-.card-icon-wrap,
-.section-pillars .card-icon-wrap {
+html[data-theme="dark-academia"] .card-icon-wrap,
+html[data-theme="dark-academia"] .section-pillars .card-icon-wrap,
+:root:not([data-theme="modern-neo-glass"]) .card-icon-wrap {
   background: #8B2C1F !important;
   border: 1px solid #D8B7B0 !important;
   border-radius: 6px !important;
   box-shadow: none !important;
 }
 
-.card-icon-wrap svg,
-.card-icon-wrap svg *,
-.section-pillars .card-icon-wrap svg,
-.section-pillars .card-icon-wrap svg *,
-.section-pillars .card svg,
-.section-pillars .card svg * {
+html[data-theme="dark-academia"] .card-icon-wrap svg,
+html[data-theme="dark-academia"] .card-icon-wrap svg *,
+:root:not([data-theme="modern-neo-glass"]) .card-icon-wrap svg {
   fill: #EDEDDC !important;
   stroke: #EDEDDC !important;
   color: #EDEDDC !important;
 }
 
-/* CATEGORY B: Muted Olive (#85614B) -> Upcoming Events & FAQs */
-.event-card,
-.event-card--poster,
-.event-card__details,
-.section-secondary .card,
-.faq-card {
+html[data-theme="dark-academia"] .event-card,
+html[data-theme="dark-academia"] .event-card--poster,
+html[data-theme="dark-academia"] .event-card__details,
+html[data-theme="dark-academia"] .section-secondary .card,
+html[data-theme="dark-academia"] .faq-card,
+:root:not([data-theme="modern-neo-glass"]) .event-card {
   background: #85614B !important;
   background-color: #85614B !important;
   border: 1px solid #D8B7B0 !important;
@@ -4062,140 +4419,51 @@ section#wings,
   color: #EDEDDC !important;
 }
 
-/* EVENT CARDS: Poster Container, Images & Fallback Badge Centering */
-.event-card__poster,
-.event-poster,
-.event-image-container,
-.event-card--poster .event-card__poster {
-  display: block !important;
-  position: relative !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  aspect-ratio: 1 / 1 !important;
-  height: auto !important;
-  min-height: 240px;
+/* Dark Academia Event Poster Container & Placeholder */
+html[data-theme="dark-academia"] .event-card__poster,
+html[data-theme="dark-academia"] .event-poster,
+html[data-theme="dark-academia"] .event-image-container,
+html[data-theme="dark-academia"] .event-card--poster .event-card__poster,
+:root:not([data-theme="modern-neo-glass"]) .event-card__poster {
   background: #4B3B2A !important;
-  border: none !important;
   border-bottom: 1px solid #D8B7B0 !important;
-  box-shadow: none !important;
-  overflow: hidden !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
-@supports not (aspect-ratio: 1 / 1) {
-  .event-card__poster,
-  .event-poster,
-  .event-image-container,
-  .event-card--poster .event-card__poster {
-    padding-top: 100% !important;
-    height: 0 !important;
-    min-height: 0 !important;
-  }
-}
-
-.event-card__poster img,
-.event-card__poster-img,
-.event-poster img,
-.event-image-container img,
-.event-card--poster .event-card__poster img,
-.event-card--poster .event-card__poster-img {
-  display: block !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  box-shadow: none !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Centered Empty State Fallback Container */
-.event-card__poster-placeholder,
-.event-card--poster .event-card__poster-placeholder,
-.event-card__poster:empty,
-.event-poster:empty,
-.event-image-container:empty {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 1.5rem 1rem !important;
-  gap: 0.65rem !important;
+html[data-theme="dark-academia"] .event-card__poster-placeholder,
+html[data-theme="dark-academia"] .event-card--poster .event-card__poster-placeholder,
+html[data-theme="dark-academia"] .event-card__poster:empty,
+:root:not([data-theme="modern-neo-glass"]) .event-card__poster-placeholder {
   background: #4B3B2A !important;
-  box-shadow: none !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
-.event-card__poster-mark {
-  font-family: 'Asul', Georgia, serif !important;
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem) !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.16em !important;
-  line-height: 1 !important;
+html[data-theme="dark-academia"] .event-card__poster-mark,
+:root:not([data-theme="modern-neo-glass"]) .event-card__poster-mark {
   color: #BFA76F !important;
-  margin: 0 !important;
-  text-shadow: none !important;
 }
 
-.event-card__poster-caption {
-  display: inline-block !important;
-  font-family: 'Asul', Georgia, serif !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
+html[data-theme="dark-academia"] .event-card__poster-caption,
+:root:not([data-theme="modern-neo-glass"]) .event-card__poster-caption {
+  background: #3B3F2F !important;
   color: #EDEDDC !important;
+  border: 1px solid #D8B7B0 !important;
+}
+
+html[data-theme="dark-academia"] .badge,
+html[data-theme="dark-academia"] .event-date-badge,
+:root:not([data-theme="modern-neo-glass"]) .badge {
   background: #3B3F2F !important;
   border: 1px solid #D8B7B0 !important;
-  padding: 0.35rem 0.85rem !important;
   border-radius: 4px !important;
-  margin: 0 !important;
-  text-align: center !important;
-  max-width: 90% !important;
-  overflow-wrap: anywhere !important;
-  box-shadow: none !important;
-}
-
-.event-card--poster .event-card-footer {
-  border: none !important;
-  border-top: 1px solid #D8B7B0 !important;
-  box-shadow: none !important;
-}
-
-.event-date-badge,
-.track-pill,
-.seats-indicator {
-  background: #4B3B2A !important;
-  border: 1px solid #D8B7B0 !important;
   color: #EDEDDC !important;
   box-shadow: none !important;
 }
 
-/* CATEGORY C: Deep Chestnut (#8B2C1F) -> Academic Resource Vault & Committee Members */
-.featured-resource-card,
-.committee-card,
-.advisory-card,
-.faculty-card,
-.student-card,
-.team-card,
-.committee-grid .card {
+html[data-theme="dark-academia"] .featured-resource-card,
+html[data-theme="dark-academia"] .resource-card-grid,
+html[data-theme="dark-academia"] .committee-card,
+html[data-theme="dark-academia"] .tier-card,
+:root:not([data-theme="modern-neo-glass"]) .featured-resource-card,
+:root:not([data-theme="modern-neo-glass"]) .committee-card {
   background: #8B2C1F !important;
   background-color: #8B2C1F !important;
   border: 1px solid #D8B7B0 !important;
@@ -4204,373 +4472,566 @@ section#wings,
   color: #EDEDDC !important;
 }
 
-.featured-resource-card .resource-card-badge {
+html[data-theme="dark-academia"] .resource-card-tag,
+html[data-theme="dark-academia"] .resource-card-badge,
+:root:not([data-theme="modern-neo-glass"]) .resource-card-tag {
   background: #4B3B2A !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #EDEDDC !important;
-  border-radius: 6px !important;
-}
-
-.featured-resource-card .resource-card-badge svg {
-  color: #EDEDDC !important;
-  stroke: #EDEDDC !important;
-}
-
-.featured-resource-card .resource-tag {
-  background: #4B3B2A !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #EDEDDC !important;
-  border-radius: 6px !important;
-}
-
-.featured-resource-card .resource-card-credit {
   border: none !important;
-  border-top: 1px solid #D8B7B0 !important;
   color: #EDEDDC !important;
 }
 
-.featured-resource-card .resource-card-credit strong {
-  color: #EDEDDC !important;
-}
-
-.committee-avatar,
-.committee-card .committee-avatar,
-.advisory-card .committee-avatar,
-.faculty-card .committee-avatar,
-.student-card .committee-avatar {
+html[data-theme="dark-academia"] .committee-avatar,
+:root:not([data-theme="modern-neo-glass"]) .committee-avatar {
+  background-color: #4B3B2A !important;
+  border: 2px solid #D8B7B0 !important;
   border-radius: 50% !important;
-  overflow: hidden !important;
-  aspect-ratio: 1 / 1 !important;
-  background: #3B3F2F !important;
-  color: #EDEDDC !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark-academia"] .stat-item,
+html[data-theme="dark-academia"] .stat-card,
+:root:not([data-theme="modern-neo-glass"]) .stat-item {
+  background: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  border-radius: 6px !important;
   box-shadow: none !important;
 }
 
-/* Universal Text inside all cards */
-.card,
-[class*="-card"],
-.event-card,
-.notice-card,
-.featured-resource-card,
-.committee-card {
-  box-shadow: none !important;
-}
-
-.card *,
-[class*="-card"] *,
-.event-card *,
-.notice-card *,
-.featured-resource-card *,
-.committee-card * {
-  color: #EDEDDC;
-}
-
-.card p,
-.event-card p,
-.notice-card p,
-.featured-resource-card p,
-.committee-card p,
-.resource-card-desc {
-  color: #EDEDDC !important;
-}
-
-/* Stats Section */
-.stat-number,
-.stats-counter,
-.stats-number {
+html[data-theme="dark-academia"] .stat-number,
+:root:not([data-theme="modern-neo-glass"]) .stat-number {
   color: #BFA76F !important;
   font-weight: 800 !important;
+  text-shadow: none !important;
 }
 
-.stat-label,
-.stats-label {
-  color: #EDEDDC !important;
-  font-weight: 600 !important;
-}
-
-/* Mobile Navigation Drawer */
-.main-nav,
-nav.main-nav,
-.mobile-nav-panel,
-.nav-drawer {
-  background-color: #2F3325 !important;
-  background: #2F3325 !important;
-  background-image: none !important;
-  border-top: 1px solid #D8B7B0 !important;
-  box-shadow: none !important;
-}
-
-.main-nav *,
-.main-nav .nav-link,
-.main-nav a,
-.main-nav span,
-.main-nav li,
-.nav-links,
-.nav-links * {
+html[data-theme="dark-academia"] .stat-label,
+:root:not([data-theme="modern-neo-glass"]) .stat-label {
   color: #EDEDDC !important;
 }
 
-.nav-link:hover,
-.nav-link:focus,
-.nav-link.active {
-  color: #3B3F2F !important;
-  background-color: #BFA76F !important;
-}
-
-/* 7. ALL TEXT BOXES & INPUT FIELDS: Antique Ivory (#EDEDDC) bg, Forest Moss (#3B3F2F) text, Dusty Taupe (#D8B7B0) border */
-input,
-textarea,
-select,
-.form-control,
-input.form-control,
-textarea.form-control,
-select.form-control,
-#memberLookupInput,
-input#memberLookupInput,
-.member-lookup-form input,
-.member-lookup-form .form-control,
-#membershipForm input,
-#membershipForm select,
-#membershipForm textarea,
-body.admin-body input,
-body.admin-body textarea,
-body.admin-body select,
-.admin-input,
-.admin-textarea,
-.admin-select,
-.admin-form-date,
-.admin-input-wrap input,
-#addNoticeForm input,
-#addNoticeForm textarea,
-#addNoticeForm select,
-#addEventForm input,
-#addEventForm textarea,
-#addEventForm select,
-.admin-card input,
-.admin-card textarea,
-.admin-card select,
-.admin-login__form input,
-.admin-login__card input,
-#adminEmail,
-#adminPassword {
-  background: #EDEDDC !important;
+/* Dark Academia Inputs */
+html[data-theme="dark-academia"] input,
+html[data-theme="dark-academia"] textarea,
+html[data-theme="dark-academia"] select,
+html[data-theme="dark-academia"] .form-control,
+html[data-theme="dark-academia"] .admin-input,
+html[data-theme="dark-academia"] .search-input-wrap input,
+html[data-theme="dark-academia"] #eventSearchInput,
+:root:not([data-theme="modern-neo-glass"]) input,
+:root:not([data-theme="modern-neo-glass"]) textarea,
+:root:not([data-theme="modern-neo-glass"]) select {
   background-color: #EDEDDC !important;
+  background: #EDEDDC !important;
   color: #3B3F2F !important;
   border: 1px solid #D8B7B0 !important;
   border-radius: 6px !important;
   box-shadow: none !important;
-  color-scheme: light !important;
 }
 
-input::placeholder,
-textarea::placeholder,
-.form-control::placeholder,
-#memberLookupInput::placeholder,
-.admin-input::placeholder,
-.admin-textarea::placeholder,
-#adminEmail::placeholder,
-#adminPassword::placeholder {
-  color: rgba(59, 63, 47, 0.65) !important;
-  opacity: 1 !important;
+html[data-theme="dark-academia"] input::placeholder,
+html[data-theme="dark-academia"] textarea::placeholder,
+:root:not([data-theme="modern-neo-glass"]) input::placeholder {
+  color: #85614B !important;
 }
 
-input:focus,
-textarea:focus,
-select:focus,
-.form-control:focus,
-#memberLookupInput:focus,
-.admin-input:focus,
-.admin-textarea:focus,
-.admin-select:focus,
-.admin-login__form input:focus {
-  border-color: #BFA76F !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 8. Admin Panel & Console Styling */
-body.admin-body,
-.admin-body,
-.admin-dashboard,
-.admin-main,
-.admin-grid,
-#adminDashboard,
-#adminDashboardMain,
-.admin-console,
-.admin-login,
-.admin-login__panel,
-#adminLoginView {
-  background: #3B3F2F !important;
-  background-color: #3B3F2F !important;
-  background-image: none !important;
-  color: #EDEDDC !important;
-  box-shadow: none !important;
-}
-
-.admin-login__brand {
+/* Dark Academia Admin Console */
+html[data-theme="dark-academia"] .admin-login__brand,
+:root:not([data-theme="modern-neo-glass"]) .admin-login__brand {
   background: #4B3B2A !important;
-  background-color: #4B3B2A !important;
   border-right: 1px solid #D8B7B0 !important;
-  box-shadow: none !important;
 }
 
-.admin-login__brand h1,
-.admin-login__brand strong,
-.admin-brand__points strong {
-  color: #EDEDDC !important;
-}
-
-.admin-login__brand p,
-.admin-login__brand span,
-.admin-brand__points li span {
-  color: #EDEDDC !important;
-}
-
-.admin-brand__points svg {
+html[data-theme="dark-academia"] .admin-login__panel,
+:root:not([data-theme="modern-neo-glass"]) .admin-login__panel {
   background: #3B3F2F !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #BFA76F !important;
-  stroke: #BFA76F !important;
 }
 
-.admin-back-link {
-  color: #BFA76F !important;
-}
-
-.admin-login__card {
+html[data-theme="dark-academia"] .admin-login__card,
+html[data-theme="dark-academia"] .admin-card,
+html[data-theme="dark-academia"] .admin-notice-card,
+html[data-theme="dark-academia"] .admin-preview-card,
+html[data-theme="dark-academia"] .admin-live,
+:root:not([data-theme="modern-neo-glass"]) .admin-login__card,
+:root:not([data-theme="modern-neo-glass"]) .admin-card {
   background: #4B3B2A !important;
   background-color: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
+  box-shadow: none !important;
   border-radius: 6px !important;
-  box-shadow: none !important;
-  color: #EDEDDC !important;
 }
 
-.admin-login__card h2 {
-  color: #EDEDDC !important;
-}
-
-.admin-login__lead {
-  color: #EDEDDC !important;
-}
-
-.admin-login__icon {
-  background: #3B3F2F !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #BFA76F !important;
-  stroke: #BFA76F !important;
-  box-shadow: none !important;
-}
-
-.admin-login__icon svg {
-  stroke: #BFA76F !important;
-}
-
-.admin-card,
-.admin-notice-card,
-.admin-preview-card,
-.admin-live,
-section.admin-card,
-.admin-form {
-  background: #4B3B2A !important;
-  background-color: #4B3B2A !important;
-  border: 1px solid #D8B7B0 !important;
-  border-radius: 6px !important;
-  box-shadow: none !important;
-  color: #EDEDDC !important;
-}
-
-.admin-card *,
-.admin-notice-card *,
-.admin-preview-card *,
-.admin-live *,
-.admin-main * {
-  color: #EDEDDC;
-}
-
-.admin-card h1,
-.admin-card h2,
-.admin-card h3,
-.admin-card h4,
-.admin-main h1,
-.admin-main h2,
-.admin-main h3,
-.admin-main h4 {
-  color: #EDEDDC !important;
-}
-
-.admin-card p,
-.admin-card__head p,
-.admin-main__meta,
-.form-label,
-.admin-label-row label {
-  color: #EDEDDC !important;
-}
-
-.admin-card__icon {
-  background: #3B3F2F !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #BFA76F !important;
-  border-radius: 6px !important;
-  box-shadow: none !important;
-}
-
-.admin-card__icon svg {
-  stroke: #BFA76F !important;
-}
-
-.admin-live-item {
-  background: #85614B !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #EDEDDC !important;
-  box-shadow: none !important;
-}
-
-.admin-live-item:hover {
-  background: #967058 !important;
-}
-
-.admin-tag {
-  background: #3B3F2F !important;
-  border: 1px solid #D8B7B0 !important;
-  color: #EDEDDC !important;
-}
-
-.admin-user-chip {
+html[data-theme="dark-academia"] .admin-user-chip,
+:root:not([data-theme="modern-neo-glass"]) .admin-user-chip {
   background: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
-  color: #EDEDDC !important;
-  box-shadow: none !important;
 }
 
-.admin-user-chip__avatar {
+html[data-theme="dark-academia"] .admin-user-chip__avatar,
+:root:not([data-theme="modern-neo-glass"]) .admin-user-chip__avatar {
   background: #BFA76F !important;
   color: #3B3F2F !important;
 }
 
-.admin-env-pill {
+html[data-theme="dark-academia"] .admin-env-pill,
+:root:not([data-theme="modern-neo-glass"]) .admin-env-pill {
   background: #4B3B2A !important;
   border: 1px solid #D8B7B0 !important;
   color: #BFA76F !important;
 }
 
-.admin-char-count {
-  color: #D8B7B0 !important;
-}
-
-.admin-upload {
+html[data-theme="dark-academia"] .admin-upload,
+:root:not([data-theme="modern-neo-glass"]) .admin-upload {
   background: #4B3B2A !important;
   border: 1px dashed #D8B7B0 !important;
   color: #EDEDDC !important;
 }
 
-.admin-upload:hover {
-  background: #5A4733 !important;
-  border-color: #BFA76F !important;
+/* ==========================================================================
+   THEME 2: MODERN NEO-GLASS RULES (Glassmorphism, Teal Gradient, Modern Glow)
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] {
+  background-color: #0A191E !important;
+  background: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="modern-neo-glass"] body,
+html[data-theme="modern-neo-glass"] body.admin-body {
+  background: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
+  background-attachment: fixed !important;
+  background-color: #0A191E !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] main,
+html[data-theme="modern-neo-glass"] #main-content,
+html[data-theme="modern-neo-glass"] .main-wrapper {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html[data-theme="modern-neo-glass"] .bg-caps {
+  opacity: 0.16 !important;
+}
+
+/* Neo-Glass Headings */
+html[data-theme="modern-neo-glass"] h1,
+html[data-theme="modern-neo-glass"] h2,
+html[data-theme="modern-neo-glass"] h3,
+html[data-theme="modern-neo-glass"] h4,
+html[data-theme="modern-neo-glass"] h5,
+html[data-theme="modern-neo-glass"] h6,
+html[data-theme="modern-neo-glass"] .hero h1,
+html[data-theme="modern-neo-glass"] .hero-content h1,
+html[data-theme="modern-neo-glass"] #hero-heading,
+html[data-theme="modern-neo-glass"] .section-intro h2,
+html[data-theme="modern-neo-glass"] .section-head h2,
+html[data-theme="modern-neo-glass"] .resource-card-title,
+html[data-theme="modern-neo-glass"] .admin-card h1,
+html[data-theme="modern-neo-glass"] .admin-card h2,
+html[data-theme="modern-neo-glass"] .admin-card h3,
+html[data-theme="modern-neo-glass"] .admin-main h1,
+html[data-theme="modern-neo-glass"] .admin-main h2 {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] p,
+html[data-theme="modern-neo-glass"] span,
+html[data-theme="modern-neo-glass"] li,
+html[data-theme="modern-neo-glass"] label {
+  color: #CBD5E1;
+}
+
+/* Neo-Glass Header & Topbar */
+html[data-theme="modern-neo-glass"] .site-header,
+html[data-theme="modern-neo-glass"] header.site-header,
+html[data-theme="modern-neo-glass"] header,
+html[data-theme="modern-neo-glass"] .admin-topbar,
+html[data-theme="modern-neo-glass"] header.admin-topbar {
+  background: rgba(10, 25, 30, 0.82) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header .nav-link,
+html[data-theme="modern-neo-glass"] .admin-topbar span,
+html[data-theme="modern-neo-glass"] .admin-topbar strong {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header .nav-link:hover,
+html[data-theme="modern-neo-glass"] .site-header .nav-link.active {
+  color: #10B981 !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header .logo-text .logo-line-1,
+html[data-theme="modern-neo-glass"] .site-header .logo-text .logo-line-2 {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-logo-img,
+html[data-theme="modern-neo-glass"] .partner-logo-img,
+html[data-theme="modern-neo-glass"] .site-logo img,
+html[data-theme="modern-neo-glass"] .footer-logo img,
+html[data-theme="modern-neo-glass"] .footer-brand .site-logo-img {
+  background-color: #FFFFFF !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  object-fit: contain !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-footer {
+  background: rgba(8, 20, 25, 0.95) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-footer * {
+  color: #CBD5E1;
+}
+
+html[data-theme="modern-neo-glass"] .site-footer h3,
+html[data-theme="modern-neo-glass"] .site-footer h4,
+html[data-theme="modern-neo-glass"] .site-footer strong {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-footer a:hover {
+  color: #10B981 !important;
+}
+
+html[data-theme="modern-neo-glass"] .developer-credit-bar {
+  background: rgba(6, 16, 20, 0.98) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="modern-neo-glass"] .developer-credit-bar a {
+  color: #10B981 !important;
+}
+
+/* Neo-Glass Gradient Buttons */
+html[data-theme="modern-neo-glass"] .btn,
+html[data-theme="modern-neo-glass"] .btn-primary,
+html[data-theme="modern-neo-glass"] .resource-drive-btn,
+html[data-theme="modern-neo-glass"] .notice-link-btn,
+html[data-theme="modern-neo-glass"] .poster-action-btn.btn-register,
+html[data-theme="modern-neo-glass"] .hero-cta-single,
+html[data-theme="modern-neo-glass"] .mobile-nav-cta,
+html[data-theme="modern-neo-glass"] button.btn-primary,
+html[data-theme="modern-neo-glass"] a.btn-primary,
+html[data-theme="modern-neo-glass"] .site-header .btn-primary,
+html[data-theme="modern-neo-glass"] #memberLookupBtn,
+html[data-theme="modern-neo-glass"] #restorePassBtn,
+html[data-theme="modern-neo-glass"] button#memberLookupBtn,
+html[data-theme="modern-neo-glass"] button#restorePassBtn,
+html[data-theme="modern-neo-glass"] .member-lookup-form .btn-primary,
+html[data-theme="modern-neo-glass"] #adminLoginBtn,
+html[data-theme="modern-neo-glass"] .admin-submit,
+html[data-theme="modern-neo-glass"] .admin-card .btn-primary,
+html[data-theme="modern-neo-glass"] .admin-main .btn-primary,
+html[data-theme="modern-neo-glass"] .admin-form-actions .btn-primary,
+html[data-theme="modern-neo-glass"] .admin-login__form .btn-primary,
+html[data-theme="modern-neo-glass"] .event-card-footer .btn,
+html[data-theme="modern-neo-glass"] .event-card-footer > .btn,
+html[data-theme="modern-neo-glass"] .filter-btn.active,
+html[data-theme="modern-neo-glass"] .committee-pill.active {
+  background: linear-gradient(90deg, #10B981 0%, #0284C7 100%) !important;
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.28) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+html[data-theme="modern-neo-glass"] .btn *,
+html[data-theme="modern-neo-glass"] .btn-primary *,
+html[data-theme="modern-neo-glass"] .hero-cta-single * {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .btn:hover,
+html[data-theme="modern-neo-glass"] .btn-primary:hover,
+html[data-theme="modern-neo-glass"] .hero-cta-single:hover,
+html[data-theme="modern-neo-glass"] #memberLookupBtn:hover,
+html[data-theme="modern-neo-glass"] #adminLoginBtn:hover,
+html[data-theme="modern-neo-glass"] .admin-submit:hover {
+  background: linear-gradient(90deg, #059669 0%, #0369A1 100%) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.38) !important;
+  transform: translateY(-1px) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .btn-secondary,
+html[data-theme="modern-neo-glass"] a.btn-secondary,
+html[data-theme="modern-neo-glass"] button.btn-secondary,
+html[data-theme="modern-neo-glass"] .poster-action-btn.btn-details,
+html[data-theme="modern-neo-glass"] .admin-card .btn-secondary,
+html[data-theme="modern-neo-glass"] .admin-main .btn-secondary,
+html[data-theme="modern-neo-glass"] .admin-form-actions .btn-secondary,
+html[data-theme="modern-neo-glass"] .admin-logout,
+html[data-theme="modern-neo-glass"] .admin-btn-logout,
+html[data-theme="modern-neo-glass"] .filter-btn,
+html[data-theme="modern-neo-glass"] .committee-pill {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+html[data-theme="modern-neo-glass"] .btn-secondary:hover,
+html[data-theme="modern-neo-glass"] a.btn-secondary:hover,
+html[data-theme="modern-neo-glass"] .filter-btn:hover,
+html[data-theme="modern-neo-glass"] .committee-pill:hover,
+html[data-theme="modern-neo-glass"] .admin-logout:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+/* Neo-Glass Canvas Transparency */
+html[data-theme="modern-neo-glass"] .hero,
+html[data-theme="modern-neo-glass"] .section-notice-board,
+html[data-theme="modern-neo-glass"] #noticeBoard,
+html[data-theme="modern-neo-glass"] .events-controls-section,
+html[data-theme="modern-neo-glass"] .events-grid-section,
+html[data-theme="modern-neo-glass"] .archive-band,
+html[data-theme="modern-neo-glass"] section[aria-labelledby="featured-events-heading"],
+html[data-theme="modern-neo-glass"] .section-secondary,
+html[data-theme="modern-neo-glass"] .section-pillars,
+html[data-theme="modern-neo-glass"] .stats-strip,
+html[data-theme="modern-neo-glass"] #committee,
+html[data-theme="modern-neo-glass"] section#committee,
+html[data-theme="modern-neo-glass"] #wings,
+html[data-theme="modern-neo-glass"] section#wings,
+html[data-theme="modern-neo-glass"] .section-testimonials,
+html[data-theme="modern-neo-glass"] .featured-resource-section,
+html[data-theme="modern-neo-glass"] .membership-section,
+html[data-theme="modern-neo-glass"] #membershipStatusCheck,
+html[data-theme="modern-neo-glass"] .admin-main {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Neo-Glass Cards & Containers (Glassmorphism 12px radius, 0 8px 24px shadow) */
+html[data-theme="modern-neo-glass"] .card,
+html[data-theme="modern-neo-glass"] .notice-card,
+html[data-theme="modern-neo-glass"] .notice-poster-card,
+html[data-theme="modern-neo-glass"] .notice-board-banner,
+html[data-theme="modern-neo-glass"] .notice-board-state,
+html[data-theme="modern-neo-glass"] .feed-state,
+html[data-theme="modern-neo-glass"] .archive-band__inner,
+html[data-theme="modern-neo-glass"] .section-pillars .card,
+html[data-theme="modern-neo-glass"] .pillar-card,
+html[data-theme="modern-neo-glass"] #memberRecordLookupCard,
+html[data-theme="modern-neo-glass"] .membership-card-pass,
+html[data-theme="modern-neo-glass"] .membership-container .card,
+html[data-theme="modern-neo-glass"] .event-card,
+html[data-theme="modern-neo-glass"] .event-card--poster,
+html[data-theme="modern-neo-glass"] .event-card__details,
+html[data-theme="modern-neo-glass"] .section-secondary .card,
+html[data-theme="modern-neo-glass"] .faq-card,
+html[data-theme="modern-neo-glass"] .partner-affiliation,
+html[data-theme="modern-neo-glass"] .featured-resource-card,
+html[data-theme="modern-neo-glass"] .resource-card-grid,
+html[data-theme="modern-neo-glass"] .committee-card,
+html[data-theme="modern-neo-glass"] .admin-card,
+html[data-theme="modern-neo-glass"] .admin-login__card,
+html[data-theme="modern-neo-glass"] .admin-notice-card,
+html[data-theme="modern-neo-glass"] .admin-preview-card,
+html[data-theme="modern-neo-glass"] .admin-live,
+html[data-theme="modern-neo-glass"] .tier-card {
+  background: rgba(17, 39, 51, 0.65) !important;
+  background-color: rgba(17, 39, 51, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="modern-neo-glass"] .news-ticker-bar {
+  background: rgba(17, 39, 51, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+html[data-theme="modern-neo-glass"] .section-pillars .card-icon-wrap,
+html[data-theme="modern-neo-glass"] .card-icon-wrap {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2) !important;
+}
+
+html[data-theme="modern-neo-glass"] .card-icon-wrap svg,
+html[data-theme="modern-neo-glass"] .card-icon-wrap svg * {
+  fill: #6EE7B7 !important;
+  stroke: #6EE7B7 !important;
+  color: #6EE7B7 !important;
+}
+
+/* Neo-Glass Badges & Accents */
+html[data-theme="modern-neo-glass"] .badge,
+html[data-theme="modern-neo-glass"] .tag,
+html[data-theme="modern-neo-glass"] .event-date-badge,
+html[data-theme="modern-neo-glass"] .notice-badge,
+html[data-theme="modern-neo-glass"] .notice-date-badge,
+html[data-theme="modern-neo-glass"] .notice-board-badge,
+html[data-theme="modern-neo-glass"] .admin-tag,
+html[data-theme="modern-neo-glass"] .admin-env-pill,
+html[data-theme="modern-neo-glass"] .resource-card-tag,
+html[data-theme="modern-neo-glass"] .resource-card-badge {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #6EE7B7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .committee-avatar {
+  background-color: rgba(10, 25, 30, 0.8) !important;
+  border: 2px solid rgba(16, 185, 129, 0.4) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .stat-item,
+html[data-theme="modern-neo-glass"] .stat-card {
+  background: rgba(17, 39, 51, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme="modern-neo-glass"] .stat-number {
+  color: #10B981 !important;
+  text-shadow: 0 0 24px rgba(16, 185, 129, 0.35) !important;
+}
+
+html[data-theme="modern-neo-glass"] .stat-label {
+  color: #CBD5E1 !important;
+}
+
+/* Neo-Glass Inputs & Forms */
+html[data-theme="modern-neo-glass"] input,
+html[data-theme="modern-neo-glass"] textarea,
+html[data-theme="modern-neo-glass"] select,
+html[data-theme="modern-neo-glass"] .form-control,
+html[data-theme="modern-neo-glass"] .admin-input,
+html[data-theme="modern-neo-glass"] .search-input-wrap input,
+html[data-theme="modern-neo-glass"] #eventSearchInput {
+  background-color: rgba(10, 25, 30, 0.75) !important;
+  background: rgba(10, 25, 30, 0.75) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="modern-neo-glass"] input:focus,
+html[data-theme="modern-neo-glass"] textarea:focus,
+html[data-theme="modern-neo-glass"] select:focus,
+html[data-theme="modern-neo-glass"] .admin-input:focus {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+  outline: none !important;
+}
+
+html[data-theme="modern-neo-glass"] input::placeholder,
+html[data-theme="modern-neo-glass"] textarea::placeholder {
+  color: #64748B !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-upload {
+  background: rgba(17, 39, 51, 0.5) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+  color: #CBD5E1 !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-upload:hover {
+  background: rgba(23, 53, 69, 0.65) !important;
+  border-color: #10B981 !important;
+}
+
+/* Neo-Glass Admin Login */
+html[data-theme="modern-neo-glass"] .admin-login__brand {
+  background: rgba(8, 20, 25, 0.88) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__panel {
+  background: transparent !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__card {
+  background: rgba(17, 39, 51, 0.7) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip__avatar {
+  background: linear-gradient(135deg, #10B981 0%, #0284C7 100%) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-env-pill {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  color: #6EE7B7 !important;
+}
+
+/* Neo-Glass Event Poster Containers */
+html[data-theme="modern-neo-glass"] .event-card__poster,
+html[data-theme="modern-neo-glass"] .event-poster,
+html[data-theme="modern-neo-glass"] .event-image-container,
+html[data-theme="modern-neo-glass"] .event-card--poster .event-card__poster {
+  background: rgba(10, 25, 30, 0.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="modern-neo-glass"] .event-card__poster-placeholder,
+html[data-theme="modern-neo-glass"] .event-card--poster .event-card__poster-placeholder,
+html[data-theme="modern-neo-glass"] .event-card__poster:empty {
+  background: rgba(10, 25, 30, 0.85) !important;
+}
+
+html[data-theme="modern-neo-glass"] .event-card__poster-mark {
+  color: #10B981 !important;
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5) !important;
+}
+
+html[data-theme="modern-neo-glass"] .event-card__poster-caption {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #6EE7B7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
 }
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */
