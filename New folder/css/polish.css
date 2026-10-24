@@ -2095,6 +2095,27 @@ html[data-theme="dark-academia"] body {
 }
 
 /* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
+
+/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 
@@ -2608,12 +2629,15 @@ html[data-theme="modern-neo-glass"] .footer-logo img,
 html[data-theme="modern-neo-glass"] .footer-brand .site-logo-img,
 :root:not([data-theme="dark-academia"]) .site-logo-img,
 :root:not([data-theme="dark-academia"]) .partner-logo-img {
-  background-color: #FFFFFF !important;
-  border-radius: 50% !important;
-  padding: 4px !important;
+  height: 50px !important;
+  width: auto !important;
   object-fit: contain !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-footer,
@@ -3109,11 +3133,14 @@ html[data-theme="dark-academia"] .site-logo img,
 html[data-theme="dark-academia"] .partner-affiliation img,
 html[data-theme="dark-academia"] .footer-logo img,
 html[data-theme="dark-academia"] .footer-brand .site-logo-img {
-  background-color: #EDEDDC !important;
-  border-radius: 50% !important;
-  padding: 4px !important;
+  height: 50px !important;
+  width: auto !important;
   object-fit: contain !important;
-  border: 1px solid #D8B7B0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
   box-shadow: none !important;
 }
 
@@ -3486,26 +3513,30 @@ html[data-theme="dark-academia"] .admin-upload {
 
 
 /* ==========================================================================
-   SVG LOGO & FAVICON CONTAINER CONSTRAINTS
+   STRICT NATURAL SVG LOGO SCALING (NO EXTRA BORDERS / BACKGROUNDS / PADDING)
    ========================================================================== */
+.logo img,
+.nav-brand img,
+.site-logo img,
 .site-logo-img,
 .partner-logo-img,
+.footer-logo img,
+.footer-brand img,
+.footer-brand .site-logo-img,
+.partner-affiliation img,
 .admin-brand__logo,
+.admin-topbar__brand img,
 img[src*="Favicon.svg"],
 img[src*="LOGO"] {
-  height: 50px;
-  width: auto;
-  max-width: 50px;
-  object-fit: contain;
-  aspect-ratio: 1 / 1;
-}
-
-.admin-topbar__brand img {
-  height: 38px;
-  width: auto;
-  max-width: 38px;
-  object-fit: contain;
-  aspect-ratio: 1 / 1;
+  height: 50px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */

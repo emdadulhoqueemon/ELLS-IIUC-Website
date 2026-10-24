@@ -486,9 +486,11 @@
   }
 
   .footer-brand .site-logo-img {
-    border-radius: 50%;
     display: block;
     margin: 0 auto;
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain !important;
   }
 
   .footer-brand .logo-subtitle {
@@ -1597,10 +1599,13 @@
   }
 
   .site-logo-img {
-    background-color: #FFFFFF !important;
-    border-radius: 50% !important;
-    padding: 3px !important;
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    background: transparent !important;
     border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
   }
 
   /* Mobile navigation drawer — Deep Dark (#050A15) */
@@ -1743,9 +1748,13 @@
     color: #F0F4F8 !important;
   }
   .site-logo-img {
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    background: transparent !important;
     border: none !important;
-    background-color: #FFFFFF !important;
-    border-radius: 50% !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
   }
   .membership-card-pass {
     background: #1C2541 !important;

@@ -519,13 +519,15 @@
 }
 
 .admin-topbar__brand img {
-  width: 38px;
-  height: 38px;
-  padding: 2px;
-  border: 1px solid var(--accent-gold);
-  border-radius: 50%;
-  background: #ffffff;
-  object-fit: contain;
+  height: 50px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 .admin-topbar__brand-text {
