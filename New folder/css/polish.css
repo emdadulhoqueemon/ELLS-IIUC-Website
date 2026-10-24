@@ -2833,3 +2833,226 @@ body.admin-body textarea,
   border: 1px solid #D1D5DB !important;
   border-radius: 6px !important;
 }
+
+/* ==========================================================================
+   SPECIFIC CONTRAST & VISIBILITY FIXES
+   1. Notice Management & Admin Form Inputs: Pure White (#FFFFFF), Dark Text (#333333), Light Gray Border (#E0E0E0)
+   2. IT Secretary Console Login Page: White (#FFFFFF) & Bright Silver (#F0F4F8) Left Panel Text, Clean Light Borders
+   3. Membership Status Check: Solid Dark (#333333) Student ID Text, Gold (#D4AF37) Buttons with Deep Navy (#0A1128) Text
+   ========================================================================== */
+
+/* --- 1. Notice Management & All Admin Form Fields --- */
+body.admin-body,
+.admin-body,
+.admin-dashboard,
+.admin-main,
+.admin-login,
+.admin-card,
+.admin-form,
+#addNoticeForm,
+#addEventForm,
+#adminLoginForm {
+  color-scheme: light !important;
+}
+
+body.admin-body input,
+body.admin-body textarea,
+body.admin-body select,
+.admin-body input,
+.admin-body textarea,
+.admin-body select,
+.admin-input,
+.admin-textarea,
+.admin-select,
+.admin-form-date,
+.admin-input-wrap input,
+#addNoticeForm input,
+#addNoticeForm textarea,
+#addNoticeForm select,
+#addEventForm input,
+#addEventForm textarea,
+#addEventForm select,
+#adminLoginForm input,
+.admin-card input,
+.admin-card textarea,
+.admin-card select,
+.admin-notice-card input,
+.admin-notice-card textarea,
+.admin-notice-card select {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 6px !important;
+  color-scheme: light !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+body.admin-body input:focus,
+body.admin-body textarea:focus,
+body.admin-body select:focus,
+.admin-input:focus,
+.admin-textarea:focus,
+.admin-select:focus,
+.admin-input-wrap input:focus {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border-color: #3A5A8C !important;
+  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.15) !important;
+  outline: none !important;
+}
+
+body.admin-body input::placeholder,
+body.admin-body textarea::placeholder,
+.admin-input::placeholder,
+.admin-textarea::placeholder {
+  color: #888888 !important;
+  opacity: 1 !important;
+}
+
+.admin-input-icon svg {
+  stroke: #666666 !important;
+  color: #666666 !important;
+}
+
+/* --- 2. IT Secretary Console Login Page (admin.html) --- */
+.admin-login__brand,
+.admin-login__brand *,
+.admin-brand__body,
+.admin-brand__body *,
+.admin-brand__points,
+.admin-brand__points li,
+.admin-brand__points li span,
+.admin-brand__points strong,
+.admin-brand__footer,
+.admin-brand__status,
+.admin-back-link,
+.admin-back-link * {
+  color: #FFFFFF !important;
+}
+
+.admin-brand__points li,
+.admin-brand__points li span,
+.admin-brand__body p {
+  color: #F0F4F8 !important;
+}
+
+.admin-brand__points strong,
+.admin-brand__body h1 {
+  color: #FFFFFF !important;
+}
+
+.admin-brand__points svg {
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Right-side login form clean light border */
+.admin-login__panel,
+.admin-login__card {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+}
+
+.admin-login__form input,
+.admin-login__card input,
+#adminEmail,
+#adminPassword {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 6px !important;
+  color-scheme: light !important;
+}
+
+.admin-login__form input:focus,
+#adminEmail:focus,
+#adminPassword:focus {
+  border-color: #3A5A8C !important;
+  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.15) !important;
+  outline: none !important;
+}
+
+/* --- 3. Membership Status Check Fix --- */
+
+/* Student ID Input: Solid dark text (#333333) on white background with clean light border */
+#memberLookupInput,
+input#memberLookupInput,
+.member-lookup-form input,
+.member-lookup-form .form-control,
+.form-control {
+  color: #333333 !important;
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 6px !important;
+  color-scheme: light !important;
+}
+
+#memberLookupInput::placeholder,
+input#memberLookupInput::placeholder,
+.member-lookup-form input::placeholder {
+  color: #888888 !important;
+  opacity: 1 !important;
+}
+
+#memberLookupInput:focus,
+input#memberLookupInput:focus {
+  color: #333333 !important;
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
+  outline: none !important;
+}
+
+/* Check Status & View Digital Pass Buttons: Gold (#D4AF37) with Deep Navy (#0A1128) text */
+#memberLookupBtn,
+#restorePassBtn,
+button#memberLookupBtn,
+button#restorePassBtn,
+.member-lookup-form .btn-primary,
+#memberRecordLookupCard .btn-primary,
+#viewExistingMemberNotice .btn-primary {
+  background: #D4AF37 !important;
+  background-color: #D4AF37 !important;
+  background-image: none !important;
+  color: #0A1128 !important;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  padding: 0.75rem 1.4rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+#memberLookupBtn *,
+#restorePassBtn *,
+button#memberLookupBtn *,
+button#restorePassBtn *,
+.member-lookup-form .btn-primary *,
+#memberRecordLookupCard .btn-primary * {
+  color: #0A1128 !important;
+  fill: #0A1128 !important;
+  stroke: #0A1128 !important;
+}
+
+#memberLookupBtn:hover,
+#restorePassBtn:hover,
+button#memberLookupBtn:hover,
+button#restorePassBtn:hover {
+  background: #E5C358 !important;
+  background-color: #E5C358 !important;
+  border-color: #E5C358 !important;
+  color: #0A1128 !important;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4) !important;
+  transform: translateY(-1px) !important;
+}

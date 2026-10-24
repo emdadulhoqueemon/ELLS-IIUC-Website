@@ -161,7 +161,7 @@
   align-items: flex-start;
   gap: 0.85rem;
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: #F0F4F8 !important;
 }
 
 .admin-brand__points svg {
@@ -170,9 +170,10 @@
   flex-shrink: 0;
   padding: 7px;
   border-radius: 9px;
-  color: var(--accent-gold);
-  background: rgba(226, 212, 183, 0.1);
-  border: 1px solid rgba(226, 212, 183, 0.28);
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
 }
 
 .admin-brand__points strong {
@@ -180,7 +181,7 @@
   margin-bottom: 0.1rem;
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #FFFFFF !important;
 }
 
 .admin-brand__footer {
@@ -335,7 +336,11 @@
   padding: 0.85rem 1rem;
   font-size: 0.94rem;
   border-radius: var(--radius-sm);
-  background-color: var(--bg-input);
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
 }
 
 .admin-input-wrap .admin-input {
@@ -786,7 +791,7 @@
 }
 
 .admin-input[type="date"] {
-  color-scheme: dark;
+  color-scheme: light !important;
 }
 
 .admin-textarea {
@@ -794,6 +799,11 @@
   resize: vertical;
   line-height: 1.65;
   padding-top: 0.75rem;
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
 }
 
 .admin-counter {
@@ -1756,7 +1766,10 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: var(--bg-input);
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A227' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.95rem center;
