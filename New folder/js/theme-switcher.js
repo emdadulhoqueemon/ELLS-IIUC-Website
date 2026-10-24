@@ -40,6 +40,14 @@
       /* ignore */
     }
 
+    // Update meta theme-color for mobile browser status & navigation bars
+    try {
+      var metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#0A191E');
+      }
+    } catch (err) {}
+
     // Update all theme switchers on the page
     updateAllSwitchers(theme);
 
@@ -149,6 +157,10 @@
   try {
     var immediateTheme = getSavedTheme();
     document.documentElement.setAttribute('data-theme', immediateTheme);
+    var immMeta = document.querySelector('meta[name="theme-color"]');
+    if (immMeta) {
+      immMeta.setAttribute('content', immediateTheme === 'dark-academia' ? '#3B3F2F' : '#0A191E');
+    }
   } catch (err) {}
 
   if (document.readyState === 'loading') {

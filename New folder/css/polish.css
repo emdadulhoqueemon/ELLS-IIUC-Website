@@ -2053,6 +2053,27 @@ main > .hero .container,
    ========================================================================== */
 
 /* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
+
+/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 

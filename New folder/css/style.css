@@ -173,12 +173,12 @@ html {
   margin: 0;
   padding: 0;
   font-size: 16px;
-  color-scheme: light;
+  color-scheme: dark;
   overflow-x: hidden;
   max-width: 100%;
   font-family: var(--font-primary);
-  background-color: var(--bg-primary);
-  background: var(--bg-primary);
+  background-color: #0A191E;
+  background: var(--bg-primary, #0A191E);
 }
 
 body:not(.admin-body),
@@ -210,8 +210,8 @@ body:not(.admin-body) {
 }
 
 main:not(.admin-main) {
-  background-color: var(--bg-primary);
-  background: var(--bg-primary);
+  background-color: #0A191E;
+  background: var(--bg-primary, #0A191E);
 }
 
 /* Accessibility & Skip Link */
@@ -3672,6 +3672,27 @@ textarea.form-control {
      - Mobile posters guaranteed visible: display: block !important, min-height: 200px !important, width/height: 100%, object-fit: cover
      - Empty state badge centered: min-height: 200px !important, display: flex !important, center alignment
    ========================================================================== */
+
+/* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
 
 /* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia

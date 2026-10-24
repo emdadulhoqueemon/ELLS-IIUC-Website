@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: #3B3F2F;
+  background: #0A191E;
 }
 
 .admin-body [hidden] {
@@ -233,7 +233,7 @@
   align-items: center;
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 3.5rem);
-  background: #3B3F2F;
+  background: #0A191E;
 }
 
 .admin-login__card {
@@ -493,7 +493,7 @@
 .admin-dashboard {
   flex: 1 1 auto;
   min-height: 0;
-  background: #3B3F2F;
+  background: #0A191E;
 }
 
 .admin-topbar {
@@ -506,7 +506,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.8rem clamp(1rem, 4vw, 2.5rem);
-  background: #3B3F2F;
+  background: #0A191E;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid #D8B7B0;

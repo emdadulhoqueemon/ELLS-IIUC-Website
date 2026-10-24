@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- Theme Preference Sync (Synchronous Blocking - Prevents FOUC/Reset) -->
   <script>
-    (function(){try{var t=localStorage.getItem('theme')||localStorage.getItem('ells_theme')||'modern-neo-glass';if(t!=='modern-neo-glass'&&t!=='dark-academia')t='modern-neo-glass';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);localStorage.setItem('ells_theme',t);}catch(e){document.documentElement.setAttribute('data-theme','modern-neo-glass');}})();
+    (function(){try{var t=localStorage.getItem('theme')||localStorage.getItem('ells_theme')||'modern-neo-glass';if(t!=='modern-neo-glass'&&t!=='dark-academia')t='modern-neo-glass';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);localStorage.setItem('ells_theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark-academia'?'#3B3F2F':'#0A191E');}catch(e){document.documentElement.setAttribute('data-theme','modern-neo-glass');}})();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ELLS Club - The English Language and Literary Society. Fostering creative writing, linguistic inquiry, debate, and literary fellowship.">
@@ -12,7 +12,7 @@
   
   <!-- PWA & Mobile Web App Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#E8D1A7">
+  <meta name="theme-color" content="#0A191E">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
