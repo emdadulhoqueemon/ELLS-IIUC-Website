@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark-academia">
+<html lang="en" data-theme="modern-neo-glass">
 <head>
   <meta charset="UTF-8">
+  <!-- Theme Preference Sync (Synchronous Blocking - Prevents FOUC/Reset) -->
+  <script>
+    (function(){try{var t=localStorage.getItem('theme')||localStorage.getItem('ells_theme')||'modern-neo-glass';if(t!=='modern-neo-glass'&&t!=='dark-academia')t='modern-neo-glass';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);localStorage.setItem('ells_theme',t);}catch(e){document.documentElement.setAttribute('data-theme','modern-neo-glass');}})();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Check your membership status in ELLS Club, English Language and Literary Society.">
   <title>Membership Status Check | ELLS Club</title>
@@ -23,11 +27,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/polish.css">
-
-  <!-- Theme Preference Init (Prevents FOUC) -->
-  <script>
-    (function(){try{var s=localStorage.getItem('ells_theme')||'dark-academia';document.documentElement.setAttribute('data-theme',s);}catch(e){document.documentElement.setAttribute('data-theme','dark-academia');}})();
-  </script>
   <script src="js/theme-switcher.js" defer></script>
 </head>
 <body>
@@ -97,13 +96,13 @@
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
             </span>
-            <span class="theme-switcher-text">Dark Academia</span>
+            <span class="theme-switcher-text">Modern Neo-Glass</span>
             <svg class="theme-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
           <div class="theme-dropdown" role="menu" aria-label="Aesthetic Themes" hidden>
-            <button type="button" class="theme-option is-active" data-theme-value="dark-academia" role="menuitem">
+            <button type="button" class="theme-option" data-theme-value="dark-academia" role="menuitem">
               <span class="theme-option-dot theme-option-dot--academia" aria-hidden="true"></span>
               <span class="theme-option-label">
                 <span class="theme-option-title">Dark Academia</span>
@@ -111,7 +110,7 @@
               </span>
               <span class="theme-option-check" aria-hidden="true">&#x2713;</span>
             </button>
-            <button type="button" class="theme-option" data-theme-value="modern-neo-glass" role="menuitem">
+            <button type="button" class="theme-option is-active" data-theme-value="modern-neo-glass" role="menuitem">
               <span class="theme-option-dot theme-option-dot--glass" aria-hidden="true"></span>
               <span class="theme-option-label">
                 <span class="theme-option-title">Modern Neo-Glass</span>

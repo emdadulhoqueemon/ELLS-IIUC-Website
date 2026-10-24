@@ -1,19 +1,20 @@
 /**
  * ELLS Website & Admin Console — Theme Switcher
- * Handles aesthetic theme toggling between 'dark-academia' and 'modern-neo-glass'.
- * Persists user preference via localStorage with default 'dark-academia'.
+ * Handles aesthetic theme toggling between 'modern-neo-glass' (default) and 'dark-academia'.
+ * Persists user preference via localStorage with key 'theme' (and 'ells_theme').
  */
 (function() {
   'use strict';
 
-  var STORAGE_KEY = 'ells_theme';
-  var DEFAULT_THEME = 'dark-academia';
-  var VALID_THEMES = ['dark-academia', 'modern-neo-glass'];
+  var STORAGE_KEY = 'theme';
+  var LEGACY_KEY = 'ells_theme';
+  var DEFAULT_THEME = 'modern-neo-glass';
+  var VALID_THEMES = ['modern-neo-glass', 'dark-academia'];
 
   /** Get current saved theme */
   function getSavedTheme() {
     try {
-      var saved = localStorage.getItem(STORAGE_KEY);
+      var saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_KEY);
       if (saved && VALID_THEMES.indexOf(saved) !== -1) {
         return saved;
       }
@@ -23,14 +24,18 @@
     return DEFAULT_THEME;
   }
 
-  /** Apply theme to document */
+  /** Apply theme to document and persist */
   function applyTheme(theme) {
     if (VALID_THEMES.indexOf(theme) === -1) {
       theme = DEFAULT_THEME;
     }
     document.documentElement.setAttribute('data-theme', theme);
+    if (document.body) {
+      document.body.setAttribute('data-theme', theme);
+    }
     try {
       localStorage.setItem(STORAGE_KEY, theme);
+      localStorage.setItem(LEGACY_KEY, theme);
     } catch (err) {
       /* ignore */
     }
@@ -121,7 +126,7 @@
         e.preventDefault();
         e.stopPropagation();
         var selectedTheme = option.getAttribute('data-theme-value');
-        if (selectedTheme) {
+        if (selectedTheme && VALID_THEMES.indexOf(selectedTheme) !== -1) {
           applyTheme(selectedTheme);
         }
         closeAllDropdowns();
@@ -152,7 +157,7 @@
     initThemeSwitcher();
   }
 
-  // Export helper globally if needed
+  // Export helper globally
   window.ELLSTheme = {
     get: getSavedTheme,
     set: applyTheme
