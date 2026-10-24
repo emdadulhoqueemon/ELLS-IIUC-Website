@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: #06142E;
+  background: #FFFFFF;
 }
 
 .admin-body [hidden] {
@@ -64,8 +64,8 @@
   gap: 2.5rem;
   overflow: hidden;
   padding: clamp(1.75rem, 4vw, 3.5rem);
-  background: #06142E;
-  border-right: 1px solid rgba(74, 111, 165, 0.25);
+  background: #F8F9FA;
+  border-right: 1px solid #E0E0E0;
 }
 
 .admin-login__brand::before {
@@ -233,16 +233,16 @@
   align-items: center;
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 3.5rem);
-  background: #06142E;
+  background: #FFFFFF;
 }
 
 .admin-login__card {
   width: 100%;
   max-width: 432px;
   padding: clamp(1.75rem, 3vw, 2.5rem);
-  border: none;
+  border: 1px solid #E0E0E0;
   border-radius: var(--radius-lg);
-  background: #111C3A;
+  background: #FFFFFF;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
@@ -330,11 +330,11 @@
   padding: 0.85rem 1rem;
   font-size: 0.94rem;
   border-radius: var(--radius-sm);
-  background-color: #06142E !important;
-  background: #06142E !important;
-  color: #F0F4F8 !important;
-  border: 1px solid #4A6FA5 !important;
-  color-scheme: dark !important;
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
 }
 
 .admin-input-wrap .admin-input {
@@ -493,7 +493,7 @@
 .admin-dashboard {
   flex: 1 1 auto;
   min-height: 0;
-  background: #06142E;
+  background: #FFFFFF;
 }
 
 .admin-topbar {
@@ -506,10 +506,10 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.8rem clamp(1rem, 4vw, 2.5rem);
-  background: #06142E;
+  background: #FFFFFF;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(74, 111, 165, 0.25);
+  border-bottom: 1px solid #E0E0E0;
 }
 
 .admin-topbar__brand {
@@ -706,9 +706,9 @@
 /* --- Cards ------------------------------------------------------------- */
 .admin-card {
   padding: clamp(1.35rem, 2.5vw, 2rem);
-  border: none;
+  border: 1px solid #E0E0E0;
   border-radius: var(--radius-lg);
-  background: #111C3A;
+  background: #FFFFFF;
   box-shadow: var(--shadow-md);
 }
 
@@ -791,11 +791,11 @@
   resize: vertical;
   line-height: 1.65;
   padding-top: 0.75rem;
-  background-color: #06142E !important;
-  background: #06142E !important;
-  color: #F0F4F8 !important;
-  border: 1px solid #4A6FA5 !important;
-  color-scheme: dark !important;
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
 }
 
 .admin-counter {
@@ -1758,11 +1758,11 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: #06142E !important;
-  color: #F0F4F8 !important;
-  border: 1px solid #4A6FA5 !important;
-  color-scheme: dark !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A6FA5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+  border: 1px solid #E0E0E0 !important;
+  color-scheme: light !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.95rem center;
   background-size: 16px 16px;
