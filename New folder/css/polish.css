@@ -2697,8 +2697,6 @@ html[data-theme="modern-neo-glass"] .admin-form-actions .btn-primary,
 html[data-theme="modern-neo-glass"] .admin-login__form .btn-primary,
 html[data-theme="modern-neo-glass"] .event-card-footer .btn,
 html[data-theme="modern-neo-glass"] .event-card-footer > .btn,
-html[data-theme="modern-neo-glass"] .filter-btn.active,
-html[data-theme="modern-neo-glass"] .committee-pill.active,
 :root:not([data-theme="dark-academia"]) .btn,
 :root:not([data-theme="dark-academia"]) .btn-primary,
 :root:not([data-theme="dark-academia"]) .hero-cta-single {
@@ -2745,10 +2743,7 @@ html[data-theme="modern-neo-glass"] .admin-main .btn-secondary,
 html[data-theme="modern-neo-glass"] .admin-form-actions .btn-secondary,
 html[data-theme="modern-neo-glass"] .admin-logout,
 html[data-theme="modern-neo-glass"] .admin-btn-logout,
-html[data-theme="modern-neo-glass"] .filter-btn,
-html[data-theme="modern-neo-glass"] .committee-pill,
-:root:not([data-theme="dark-academia"]) .btn-secondary,
-:root:not([data-theme="dark-academia"]) .filter-btn {
+:root:not([data-theme="dark-academia"]) .btn-secondary {
   background: rgba(255, 255, 255, 0.06) !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -2759,14 +2754,178 @@ html[data-theme="modern-neo-glass"] .committee-pill,
 
 html[data-theme="modern-neo-glass"] .btn-secondary:hover,
 html[data-theme="modern-neo-glass"] a.btn-secondary:hover,
-html[data-theme="modern-neo-glass"] .filter-btn:hover,
-html[data-theme="modern-neo-glass"] .committee-pill:hover,
 html[data-theme="modern-neo-glass"] .admin-logout:hover,
 :root:not([data-theme="dark-academia"]) .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.12) !important;
   border-color: rgba(255, 255, 255, 0.25) !important;
   color: #FFFFFF !important;
 }
+
+
+/* ==========================================================================
+   FLAT MEMBER & EVENT FILTER TABS (STRICT NO GLOW / SOLID ACTIVE STATE)
+   ========================================================================== */
+.committee-pill,
+.filter-btn,
+.committee-nav-pills button,
+.filter-pills button,
+.member-nav button {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.committee-pill:hover,
+.committee-pill:focus,
+.committee-pill:focus-visible,
+.committee-pill.active,
+.committee-pill.is-active,
+.filter-btn:hover,
+.filter-btn:focus,
+.filter-btn:focus-visible,
+.filter-btn.active,
+.filter-btn.is-active,
+.committee-nav-pills button:hover,
+.committee-nav-pills button:focus,
+.committee-nav-pills button:focus-visible,
+.committee-nav-pills button.active,
+.filter-pills button:hover,
+.filter-pills button:focus,
+.filter-pills button:focus-visible,
+.filter-pills button.active,
+.member-nav button:hover,
+.member-nav button:focus,
+.member-nav button:focus-visible,
+.member-nav button.active {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+.committee-pill *,
+.filter-btn *,
+.committee-nav-pills button *,
+.filter-pills button *,
+.member-nav button * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Modern Neo-Glass Member & Event Filter Tabs */
+html[data-theme="modern-neo-glass"] .committee-pill,
+html[data-theme="modern-neo-glass"] .filter-btn,
+html[data-theme="modern-neo-glass"] .committee-nav-pills button,
+html[data-theme="modern-neo-glass"] .filter-pills button,
+html[data-theme="modern-neo-glass"] .member-nav button,
+:root:not([data-theme="dark-academia"]) .committee-pill,
+:root:not([data-theme="dark-academia"]) .filter-btn,
+:root:not([data-theme="dark-academia"]) .committee-nav-pills button,
+:root:not([data-theme="dark-academia"]) .filter-pills button,
+:root:not([data-theme="dark-academia"]) .member-nav button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 0.45rem 1rem !important;
+  font-size: 0.86rem !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+}
+
+html[data-theme="modern-neo-glass"] .committee-pill:hover:not(.active):not(.is-active),
+html[data-theme="modern-neo-glass"] .filter-btn:hover:not(.active):not(.is-active),
+html[data-theme="modern-neo-glass"] .committee-nav-pills button:hover:not(.active):not(.is-active),
+html[data-theme="modern-neo-glass"] .filter-pills button:hover:not(.active):not(.is-active),
+html[data-theme="modern-neo-glass"] .member-nav button:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]) .committee-pill:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]) .filter-btn:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]) .committee-nav-pills button:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]) .filter-pills button:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]) .member-nav button:hover:not(.active):not(.is-active) {
+  background: rgba(255, 255, 255, 0.16) !important;
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .committee-pill.active,
+html[data-theme="modern-neo-glass"] .committee-pill.is-active,
+html[data-theme="modern-neo-glass"] .committee-pill:active,
+html[data-theme="modern-neo-glass"] .filter-btn.active,
+html[data-theme="modern-neo-glass"] .filter-btn.is-active,
+html[data-theme="modern-neo-glass"] .filter-btn:active,
+html[data-theme="modern-neo-glass"] .committee-nav-pills button.active,
+html[data-theme="modern-neo-glass"] .committee-nav-pills button.is-active,
+html[data-theme="modern-neo-glass"] .filter-pills button.active,
+html[data-theme="modern-neo-glass"] .filter-pills button.is-active,
+html[data-theme="modern-neo-glass"] .member-nav button.active,
+html[data-theme="modern-neo-glass"] .member-nav button.is-active,
+:root:not([data-theme="dark-academia"]) .committee-pill.active,
+:root:not([data-theme="dark-academia"]) .committee-pill.is-active,
+:root:not([data-theme="dark-academia"]) .committee-pill:active,
+:root:not([data-theme="dark-academia"]) .filter-btn.active,
+:root:not([data-theme="dark-academia"]) .filter-btn.is-active,
+:root:not([data-theme="dark-academia"]) .filter-btn:active,
+:root:not([data-theme="dark-academia"]) .committee-nav-pills button.active,
+:root:not([data-theme="dark-academia"]) .committee-nav-pills button.is-active,
+:root:not([data-theme="dark-academia"]) .filter-pills button.active,
+:root:not([data-theme="dark-academia"]) .filter-pills button.is-active,
+:root:not([data-theme="dark-academia"]) .member-nav button.active,
+:root:not([data-theme="dark-academia"]) .member-nav button.is-active {
+  background: #0D9488 !important;
+  background-color: #0D9488 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0D9488 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .committee-pill.active:hover,
+html[data-theme="modern-neo-glass"] .committee-pill.active:focus,
+html[data-theme="modern-neo-glass"] .committee-pill.active:focus-visible,
+html[data-theme="modern-neo-glass"] .filter-btn.active:hover,
+html[data-theme="modern-neo-glass"] .filter-btn.active:focus,
+html[data-theme="modern-neo-glass"] .filter-btn.active:focus-visible,
+:root:not([data-theme="dark-academia"]) .committee-pill.active:hover,
+:root:not([data-theme="dark-academia"]) .committee-pill.active:focus,
+:root:not([data-theme="dark-academia"]) .filter-btn.active:hover,
+:root:not([data-theme="dark-academia"]) .filter-btn.active:focus {
+  background: #0D9488 !important;
+  background-color: #0D9488 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0D9488 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+  outline: none !important;
+}
+
 
 /* Neo-Glass Canvas Transparency */
 html[data-theme="modern-neo-glass"] .hero,
