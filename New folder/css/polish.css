@@ -2026,18 +2026,25 @@ main > .hero .container,
 
 
 /* ==========================================================================
-   ROYAL NAVY & SOFT BLUE — Theme & Contrast Authority Layer
-   Palette:
-     - Deep Royal Navy Blue: #0A1128 (Canvas, body, html, hero, site-header)
-     - Mobile Drawer Deep Dark: #050A15 (Mobile Menu Drawer pop-up)
-     - Lighter Navy: #1C2541 (Cards, Notice Board, Vault, Event cards)
-     - Crisp Off-White: #FFFFFF / #F0F4F8 (Headings, Stats, Primary Text)
-     - Muted Silver: #A0AAB2 (Secondary Text)
-     - Light Navy / Soft Blue: #3A5A8C (Buttons & Key Accents)
-     - Soft Blue Hover: #4A6FA5
+   STRICT UNIFORM DARK NAVY BLUE THEME AUTHORITY LAYER
+   --------------------------------------------------------------------------
+   STRICT BANS:
+     - NO Deep Forest Green, NO greenish gradients or tints
+     - NO Gold (#D4AF37) anywhere
+     - NO Khaki, Olive, or Brown colors
+     - NO Light Theme / White backgrounds for any sections, forms, or admin
+   
+   PALETTE:
+     - Deep Dark Navy: #06142E (body, html, hero, main canvas, admin body, inputs)
+     - Elevated Navy: #111C3A (cards, vaults, notice boards, admin containers/cards)
+     - Drawer Dark Navy: #040D1E (mobile menu drawer)
+     - Crisp White/Silver: #F0F4F8 (all headings, primary text, input values)
+     - Muted Silver: #A0AAB2 (secondary text, placeholders, labels)
+     - Soft Steel Blue: #4A6FA5 (buttons, borders, accents - replacing Gold)
+     - Soft Steel Blue Hover: #5B82BA
    ========================================================================== */
 
-/* 1. Global Typography (Keep 'Asul') */
+/* 1. Global Variables & Typography (Strictly Keep 'Asul') */
 :root {
   --font-primary: 'Asul', Georgia, serif !important;
   --font-heading: 'Asul', Georgia, serif !important;
@@ -2046,42 +2053,60 @@ main > .hero .container,
   --font-sans: 'Asul', Georgia, serif !important;
   --font-quote: 'Asul', Georgia, serif !important;
 
-  --bg-primary: #0A1128;
-  --bg-card: #1C2541;
-  --bg-secondary: #1C2541;
-  --bg-drawer: #050A15;
-  --text-primary: #FFFFFF;
-  --text-heading: #FFFFFF;
-  --text-secondary: #A0AAB2;
-  --accent-primary: #3A5A8C;
-  --btn-bg: #3A5A8C;
-  --btn-bg-hover: #4A6FA5;
-  --btn-text: #FFFFFF;
-  --border-radius: 8px;
+  --bg-primary: #06142E !important;
+  --bg-canvas: #06142E !important;
+  --bg-card: #111C3A !important;
+  --bg-secondary: #111C3A !important;
+  --bg-card-subtle: #111C3A !important;
+  --bg-card-hover: #16244A !important;
+  --bg-elevated: #111C3A !important;
+  --bg-glass: rgba(17, 28, 58, 0.85) !important;
+  --bg-input: #06142E !important;
+  --bg-drawer: #040D1E !important;
+
+  --text-primary: #F0F4F8 !important;
+  --text-heading: #F0F4F8 !important;
+  --text-secondary: #A0AAB2 !important;
+  --text-muted: #A0AAB2 !important;
+  --text-inverse: #06142E !important;
+
+  --accent-primary: #4A6FA5 !important;
+  --btn-bg: #4A6FA5 !important;
+  --btn-bg-hover: #5B82BA !important;
+  --btn-text: #FFFFFF !important;
+  --accent-gold: #4A6FA5 !important;
+  --accent-gold-hover: #5B82BA !important;
+  --accent-gold-light: rgba(74, 111, 165, 0.15) !important;
+  --accent-gold-glow: rgba(74, 111, 165, 0.4) !important;
+  --border-subtle: rgba(74, 111, 165, 0.25) !important;
+  --border-strong: #4A6FA5 !important;
+  --border-radius: 8px !important;
 }
 
-body:not(.admin-body),
-body:not(.admin-body) *,
-h1, h2, h3, h4, h5, h6,
-p, span, li, a, button, input, select, textarea, label {
+*, *::before, *::after {
   font-family: 'Asul', Georgia, serif !important;
 }
 
-/* 2. Royal Navy Canvas & Base */
+/* 2. Global Dark Navy Base */
 html {
-  background-color: #0A1128 !important;
-  color-scheme: dark;
+  background-color: #06142E !important;
+  background: #06142E !important;
+  color-scheme: dark !important;
 }
 
-body:not(.admin-body) {
-  background: #0A1128 !important;
-  background-color: #0A1128 !important;
+body,
+html body,
+body.admin-body {
+  background-color: #06142E !important;
+  background: #06142E !important;
   background-image: none !important;
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
+  color-scheme: dark !important;
 }
 
-main:not(.admin-main),
-#main-content {
+main,
+#main-content,
+.main-wrapper {
   background: transparent !important;
   background-color: transparent !important;
 }
@@ -2093,23 +2118,22 @@ h1, h2, h3, h4, h5, h6,
 .section-intro h2,
 .section-head h2,
 .resource-card-title {
-  color: #FFFFFF !important;
-  font-family: 'Asul', Georgia, serif !important;
+  color: #F0F4F8 !important;
 }
 
-p, span, li, a {
+p, span, li, a, label {
   color: #F0F4F8;
 }
 
-/* Header / Top Navigation Bar */
+/* 3. Top Navigation & Footer */
 .site-header,
 header.site-header,
 header {
-  background: #0A1128 !important;
-  background-color: #0A1128 !important;
+  background: #06142E !important;
+  background-color: #06142E !important;
   background-image: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  border-bottom: 1px solid rgba(74, 111, 165, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
 }
 
 .site-header *,
@@ -2117,43 +2141,16 @@ header {
 .site-header .logo-text,
 .site-header .logo-line-1,
 .site-header .logo-line-2,
-.site-header .logo-text-primary,
-.site-header .logo-text-secondary,
 .site-header a,
 .site-header span {
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: #A0C4FF !important;
+  color: #4A6FA5 !important;
 }
 
-/* Hero Section */
-.hero {
-  background: #0A1128 !important;
-  background-color: #0A1128 !important;
-  background-image: none !important;
-  color: #FFFFFF !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.hero h1,
-.hero-content h1,
-#hero-heading {
-  color: #FFFFFF !important;
-}
-
-.hero-subheading {
-  color: #A0C4FF !important;
-}
-
-.hero-lead,
-.hero p {
-  color: #A0AAB2 !important;
-}
-
-/* 3. Logos (Header & Footer) - Clean Circular White Badges */
 .site-logo-img,
 .partner-logo-img,
 .site-logo img,
@@ -2165,15 +2162,28 @@ header {
   padding: 4px !important;
   object-fit: contain !important;
   border: none !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
 }
 
 .partner-affiliation {
-  border: none !important;
-  box-shadow: none !important;
+  background: #111C3A !important;
+  border: 1px solid rgba(74, 111, 165, 0.25) !important;
 }
 
-/* 4. Button Color Redesign: Soft Blue (#3A5A8C) with Crisp White (#FFFFFF) Text */
+.site-footer {
+  background: #06142E !important;
+  background-color: #06142E !important;
+  border-top: 1px solid rgba(74, 111, 165, 0.2) !important;
+  color: #A0AAB2 !important;
+}
+
+.developer-credit-bar {
+  background: #040D1E !important;
+  background-color: #040D1E !important;
+  border-top: 1px solid rgba(74, 111, 165, 0.2) !important;
+  color: #A0AAB2 !important;
+}
+
+/* 4. All Buttons: Soft Steel Blue (#4A6FA5) with White (#FFFFFF) Text */
 .btn,
 .btn-primary,
 .resource-drive-btn,
@@ -2183,17 +2193,29 @@ header {
 .mobile-nav-cta,
 button.btn-primary,
 a.btn-primary,
-.site-header .btn-primary {
-  background: #3A5A8C !important;
-  background-color: #3A5A8C !important;
+.site-header .btn-primary,
+#memberLookupBtn,
+#restorePassBtn,
+button#memberLookupBtn,
+button#restorePassBtn,
+.member-lookup-form .btn-primary,
+#adminLoginBtn,
+.admin-submit,
+.admin-card .btn-primary,
+.admin-main .btn-primary,
+.admin-form-actions .btn-primary,
+.admin-login__form .btn-primary {
+  background: #4A6FA5 !important;
+  background-color: #4A6FA5 !important;
   background-image: none !important;
   color: #FFFFFF !important;
-  border: 1px solid #3A5A8C !important;
+  border: 1px solid #4A6FA5 !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
   text-decoration: none !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
   transition: all 0.2s ease !important;
+  cursor: pointer !important;
 }
 
 .btn *,
@@ -2204,7 +2226,13 @@ a.btn-primary,
 .hero-cta-single *,
 .mobile-nav-cta *,
 button.btn-primary *,
-a.btn-primary * {
+a.btn-primary *,
+#memberLookupBtn *,
+#restorePassBtn *,
+button#memberLookupBtn *,
+button#restorePassBtn *,
+#adminLoginBtn *,
+.admin-submit * {
   color: #FFFFFF !important;
   fill: #FFFFFF !important;
   stroke: #FFFFFF !important;
@@ -2218,47 +2246,53 @@ a.btn-primary * {
 .hero-cta-single:hover,
 button.btn-primary:hover,
 a.btn-primary:hover,
-.site-header .btn-primary:hover {
-  background: #4A6FA5 !important;
-  background-color: #4A6FA5 !important;
-  border-color: #4A6FA5 !important;
+.site-header .btn-primary:hover,
+#memberLookupBtn:hover,
+#restorePassBtn:hover,
+#adminLoginBtn:hover,
+.admin-submit:hover,
+.admin-card .btn-primary:hover {
+  background: #5B82BA !important;
+  background-color: #5B82BA !important;
+  border-color: #5B82BA !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 16px rgba(58, 90, 140, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(74, 111, 165, 0.45) !important;
   transform: translateY(-1px) !important;
 }
 
 .btn-secondary,
 a.btn-secondary,
 button.btn-secondary,
-.btn-outline-gold,
-.poster-action-btn.btn-details {
-  background: transparent !important;
-  background-color: transparent !important;
-  color: #FFFFFF !important;
-  border: 1.5px solid #3A5A8C !important;
+.poster-action-btn.btn-details,
+.admin-card .btn-secondary,
+.admin-main .btn-secondary,
+.admin-form-actions .btn-secondary {
+  background: rgba(74, 111, 165, 0.15) !important;
+  background-color: rgba(74, 111, 165, 0.15) !important;
+  color: #F0F4F8 !important;
+  border: 1.5px solid #4A6FA5 !important;
   border-radius: 8px !important;
 }
 
 .btn-secondary *,
 a.btn-secondary *,
 button.btn-secondary * {
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
   fill: currentColor !important;
 }
 
 .btn-secondary:hover,
 a.btn-secondary:hover,
 button.btn-secondary:hover {
-  background: rgba(58, 90, 140, 0.2) !important;
-  border-color: #4A6FA5 !important;
+  background: rgba(74, 111, 165, 0.3) !important;
+  border-color: #5B82BA !important;
   color: #FFFFFF !important;
-  box-shadow: 0 0 12px rgba(58, 90, 140, 0.3) !important;
 }
 
-/* 5. Sections & Cards (Lighter Navy #1C2541, 8px Radius) */
+/* 5. Sections & Cards (Elevated Navy #111C3A) */
+.hero,
 .section-notice-board,
 #noticeBoard,
-.news-ticker-bar,
 .events-controls-section,
 .events-grid-section,
 .archive-band,
@@ -2272,19 +2306,19 @@ section#committee,
 section#wings,
 .section-testimonials,
 .featured-resource-section,
-.site-footer {
-  background: #0A1128 !important;
-  background-color: #0A1128 !important;
+.membership-section,
+#membershipStatusCheck {
+  background: #06142E !important;
+  background-color: #06142E !important;
   background-image: none !important;
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
 }
 
 .news-ticker-bar {
-  background: #1C2541 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #111C3A !important;
+  border-bottom: 1px solid rgba(74, 111, 165, 0.25) !important;
 }
 
-/* All Standard Cards */
 .card,
 [class*="-card"],
 .event-card,
@@ -2297,58 +2331,59 @@ section#wings,
 .feed-state,
 .archive-band__inner,
 .team-card,
-.tier-card {
-  background: #1C2541 !important;
-  background-color: #1C2541 !important;
+.tier-card,
+.featured-resource-card,
+.committee-card,
+.advisory-card,
+.faculty-card,
+.student-card,
+.committee-grid .card,
+.membership-card-pass,
+#memberRecordLookupCard,
+#applicationFormCard {
+  background: #111C3A !important;
+  background-color: #111C3A !important;
   background-image: none !important;
   color: #F0F4F8 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(74, 111, 165, 0.25) !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
-.card:hover,
-.event-card:hover,
-.notice-poster-card:hover,
-.notice-board-banner:hover {
-  border-color: rgba(58, 90, 140, 0.6) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(58, 90, 140, 0.25) !important;
+.featured-resource-card,
+.committee-card,
+.advisory-card,
+.faculty-card,
+.student-card {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Card Typography */
 .card *,
 [class*="-card"] *,
 .event-card *,
 .notice-card *,
-.notice-board-state *,
-.feed-state * {
+.featured-resource-card *,
+.committee-card * {
   color: #F0F4F8;
-}
-
-.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
-.event-card h1, .event-card h2, .event-card h3, .event-card h4,
-.notice-card h1, .notice-card h2, .notice-card h3, .notice-card h4 {
-  color: #FFFFFF !important;
 }
 
 .card p,
 .event-card p,
-.notice-card p {
+.notice-card p,
+.featured-resource-card p,
+.committee-card p,
+.resource-card-desc {
   color: #A0AAB2 !important;
 }
 
 /* Four Pillars Icons */
 .card-icon-wrap,
 .section-pillars .card-icon-wrap {
-  background: rgba(58, 90, 140, 0.2) !important;
-  background-color: rgba(58, 90, 140, 0.2) !important;
-  border: 1px solid rgba(58, 90, 140, 0.35) !important;
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
   border-radius: 8px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 48px !important;
-  height: 48px !important;
 }
 
 .card-icon-wrap svg,
@@ -2356,198 +2391,75 @@ section#wings,
 .section-pillars .card-icon-wrap svg,
 .section-pillars .card-icon-wrap svg *,
 .section-pillars .card svg,
-.section-pillars .card svg *,
-.card svg {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
-  color: #FFFFFF !important;
+.section-pillars .card svg * {
+  fill: #4A6FA5 !important;
+  stroke: #4A6FA5 !important;
+  color: #4A6FA5 !important;
 }
 
-/* 6. Clean Up Ugly Borders: Academic Resource Vault */
-.featured-resource-section,
-.featured-resource-card,
-.resource-card-grid,
-.resource-card-info,
-.resource-card-badge,
-.resource-tags-row,
-.resource-tag,
-.resource-card-credit {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.featured-resource-card {
-  background: #1C2541 !important;
-  background-color: #1C2541 !important;
-  background-image: none !important;
-  border: none !important;
-  outline: none !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-  padding: clamp(1.8rem, 4vw, 2.6rem) !important;
-}
-
-.featured-resource-card * {
-  color: #F0F4F8;
-}
-
-.featured-resource-card h1,
-.featured-resource-card h2,
-.featured-resource-card h3,
-.featured-resource-card h4,
-.resource-card-title {
-  color: #FFFFFF !important;
-}
-
-.featured-resource-card p,
-.resource-card-desc {
-  color: #A0AAB2 !important;
-}
-
+/* Academic Resource Vault */
 .featured-resource-card .resource-card-badge {
-  background: rgba(58, 90, 140, 0.35) !important;
-  color: #FFFFFF !important;
-  border: none !important;
-  border-radius: 6px !important;
-}
-
-.featured-resource-card .resource-card-badge span,
-.featured-resource-card .resource-card-badge svg {
-  color: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  background: rgba(74, 111, 165, 0.25) !important;
+  color: #F0F4F8 !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
 }
 
 .featured-resource-card .resource-tag {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(74, 111, 165, 0.15) !important;
   color: #F0F4F8 !important;
   border: none !important;
-  border-radius: 6px !important;
 }
 
 .featured-resource-card .resource-card-credit {
+  border-top: 1px solid rgba(74, 111, 165, 0.2) !important;
   color: #A0AAB2 !important;
-  border: none !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .featured-resource-card .resource-card-credit strong {
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
 }
 
-/* 7. Clean Up Ugly Borders: Advisory & Executive Committee Cards */
-.committee-card,
-.committee-card.advisory-card,
-.committee-card.faculty-card,
-.committee-card.student-card,
-.advisory-card,
-.faculty-card,
-.student-card,
-.committee-grid .card,
-.committee-card[data-category="emt"] {
-  background: #1C2541 !important;
-  background-color: #1C2541 !important;
-  background-image: none !important;
-  border: none !important;
-  outline: none !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
-}
-
-.committee-card:hover,
-.advisory-card:hover,
-.faculty-card:hover,
-.student-card:hover {
-  border: none !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-  transform: translateY(-2px);
-}
-
-.committee-card *,
-.advisory-card *,
-.faculty-card *,
-.student-card * {
-  color: #F0F4F8;
-}
-
-.committee-card h4 {
-  color: #FFFFFF !important;
-}
-
-.committee-designation {
-  color: #A0AAB2 !important;
-}
-
-.committee-meta-pill {
-  background: rgba(255, 255, 255, 0.07) !important;
-  color: #A0C4FF !important;
-  border: none !important;
-  border-radius: 4px !important;
-}
-
-/* 8. Circular Icon Shapes (VC, Pro-VC Avatars) */
+/* Committee Avatars */
 .committee-avatar,
 .committee-card .committee-avatar,
 .advisory-card .committee-avatar,
 .faculty-card .committee-avatar,
-.student-card .committee-avatar,
-.committee-card-header .committee-avatar,
-.committee-icon,
-.member-avatar,
-.committee-card img,
-.committee-avatar img {
+.student-card .committee-avatar {
   border-radius: 50% !important;
   overflow: hidden !important;
   aspect-ratio: 1 / 1 !important;
-  background: #0A1128 !important;
-  color: #FFFFFF !important;
-  border: 1.5px solid #3A5A8C !important;
+  background: #06142E !important;
+  color: #F0F4F8 !important;
+  border: 1.5px solid #4A6FA5 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-/* 9. Fix Invisible Text Contrast: Stats Section (500+, 20+, 15+, 5) */
-.stats-strip,
-.stats-section,
-.stats-grid,
-.stat-item {
-  color: #FFFFFF !important;
-}
-
+/* Stats Section */
 .stat-number,
 .stats-counter,
 .stats-number {
   color: #FFFFFF !important;
-  font-family: 'Asul', Georgia, serif !important;
   font-weight: 800 !important;
 }
 
 .stat-label,
 .stats-label {
-  color: #F0F4F8 !important;
-  font-family: 'Asul', Georgia, serif !important;
+  color: #A0AAB2 !important;
   font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
 }
 
-/* 10. Mobile Menu Drawer (Pop-up) Fix: Deep Dark (#050A15) Background & Crisp White Text */
+/* Mobile Navigation Drawer */
 .main-nav,
 nav.main-nav,
 .mobile-nav-panel,
 .nav-drawer {
-  background-color: #050A15 !important;
-  background: #050A15 !important;
+  background-color: #040D1E !important;
+  background: #040D1E !important;
   background-image: none !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-.nav-backdrop {
-  background: rgba(0, 0, 0, 0.75) !important;
-  backdrop-filter: blur(4px) !important;
-  -webkit-backdrop-filter: blur(4px) !important;
+  border-top: 1px solid rgba(74, 111, 165, 0.2) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
 }
 
 .main-nav *,
@@ -2556,18 +2468,7 @@ nav.main-nav,
 .main-nav span,
 .main-nav li,
 .nav-links,
-.nav-links *,
-.mobile-nav-panel *,
-.mobile-nav-footer,
-.mobile-nav-footer * {
-  color: #FFFFFF !important;
-}
-
-.nav-links li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.nav-link {
+.nav-links * {
   color: #FFFFFF !important;
 }
 
@@ -2575,94 +2476,198 @@ nav.main-nav,
 .nav-link:focus,
 .nav-link.active {
   color: #FFFFFF !important;
-  background-color: rgba(58, 90, 140, 0.3) !important;
+  background-color: rgba(74, 111, 165, 0.3) !important;
 }
 
-.mobile-nav-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.mobile-nav-cta {
-  background: #3A5A8C !important;
-  background-color: #3A5A8C !important;
-  color: #FFFFFF !important;
-  border: 1px solid #3A5A8C !important;
-  border-radius: 8px !important;
-}
-
-.mobile-nav-social {
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-radius: 50% !important;
-}
-
-.mobile-nav-social svg {
-  fill: #FFFFFF !important;
-}
-
-.mobile-nav-toggle span {
-  background-color: #FFFFFF !important;
-}
-
-.mobile-nav-toggle {
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-}
-
-/* Developer Credit Bar */
-.developer-credit-bar {
-  background: #050A15 !important;
-  background-color: #050A15 !important;
+/* 6. Form Inputs on Public Pages (Membership Check, etc.) */
+.form-control,
+input.form-control,
+textarea.form-control,
+select.form-control,
+#memberLookupInput,
+input#memberLookupInput,
+.member-lookup-form input,
+.member-lookup-form .form-control,
+#membershipForm input,
+#membershipForm select,
+#membershipForm textarea {
+  background: #06142E !important;
+  background-color: #06142E !important;
   color: #F0F4F8 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  text-align: center !important;
-  padding: 8px 15px !important;
+  border: 1px solid #4A6FA5 !important;
+  border-radius: 6px !important;
+  color-scheme: dark !important;
 }
 
-.developer-credit-bar,
-.developer-credit-bar * {
+.form-control::placeholder,
+#memberLookupInput::placeholder {
+  color: #A0AAB2 !important;
+  opacity: 1 !important;
+}
+
+.form-control:focus,
+#memberLookupInput:focus {
+  border-color: #5B82BA !important;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.3) !important;
+  outline: none !important;
+}
+
+/* 7. Admin Login Panel (admin.html) */
+.admin-login,
+.admin-login__brand,
+.admin-login__panel,
+#adminLoginView,
+#adminMain {
+  background: #06142E !important;
+  background-color: #06142E !important;
+  background-image: none !important;
+}
+
+.admin-login__brand {
+  border-right: 1px solid rgba(74, 111, 165, 0.25) !important;
+}
+
+.admin-login__card {
+  background: #111C3A !important;
+  background-color: #111C3A !important;
+  background-image: none !important;
+  border: 1px solid #4A6FA5 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.admin-login__brand,
+.admin-login__brand *,
+.admin-brand__body,
+.admin-brand__body *,
+.admin-brand__points,
+.admin-brand__points li,
+.admin-brand__points li span,
+.admin-brand__points strong,
+.admin-brand__footer,
+.admin-brand__footer *,
+.admin-back-link,
+.admin-back-link * {
   color: #F0F4F8 !important;
 }
 
-/* 11. Admin Console Overhaul (Top Bar & Forms) */
+.admin-brand__points li span,
+.admin-brand__body p {
+  color: #A0AAB2 !important;
+}
 
-/* Canvas & Background: STRICTLY pure White (#FFFFFF) */
-html:has(.admin-body),
+.admin-brand__points strong,
+.admin-brand__body h1 {
+  color: #FFFFFF !important;
+}
+
+.admin-brand__points svg {
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid #4A6FA5 !important;
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.admin-login__icon {
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid #4A6FA5 !important;
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.admin-login__icon svg {
+  stroke: #FFFFFF !important;
+}
+
+.admin-login__card h2 {
+  color: #FFFFFF !important;
+}
+
+.admin-login__lead {
+  color: #A0AAB2 !important;
+}
+
+/* Login Form Inputs (Email, Password) */
+.admin-login__form input,
+.admin-login__card input,
+#adminEmail,
+#adminPassword {
+  background: #06142E !important;
+  background-color: #06142E !important;
+  border: 1px solid #4A6FA5 !important;
+  color: #F0F4F8 !important;
+  border-radius: 6px !important;
+  color-scheme: dark !important;
+}
+
+.admin-login__form input::placeholder,
+#adminEmail::placeholder,
+#adminPassword::placeholder {
+  color: #A0AAB2 !important;
+  opacity: 1 !important;
+}
+
+.admin-login__form input:focus,
+#adminEmail:focus,
+#adminPassword:focus {
+  border-color: #5B82BA !important;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.3) !important;
+  outline: none !important;
+}
+
+.admin-password-toggle svg {
+  stroke: #A0AAB2 !important;
+}
+
+.admin-check span {
+  color: #A0AAB2 !important;
+}
+
+/* 'Sign In Securely' button */
+#adminLoginBtn,
+.admin-submit,
+.admin-login__form button[type="submit"] {
+  background: #4A6FA5 !important;
+  background-color: #4A6FA5 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #4A6FA5 !important;
+  border-radius: 6px !important;
+}
+
+#adminLoginBtn:hover,
+.admin-submit:hover {
+  background: #5B82BA !important;
+  background-color: #5B82BA !important;
+  border-color: #5B82BA !important;
+  color: #FFFFFF !important;
+}
+
+/* 8. Admin Console Dashboard (admin.html) */
 body.admin-body,
 .admin-body,
-.admin-console,
-.dashboard,
 .admin-dashboard,
 .admin-main,
 .admin-grid,
-.admin-card,
-.admin-notice-card,
-.admin-preview-card,
-.admin-live,
-form.admin-form,
-.admin-form,
-section.admin-card,
-.admin-login__panel,
-.admin-login__card {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
+#adminDashboard,
+#adminDashboardMain {
+  background: #06142E !important;
+  background-color: #06142E !important;
   background-image: none !important;
-  color: #333333 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  color: #F0F4F8 !important;
+  color-scheme: dark !important;
 }
 
-/* Admin Top Bar: Clean Dark Background (#0A1128) & Crisp White (#FFFFFF) Text */
 .admin-topbar,
 header.admin-topbar,
 .admin-dashboard .admin-topbar {
-  background: #0A1128 !important;
-  background-color: #0A1128 !important;
+  background: #06142E !important;
+  background-color: #06142E !important;
   background-image: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid rgba(74, 111, 165, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  color: #F0F4F8 !important;
 }
 
-.admin-topbar,
 .admin-topbar *,
 .admin-topbar__brand,
 .admin-topbar__brand-text strong,
@@ -2670,197 +2675,96 @@ header.admin-topbar,
 .admin-topbar a,
 .admin-topbar span,
 .admin-topbar button {
-  color: #FFFFFF !important;
+  color: #F0F4F8 !important;
 }
 
 .admin-topbar__brand-text span {
-  color: #A0C4FF !important;
-}
-
-.admin-topbar__brand img {
-  background-color: #FFFFFF !important;
-  border-radius: 50% !important;
-  padding: 2px !important;
-  border: none !important;
+  color: #A0AAB2 !important;
 }
 
 .admin-user-chip {
-  background: rgba(255, 255, 255, 0.12) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  border-radius: 20px !important;
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  color: #F0F4F8 !important;
 }
 
 .admin-user-chip__avatar {
-  background: #3A5A8C !important;
+  background: #4A6FA5 !important;
   color: #FFFFFF !important;
-  border-radius: 50% !important;
 }
 
 .admin-env-pill {
-  background: rgba(58, 90, 140, 0.4) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 20px !important;
+  background: rgba(74, 111, 165, 0.25) !important;
+  border: 1px solid #4A6FA5 !important;
+  color: #F0F4F8 !important;
 }
 
 .admin-btn-logout,
 .admin-btn-signout,
 .admin-topbar .btn {
   background: transparent !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 6px !important;
+  color: #F0F4F8 !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
 }
 
-/* Admin Dashboard Content & Headings: Standard Dark (#333333 / #111827) */
-.admin-main *,
+/* Admin Dashboard Cards & Forms */
+.admin-card,
+.admin-notice-card,
+.admin-preview-card,
+.admin-live,
+section.admin-card,
+.admin-form {
+  background: #111C3A !important;
+  background-color: #111C3A !important;
+  background-image: none !important;
+  border: 1px solid rgba(74, 111, 165, 0.25) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  color: #F0F4F8 !important;
+}
+
 .admin-card *,
-.admin-dashboard .admin-main *,
 .admin-notice-card *,
 .admin-preview-card *,
 .admin-live *,
-.admin-form *,
-.admin-login__panel * {
-  color: #333333;
+.admin-main * {
+  color: #F0F4F8;
 }
 
-.admin-main h1,
-.admin-main h2,
-.admin-main h3,
-.admin-main h4,
 .admin-card h1,
 .admin-card h2,
 .admin-card h3,
 .admin-card h4,
-.admin-card__head h2,
-.admin-main__head h1,
-.admin-main__head h2,
-.admin-login__card h2 {
-  color: #111827 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-  font-weight: 700 !important;
+.admin-main h1,
+.admin-main h2,
+.admin-main h3,
+.admin-main h4 {
+  color: #FFFFFF !important;
 }
 
+.admin-card p,
 .admin-card__head p,
 .admin-main__meta,
-.admin-card p,
-.admin-login__lead {
-  color: #6B7280 !important;
-}
-
-/* Admin Form Fields: Standard Dark Text (#333333) on Clean White Background */
-body.admin-body input,
-body.admin-body select,
-body.admin-body textarea,
-.admin-input,
-.admin-select,
-.admin-textarea,
-.admin-card input,
-.admin-card select,
-.admin-card textarea,
-.admin-input-wrap input {
-  background-color: #FFFFFF !important;
-  background: #FFFFFF !important;
-  color: #333333 !important;
-  border: 1px solid #D1D5DB !important;
-  border-radius: 6px !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-}
-
-.admin-input:focus,
-.admin-select:focus,
-.admin-textarea:focus,
-.admin-input-wrap input:focus {
-  border-color: #3A5A8C !important;
-  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.2) !important;
-  outline: none !important;
-}
-
-.admin-input::placeholder,
-.admin-textarea::placeholder,
-.admin-input-wrap input::placeholder {
-  color: #9CA3AF !important;
-}
-
 .form-label,
-.admin-card label,
 .admin-label-row label {
-  color: #374151 !important;
-  font-weight: 600 !important;
-}
-
-.admin-card {
-  border: 1px solid #E5E7EB !important;
-  border-radius: 10px !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+  color: #A0AAB2 !important;
 }
 
 .admin-card__icon {
-  background: #F3F4F6 !important;
-  color: #3A5A8C !important;
-  border: 1px solid #E5E7EB !important;
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  color: #4A6FA5 !important;
   border-radius: 8px !important;
 }
 
 .admin-card__icon svg {
-  stroke: #3A5A8C !important;
+  stroke: #4A6FA5 !important;
 }
 
-.admin-card .btn-primary,
-.admin-main .btn-primary,
-.admin-form-actions .btn-primary,
-.admin-login__form .btn-primary {
-  background-color: #0A1128 !important;
-  background: #0A1128 !important;
-  color: #FFFFFF !important;
-  border: 1px solid #0A1128 !important;
-  border-radius: 6px !important;
-}
-
-.admin-card .btn-primary:hover,
-.admin-main .btn-primary:hover,
-.admin-form-actions .btn-primary:hover,
-.admin-login__form .btn-primary:hover {
-  background-color: #1C2541 !important;
-}
-
-.admin-card .btn-secondary,
-.admin-main .btn-secondary,
-.admin-form-actions .btn-secondary {
-  background: #F3F4F6 !important;
-  color: #374151 !important;
-  border: 1px solid #D1D5DB !important;
-  border-radius: 6px !important;
-}
-
-/* ==========================================================================
-   SPECIFIC CONTRAST & VISIBILITY FIXES
-   1. Notice Management & Admin Form Inputs: Pure White (#FFFFFF), Dark Text (#333333), Light Gray Border (#E0E0E0)
-   2. IT Secretary Console Login Page: White (#FFFFFF) & Bright Silver (#F0F4F8) Left Panel Text, Clean Light Borders
-   3. Membership Status Check: Solid Dark (#333333) Student ID Text, Gold (#D4AF37) Buttons with Deep Navy (#0A1128) Text
-   ========================================================================== */
-
-/* --- 1. Notice Management & All Admin Form Fields --- */
-body.admin-body,
-.admin-body,
-.admin-dashboard,
-.admin-main,
-.admin-login,
-.admin-card,
-.admin-form,
-#addNoticeForm,
-#addEventForm,
-#adminLoginForm {
-  color-scheme: light !important;
-}
-
+/* All Admin Form Inputs, Textareas, Selects & Dates */
 body.admin-body input,
 body.admin-body textarea,
 body.admin-body select,
-.admin-body input,
-.admin-body textarea,
-.admin-body select,
 .admin-input,
 .admin-textarea,
 .admin-select,
@@ -2872,20 +2776,23 @@ body.admin-body select,
 #addEventForm input,
 #addEventForm textarea,
 #addEventForm select,
-#adminLoginForm input,
 .admin-card input,
 .admin-card textarea,
-.admin-card select,
-.admin-notice-card input,
-.admin-notice-card textarea,
-.admin-notice-card select {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  color: #333333 !important;
-  border: 1px solid #E0E0E0 !important;
+.admin-card select {
+  background: #06142E !important;
+  background-color: #06142E !important;
+  color: #F0F4F8 !important;
+  border: 1px solid #4A6FA5 !important;
   border-radius: 6px !important;
-  color-scheme: light !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  color-scheme: dark !important;
+}
+
+body.admin-body input::placeholder,
+body.admin-body textarea::placeholder,
+.admin-input::placeholder,
+.admin-textarea::placeholder {
+  color: #A0AAB2 !important;
+  opacity: 1 !important;
 }
 
 body.admin-body input:focus,
@@ -2895,164 +2802,40 @@ body.admin-body select:focus,
 .admin-textarea:focus,
 .admin-select:focus,
 .admin-input-wrap input:focus {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  color: #333333 !important;
-  border-color: #3A5A8C !important;
-  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.15) !important;
+  border-color: #5B82BA !important;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.3) !important;
   outline: none !important;
 }
 
-body.admin-body input::placeholder,
-body.admin-body textarea::placeholder,
-.admin-input::placeholder,
-.admin-textarea::placeholder {
-  color: #888888 !important;
-  opacity: 1 !important;
-}
-
-.admin-input-icon svg {
-  stroke: #666666 !important;
-  color: #666666 !important;
-}
-
-/* --- 2. IT Secretary Console Login Page (admin.html) --- */
-.admin-login__brand,
-.admin-login__brand *,
-.admin-brand__body,
-.admin-brand__body *,
-.admin-brand__points,
-.admin-brand__points li,
-.admin-brand__points li span,
-.admin-brand__points strong,
-.admin-brand__footer,
-.admin-brand__status,
-.admin-back-link,
-.admin-back-link * {
-  color: #FFFFFF !important;
-}
-
-.admin-brand__points li,
-.admin-brand__points li span,
-.admin-brand__body p {
+/* Live Notices Items in Admin Dashboard */
+.admin-live-item {
+  background: #06142E !important;
+  border: 1px solid rgba(74, 111, 165, 0.3) !important;
   color: #F0F4F8 !important;
 }
 
-.admin-brand__points strong,
-.admin-brand__body h1 {
-  color: #FFFFFF !important;
+.admin-live-item:hover {
+  background: #16244A !important;
+  border-color: #4A6FA5 !important;
 }
 
-.admin-brand__points svg {
-  stroke: #FFFFFF !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  background: rgba(255, 255, 255, 0.08) !important;
+.admin-tag {
+  background: rgba(74, 111, 165, 0.2) !important;
+  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  color: #F0F4F8 !important;
 }
 
-/* Right-side login form clean light border */
-.admin-login__panel,
-.admin-login__card {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
+.admin-char-count {
+  color: #A0AAB2 !important;
 }
 
-.admin-login__form input,
-.admin-login__card input,
-#adminEmail,
-#adminPassword {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  color: #333333 !important;
-  border: 1px solid #E0E0E0 !important;
-  border-radius: 6px !important;
-  color-scheme: light !important;
+.admin-upload {
+  background: #06142E !important;
+  border: 1.5px dashed #4A6FA5 !important;
+  color: #A0AAB2 !important;
 }
 
-.admin-login__form input:focus,
-#adminEmail:focus,
-#adminPassword:focus {
-  border-color: #3A5A8C !important;
-  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.15) !important;
-  outline: none !important;
-}
-
-/* --- 3. Membership Status Check Fix --- */
-
-/* Student ID Input: Solid dark text (#333333) on white background with clean light border */
-#memberLookupInput,
-input#memberLookupInput,
-.member-lookup-form input,
-.member-lookup-form .form-control,
-.form-control {
-  color: #333333 !important;
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  border: 1px solid #E0E0E0 !important;
-  border-radius: 6px !important;
-  color-scheme: light !important;
-}
-
-#memberLookupInput::placeholder,
-input#memberLookupInput::placeholder,
-.member-lookup-form input::placeholder {
-  color: #888888 !important;
-  opacity: 1 !important;
-}
-
-#memberLookupInput:focus,
-input#memberLookupInput:focus {
-  color: #333333 !important;
-  border-color: #D4AF37 !important;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
-  outline: none !important;
-}
-
-/* Check Status & View Digital Pass Buttons: Gold (#D4AF37) with Deep Navy (#0A1128) text */
-#memberLookupBtn,
-#restorePassBtn,
-button#memberLookupBtn,
-button#restorePassBtn,
-.member-lookup-form .btn-primary,
-#memberRecordLookupCard .btn-primary,
-#viewExistingMemberNotice .btn-primary {
-  background: #D4AF37 !important;
-  background-color: #D4AF37 !important;
-  background-image: none !important;
-  color: #0A1128 !important;
-  border: 1px solid #D4AF37 !important;
-  border-radius: 8px !important;
-  font-weight: 700 !important;
-  font-size: 0.95rem !important;
-  padding: 0.75rem 1.4rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
-  transition: all 0.2s ease !important;
-  text-decoration: none !important;
-}
-
-#memberLookupBtn *,
-#restorePassBtn *,
-button#memberLookupBtn *,
-button#restorePassBtn *,
-.member-lookup-form .btn-primary *,
-#memberRecordLookupCard .btn-primary * {
-  color: #0A1128 !important;
-  fill: #0A1128 !important;
-  stroke: #0A1128 !important;
-}
-
-#memberLookupBtn:hover,
-#restorePassBtn:hover,
-button#memberLookupBtn:hover,
-button#restorePassBtn:hover {
-  background: #E5C358 !important;
-  background-color: #E5C358 !important;
-  border-color: #E5C358 !important;
-  color: #0A1128 !important;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4) !important;
-  transform: translateY(-1px) !important;
+.admin-upload:hover {
+  background: rgba(74, 111, 165, 0.1) !important;
+  border-color: #5B82BA !important;
 }
