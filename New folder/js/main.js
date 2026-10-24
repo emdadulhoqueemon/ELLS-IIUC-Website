@@ -1,10 +1,9 @@
 /**
  * ELLS Club - Main JavaScript Module
- * Handles the locked Midnight theme, Mobile Navigation Drawer, Toasts and Global Interactions
+ * Handles Mobile Navigation Drawer, Toasts and Global Interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  lockMidnightTheme();
   initNavigation();
   initHeaderScroll();
   initNewsletterForms();
@@ -13,30 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommitteeFilter();
   initNoticeBoard();
 });
-
-/* --------------------------------------------------------------------------
-   1. Theme Lock — "Midnight Blue & Soft Gold" is permanent (no switcher)
-   --------------------------------------------------------------------------
-   The stylesheet now declares the Midnight palette on :root only: there is no
-   light token set, no toggle button and no listener, so dark cannot be turned
-   off. The only job left for JavaScript is housekeeping after the removed
-   control — a visitor who chose a theme during an older visit can still have a
-   stale "ells-theme" entry in localStorage, which is dropped here so it can
-   never leak back, while <html> is pinned to data-theme="dark".
-   -------------------------------------------------------------------------- */
-function lockMidnightTheme() {
-  const root = document.documentElement;
-
-  try {
-    localStorage.removeItem('ells-theme');
-  } catch (err) {
-    /* Storage unavailable (private mode / blocked cookies): the hardcoded
-       data-theme="dark" attribute in the markup already keeps the site dark. */
-  }
-
-  root.setAttribute('data-theme', 'dark');
-  root.style.colorScheme = 'dark';
-}
 
 /* --------------------------------------------------------------------------
    2. Responsive Navigation Drawer & Background Scroll Lock

@@ -2116,6 +2116,27 @@ html[data-theme="dark-academia"] body {
 }
 
 /* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
+
+/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 
@@ -2324,6 +2345,7 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
   top: calc(100% + 8px);
   right: 0;
   min-width: 215px;
+  max-width: min(240px, calc(100vw - 24px));
   padding: 0.45rem;
   border-radius: 10px;
   display: flex;
@@ -2335,6 +2357,13 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
   transform: translateY(-6px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .theme-dropdown {
+    right: -8px;
+    min-width: 195px;
+  }
 }
 
 .theme-switcher.is-open .theme-dropdown {

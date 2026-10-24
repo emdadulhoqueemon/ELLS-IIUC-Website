@@ -1904,7 +1904,7 @@
   .admin-input,
   .admin-textarea {
     padding: 0.7rem 0.85rem;
-    font-size: 0.9rem;
+    font-size: 16px !important;
     line-height: 1.45;
   }
 
@@ -1920,7 +1920,7 @@
     padding: 0.72rem 2.5rem 0.72rem 0.85rem;
     background-position: right 0.8rem center;
     background-size: 15px 15px;
-    font-size: 0.9rem;
+    font-size: 16px !important;
     line-height: 1.35;
   }
 
