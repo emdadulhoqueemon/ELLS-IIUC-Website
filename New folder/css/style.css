@@ -3695,6 +3695,27 @@ html[data-theme="dark-academia"] body {
 }
 
 /* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
+
+/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 
@@ -5082,6 +5103,30 @@ html[data-theme="dark-academia"] .admin-upload {
   background: #4B3B2A !important;
   border: 1px dashed #D8B7B0 !important;
   color: #EDEDDC !important;
+}
+
+
+/* ==========================================================================
+   SVG LOGO & FAVICON CONTAINER CONSTRAINTS
+   ========================================================================== */
+.site-logo-img,
+.partner-logo-img,
+.admin-brand__logo,
+img[src*="Favicon.svg"],
+img[src*="LOGO"] {
+  height: 50px;
+  width: auto;
+  max-width: 50px;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+}
+
+.admin-topbar__brand img {
+  height: 38px;
+  width: auto;
+  max-width: 38px;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
 }
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */

@@ -10,15 +10,15 @@
   "theme_color": "#0A191E",
   "icons": [
     {
-      "src": "images/ells-logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "images/ELLS LOGO Favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "images/ells-logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "images/ELLS LOGO Favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ]
