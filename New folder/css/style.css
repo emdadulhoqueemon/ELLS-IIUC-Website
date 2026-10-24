@@ -3760,6 +3760,27 @@ html[data-theme="dark-academia"] body {
 }
 
 /* ==========================================================================
+   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
+   ========================================================================== */
+html, body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+:root,
+html[data-theme="modern-neo-glass"],
+html[data-theme="modern-neo-glass"] body {
+  background-color: #0A191E !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="dark-academia"],
+html[data-theme="dark-academia"] body {
+  background-color: #3B3F2F !important;
+  color-scheme: dark !important;
+}
+
+/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 
@@ -5189,6 +5210,112 @@ img[src*="LOGO"] {
   border-radius: 0 !important;
   padding: 0 !important;
   box-shadow: none !important;
+}
+
+/* ==========================================================================
+   API RESILIENCE & FALLBACK MODAL SYSTEM
+   ========================================================================== */
+.api-fallback-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10500;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.api-fallback-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.api-fallback-card {
+  background: var(--bg-card, #112733) !important;
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12)) !important;
+  border-radius: var(--card-radius, 12px) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
+  padding: clamp(1.5rem, 4vw, 2.25rem) !important;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-primary, #FFFFFF) !important;
+}
+
+.api-fallback-overlay.is-active .api-fallback-card {
+  transform: translateY(0) scale(1);
+}
+
+.api-fallback-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #ef4444 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.api-fallback-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.65rem 0 !important;
+  color: var(--text-heading, #FFFFFF) !important;
+  font-family: 'Asul', serif !important;
+}
+
+.api-fallback-message {
+  font-size: 0.95rem !important;
+  line-height: 1.55 !important;
+  color: var(--text-secondary, #D1D5DB) !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+.api-fallback-query {
+  font-size: 0.9rem !important;
+  padding: 0.5rem 0.85rem !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08)) !important;
+  border-radius: 6px !important;
+  margin-bottom: 1.25rem !important;
+  color: var(--accent-primary, #BFA76F) !important;
+}
+
+.api-fallback-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.api-fallback-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.7rem 1.3rem !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  background: var(--btn-bg, #10B981) !important;
+  color: var(--btn-text, #0A191E) !important;
+  border: 1px solid var(--btn-bg, #10B981) !important;
+  border-radius: var(--btn-radius, 8px) !important;
+  text-decoration: none !important;
+}
+
+.api-fallback-close-btn {
+  padding: 0.7rem 1.2rem !important;
+  font-size: 0.95rem !important;
+  border-radius: var(--btn-radius, 8px) !important;
 }
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */

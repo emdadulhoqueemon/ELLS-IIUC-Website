@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSocialLinks();
   initCommitteeFilter();
   initNoticeBoard();
+  initServiceWorker();
 });
 
 /* --------------------------------------------------------------------------
@@ -383,3 +384,95 @@ function initNoticeBoard() {
     }, 2500);
   }, { passive: true });
 }
+
+/* --------------------------------------------------------------------------
+   10. PWA Service Worker Registration
+   -------------------------------------------------------------------------- */
+function initServiceWorker() {
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => {
+          console.log('[ELLS PWA] Service Worker registered:', reg.scope);
+        })
+        .catch(err => {
+          console.warn('[ELLS PWA] Service Worker registration failed:', err);
+        });
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. API Resilience & Global Fallback Modal (Dark Academia & Neo-Glass)
+   -------------------------------------------------------------------------- */
+function showApiFallbackModal(options = {}) {
+  const {
+    title = 'Connection Notice',
+    message = 'We were unable to reach our server. The request timed out or was blocked by network security.',
+    query = '',
+    email = 'ells@iiuc.ac.bd'
+  } = options;
+
+  let modal = document.getElementById('ellsApiFallbackModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'ellsApiFallbackModal';
+    modal.className = 'api-fallback-overlay';
+    document.body.appendChild(modal);
+  }
+
+  const cleanTitle = String(title).replace(/[<>&"']/g, '');
+  const cleanMsg = String(message).replace(/[<>&"']/g, '');
+  const cleanQuery = String(query).replace(/[<>&"']/g, '');
+
+  const subject = encodeURIComponent(cleanQuery ? `Status Inquiry - Student ID: ${cleanQuery}` : 'ELLS Inquiry & Support');
+  const body = encodeURIComponent(cleanQuery 
+    ? `Dear ELLS Executive Committee,\n\nMy Student ID is ${cleanQuery}. I experienced a network connection timeout while attempting to check my status online.\n\nPlease verify my membership record.\n\nThank you!`
+    : `Dear ELLS Executive Committee,\n\nI encountered a connection issue on the website.\n\nPlease assist.\n\nThank you!`
+  );
+  const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
+
+  modal.innerHTML = `
+    <div class="api-fallback-card" role="dialog" aria-modal="true" aria-labelledby="apiFallbackTitle">
+      <div class="api-fallback-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 id="apiFallbackTitle" class="api-fallback-title">${cleanTitle}</h3>
+      <p class="api-fallback-message">${cleanMsg}</p>
+      ${cleanQuery ? `<p class="api-fallback-query">Student ID: <strong>${cleanQuery}</strong></p>` : ''}
+      <div class="api-fallback-actions">
+        <a href="${mailtoUrl}" class="btn btn-primary api-fallback-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Email ${email}
+        </a>
+        <button type="button" class="btn btn-secondary api-fallback-close-btn" id="apiFallbackCloseBtn">Close</button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add('is-active');
+
+  const closeBtn = modal.querySelector('#apiFallbackCloseBtn');
+  const closeModal = () => modal.classList.remove('is-active');
+  if (closeBtn) closeBtn.onclick = closeModal;
+  modal.onclick = (e) => {
+    if (e.target === modal) closeModal();
+  };
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', onKeyDown);
+    }
+  };
+  document.addEventListener('keydown', onKeyDown);
+}
+
+window.showApiFallbackModal = showApiFallbackModal;
+
