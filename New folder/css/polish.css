@@ -1990,14 +1990,17 @@ main > .hero .container,
     overflow: hidden !important;
   }
 
-  .event-card--poster .event-card__poster-img,
-  .event-card--poster .event-card__poster-placeholder {
+  .event-card--poster .event-card__poster-img {
     display: block !important;
     position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .event-card--poster .event-card__details {
@@ -2445,15 +2448,31 @@ section#wings,
 .event-card--poster .event-card__poster {
   display: block !important;
   position: relative !important;
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
   width: 100% !important;
-  min-height: 200px !important;
-  aspect-ratio: 16 / 9;
+  max-width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
   height: auto !important;
+  min-height: 240px;
   background: #4B3B2A !important;
   border: none !important;
   border-bottom: 1px solid #D8B7B0 !important;
   box-shadow: none !important;
   overflow: hidden !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .event-card__poster,
+  .event-poster,
+  .event-image-container,
+  .event-card--poster .event-card__poster {
+    padding-top: 100% !important;
+    height: 0 !important;
+    min-height: 0 !important;
+  }
 }
 
 .event-card__poster img,
@@ -2464,6 +2483,8 @@ section#wings,
 .event-card--poster .event-card__poster-img {
   display: block !important;
   position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
@@ -2471,6 +2492,8 @@ section#wings,
   object-fit: cover !important;
   object-position: center !important;
   box-shadow: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Centered Empty State Fallback Container */
@@ -2479,7 +2502,13 @@ section#wings,
 .event-card__poster:empty,
 .event-poster:empty,
 .event-image-container:empty {
-  min-height: 200px !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -2488,10 +2517,9 @@ section#wings,
   padding: 1.5rem 1rem !important;
   gap: 0.65rem !important;
   background: #4B3B2A !important;
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
   box-shadow: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .event-card__poster-mark {
@@ -2924,11 +2952,12 @@ section.admin-card,
   border-color: #BFA76F !important;
 }
 
-/* 9. Dedicated Mobile Event Card Query (≤ 768px) */
+/* 9. Dedicated Mobile Event Card Query (<= 768px) */
 @media (max-width: 768px) {
   .event-card--poster {
     display: flex !important;
     flex-direction: column !important;
+    align-items: stretch !important;
   }
 
   .event-card__poster,
@@ -2937,16 +2966,31 @@ section.admin-card,
   .event-card--poster .event-card__poster {
     display: block !important;
     position: relative !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 200px !important;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 1 / 1 !important;
     height: auto !important;
+    min-height: 240px;
     overflow: hidden !important;
     background: #4B3B2A !important;
     border: none !important;
     border-bottom: 1px solid #D8B7B0 !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  @supports not (aspect-ratio: 1 / 1) {
+    .event-card__poster,
+    .event-poster,
+    .event-image-container,
+    .event-card--poster .event-card__poster {
+      padding-top: 100% !important;
+      height: 0 !important;
+      min-height: 0 !important;
+    }
   }
 
   .event-card__poster img,
@@ -2957,6 +3001,8 @@ section.admin-card,
   .event-card--poster .event-card__poster-img {
     display: block !important;
     position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
@@ -2964,6 +3010,8 @@ section.admin-card,
     object-fit: cover !important;
     object-position: center !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .event-card__poster-placeholder,
@@ -2971,7 +3019,13 @@ section.admin-card,
   .event-card__poster:empty,
   .event-poster:empty,
   .event-image-container:empty {
-    min-height: 200px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -2980,10 +3034,9 @@ section.admin-card,
     padding: 1.5rem 1rem !important;
     gap: 0.65rem !important;
     background: #4B3B2A !important;
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .event-card__poster-caption {

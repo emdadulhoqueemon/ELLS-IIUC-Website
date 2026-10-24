@@ -333,23 +333,38 @@
     gap: 1rem;
   }
 
-  /* Mobile Event Posters & Image Containers */
+    /* Mobile Event Posters & Image Containers: Strict Square (1:1) Ratio & Mobile Visibility */
   .event-card__poster,
   .event-poster,
   .event-image-container,
   .event-card--poster .event-card__poster {
     display: block !important;
     position: relative !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 200px !important;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 1 / 1 !important;
     height: auto !important;
+    min-height: 240px;
     overflow: hidden !important;
     background: #4B3B2A !important;
     border: none !important;
     border-bottom: 1px solid #D8B7B0 !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  @supports not (aspect-ratio: 1 / 1) {
+    .event-card__poster,
+    .event-poster,
+    .event-image-container,
+    .event-card--poster .event-card__poster {
+      padding-top: 100% !important;
+      height: 0 !important;
+      min-height: 0 !important;
+    }
   }
 
   .event-card__poster img,
@@ -360,6 +375,8 @@
   .event-card--poster .event-card__poster-img {
     display: block !important;
     position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
@@ -367,6 +384,8 @@
     object-fit: cover !important;
     object-position: center !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* Empty State / Fallback Badge Center-Alignment */
@@ -375,7 +394,13 @@
   .event-card__poster:empty,
   .event-poster:empty,
   .event-image-container:empty {
-    min-height: 200px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -384,10 +409,9 @@
     padding: 1.5rem 1rem !important;
     gap: 0.65rem !important;
     background: #4B3B2A !important;
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .event-card__poster-caption {
@@ -1735,3 +1759,92 @@
   }
 }
 
+/* ==========================================================================
+   FINAL MOBILE AUTHORITY: Event Cards & Posters (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .event-card--poster {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .event-card__poster,
+  .event-poster,
+  .event-image-container,
+  .event-card--poster .event-card__poster {
+    display: block !important;
+    position: relative !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    min-height: 240px;
+    overflow: hidden !important;
+    background: #4B3B2A !important;
+    border: none !important;
+    border-bottom: 1px solid #D8B7B0 !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  @supports not (aspect-ratio: 1 / 1) {
+    .event-card__poster,
+    .event-poster,
+    .event-image-container,
+    .event-card--poster .event-card__poster {
+      padding-top: 100% !important;
+      height: 0 !important;
+      min-height: 0 !important;
+    }
+  }
+
+  .event-card__poster img,
+  .event-card__poster-img,
+  .event-poster img,
+  .event-image-container img,
+  .event-card--poster .event-card__poster img,
+  .event-card--poster .event-card__poster-img {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .event-card__poster-placeholder,
+  .event-card--poster .event-card__poster-placeholder,
+  .event-card__poster:empty,
+  .event-poster:empty,
+  .event-image-container:empty {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 1.5rem 1rem !important;
+    gap: 0.65rem !important;
+    background: #4B3B2A !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
