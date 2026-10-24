@@ -58,7 +58,22 @@ import {
 
 document.addEventListener('DOMContentLoaded', initAdminConsole);
 
+function initAdminServiceWorker() {
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => {
+          console.log('[ELLS Admin PWA] Service Worker active:', reg.scope);
+        })
+        .catch(err => {
+          console.warn('[ELLS Admin PWA] Service Worker registration failed:', err);
+        });
+    });
+  }
+}
+
 function initAdminConsole() {
+  initAdminServiceWorker();
   const bootSplash = document.getElementById('adminBoot');
   const loginView = document.getElementById('adminLoginView');
   const dashboard = document.getElementById('adminDashboard');

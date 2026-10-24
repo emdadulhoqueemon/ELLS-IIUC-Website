@@ -1,10 +1,11 @@
 /**
- * ELLS Club - PWA Service Worker (v1.0.0)
+ * ELLS Club - PWA Service Worker (v1.1.0)
+ * Dual-PWA Support: Public Site (manifest.json) & IT Secretary Admin Console (admin-manifest.json).
  * Provides offline asset caching, network-first document navigations,
  * and resilient performance for mobile and desktop devices.
  */
 
-const CACHE_NAME = 'ells-cache-v1';
+const CACHE_NAME = 'ells-cache-v2';
 
 const STATIC_ASSETS = [
   './',
@@ -12,14 +13,18 @@ const STATIC_ASSETS = [
   'about.html',
   'events.html',
   'membership.html',
+  'admin.html',
   'css/style.css',
   'css/responsive.css',
   'css/polish.css',
+  'css/admin.css',
   'js/main.js',
+  'js/admin.js',
   'js/theme-switcher.js',
   'images/ELLS LOGO Favicon.svg',
   'images/IIUC LOGO Favicon.svg',
-  'manifest.json'
+  'manifest.json',
+  'admin-manifest.json'
 ];
 
 // Install: Cache critical static assets immediately
@@ -85,7 +90,12 @@ self.addEventListener('fetch', (event) => {
           if (cachedResponse) {
             return cachedResponse;
           }
-          // Fallback to home page if navigating offline
+          // If navigating to admin while offline, fallback to admin.html
+          if (request.url.includes('admin')) {
+            const adminCached = await caches.match('admin.html');
+            if (adminCached) return adminCached;
+          }
+          // Otherwise fallback to home page
           return caches.match('index.html');
         })
     );
