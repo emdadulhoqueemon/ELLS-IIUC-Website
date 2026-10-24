@@ -3655,13 +3655,15 @@ textarea.form-control {
 /* ==========================================================================
 
 /* ==========================================================================
-   ROYAL NAVY & GOLD — Theme & Contrast Authority Layer
+   ROYAL NAVY & SOFT BLUE — Theme & Contrast Authority Layer
    Palette:
-     - Deep Royal Navy Blue: #0A1128 (Canvas, body, html, hero)
+     - Deep Royal Navy Blue: #0A1128 (Canvas, body, html, hero, site-header)
+     - Mobile Drawer Deep Dark: #050A15 (Mobile Menu Drawer pop-up)
      - Lighter Navy: #1C2541 (Cards, Notice Board, Vault, Event cards)
-     - Crisp Off-White: #F0F4F8 (Headings & Primary Text)
+     - Crisp Off-White: #FFFFFF / #F0F4F8 (Headings, Stats, Primary Text)
      - Muted Silver: #A0AAB2 (Secondary Text)
-     - Premium Gold: #D4AF37 (Buttons, Accents, Card Icons)
+     - Light Navy / Soft Blue: #3A5A8C (Buttons & Key Accents)
+     - Soft Blue Hover: #4A6FA5
    ========================================================================== */
 
 /* 1. Global Typography (Keep 'Asul') */
@@ -3676,11 +3678,14 @@ textarea.form-control {
   --bg-primary: #0A1128;
   --bg-card: #1C2541;
   --bg-secondary: #1C2541;
-  --text-primary: #F0F4F8;
-  --text-heading: #F0F4F8;
+  --bg-drawer: #050A15;
+  --text-primary: #FFFFFF;
+  --text-heading: #FFFFFF;
   --text-secondary: #A0AAB2;
-  --accent-primary: #D4AF37;
-  --btn-bg: #D4AF37;
+  --accent-primary: #3A5A8C;
+  --btn-bg: #3A5A8C;
+  --btn-bg-hover: #4A6FA5;
+  --btn-text: #FFFFFF;
   --border-radius: 8px;
 }
 
@@ -3701,7 +3706,7 @@ body:not(.admin-body) {
   background: #0A1128 !important;
   background-color: #0A1128 !important;
   background-image: none !important;
-  color: #F0F4F8 !important;
+  color: #FFFFFF !important;
 }
 
 main:not(.admin-main),
@@ -3717,7 +3722,7 @@ h1, h2, h3, h4, h5, h6,
 .section-intro h2,
 .section-head h2,
 .resource-card-title {
-  color: #F0F4F8 !important;
+  color: #FFFFFF !important;
   font-family: 'Asul', Georgia, serif !important;
 }
 
@@ -3728,12 +3733,11 @@ p, span, li, a {
 /* Header / Top Navigation Bar */
 .site-header,
 header.site-header,
-header,
-.mobile-nav-panel {
+header {
   background: #0A1128 !important;
   background-color: #0A1128 !important;
   background-image: none !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -3745,14 +3749,13 @@ header,
 .site-header .logo-text-primary,
 .site-header .logo-text-secondary,
 .site-header a,
-.site-header span,
-.mobile-nav-panel * {
-  color: #F0F4F8 !important;
+.site-header span {
+  color: #FFFFFF !important;
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: #D4AF37 !important;
+  color: #A0C4FF !important;
 }
 
 /* Hero Section */
@@ -3760,18 +3763,18 @@ header,
   background: #0A1128 !important;
   background-color: #0A1128 !important;
   background-image: none !important;
-  color: #F0F4F8 !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+  color: #FFFFFF !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .hero h1,
 .hero-content h1,
 #hero-heading {
-  color: #F0F4F8 !important;
+  color: #FFFFFF !important;
 }
 
 .hero-subheading {
-  color: #D4AF37 !important;
+  color: #A0C4FF !important;
 }
 
 .hero-lead,
@@ -3799,7 +3802,7 @@ header,
   box-shadow: none !important;
 }
 
-/* 4. Buttons (Gold Background with Deep Navy Text & Hover Glow) */
+/* 4. Button Color Redesign: Soft Blue (#3A5A8C) with Crisp White (#FFFFFF) Text */
 .btn,
 .btn-primary,
 .resource-drive-btn,
@@ -3810,15 +3813,15 @@ header,
 button.btn-primary,
 a.btn-primary,
 .site-header .btn-primary {
-  background: #D4AF37 !important;
-  background-color: #D4AF37 !important;
+  background: #3A5A8C !important;
+  background-color: #3A5A8C !important;
   background-image: none !important;
-  color: #0A1128 !important;
-  border: 1px solid #D4AF37 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #3A5A8C !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
   text-decoration: none !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
   transition: all 0.2s ease !important;
 }
 
@@ -3831,8 +3834,9 @@ a.btn-primary,
 .mobile-nav-cta *,
 button.btn-primary *,
 a.btn-primary * {
-  color: #0A1128 !important;
-  fill: #0A1128 !important;
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
 }
 
 .btn:hover,
@@ -3844,11 +3848,11 @@ a.btn-primary * {
 button.btn-primary:hover,
 a.btn-primary:hover,
 .site-header .btn-primary:hover {
-  background: #E5C358 !important;
-  background-color: #E5C358 !important;
-  border-color: #E5C358 !important;
-  color: #0A1128 !important;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.45) !important;
+  background: #4A6FA5 !important;
+  background-color: #4A6FA5 !important;
+  border-color: #4A6FA5 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(58, 90, 140, 0.45) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -3859,24 +3863,25 @@ button.btn-secondary,
 .poster-action-btn.btn-details {
   background: transparent !important;
   background-color: transparent !important;
-  color: #D4AF37 !important;
-  border: 1.5px solid #D4AF37 !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #3A5A8C !important;
   border-radius: 8px !important;
 }
 
 .btn-secondary *,
 a.btn-secondary *,
 button.btn-secondary * {
-  color: #D4AF37 !important;
+  color: #FFFFFF !important;
   fill: currentColor !important;
 }
 
 .btn-secondary:hover,
 a.btn-secondary:hover,
 button.btn-secondary:hover {
-  background: rgba(212, 175, 55, 0.15) !important;
-  color: #F0F4F8 !important;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
+  background: rgba(58, 90, 140, 0.2) !important;
+  border-color: #4A6FA5 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(58, 90, 140, 0.3) !important;
 }
 
 /* 5. Sections & Cards (Lighter Navy #1C2541, 8px Radius) */
@@ -3900,15 +3905,15 @@ section#wings,
   background: #0A1128 !important;
   background-color: #0A1128 !important;
   background-image: none !important;
-  color: #F0F4F8 !important;
+  color: #FFFFFF !important;
 }
 
 .news-ticker-bar {
   background: #1C2541 !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* All Cards use Lighter Navy (#1C2541) with border-radius: 8px */
+/* All Standard Cards */
 .card,
 [class*="-card"],
 .event-card,
@@ -3919,63 +3924,54 @@ section#wings,
 .notice-board-banner,
 .notice-board-state,
 .feed-state,
-.featured-resource-card,
 .archive-band__inner,
-.committee-card,
 .team-card,
 .tier-card {
   background: #1C2541 !important;
   background-color: #1C2541 !important;
   background-image: none !important;
   color: #F0F4F8 !important;
-  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 8px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
 .card:hover,
 .event-card:hover,
-.committee-card:hover,
 .notice-poster-card:hover,
 .notice-board-banner:hover {
-  border-color: rgba(212, 175, 55, 0.5) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(212, 175, 55, 0.2) !important;
+  border-color: rgba(58, 90, 140, 0.6) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(58, 90, 140, 0.25) !important;
 }
 
-/* Card typography */
+/* Card Typography */
 .card *,
 [class*="-card"] *,
 .event-card *,
-.committee-card *,
 .notice-card *,
 .notice-board-state *,
-.feed-state *,
-.featured-resource-card * {
+.feed-state * {
   color: #F0F4F8;
 }
 
 .card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
 .event-card h1, .event-card h2, .event-card h3, .event-card h4,
-.notice-card h1, .notice-card h2, .notice-card h3, .notice-card h4,
-.featured-resource-card h1, .featured-resource-card h2, .featured-resource-card h3, .featured-resource-card h4,
-.resource-card-title {
-  color: #F0F4F8 !important;
+.notice-card h1, .notice-card h2, .notice-card h3, .notice-card h4 {
+  color: #FFFFFF !important;
 }
 
 .card p,
 .event-card p,
-.notice-card p,
-.featured-resource-card p,
-.resource-card-desc {
+.notice-card p {
   color: #A0AAB2 !important;
 }
 
-/* Four Pillars & Card Icons — Gold (#D4AF37) */
+/* Four Pillars Icons */
 .card-icon-wrap,
 .section-pillars .card-icon-wrap {
-  background: rgba(212, 175, 55, 0.12) !important;
-  background-color: rgba(212, 175, 55, 0.12) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  background: rgba(58, 90, 140, 0.2) !important;
+  background-color: rgba(58, 90, 140, 0.2) !important;
+  border: 1px solid rgba(58, 90, 140, 0.35) !important;
   border-radius: 8px !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -3991,79 +3987,292 @@ section#wings,
 .section-pillars .card svg,
 .section-pillars .card svg *,
 .card svg {
-  fill: #D4AF37 !important;
-  stroke: #D4AF37 !important;
-  color: #D4AF37 !important;
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
 }
 
-/* Academic Resource Vault */
-.featured-resource-section {
+/* 6. Clean Up Ugly Borders: Academic Resource Vault */
+.featured-resource-section,
+.featured-resource-card,
+.resource-card-grid,
+.resource-card-info,
+.resource-card-badge,
+.resource-tags-row,
+.resource-tag,
+.resource-card-credit {
   border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .featured-resource-card {
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  background: #1C2541 !important;
+  background-color: #1C2541 !important;
+  background-image: none !important;
+  border: none !important;
+  outline: none !important;
   border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
   padding: clamp(1.8rem, 4vw, 2.6rem) !important;
 }
 
+.featured-resource-card * {
+  color: #F0F4F8;
+}
+
+.featured-resource-card h1,
+.featured-resource-card h2,
+.featured-resource-card h3,
+.featured-resource-card h4,
+.resource-card-title {
+  color: #FFFFFF !important;
+}
+
+.featured-resource-card p,
+.resource-card-desc {
+  color: #A0AAB2 !important;
+}
+
 .featured-resource-card .resource-card-badge {
-  background: rgba(212, 175, 55, 0.15) !important;
-  color: #D4AF37 !important;
-  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  background: rgba(58, 90, 140, 0.35) !important;
+  color: #FFFFFF !important;
+  border: none !important;
   border-radius: 6px !important;
 }
 
+.featured-resource-card .resource-card-badge span,
+.featured-resource-card .resource-card-badge svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
 .featured-resource-card .resource-tag {
-  background: rgba(212, 175, 55, 0.1) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
   color: #F0F4F8 !important;
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border: none !important;
   border-radius: 6px !important;
 }
 
 .featured-resource-card .resource-card-credit {
   color: #A0AAB2 !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .featured-resource-card .resource-card-credit strong {
-  color: #D4AF37 !important;
+  color: #FFFFFF !important;
+}
+
+/* 7. Clean Up Ugly Borders: Advisory & Executive Committee Cards */
+.committee-card,
+.committee-card.advisory-card,
+.committee-card.faculty-card,
+.committee-card.student-card,
+.advisory-card,
+.faculty-card,
+.student-card,
+.committee-grid .card,
+.committee-card[data-category="emt"] {
+  background: #1C2541 !important;
+  background-color: #1C2541 !important;
+  background-image: none !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+.committee-card:hover,
+.advisory-card:hover,
+.faculty-card:hover,
+.student-card:hover {
+  border: none !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.committee-card *,
+.advisory-card *,
+.faculty-card *,
+.student-card * {
+  color: #F0F4F8;
+}
+
+.committee-card h4 {
+  color: #FFFFFF !important;
+}
+
+.committee-designation {
+  color: #A0AAB2 !important;
+}
+
+.committee-meta-pill {
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: #A0C4FF !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+
+/* 8. Circular Icon Shapes (VC, Pro-VC Avatars) */
+.committee-avatar,
+.committee-card .committee-avatar,
+.advisory-card .committee-avatar,
+.faculty-card .committee-avatar,
+.student-card .committee-avatar,
+.committee-card-header .committee-avatar,
+.committee-icon,
+.member-avatar,
+.committee-card img,
+.committee-avatar img {
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  aspect-ratio: 1 / 1 !important;
+  background: #0A1128 !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #3A5A8C !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 9. Fix Invisible Text Contrast: Stats Section (500+, 20+, 15+, 5) */
+.stats-strip,
+.stats-section,
+.stats-grid,
+.stat-item {
+  color: #FFFFFF !important;
+}
+
+.stat-number,
+.stats-counter,
+.stats-number {
+  color: #FFFFFF !important;
+  font-family: 'Asul', Georgia, serif !important;
+  font-weight: 800 !important;
+}
+
+.stat-label,
+.stats-label {
+  color: #F0F4F8 !important;
+  font-family: 'Asul', Georgia, serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* 10. Mobile Menu Drawer (Pop-up) Fix: Deep Dark (#050A15) Background & Crisp White Text */
+.main-nav,
+nav.main-nav,
+.mobile-nav-panel,
+.nav-drawer {
+  background-color: #050A15 !important;
+  background: #050A15 !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.nav-backdrop {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+.main-nav *,
+.main-nav .nav-link,
+.main-nav a,
+.main-nav span,
+.main-nav li,
+.nav-links,
+.nav-links *,
+.mobile-nav-panel *,
+.mobile-nav-footer,
+.mobile-nav-footer * {
+  color: #FFFFFF !important;
+}
+
+.nav-links li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.nav-link {
+  color: #FFFFFF !important;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link.active {
+  color: #FFFFFF !important;
+  background-color: rgba(58, 90, 140, 0.3) !important;
+}
+
+.mobile-nav-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.mobile-nav-cta {
+  background: #3A5A8C !important;
+  background-color: #3A5A8C !important;
+  color: #FFFFFF !important;
+  border: 1px solid #3A5A8C !important;
+  border-radius: 8px !important;
+}
+
+.mobile-nav-social {
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 50% !important;
+}
+
+.mobile-nav-social svg {
+  fill: #FFFFFF !important;
+}
+
+.mobile-nav-toggle span {
+  background-color: #FFFFFF !important;
+}
+
+.mobile-nav-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
 }
 
 /* Developer Credit Bar */
 .developer-credit-bar {
-  background: #060A18 !important;
-  background-color: #060A18 !important;
-  color: #A0AAB2 !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  background: #050A15 !important;
+  background-color: #050A15 !important;
+  color: #F0F4F8 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
   text-align: center !important;
   padding: 8px 15px !important;
 }
 
 .developer-credit-bar,
 .developer-credit-bar * {
-  color: #A0AAB2 !important;
+  color: #F0F4F8 !important;
 }
 
-/* 6. Admin Console Strict Isolation */
+/* 11. Admin Console Overhaul (Top Bar & Forms) */
+
+/* Canvas & Background: STRICTLY pure White (#FFFFFF) */
 html:has(.admin-body),
 body.admin-body,
 .admin-body,
 .admin-console,
 .dashboard,
+.admin-dashboard,
 .admin-main,
-.admin-sidebar,
-.admin-login,
-.admin-login__panel,
-.admin-login__card,
+.admin-grid,
 .admin-card,
 .admin-notice-card,
 .admin-preview-card,
 .admin-live,
 form.admin-form,
 .admin-form,
-.admin-input-wrap,
-section.admin-card {
+section.admin-card,
+.admin-login__panel,
+.admin-login__card {
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
   background-image: none !important;
@@ -4071,47 +4280,185 @@ section.admin-card {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-body.admin-body *,
-.admin-console *,
-.dashboard *,
-.admin-main *,
-.admin-card *,
-.admin-login *,
-section.admin-card * {
-  color: #333333;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/* Admin Top Bar: Clean Dark Background (#0A1128) & Crisp White (#FFFFFF) Text */
+.admin-topbar,
+header.admin-topbar,
+.admin-dashboard .admin-topbar {
+  background: #0A1128 !important;
+  background-color: #0A1128 !important;
+  background-image: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
-body.admin-body h1,
-body.admin-body h2,
-body.admin-body h3,
-body.admin-body h4,
-body.admin-body h5,
-body.admin-body h6,
+.admin-topbar,
+.admin-topbar *,
+.admin-topbar__brand,
+.admin-topbar__brand-text strong,
+.admin-topbar__actions,
+.admin-topbar a,
+.admin-topbar span,
+.admin-topbar button {
+  color: #FFFFFF !important;
+}
+
+.admin-topbar__brand-text span {
+  color: #A0C4FF !important;
+}
+
+.admin-topbar__brand img {
+  background-color: #FFFFFF !important;
+  border-radius: 50% !important;
+  padding: 2px !important;
+  border: none !important;
+}
+
+.admin-user-chip {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 20px !important;
+}
+
+.admin-user-chip__avatar {
+  background: #3A5A8C !important;
+  color: #FFFFFF !important;
+  border-radius: 50% !important;
+}
+
+.admin-env-pill {
+  background: rgba(58, 90, 140, 0.4) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+}
+
+.admin-btn-logout,
+.admin-btn-signout,
+.admin-topbar .btn {
+  background: transparent !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px !important;
+}
+
+/* Admin Dashboard Content & Headings: Standard Dark (#333333 / #111827) */
+.admin-main *,
+.admin-card *,
+.admin-dashboard .admin-main *,
+.admin-notice-card *,
+.admin-preview-card *,
+.admin-live *,
+.admin-form *,
+.admin-login__panel * {
+  color: #333333;
+}
+
+.admin-main h1,
+.admin-main h2,
+.admin-main h3,
+.admin-main h4,
 .admin-card h1,
 .admin-card h2,
 .admin-card h3,
-.admin-card h4 {
+.admin-card h4,
+.admin-card__head h2,
+.admin-main__head h1,
+.admin-main__head h2,
+.admin-login__card h2 {
+  color: #111827 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-  color: #111111 !important;
+  font-weight: 700 !important;
 }
 
+.admin-card__head p,
+.admin-main__meta,
+.admin-card p,
+.admin-login__lead {
+  color: #6B7280 !important;
+}
+
+/* Admin Form Fields: Standard Dark Text (#333333) on Clean White Background */
 body.admin-body input,
 body.admin-body select,
 body.admin-body textarea,
+.admin-input,
+.admin-select,
+.admin-textarea,
 .admin-card input,
 .admin-card select,
-.admin-card textarea {
+.admin-card textarea,
+.admin-input-wrap input {
   background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
   color: #333333 !important;
-  border: 1px solid #CCCCCC !important;
-  border-radius: 4px !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-body.admin-body .btn-primary,
-body.admin-body button.btn-primary,
-.admin-card .btn-primary {
-  background-color: #111827 !important;
+.admin-input:focus,
+.admin-select:focus,
+.admin-textarea:focus,
+.admin-input-wrap input:focus {
+  border-color: #3A5A8C !important;
+  box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.2) !important;
+  outline: none !important;
+}
+
+.admin-input::placeholder,
+.admin-textarea::placeholder,
+.admin-input-wrap input::placeholder {
+  color: #9CA3AF !important;
+}
+
+.form-label,
+.admin-card label,
+.admin-label-row label {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+.admin-card {
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+}
+
+.admin-card__icon {
+  background: #F3F4F6 !important;
+  color: #3A5A8C !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 8px !important;
+}
+
+.admin-card__icon svg {
+  stroke: #3A5A8C !important;
+}
+
+.admin-card .btn-primary,
+.admin-main .btn-primary,
+.admin-form-actions .btn-primary,
+.admin-login__form .btn-primary {
+  background-color: #0A1128 !important;
+  background: #0A1128 !important;
   color: #FFFFFF !important;
-  border-radius: 4px !important;
+  border: 1px solid #0A1128 !important;
+  border-radius: 6px !important;
+}
+
+.admin-card .btn-primary:hover,
+.admin-main .btn-primary:hover,
+.admin-form-actions .btn-primary:hover,
+.admin-login__form .btn-primary:hover {
+  background-color: #1C2541 !important;
+}
+
+.admin-card .btn-secondary,
+.admin-main .btn-secondary,
+.admin-form-actions .btn-secondary {
+  background: #F3F4F6 !important;
+  color: #374151 !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 6px !important;
 }

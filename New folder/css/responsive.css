@@ -49,10 +49,10 @@
     width: 100%;
     top: 0;
     z-index: 10000;
-    background-color: #E8D1A7 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid #84592B !important;
+    background-color: #0A1128 !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     width: 100%;
     max-width: 100%;
     will-change: top;
@@ -149,7 +149,8 @@
     max-width: 100vw !important;
     height: calc(100vh - 70px) !important;
     height: calc(100dvh - 70px) !important;
-    background-color: #E8D1A7 !important;
+    background-color: #050A15 !important;
+    background: #050A15 !important;
     z-index: 9999 !important;
     padding: 1.5rem 1.5rem 2.5rem 1.5rem !important;
     box-sizing: border-box !important;
@@ -159,8 +160,8 @@
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
-    box-shadow: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
 
     /* Proper overlay appearance: fade and slide down without moving background text */
     opacity: 0 !important;
@@ -194,13 +195,13 @@
 
   .nav-links li {
     width: 100% !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
 
   .nav-link {
     font-size: 1.15rem !important;
     font-weight: 600 !important;
-    color: #442D1C !important;
+    color: #FFFFFF !important;
     width: 100% !important;
     padding: 1rem 0.5rem !important;
     display: flex !important;
@@ -217,23 +218,23 @@
 
   .nav-link:hover,
   .nav-link:focus {
-    color: #743014 !important;
+    color: #FFFFFF !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(116, 48, 20, 0.07) !important;
+    background-color: rgba(58, 90, 140, 0.25) !important;
   }
 
   .nav-link.active {
-    color: #743014 !important;
+    color: #FFFFFF !important;
     font-weight: 700 !important;
     padding-left: 0.85rem !important;
-    background-color: rgba(116, 48, 20, 0.10) !important;
+    background-color: rgba(58, 90, 140, 0.35) !important;
   }
 
   .nav-link.active::after {
     display: inline-block !important;
     content: '→' !important;
     font-size: 1.15rem !important;
-    color: #743014 !important;
+    color: #FFFFFF !important;
     position: static !important;
     width: auto !important;
     height: auto !important;
@@ -260,6 +261,11 @@
     padding: 0.85rem 1.5rem !important;
     font-size: 1rem !important;
     font-weight: 700 !important;
+    background: #3A5A8C !important;
+    background-color: #3A5A8C !important;
+    color: #FFFFFF !important;
+    border: 1px solid #3A5A8C !important;
+    border-radius: 8px !important;
   }
 
   .mobile-nav-social {
@@ -268,9 +274,10 @@
     justify-content: center !important;
     gap: 0.65rem !important;
     padding: 0.75rem 1rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: var(--radius-sm) !important;
-    color: #442D1C !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.05) !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
     transition: all var(--transition) !important;
@@ -278,9 +285,9 @@
   }
 
   .mobile-nav-social:hover {
-    color: #743014 !important;
-    border-color: #743014 !important;
-    background-color: rgba(116, 48, 20, 0.07) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(58, 90, 140, 0.25) !important;
   }
 
   /* Backdrop Overlay */
@@ -1463,168 +1470,193 @@
 
 
 /* ==========================================================================
-   AUTUMN ACADEMIA — Responsive Vintage Overrides (Flat, no gradients/shadows)
+   ROYAL NAVY & SOFT BLUE — Responsive Theme Overrides
    ========================================================================== */
 
 @media (max-width: 992px) {
-  .site-header { background: #E8D1A7 !important; background-color: #E8D1A7 !important; }
+  .site-header {
+    background: #0A1128 !important;
+    background-color: #0A1128 !important;
+  }
 }
 
-/* Mobile Devices (max-width: 768px) — Vintage flat */
+/* Mobile Devices (max-width: 768px) */
 @media (max-width: 768px) {
-  /* Header — flat Golden Batter */
+  /* Header */
   .site-header {
-    background-color: #E8D1A7 !important;
-    background: #E8D1A7 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid #84592B !important;
-    box-shadow: none !important;
+    background-color: #0A1128 !important;
+    background: #0A1128 !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
   }
+
   .logo-line-1,
   .logo-line-2 {
-    color: #442D1C !important;
+    color: #F0F4F8 !important;
   }
-  .site-logo-img { border-color: #84592B !important; }
 
-  /* Mobile navigation drawer — flat vintage paper */
+  .site-logo-img {
+    background-color: #FFFFFF !important;
+    border-radius: 50% !important;
+    padding: 3px !important;
+    border: none !important;
+  }
+
+  /* Mobile navigation drawer — Deep Dark (#050A15) */
   .main-nav {
-    background-color: #E8D1A7 !important;
-    background: #E8D1A7 !important;
-    border-top: 1px solid #84592B !important;
-    box-shadow: none !important;
+    background-color: #050A15 !important;
+    background: #050A15 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
     background-image: none !important;
   }
+
   .nav-links li {
-    border-bottom: 1px solid rgba(132, 89, 43, 0.18) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
+
   .nav-link {
-    color: #442D1C !important;
+    color: #FFFFFF !important;
   }
+
   .nav-link:hover,
   .nav-link:focus {
-    color: #743014 !important;
-    background-color: rgba(116, 48, 20, 0.07) !important;
+    color: #FFFFFF !important;
+    background-color: rgba(58, 90, 140, 0.25) !important;
   }
+
   .nav-link.active {
-    color: #743014 !important;
-    background-color: rgba(116, 48, 20, 0.10) !important;
+    color: #FFFFFF !important;
+    background-color: rgba(58, 90, 140, 0.35) !important;
   }
+
   .nav-link.active::after {
-    color: #743014 !important;
+    color: #FFFFFF !important;
   }
+
   .mobile-nav-footer {
-    border-top: 1px solid #84592B !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
+
   .mobile-nav-social {
-    border: 1px solid #84592B !important;
-    color: #84592B !important;
-    border-radius: 4px !important;
-    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
   }
+
   .mobile-nav-social:hover {
-    color: #743014 !important;
-    border-color: #743014 !important;
-    background-color: rgba(116, 48, 20, 0.07) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(58, 90, 140, 0.25) !important;
   }
-  .mobile-nav-social svg { fill: currentColor !important; }
+
+  .mobile-nav-social svg {
+    fill: #FFFFFF !important;
+  }
+
   .nav-backdrop {
-    background: rgba(68, 45, 28, 0.32) !important;
+    background: rgba(0, 0, 0, 0.75) !important;
   }
 
-  /* Stats, cards — ensure flat vintage on mobile */
-  .stats-grid { gap: 0 !important; }
-  .stat-item { border-bottom: 1px solid #84592B !important; border-right: none !important; }
-  .stat-number { color: #442D1C !important; }
-  .stat-label { color: #442D1C !important; }
+  /* Stats numbers & labels — Crisp White (#FFFFFF) & Bright Silver (#F0F4F8) */
+  .stats-grid { gap: 1rem !important; }
+  .stat-item { border: none !important; }
+  .stat-number { color: #FFFFFF !important; }
+  .stat-label { color: #F0F4F8 !important; }
 
-  /* Buttons on mobile — 4px, flat Spiced Wine */
+  /* Buttons on mobile — Soft Blue (#3A5A8C) */
   .hero-actions .btn,
-  .mobile-nav-cta {
-    border-radius: 4px !important;
-    box-shadow: none !important;
+  .mobile-nav-cta,
+  .btn {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
   }
+
   .mobile-nav-cta {
-    background: #743014 !important;
-    color: #E8D1A7 !important;
-    border: 1px solid #743014 !important;
+    background: #3A5A8C !important;
+    background-color: #3A5A8C !important;
+    color: #FFFFFF !important;
+    border: 1px solid #3A5A8C !important;
     background-image: none !important;
   }
 
-  /* Ensure no pill shapes remain */
-  .filter-btn,
-  .committee-pill,
-  .search-input-wrap input {
-    border-radius: 4px !important;
-  }
-
-  /* News ticker mobile — flat Olive Harvest */
+  /* News ticker mobile */
   .news-ticker-bar {
-    background: #9D9167 !important;
+    background: #1C2541 !important;
     background-image: none !important;
-    border-bottom: 1px solid #84592B !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
-  /* Notice board banner mobile — flat */
+  /* Notice board banner mobile */
   .notice-board-banner {
-    background: #9D9167 !important;
+    background: #1C2541 !important;
     background-image: none !important;
-    border: 1px solid #84592B !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
   }
+
   .notice-board-badge {
-    background: #743014 !important;
-    color: #E8D1A7 !important;
+    background: #3A5A8C !important;
+    color: #FFFFFF !important;
     box-shadow: none !important;
   }
 
-  /* Footer mobile — flat */
+  /* Footer mobile */
   .footer-grid { gap: 2rem !important; }
   .partner-affiliation {
-    background: #9D9167 !important;
-    border: 1px solid #84592B !important;
+    background: #1C2541 !important;
+    border: none !important;
     box-shadow: none !important;
     background-image: none !important;
   }
 
-  /* Cards on mobile — flat */
-  .card, .event-card, .committee-card, .tier-card {
-    background: #9D9167 !important;
-    border: 1px solid #84592B !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
+  /* Cards on mobile — Lighter Navy (#1C2541) with 8px radius */
+  .card, .event-card, .tier-card {
+    background: #1C2541 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* Committee Cards — Clean without rigid borders */
+  .committee-card {
+    background: #1C2541 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* Committee Avatars — Circular 50% */
+  .committee-avatar {
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    aspect-ratio: 1 / 1 !important;
   }
 }
 
 @media (max-width: 480px) {
   .logo-line-1,
   .logo-line-2 {
-    color: #442D1C !important;
+    color: #F0F4F8 !important;
   }
   .site-logo-img {
-    border-color: #84592B !important;
+    border: none !important;
+    background-color: #FFFFFF !important;
+    border-radius: 50% !important;
   }
   .membership-card-pass {
-    background: #9D9167 !important;
-    border: 1px solid #84592B !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
+    background: #1C2541 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
     background-image: none !important;
   }
-  .membership-certificate-frame {
-    border: 3px double #743014 !important;
-    background: #E8D1A7 !important;
-    box-shadow: none !important;
-    background-image: none !important;
-  }
-  .member-cert-actions .btn { border-radius: 4px !important; }
-}
-
-/* Ensure all buttons globally have 4px, no pill */
-@media (max-width: 768px) {
-  .btn, .btn-sm, .filter-btn, .committee-pill, .ticker-link-btn {
-    border-radius: 4px !important;
+  .member-cert-actions .btn {
+    border-radius: 8px !important;
   }
 }
 
