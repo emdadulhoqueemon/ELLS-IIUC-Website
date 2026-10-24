@@ -3,7 +3,7 @@
    Modern, Accessible, Responsive CSS Design System
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Asul:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Livvic:wght@300;400;500;600;700&display=swap');
 /* --------------------------------------------------------------------------
    0. Custom Font Faces: Google Sans Flex Family (Local TTF)
    -------------------------------------------------------------------------- */
@@ -3697,96 +3697,42 @@ html[data-theme="dark-academia"] body {
 }
 
 /* ==========================================================================
-   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
-   ========================================================================== */
-html, body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-:root,
-html[data-theme="modern-neo-glass"],
-html[data-theme="modern-neo-glass"] body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-html[data-theme="dark-academia"],
-html[data-theme="dark-academia"] body {
-  background-color: #3B3F2F !important;
-  color-scheme: dark !important;
-}
-
-/* ==========================================================================
-   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
-   ========================================================================== */
-html, body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-:root,
-html[data-theme="modern-neo-glass"],
-html[data-theme="modern-neo-glass"] body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-html[data-theme="dark-academia"],
-html[data-theme="dark-academia"] body {
-  background-color: #3B3F2F !important;
-  color-scheme: dark !important;
-}
-
-/* ==========================================================================
-   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
-   ========================================================================== */
-html, body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-:root,
-html[data-theme="modern-neo-glass"],
-html[data-theme="modern-neo-glass"] body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-html[data-theme="dark-academia"],
-html[data-theme="dark-academia"] body {
-  background-color: #3B3F2F !important;
-  color-scheme: dark !important;
-}
-
-/* ==========================================================================
-   EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
-   ========================================================================== */
-html, body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-:root,
-html[data-theme="modern-neo-glass"],
-html[data-theme="modern-neo-glass"] body {
-  background-color: #0A191E !important;
-  color-scheme: dark !important;
-}
-
-html[data-theme="dark-academia"],
-html[data-theme="dark-academia"] body {
-  background-color: #3B3F2F !important;
-  color-scheme: dark !important;
-}
-
-/* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
 
 /* Universal Font Enforcement across all themes */
 *, *::before, *::after {
-  font-family: 'Asul', Georgia, serif !important;
+  font-family: 'Livvic', sans-serif !important;
+}
+
+/* Explicit form controls and buttons typography inheritance */
+input, button, select, textarea, optgroup, .btn, .form-control, .admin-input, .admin-textarea, .admin-select, .admin-btn {
+  font-family: 'Livvic', sans-serif !important;
+}
+
+/* Typography Alignment & Legibility for Livvic */
+h1, h2, h3, h4, h5, h6,
+.hero h1, .section-intro h2, .section-intro h3 {
+  font-family: 'Livvic', sans-serif !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.015em !important;
+}
+
+p, span, a, li, blockquote, label {
+  font-family: 'Livvic', sans-serif !important;
+}
+
+body, html {
+  font-family: 'Livvic', sans-serif !important;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.eyebrow, .category-badge, .badge, .status-badge {
+  letter-spacing: 0.05em;
+  font-weight: 600;
 }
 
 /* --------------------------------------------------------------------------
@@ -3795,12 +3741,12 @@ html[data-theme="dark-academia"] body {
    -------------------------------------------------------------------------- */
 :root,
 html[data-theme="modern-neo-glass"] {
-  --font-primary: 'Asul', Georgia, serif !important;
-  --font-heading: 'Asul', Georgia, serif !important;
-  --font-body: 'Asul', Georgia, serif !important;
-  --font-serif: 'Asul', Georgia, serif !important;
-  --font-sans: 'Asul', Georgia, serif !important;
-  --font-quote: 'Asul', Georgia, serif !important;
+  --font-primary: 'Livvic', sans-serif !important;
+  --font-heading: 'Livvic', sans-serif !important;
+  --font-body: 'Livvic', sans-serif !important;
+  --font-serif: 'Livvic', sans-serif !important;
+  --font-sans: 'Livvic', sans-serif !important;
+  --font-quote: 'Livvic', sans-serif !important;
 
   /* Modern Neo-Glass Palette (Default) */
   --bg-primary: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
@@ -3841,12 +3787,12 @@ html[data-theme="modern-neo-glass"] {
    Flat Design · Forest Moss · Antique Ivory · Faded Gold · NO Drop Shadows
    -------------------------------------------------------------------------- */
 html[data-theme="dark-academia"] {
-  --font-primary: 'Asul', Georgia, serif !important;
-  --font-heading: 'Asul', Georgia, serif !important;
-  --font-body: 'Asul', Georgia, serif !important;
-  --font-serif: 'Asul', Georgia, serif !important;
-  --font-sans: 'Asul', Georgia, serif !important;
-  --font-quote: 'Asul', Georgia, serif !important;
+  --font-primary: 'Livvic', sans-serif !important;
+  --font-heading: 'Livvic', sans-serif !important;
+  --font-body: 'Livvic', sans-serif !important;
+  --font-serif: 'Livvic', sans-serif !important;
+  --font-sans: 'Livvic', sans-serif !important;
+  --font-quote: 'Livvic', sans-serif !important;
 
   /* Dark Academia Palette */
   --bg-primary: #3B3F2F !important;
@@ -3943,7 +3889,7 @@ html[data-theme="dark-academia"] {
   align-items: center;
   gap: 0.45rem;
   padding: 0.32rem 0.7rem;
-  font-family: 'Asul', Georgia, serif !important;
+  font-family: 'Livvic', sans-serif !important;
   font-size: 0.76rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.03em;
@@ -4029,7 +3975,7 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
   text-align: left;
   border-radius: 6px;
   transition: all 0.15s ease;
-  font-family: 'Asul', Georgia, serif !important;
+  font-family: 'Livvic', sans-serif !important;
 }
 
 .theme-option-dot {
@@ -5271,7 +5217,7 @@ img[src*="LOGO"] {
   font-weight: 700 !important;
   margin: 0 0 0.65rem 0 !important;
   color: var(--text-heading, #FFFFFF) !important;
-  font-family: 'Asul', serif !important;
+  font-family: 'Livvic', sans-serif !important;
 }
 
 .api-fallback-message {

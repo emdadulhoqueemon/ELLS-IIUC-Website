@@ -207,7 +207,7 @@ function renderMemberStatusCard(container, record) {
       ">
         <div>
           <p style="margin: 0 0 0.25rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary);">Member Record</p>
-          <h4 style="margin: 0; font-size: 1.25rem; line-height: 1.3; color: var(--text-primary); font-family: 'Asul', serif !important;">${name}</h4>
+          <h4 style="margin: 0; font-size: 1.25rem; line-height: 1.3; color: var(--text-primary); font-family: 'Livvic', sans-serif !important;">${name}</h4>
           <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Student ID: <strong style="color: var(--accent-primary);">${studentId}</strong> · Semester: ${semester}</p>
         </div>
         <span style="
@@ -262,7 +262,7 @@ function renderFallbackErrorCard(container, query, isTimeout) {
   container.innerHTML = `
     <div class="card" style="padding: 1.6rem; text-align: center; border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15)); background: rgba(220, 38, 38, 0.06); border-radius: 10px;">
       <div style="font-size: 2rem; margin-bottom: 0.5rem;" aria-hidden="true">📡</div>
-      <h4 style="margin: 0 0 0.4rem; color: var(--text-primary); font-family: 'Asul', serif !important;">
+      <h4 style="margin: 0 0 0.4rem; color: var(--text-primary); font-family: 'Livvic', sans-serif !important;">
         ${isTimeout ? 'Database Connection Timed Out' : 'Server Connectivity Notice'}
       </h4>
       <p style="margin: 0 0 0.8rem; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.5;">
