@@ -240,7 +240,7 @@
   width: 100%;
   max-width: 432px;
   padding: clamp(1.75rem, 3vw, 2.5rem);
-  border: 1px solid #4A6FA5;
+  border: none;
   border-radius: var(--radius-lg);
   background: #111C3A;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
@@ -706,7 +706,7 @@
 /* --- Cards ------------------------------------------------------------- */
 .admin-card {
   padding: clamp(1.35rem, 2.5vw, 2rem);
-  border: 1px solid rgba(74, 111, 165, 0.25);
+  border: none;
   border-radius: var(--radius-lg);
   background: #111C3A;
   box-shadow: var(--shadow-md);

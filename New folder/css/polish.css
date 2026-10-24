@@ -2024,15 +2024,19 @@ main > .hero .container,
   }
 }
 
-
 /* ==========================================================================
-   STRICT UNIFORM DARK NAVY BLUE THEME AUTHORITY LAYER
+   STRICT UNIFORM DARK NAVY BLUE THEME AUTHORITY LAYER (BORDER CLEANUP)
    --------------------------------------------------------------------------
    STRICT BANS:
      - NO Deep Forest Green, NO greenish gradients or tints
      - NO Gold (#D4AF37) anywhere
      - NO Khaki, Olive, or Brown colors
      - NO Light Theme / White backgrounds for any sections, forms, or admin
+     - NO Unnecessary or messy borders on cards (Vault, Events, Notice, Committee, Admin)
+   
+   ALLOWED BORDERS ONLY:
+     a) Form input fields (1px solid #4A6FA5)
+     b) Specific outline/secondary buttons (1.5px solid #4A6FA5)
    
    PALETTE:
      - Deep Dark Navy: #06142E (body, html, hero, main canvas, admin body, inputs)
@@ -2040,7 +2044,7 @@ main > .hero .container,
      - Drawer Dark Navy: #040D1E (mobile menu drawer)
      - Crisp White/Silver: #F0F4F8 (all headings, primary text, input values)
      - Muted Silver: #A0AAB2 (secondary text, placeholders, labels)
-     - Soft Steel Blue: #4A6FA5 (buttons, borders, accents - replacing Gold)
+     - Soft Steel Blue: #4A6FA5 (buttons, input borders, key accents)
      - Soft Steel Blue Hover: #5B82BA
    ========================================================================== */
 
@@ -2078,7 +2082,7 @@ main > .hero .container,
   --accent-gold-hover: #5B82BA !important;
   --accent-gold-light: rgba(74, 111, 165, 0.15) !important;
   --accent-gold-glow: rgba(74, 111, 165, 0.4) !important;
-  --border-subtle: rgba(74, 111, 165, 0.25) !important;
+  --border-subtle: transparent !important;
   --border-strong: #4A6FA5 !important;
   --border-radius: 8px !important;
 }
@@ -2166,7 +2170,8 @@ header {
 
 .partner-affiliation {
   background: #111C3A !important;
-  border: 1px solid rgba(74, 111, 165, 0.25) !important;
+  border: none !important;
+  outline: none !important;
 }
 
 .site-footer {
@@ -2289,7 +2294,7 @@ button.btn-secondary:hover {
   color: #FFFFFF !important;
 }
 
-/* 5. Sections & Cards (Elevated Navy #111C3A) */
+/* 5. Sections & Base Cards (Elevated Navy #111C3A - STRICT NO BORDERS) */
 .hero,
 .section-notice-board,
 #noticeBoard,
@@ -2316,9 +2321,11 @@ section#wings,
 
 .news-ticker-bar {
   background: #111C3A !important;
+  border: none !important;
   border-bottom: 1px solid rgba(74, 111, 165, 0.25) !important;
 }
 
+/* Universal Card Border Cleanup */
 .card,
 [class*="-card"],
 .event-card,
@@ -2345,19 +2352,10 @@ section#wings,
   background-color: #111C3A !important;
   background-image: none !important;
   color: #F0F4F8 !important;
-  border: 1px solid rgba(74, 111, 165, 0.25) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
-}
-
-.featured-resource-card,
-.committee-card,
-.advisory-card,
-.faculty-card,
-.student-card {
   border: none !important;
   outline: none !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
 .card *,
@@ -2378,11 +2376,131 @@ section#wings,
   color: #A0AAB2 !important;
 }
 
-/* Four Pillars Icons */
+/* 6. Clean Academic Resource Vault (STRICT NO BORDERS ON CONTAINER OR BADGES/TAGS) */
+.featured-resource-card,
+.featured-resource-card *,
+.resource-card-grid,
+.resource-card-info,
+.resource-btn-wrap,
+.resource-card-badge,
+.resource-tags-row,
+.resource-tag,
+.resource-card-credit {
+  border: none !important;
+  outline: none !important;
+}
+
+.featured-resource-card {
+  background: #111C3A !important;
+  background-color: #111C3A !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.featured-resource-card .resource-card-badge {
+  background: rgba(74, 111, 165, 0.25) !important;
+  color: #F0F4F8 !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 6px !important;
+}
+
+.featured-resource-card .resource-tag {
+  background: rgba(74, 111, 165, 0.15) !important;
+  color: #F0F4F8 !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 6px !important;
+}
+
+.featured-resource-card .resource-card-credit {
+  border: none !important;
+  border-top: none !important;
+  outline: none !important;
+  color: #A0AAB2 !important;
+}
+
+.featured-resource-card .resource-card-credit strong {
+  color: #F0F4F8 !important;
+}
+
+/* 7. Clean Upcoming Events / Event Cards (NO OUTER BORDERS, NO DIVIDING LINES) */
+.event-card,
+.event-card--poster,
+.event-card__details,
+.event-card__poster,
+.event-card__poster-img,
+.event-card__poster-placeholder,
+.event-card__poster-placeholder::after,
+.event-card-header,
+.event-card-body,
+.event-card-footer,
+.event-date-badge,
+.event-card__badges,
+.event-meta,
+.track-pill,
+.seats-indicator {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+}
+
+.event-card,
+.event-card--poster {
+  background: #111C3A !important;
+  background-color: #111C3A !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+.event-card__poster,
+.event-card--poster .event-card__poster {
+  border: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+}
+
+.event-card--poster .event-card-footer {
+  border: none !important;
+  border-top: none !important;
+  outline: none !important;
+}
+
+/* 8. Notice Board, Four Pillars & Committee (CLEAN BORDERLESS DESIGN) */
+.notice-card,
+.notice-poster-card,
+.notice-board-banner,
+.notice-board-state,
+.feed-state,
+.notice-item,
+.notice-badge,
+.notice-date-badge {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+}
+
 .card-icon-wrap,
-.section-pillars .card-icon-wrap {
+.section-pillars .card-icon-wrap,
+.section-pillars .card {
+  border: none !important;
+  outline: none !important;
+}
+
+.card-icon-wrap {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  border: none !important;
+  outline: none !important;
   border-radius: 8px !important;
 }
 
@@ -2397,29 +2515,21 @@ section#wings,
   color: #4A6FA5 !important;
 }
 
-/* Academic Resource Vault */
-.featured-resource-card .resource-card-badge {
-  background: rgba(74, 111, 165, 0.25) !important;
-  color: #F0F4F8 !important;
-  border: 1px solid rgba(74, 111, 165, 0.35) !important;
-}
-
-.featured-resource-card .resource-tag {
-  background: rgba(74, 111, 165, 0.15) !important;
-  color: #F0F4F8 !important;
+.committee-card,
+.advisory-card,
+.faculty-card,
+.student-card,
+.team-card,
+.committee-grid .card,
+.committee-avatar,
+.committee-card .committee-avatar,
+.advisory-card .committee-avatar,
+.faculty-card .committee-avatar,
+.student-card .committee-avatar {
   border: none !important;
+  outline: none !important;
 }
 
-.featured-resource-card .resource-card-credit {
-  border-top: 1px solid rgba(74, 111, 165, 0.2) !important;
-  color: #A0AAB2 !important;
-}
-
-.featured-resource-card .resource-card-credit strong {
-  color: #F0F4F8 !important;
-}
-
-/* Committee Avatars */
 .committee-avatar,
 .committee-card .committee-avatar,
 .advisory-card .committee-avatar,
@@ -2430,7 +2540,7 @@ section#wings,
   aspect-ratio: 1 / 1 !important;
   background: #06142E !important;
   color: #F0F4F8 !important;
-  border: 1.5px solid #4A6FA5 !important;
+  border: none !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -2479,7 +2589,7 @@ nav.main-nav,
   background-color: rgba(74, 111, 165, 0.3) !important;
 }
 
-/* 6. Form Inputs on Public Pages (Membership Check, etc.) */
+/* 9. Public Form Inputs (STRICTLY ALLOWED 1px solid #4A6FA5 BORDER) */
 .form-control,
 input.form-control,
 textarea.form-control,
@@ -2512,7 +2622,7 @@ input#memberLookupInput,
   outline: none !important;
 }
 
-/* 7. Admin Login Panel (admin.html) */
+/* 10. Admin Login Panel (admin.html - CLEAN BORDERLESS CARD) */
 .admin-login,
 .admin-login__brand,
 .admin-login__panel,
@@ -2521,17 +2631,19 @@ input#memberLookupInput,
   background: #06142E !important;
   background-color: #06142E !important;
   background-image: none !important;
+  border: none !important;
 }
 
 .admin-login__brand {
-  border-right: 1px solid rgba(74, 111, 165, 0.25) !important;
+  border-right: none !important;
 }
 
 .admin-login__card {
   background: #111C3A !important;
   background-color: #111C3A !important;
   background-image: none !important;
-  border: 1px solid #4A6FA5 !important;
+  border: none !important;
+  outline: none !important;
   border-radius: 12px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
@@ -2563,14 +2675,16 @@ input#memberLookupInput,
 
 .admin-brand__points svg {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid #4A6FA5 !important;
+  border: none !important;
+  outline: none !important;
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
 }
 
 .admin-login__icon {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid #4A6FA5 !important;
+  border: none !important;
+  outline: none !important;
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
 }
@@ -2587,7 +2701,7 @@ input#memberLookupInput,
   color: #A0AAB2 !important;
 }
 
-/* Login Form Inputs (Email, Password) */
+/* Admin Login Inputs (STRICTLY ALLOWED 1px solid #4A6FA5 BORDER) */
 .admin-login__form input,
 .admin-login__card input,
 #adminEmail,
@@ -2642,7 +2756,7 @@ input#memberLookupInput,
   color: #FFFFFF !important;
 }
 
-/* 8. Admin Console Dashboard (admin.html) */
+/* 11. Admin Console Dashboard (admin.html - CLEAN BORDERLESS CARDS) */
 body.admin-body,
 .admin-body,
 .admin-dashboard,
@@ -2684,7 +2798,8 @@ header.admin-topbar,
 
 .admin-user-chip {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  border: none !important;
+  outline: none !important;
   color: #F0F4F8 !important;
 }
 
@@ -2695,7 +2810,8 @@ header.admin-topbar,
 
 .admin-env-pill {
   background: rgba(74, 111, 165, 0.25) !important;
-  border: 1px solid #4A6FA5 !important;
+  border: none !important;
+  outline: none !important;
   color: #F0F4F8 !important;
 }
 
@@ -2707,7 +2823,7 @@ header.admin-topbar,
   border: 1px solid rgba(74, 111, 165, 0.35) !important;
 }
 
-/* Admin Dashboard Cards & Forms */
+/* Admin Dashboard Cards & Forms - No Outer Borders */
 .admin-card,
 .admin-notice-card,
 .admin-preview-card,
@@ -2717,7 +2833,8 @@ section.admin-card,
   background: #111C3A !important;
   background-color: #111C3A !important;
   background-image: none !important;
-  border: 1px solid rgba(74, 111, 165, 0.25) !important;
+  border: none !important;
+  outline: none !important;
   border-radius: 10px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
   color: #F0F4F8 !important;
@@ -2752,7 +2869,8 @@ section.admin-card,
 
 .admin-card__icon {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  border: none !important;
+  outline: none !important;
   color: #4A6FA5 !important;
   border-radius: 8px !important;
 }
@@ -2761,7 +2879,7 @@ section.admin-card,
   stroke: #4A6FA5 !important;
 }
 
-/* All Admin Form Inputs, Textareas, Selects & Dates */
+/* All Admin Form Inputs, Textareas, Selects & Dates (STRICTLY ALLOWED 1px solid #4A6FA5 BORDER) */
 body.admin-body input,
 body.admin-body textarea,
 body.admin-body select,
@@ -2810,18 +2928,19 @@ body.admin-body select:focus,
 /* Live Notices Items in Admin Dashboard */
 .admin-live-item {
   background: #06142E !important;
-  border: 1px solid rgba(74, 111, 165, 0.3) !important;
+  border: none !important;
+  outline: none !important;
   color: #F0F4F8 !important;
 }
 
 .admin-live-item:hover {
   background: #16244A !important;
-  border-color: #4A6FA5 !important;
 }
 
 .admin-tag {
   background: rgba(74, 111, 165, 0.2) !important;
-  border: 1px solid rgba(74, 111, 165, 0.35) !important;
+  border: none !important;
+  outline: none !important;
   color: #F0F4F8 !important;
 }
 
