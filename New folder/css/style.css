@@ -436,7 +436,7 @@ body.nav-open .site-header {
   background-color: #ffffff;
   padding: 2px;
   border: 2px solid var(--accent-gold);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   object-fit: contain;
   flex-shrink: 0;
   transition: transform var(--transition), box-shadow var(--transition);
@@ -444,7 +444,7 @@ body.nav-open .site-header {
 
 .site-logo:hover .site-logo-img {
   transform: scale(1.06);
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
 }
 
 .site-logo-img.logo-lg {
@@ -467,7 +467,7 @@ body.nav-open .site-header {
   align-items: center;
   justify-content: center;
   color: var(--accent-gold);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .logo-emblem svg {
@@ -777,14 +777,14 @@ body.nav-open .site-header {
   background-color: var(--accent-gold);
   color: var(--text-inverse);
   border-color: var(--accent-gold);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   font-weight: 700;
 }
 
 .btn-primary:hover {
   background-color: var(--accent-gold-hover);
   border-color: var(--accent-gold-hover);
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
   transform: translateY(-2px);
   color: var(--text-inverse);
 }
@@ -800,7 +800,7 @@ body.nav-open .site-header {
   border-color: var(--accent-gold);
   color: var(--accent-gold);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .btn-crimson {
@@ -811,7 +811,7 @@ body.nav-open .site-header {
 .btn-crimson:hover {
   background-color: var(--accent-crimson-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+  box-shadow: none;
 }
 
 .btn-outline-gold {
@@ -824,7 +824,7 @@ body.nav-open .site-header {
 .btn-outline-gold:hover {
   background-color: var(--accent-gold);
   color: var(--text-inverse);
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
 }
 
 .btn-sm {
@@ -1137,7 +1137,7 @@ body.nav-open .site-header {
 .poster-action-btn.btn-register:hover {
   background: var(--accent-gold-hover);
   color: #0B1120;
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
 }
 
 .poster-action-btn.btn-details {
@@ -1378,14 +1378,14 @@ body.nav-open .site-header {
   white-space: nowrap;
   line-height: 1.25;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: none;
 }
 
 .notice-link-btn:hover {
   background: var(--accent-gold-hover);
   color: #0B1120;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(226, 212, 183, 0.4);
+  box-shadow: none;
 }
 
 .notice-link-secondary {
@@ -2022,7 +2022,7 @@ textarea.form-control {
 .tier-card.selected {
   border-color: var(--accent-gold);
   background: var(--bg-card-subtle);
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
 }
 
 .tier-badge-corner {
@@ -2124,7 +2124,7 @@ textarea.form-control {
   background: var(--accent-gold);
   border-color: var(--accent-gold);
   color: #0B1120;
-  box-shadow: var(--shadow-gold);
+  box-shadow: none;
 }
 
 .wizard-step-indicator.completed .step-bubble {
@@ -2593,7 +2593,7 @@ textarea.form-control {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 1.25rem 1.5rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -2708,7 +2708,7 @@ textarea.form-control {
   flex-direction: column;
   position: relative;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .committee-card:hover {
@@ -2865,7 +2865,7 @@ textarea.form-control {
   padding: 1rem 1.4rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .committee-nav-pills {
@@ -3029,7 +3029,7 @@ textarea.form-control {
   justify-content: center;
   text-decoration: none;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .social-icon svg {
@@ -3419,7 +3419,7 @@ textarea.form-control {
   color: var(--accent-gold-hover);
   border-color: var(--accent-gold-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(226, 212, 183, 0.18);
+  box-shadow: none;
 }
 
 .resource-drive-btn svg {
@@ -3988,7 +3988,7 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
 .theme-option-dot--glass {
   background: linear-gradient(135deg, #10B981 0%, #0284C7 100%);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
+  box-shadow: none !important;
 }
 
 .theme-option-dot--academia {
@@ -4047,7 +4047,7 @@ html[data-theme="modern-neo-glass"] .theme-switcher-toggle,
   -webkit-backdrop-filter: blur(12px) !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="modern-neo-glass"] .theme-switcher-toggle:hover,
@@ -4323,14 +4323,18 @@ html[data-theme="modern-neo-glass"] .event-card-footer > .btn,
 :root:not([data-theme="dark-academia"]) .btn,
 :root:not([data-theme="dark-academia"]) .btn-primary,
 :root:not([data-theme="dark-academia"]) .hero-cta-single {
-  background: linear-gradient(90deg, #10B981 0%, #0284C7 100%) !important;
-  background-color: #10B981 !important;
+  background: #0D9488 !important;
+  background-color: #0D9488 !important;
+  background-image: none !important;
   color: #FFFFFF !important;
-  border: none !important;
+  border: 1px solid #0D9488 !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.28) !important;
-  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
   cursor: pointer !important;
 }
 
@@ -4341,6 +4345,9 @@ html[data-theme="modern-neo-glass"] .hero-cta-single *,
 :root:not([data-theme="dark-academia"]) .btn-primary * {
   color: #FFFFFF !important;
   fill: #FFFFFF !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 html[data-theme="modern-neo-glass"] .btn:hover,
@@ -4351,9 +4358,35 @@ html[data-theme="modern-neo-glass"] #adminLoginBtn:hover,
 html[data-theme="modern-neo-glass"] .admin-submit:hover,
 :root:not([data-theme="dark-academia"]) .btn:hover,
 :root:not([data-theme="dark-academia"]) .btn-primary:hover {
-  background: linear-gradient(90deg, #059669 0%, #0369A1 100%) !important;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.38) !important;
-  transform: translateY(-1px) !important;
+  background: #0F766E !important;
+  background-color: #0F766E !important;
+  background-image: none !important;
+  border-color: #0F766E !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .btn:active,
+html[data-theme="modern-neo-glass"] .btn-primary:active,
+html[data-theme="modern-neo-glass"] .hero-cta-single:active,
+html[data-theme="modern-neo-glass"] #memberLookupBtn:active,
+html[data-theme="modern-neo-glass"] #adminLoginBtn:active,
+html[data-theme="modern-neo-glass"] .admin-submit:active,
+:root:not([data-theme="dark-academia"]) .btn:active,
+:root:not([data-theme="dark-academia"]) .btn-primary:active {
+  background: #115E59 !important;
+  background-color: #115E59 !important;
+  background-image: none !important;
+  border-color: #115E59 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
   color: #FFFFFF !important;
 }
 
@@ -4665,7 +4698,7 @@ html[data-theme="modern-neo-glass"] .committee-avatar,
   background-color: rgba(10, 25, 30, 0.8) !important;
   border: 2px solid rgba(16, 185, 129, 0.4) !important;
   border-radius: 50% !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="modern-neo-glass"] .stat-item,
@@ -5421,6 +5454,199 @@ img[src*="LOGO"] {
   padding: 0.7rem 1.2rem !important;
   font-size: 0.95rem !important;
   border-radius: var(--btn-radius, 8px) !important;
+}
+
+/* ==========================================================================
+   GLOBAL STRICT PURGE: 100% FLAT BUTTONS (ZERO SHADOWS, GLOWS, DROP-SHADOWS)
+   ========================================================================== */
+button,
+.btn,
+a.btn,
+button.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.filter-btn,
+.committee-pill,
+.mobile-nav-toggle,
+.theme-switcher-toggle,
+.theme-option,
+.hero-cta-single,
+.resource-drive-btn,
+.poster-action-btn,
+.notice-link-btn,
+.mobile-nav-cta,
+.admin-btn,
+.admin-btn-primary,
+.admin-btn-secondary,
+.admin-btn-logout,
+.admin-logout,
+.admin-submit,
+#memberLookupBtn,
+#restorePassBtn,
+#adminLoginBtn,
+[role="button"],
+.committee-nav-pills button,
+.filter-pills button,
+.member-nav button {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+button:hover,
+button:focus,
+button:focus-visible,
+button:active,
+button.active,
+button.is-active,
+.btn:hover,
+.btn:focus,
+.btn:focus-visible,
+.btn:active,
+.btn.active,
+.btn.is-active,
+a.btn:hover,
+a.btn:focus,
+a.btn:focus-visible,
+a.btn:active,
+a.btn.active,
+a.btn.is-active,
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="button"]:focus-visible,
+input[type="button"]:active,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+input[type="submit"]:focus-visible,
+input[type="submit"]:active,
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="reset"]:focus-visible,
+input[type="reset"]:active,
+.filter-btn:hover,
+.filter-btn:focus,
+.filter-btn:focus-visible,
+.filter-btn:active,
+.filter-btn.active,
+.filter-btn.is-active,
+.committee-pill:hover,
+.committee-pill:focus,
+.committee-pill:focus-visible,
+.committee-pill:active,
+.committee-pill.active,
+.committee-pill.is-active,
+.mobile-nav-toggle:hover,
+.mobile-nav-toggle:focus,
+.mobile-nav-toggle:focus-visible,
+.mobile-nav-toggle:active,
+.theme-switcher-toggle:hover,
+.theme-switcher-toggle:focus,
+.theme-switcher-toggle:focus-visible,
+.theme-switcher-toggle:active,
+.theme-option:hover,
+.theme-option:focus,
+.theme-option:focus-visible,
+.theme-option:active,
+.theme-option.is-active,
+.hero-cta-single:hover,
+.hero-cta-single:focus,
+.hero-cta-single:focus-visible,
+.hero-cta-single:active,
+.resource-drive-btn:hover,
+.resource-drive-btn:focus,
+.resource-drive-btn:focus-visible,
+.resource-drive-btn:active,
+.poster-action-btn:hover,
+.poster-action-btn:focus,
+.poster-action-btn:focus-visible,
+.poster-action-btn:active,
+.notice-link-btn:hover,
+.notice-link-btn:focus,
+.notice-link-btn:focus-visible,
+.notice-link-btn:active,
+.mobile-nav-cta:hover,
+.mobile-nav-cta:focus,
+.mobile-nav-cta:focus-visible,
+.mobile-nav-cta:active,
+.admin-btn:hover,
+.admin-btn:focus,
+.admin-btn:focus-visible,
+.admin-btn:active,
+.admin-btn-primary:hover,
+.admin-btn-primary:focus,
+.admin-btn-primary:focus-visible,
+.admin-btn-primary:active,
+.admin-btn-secondary:hover,
+.admin-btn-secondary:focus,
+.admin-btn-secondary:focus-visible,
+.admin-btn-secondary:active,
+.admin-btn-logout:hover,
+.admin-btn-logout:focus,
+.admin-btn-logout:focus-visible,
+.admin-btn-logout:active,
+.admin-logout:hover,
+.admin-logout:focus,
+.admin-logout:focus-visible,
+.admin-logout:active,
+.admin-submit:hover,
+.admin-submit:focus,
+.admin-submit:focus-visible,
+.admin-submit:active,
+#memberLookupBtn:hover,
+#memberLookupBtn:focus,
+#memberLookupBtn:focus-visible,
+#memberLookupBtn:active,
+#restorePassBtn:hover,
+#restorePassBtn:focus,
+#restorePassBtn:focus-visible,
+#restorePassBtn:active,
+#adminLoginBtn:hover,
+#adminLoginBtn:focus,
+#adminLoginBtn:focus-visible,
+#adminLoginBtn:active,
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:focus-visible,
+[role="button"]:active,
+.committee-nav-pills button:hover,
+.committee-nav-pills button:focus,
+.committee-nav-pills button:focus-visible,
+.committee-nav-pills button:active,
+.committee-nav-pills button.active,
+.filter-pills button:hover,
+.filter-pills button:focus,
+.filter-pills button:focus-visible,
+.filter-pills button:active,
+.filter-pills button.active,
+.member-nav button:hover,
+.member-nav button:focus,
+.member-nav button:focus-visible,
+.member-nav button:active,
+.member-nav button.active {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+button *,
+.btn *,
+a.btn *,
+input[type="submit"] *,
+.filter-btn *,
+.committee-pill *,
+.mobile-nav-toggle *,
+.theme-switcher-toggle *,
+.hero-cta-single *,
+.admin-btn *,
+.admin-submit * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */
