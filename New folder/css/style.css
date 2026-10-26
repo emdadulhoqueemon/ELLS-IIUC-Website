@@ -5651,87 +5651,111 @@ input[type="submit"] *,
 
 /* 9. Dedicated Mobile Event Card Query (<= 768px) */
 @media (max-width: 768px) {
+/* ==========================================================================
+     FORCE MOBILE EVENT POSTER DISPLAY (THE IRONCLAD FIX - <= 768px)
+     ========================================================================== */
+  .event-card,
   .event-card--poster {
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
+    overflow: hidden !important;
   }
 
+  .event-card .event-poster, 
+  .event-poster-container,
+  .event-card .event-card__poster,
   .event-card__poster,
   .event-poster,
   .event-image-container,
-  .event-card--poster .event-card__poster {
+  .event-poster-wrapper,
+  .event-card .card-image,
+  .event-card--poster .event-card__poster,
+  .event-card--poster .event-poster {
     display: block !important;
-    position: relative !important;
-    flex: 0 0 auto !important;
-    flex-shrink: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    aspect-ratio: 1 / 1 !important;
     height: auto !important;
-    min-height: 240px;
+    min-height: 250px !important;
+    aspect-ratio: 1 / 1 !important;
+    position: relative !important;
     overflow: hidden !important;
-    background: #4B3B2A !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    background: var(--bg-card, #0A191E) !important;
     border: none !important;
-    border-bottom: 1px solid #D8B7B0 !important;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)) !important;
     box-shadow: none !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
 
-  @supports not (aspect-ratio: 1 / 1) {
-    .event-card__poster,
-    .event-poster,
-    .event-image-container,
-    .event-card--poster .event-card__poster {
-      padding-top: 100% !important;
-      height: 0 !important;
-      min-height: 0 !important;
-    }
-  }
-
+  .event-card .event-poster img,
+  .event-poster-container img,
+  .event-card .event-card__poster img,
   .event-card__poster img,
   .event-card__poster-img,
   .event-poster img,
   .event-image-container img,
+  .event-poster-wrapper img,
+  .event-card .card-image img,
   .event-card--poster .event-card__poster img,
-  .event-card--poster .event-card__poster-img {
+  .event-card--poster .event-card__poster-img,
+  .event-card img {
     display: block !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
     max-width: 100% !important;
     object-fit: cover !important;
     object-position: center !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
     box-shadow: none !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
 
+  /* Fallback/Empty State Protection: Midnight Blue box with ELLS logo text */
+  .event-poster.empty-poster,
+  .event-card .event-poster.empty-poster,
+  .event-poster-container.empty-poster,
   .event-card__poster-placeholder,
   .event-card--poster .event-card__poster-placeholder,
+  .empty-poster,
   .event-card__poster:empty,
   .event-poster:empty,
   .event-image-container:empty {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 250px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    background: var(--bg-card, #0A191E) !important;
+    background-color: #0A191E !important;
     padding: 1.5rem 1rem !important;
     gap: 0.65rem !important;
-    background: #4B3B2A !important;
     box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .event-card__poster-mark {
+    font-family: var(--font-primary, 'Livvic', sans-serif) !important;
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.16em !important;
+    line-height: 1 !important;
+    color: var(--accent-gold, #BFA76F) !important;
+    display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -5743,14 +5767,16 @@ input[type="submit"] *,
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: #EDEDDC !important;
-    background: #3B3F2F !important;
-    border: 1px solid #D8B7B0 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     padding: 0.35rem 0.85rem !important;
     border-radius: 4px !important;
     margin: 0 !important;
     text-align: center !important;
     max-width: 90% !important;
     overflow-wrap: anywhere !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     box-shadow: none !important;
   }
 }

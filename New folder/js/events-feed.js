@@ -236,14 +236,14 @@ function buildEventCard(evt, variant = '') {
 
   /* ---- 1. Square poster (left on desktop, on top on mobile) ---- */
   const poster = document.createElement('div');
-  poster.className = 'event-card__poster';
+  poster.className = 'event-card__poster event-poster event-poster-container';
 
   const posterUrl = normalizeHttpUrl(evt.posterUrl);
   const titleText = evt.title || 'Untitled Event';
 
   if (posterUrl) {
     const img = document.createElement('img');
-    img.className = 'event-card__poster-img';
+    img.className = 'event-card__poster-img event-poster-img';
     img.src = posterUrl;
     img.alt = `${titleText} — ELLS event poster`;
     img.setAttribute('loading', 'lazy');
@@ -345,7 +345,7 @@ function buildEventCard(evt, variant = '') {
  */
 function buildPosterPlaceholder(category) {
   const placeholder = document.createElement('div');
-  placeholder.className = 'event-card__poster-placeholder';
+  placeholder.className = 'event-card__poster-placeholder empty-poster';
   placeholder.setAttribute('aria-hidden', 'true');
 
   const mark = document.createElement('span');
