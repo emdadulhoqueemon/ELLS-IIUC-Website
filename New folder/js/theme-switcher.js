@@ -1,6 +1,9 @@
 /**
  * ELLS Website & Admin Console — Theme Switcher
- * Handles aesthetic theme toggling between 'modern-neo-glass' (default) and 'dark-academia'.
+ * Handles aesthetic theme toggling between:
+ *  - 'modern-neo-glass' (default)
+ *  - 'dark-academia'
+ *  - 'mystic-woods' (Mindful Forest palette)
  * Persists user preference via localStorage with key 'theme' (and 'ells_theme').
  */
 (function() {
@@ -9,7 +12,7 @@
   var STORAGE_KEY = 'theme';
   var LEGACY_KEY = 'ells_theme';
   var DEFAULT_THEME = 'modern-neo-glass';
-  var VALID_THEMES = ['modern-neo-glass', 'dark-academia'];
+  var VALID_THEMES = ['modern-neo-glass', 'dark-academia', 'mystic-woods'];
 
   /** Get current saved theme */
   function getSavedTheme() {
@@ -44,7 +47,13 @@
     try {
       var metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#0A191E');
+        var metaColor = '#0A191E';
+        if (theme === 'dark-academia') {
+          metaColor = '#3B3F2F';
+        } else if (theme === 'mystic-woods') {
+          metaColor = '#4F531F';
+        }
+        metaThemeColor.setAttribute('content', metaColor);
       }
     } catch (err) {}
 
@@ -62,8 +71,16 @@
   /** Update UI state of all switcher elements */
   function updateAllSwitchers(activeTheme) {
     var switchers = document.querySelectorAll('.theme-switcher');
-    var isNeoGlass = activeTheme === 'modern-neo-glass';
-    var themeLabelText = isNeoGlass ? 'Neo-Glass' : 'Dark Academia';
+    var themeLabelText = 'Neo-Glass';
+    var themeFullName = 'Modern Neo-Glass';
+
+    if (activeTheme === 'dark-academia') {
+      themeLabelText = 'Dark Academia';
+      themeFullName = 'Dark Academia';
+    } else if (activeTheme === 'mystic-woods') {
+      themeLabelText = 'Mystic Woods';
+      themeFullName = 'Mystic Woods';
+    }
 
     switchers.forEach(function(switcher) {
       var label = switcher.querySelector('.theme-switcher-text');
@@ -73,8 +90,8 @@
 
       var toggle = switcher.querySelector('.theme-switcher-toggle');
       if (toggle) {
-        toggle.setAttribute('title', 'Current theme: ' + (isNeoGlass ? 'Modern Neo-Glass' : 'Dark Academia') + ' (Click to change)');
-        toggle.setAttribute('aria-label', 'Theme: ' + (isNeoGlass ? 'Modern Neo-Glass' : 'Dark Academia') + '. Click to switch.');
+        toggle.setAttribute('title', 'Current theme: ' + themeFullName + ' (Click to change)');
+        toggle.setAttribute('aria-label', 'Theme: ' + themeFullName + '. Click to switch.');
       }
 
       var options = switcher.querySelectorAll('.theme-option');
@@ -159,7 +176,13 @@
     document.documentElement.setAttribute('data-theme', immediateTheme);
     var immMeta = document.querySelector('meta[name="theme-color"]');
     if (immMeta) {
-      immMeta.setAttribute('content', immediateTheme === 'dark-academia' ? '#3B3F2F' : '#0A191E');
+      var immColor = '#0A191E';
+      if (immediateTheme === 'dark-academia') {
+        immColor = '#3B3F2F';
+      } else if (immediateTheme === 'mystic-woods') {
+        immColor = '#4F531F';
+      }
+      immMeta.setAttribute('content', immColor);
     }
   } catch (err) {}
 

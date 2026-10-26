@@ -2320,3 +2320,104 @@ input[type="submit"] *,
   filter: none !important;
   -webkit-filter: none !important;
 }
+
+/* ==========================================================================
+   MYSTIC WOODS OVERRIDES FOR ADMIN CONSOLE
+   ========================================================================== */
+html[data-theme="mystic-woods"] .admin-body {
+  background: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
+  background-attachment: fixed !important;
+  color: #C5C6B3 !important;
+}
+
+html[data-theme="mystic-woods"] .admin-login__brand {
+  background: #251402 !important;
+  border-right: 1px solid #4F531F !important;
+}
+
+html[data-theme="mystic-woods"] .admin-login__panel {
+  background: transparent !important;
+}
+
+html[data-theme="mystic-woods"] .admin-login__card {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-card {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-input {
+  background-color: rgba(52, 28, 2, 0.85) !important;
+  background: rgba(52, 28, 2, 0.85) !important;
+  color: #F6F4EC !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-input:focus {
+  border-color: #EFC87D !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-input::placeholder {
+  color: #8C8B7B !important;
+}
+
+html[data-theme="mystic-woods"] .admin-topbar {
+  background: rgba(52, 28, 2, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid #4F531F !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-btn-primary,
+html[data-theme="mystic-woods"] .admin-submit,
+html[data-theme="mystic-woods"] #adminLoginBtn {
+  background: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background-color: #EFC87D !important;
+  background-image: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  color: #341C02 !important;
+  border: 1px solid #EFC87D !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-btn-primary:hover,
+html[data-theme="mystic-woods"] .admin-submit:hover,
+html[data-theme="mystic-woods"] #adminLoginBtn:hover {
+  background: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background-color: #E2D8C3 !important;
+  background-image: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  border-color: #E2D8C3 !important;
+  color: #341C02 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-logout {
+  background: rgba(79, 83, 31, 0.35) !important;
+  border: 1px solid #4F531F !important;
+  color: #F6F4EC !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .admin-logout:hover {
+  background: rgba(79, 83, 31, 0.7) !important;
+  border-color: #EFC87D !important;
+  color: #F6F4EC !important;
+  box-shadow: none !important;
+}

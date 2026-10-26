@@ -3696,6 +3696,12 @@ html[data-theme="dark-academia"] body {
   color-scheme: dark !important;
 }
 
+html[data-theme="mystic-woods"],
+html[data-theme="mystic-woods"] body {
+  background-color: #341C02 !important;
+  color-scheme: dark !important;
+}
+
 /* ==========================================================================
    DYNAMIC DUAL THEME ARCHITECTURE: Modern Neo-Glass & Dark Academia
    ========================================================================== */
@@ -3827,6 +3833,51 @@ html[data-theme="dark-academia"] {
   --card-shadow: none !important;
   --btn-shadow: none !important;
 }
+/* --------------------------------------------------------------------------
+   THEME 3: MYSTIC WOODS (Mindful Forest Aesthetic Mode)
+   5-Gradient Palette Â· Forest Olive to Deep Earth Â· Champagne to Warm Gold Accents Â· 100% Flat
+   -------------------------------------------------------------------------- */
+html[data-theme="mystic-woods"] {
+  --font-primary: 'Livvic', sans-serif !important;
+  --font-heading: 'Livvic', sans-serif !important;
+  --font-body: 'Livvic', sans-serif !important;
+  --font-serif: 'Livvic', sans-serif !important;
+  --font-sans: 'Livvic', sans-serif !important;
+  --font-quote: 'Livvic', sans-serif !important;
+
+  /* Mystic Woods Palette (Mindful Forest) */
+  --bg-primary: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
+  --bg-canvas: #341C02 !important;
+  --bg-card: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  --bg-secondary: rgba(79, 83, 31, 0.6) !important;
+  --bg-chestnut: #341C02 !important;
+  --bg-card-subtle: rgba(52, 28, 2, 0.6) !important;
+  --bg-card-hover: linear-gradient(145deg, rgba(79, 83, 31, 0.85) 0%, rgba(52, 28, 2, 0.95) 100%) !important;
+  --bg-elevated: linear-gradient(145deg, rgba(79, 83, 31, 0.75) 0%, rgba(52, 28, 2, 0.9) 100%) !important;
+  --bg-drawer: #341C02 !important;
+  --bg-input: rgba(52, 28, 2, 0.85) !important;
+
+  --text-primary: #F6F4EC !important;
+  --text-heading: #F6F4EC !important;
+  --text-secondary: #C5C6B3 !important;
+  --text-muted: #C5C6B3 !important;
+  --text-inverse: #341C02 !important;
+
+  --accent-primary: #EFC87D !important;
+  --btn-bg: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  --btn-bg-hover: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  --btn-text: #341C02 !important;
+  --accent-gold: #EFC87D !important;
+  --accent-gold-hover: #E2D8C3 !important;
+
+  --border-color: #4F531F !important;
+  --border-subtle: rgba(79, 83, 31, 0.6) !important;
+  --border-strong: #4F531F !important;
+  --border-radius: 8px !important;
+  --card-radius: 8px !important;
+  --card-shadow: none !important;
+  --btn-shadow: none !important;
+}
 
 /* ==========================================================================
    STRICT GLOBAL INNER BORDER REMOVAL (Desktop & Mobile Card Interiors)
@@ -3911,12 +3962,20 @@ html[data-theme="dark-academia"] {
 }
 
 /* Active Icon Switching */
-html[data-theme="dark-academia"] .theme-icon--glass {
+html[data-theme="modern-neo-glass"] .theme-icon--academia,
+html[data-theme="modern-neo-glass"] .theme-icon--mystic,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]):not([data-theme="mystic-woods"]) .theme-icon--academia,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]):not([data-theme="mystic-woods"]) .theme-icon--mystic {
   display: none !important;
 }
 
-html[data-theme="modern-neo-glass"] .theme-icon--academia,
-:root:not([data-theme="dark-academia"]) .theme-icon--academia {
+html[data-theme="dark-academia"] .theme-icon--glass,
+html[data-theme="dark-academia"] .theme-icon--mystic {
+  display: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-icon--glass,
+html[data-theme="mystic-woods"] .theme-icon--academia {
   display: none !important;
 }
 
@@ -3996,6 +4055,12 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
   border: 2px solid #BFA76F;
 }
 
+.theme-option-dot--mystic {
+  background: linear-gradient(135deg, #4F531F 0%, #341C02 100%);
+  border: 2px solid #EFC87D;
+  box-shadow: none !important;
+}
+
 .theme-option-label {
   display: flex;
   flex-direction: column;
@@ -4041,7 +4106,7 @@ html[data-theme="modern-neo-glass"] .theme-icon--academia,
 
 /* Theme Switcher in Modern Neo-Glass Mode (Default) */
 html[data-theme="modern-neo-glass"] .theme-switcher-toggle,
-:root:not([data-theme="dark-academia"]) .theme-switcher-toggle {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-switcher-toggle {
   background: rgba(17, 39, 51, 0.75) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -4051,14 +4116,14 @@ html[data-theme="modern-neo-glass"] .theme-switcher-toggle,
 }
 
 html[data-theme="modern-neo-glass"] .theme-switcher-toggle:hover,
-:root:not([data-theme="dark-academia"]) .theme-switcher-toggle:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-switcher-toggle:hover {
   background: rgba(23, 53, 69, 0.9) !important;
   border-color: rgba(16, 185, 129, 0.4) !important;
   color: #FFFFFF !important;
 }
 
 html[data-theme="modern-neo-glass"] .theme-dropdown,
-:root:not([data-theme="dark-academia"]) .theme-dropdown {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-dropdown {
   background: rgba(12, 28, 38, 0.94) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
@@ -4067,25 +4132,25 @@ html[data-theme="modern-neo-glass"] .theme-dropdown,
 }
 
 html[data-theme="modern-neo-glass"] .theme-option,
-:root:not([data-theme="dark-academia"]) .theme-option {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-option {
   color: #CBD5E1 !important;
 }
 
 html[data-theme="modern-neo-glass"] .theme-option:hover,
-:root:not([data-theme="dark-academia"]) .theme-option:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-option:hover {
   background: rgba(255, 255, 255, 0.08) !important;
   color: #FFFFFF !important;
 }
 
 html[data-theme="modern-neo-glass"] .theme-option.is-active,
-:root:not([data-theme="dark-academia"]) .theme-option.is-active {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-option.is-active {
   background: rgba(16, 185, 129, 0.18) !important;
   color: #FFFFFF !important;
   border-left: 3px solid #10B981 !important;
 }
 
 html[data-theme="modern-neo-glass"] .theme-option.is-active .theme-option-check,
-:root:not([data-theme="dark-academia"]) .theme-option.is-active .theme-option-check {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .theme-option.is-active .theme-option-check {
   color: #10B981 !important;
 }
 
@@ -4127,12 +4192,58 @@ html[data-theme="dark-academia"] .theme-option.is-active .theme-option-check {
   color: #BFA76F !important;
 }
 
+/* Theme Switcher in Mystic Woods Mode */
+html[data-theme="mystic-woods"] .theme-switcher-toggle {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  color: #F6F4EC !important;
+  border: 1px solid #4F531F !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-switcher-toggle:hover {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.9) 0%, rgba(52, 28, 2, 0.95) 100%) !important;
+  border-color: #EFC87D !important;
+  color: #F6F4EC !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-dropdown {
+  background: #251402 !important;
+  background-color: #251402 !important;
+  border: 1px solid #4F531F !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-option {
+  color: #C5C6B3 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-option:hover {
+  background: rgba(79, 83, 31, 0.45) !important;
+  color: #F6F4EC !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-option.is-active {
+  background: rgba(79, 83, 31, 0.7) !important;
+  color: #F6F4EC !important;
+  border-left: 3px solid #EFC87D !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .theme-option.is-active .theme-option-check {
+  color: #EFC87D !important;
+}
+
 /* ==========================================================================
    THEME 1 RULES: MODERN NEO-GLASS (DEFAULT Aesthetic Mode)
    Glassmorphism · Deep Teal Gradient · Emerald to Blue Accents · 12px Radius
    ========================================================================== */
 html[data-theme="modern-neo-glass"],
-:root:not([data-theme="dark-academia"]) {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) {
   background-color: #0A191E !important;
   background: #0A191E !important;
   color-scheme: dark !important;
@@ -4140,8 +4251,8 @@ html[data-theme="modern-neo-glass"],
 
 html[data-theme="modern-neo-glass"] body,
 html[data-theme="modern-neo-glass"] body.admin-body,
-:root:not([data-theme="dark-academia"]) body,
-:root:not([data-theme="dark-academia"]) body.admin-body {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) body,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) body.admin-body {
   background: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
   background-attachment: fixed !important;
   background-color: #0A191E !important;
@@ -4151,15 +4262,15 @@ html[data-theme="modern-neo-glass"] body.admin-body,
 html[data-theme="modern-neo-glass"] main,
 html[data-theme="modern-neo-glass"] #main-content,
 html[data-theme="modern-neo-glass"] .main-wrapper,
-:root:not([data-theme="dark-academia"]) main,
-:root:not([data-theme="dark-academia"]) #main-content,
-:root:not([data-theme="dark-academia"]) .main-wrapper {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) main,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) #main-content,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .main-wrapper {
   background: transparent !important;
   background-color: transparent !important;
 }
 
 html[data-theme="modern-neo-glass"] .bg-caps,
-:root:not([data-theme="dark-academia"]) .bg-caps {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .bg-caps {
   opacity: 0.16 !important;
 }
 
@@ -4181,15 +4292,15 @@ html[data-theme="modern-neo-glass"] .admin-card h2,
 html[data-theme="modern-neo-glass"] .admin-card h3,
 html[data-theme="modern-neo-glass"] .admin-main h1,
 html[data-theme="modern-neo-glass"] .admin-main h2,
-:root:not([data-theme="dark-academia"]) h1,
-:root:not([data-theme="dark-academia"]) h2,
-:root:not([data-theme="dark-academia"]) h3,
-:root:not([data-theme="dark-academia"]) h4,
-:root:not([data-theme="dark-academia"]) h5,
-:root:not([data-theme="dark-academia"]) h6,
-:root:not([data-theme="dark-academia"]) .hero h1,
-:root:not([data-theme="dark-academia"]) .hero-content h1,
-:root:not([data-theme="dark-academia"]) #hero-heading {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h1,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h2,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h3,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h4,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h5,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) h6,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .hero h1,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .hero-content h1,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) #hero-heading {
   color: #FFFFFF !important;
 }
 
@@ -4197,10 +4308,10 @@ html[data-theme="modern-neo-glass"] p,
 html[data-theme="modern-neo-glass"] span,
 html[data-theme="modern-neo-glass"] li,
 html[data-theme="modern-neo-glass"] label,
-:root:not([data-theme="dark-academia"]) p,
-:root:not([data-theme="dark-academia"]) span,
-:root:not([data-theme="dark-academia"]) li,
-:root:not([data-theme="dark-academia"]) label {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) p,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) span,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) li,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) label {
   color: #CBD5E1;
 }
 
@@ -4210,9 +4321,9 @@ html[data-theme="modern-neo-glass"] header.site-header,
 html[data-theme="modern-neo-glass"] header,
 html[data-theme="modern-neo-glass"] .admin-topbar,
 html[data-theme="modern-neo-glass"] header.admin-topbar,
-:root:not([data-theme="dark-academia"]) .site-header,
-:root:not([data-theme="dark-academia"]) header.site-header,
-:root:not([data-theme="dark-academia"]) .admin-topbar {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) header.site-header,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-topbar {
   background: rgba(10, 25, 30, 0.82) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -4223,21 +4334,21 @@ html[data-theme="modern-neo-glass"] header.admin-topbar,
 html[data-theme="modern-neo-glass"] .site-header .nav-link,
 html[data-theme="modern-neo-glass"] .admin-topbar span,
 html[data-theme="modern-neo-glass"] .admin-topbar strong,
-:root:not([data-theme="dark-academia"]) .site-header .nav-link {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header .nav-link {
   color: #CBD5E1 !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-header .nav-link:hover,
 html[data-theme="modern-neo-glass"] .site-header .nav-link.active,
-:root:not([data-theme="dark-academia"]) .site-header .nav-link:hover,
-:root:not([data-theme="dark-academia"]) .site-header .nav-link.active {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header .nav-link:hover,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header .nav-link.active {
   color: #10B981 !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-header .logo-text .logo-line-1,
 html[data-theme="modern-neo-glass"] .site-header .logo-text .logo-line-2,
-:root:not([data-theme="dark-academia"]) .site-header .logo-text .logo-line-1,
-:root:not([data-theme="dark-academia"]) .site-header .logo-text .logo-line-2 {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header .logo-text .logo-line-1,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-header .logo-text .logo-line-2 {
   color: #FFFFFF !important;
 }
 
@@ -4246,8 +4357,8 @@ html[data-theme="modern-neo-glass"] .partner-logo-img,
 html[data-theme="modern-neo-glass"] .site-logo img,
 html[data-theme="modern-neo-glass"] .footer-logo img,
 html[data-theme="modern-neo-glass"] .footer-brand .site-logo-img,
-:root:not([data-theme="dark-academia"]) .site-logo-img,
-:root:not([data-theme="dark-academia"]) .partner-logo-img {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-logo-img,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .partner-logo-img {
   height: 50px !important;
   width: auto !important;
   object-fit: contain !important;
@@ -4260,39 +4371,39 @@ html[data-theme="modern-neo-glass"] .footer-brand .site-logo-img,
 }
 
 html[data-theme="modern-neo-glass"] .site-footer,
-:root:not([data-theme="dark-academia"]) .site-footer {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-footer {
   background: rgba(8, 20, 25, 0.95) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #CBD5E1 !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-footer *,
-:root:not([data-theme="dark-academia"]) .site-footer * {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-footer * {
   color: #CBD5E1;
 }
 
 html[data-theme="modern-neo-glass"] .site-footer h3,
 html[data-theme="modern-neo-glass"] .site-footer h4,
 html[data-theme="modern-neo-glass"] .site-footer strong,
-:root:not([data-theme="dark-academia"]) .site-footer h3,
-:root:not([data-theme="dark-academia"]) .site-footer h4 {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-footer h3,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-footer h4 {
   color: #FFFFFF !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-footer a:hover,
-:root:not([data-theme="dark-academia"]) .site-footer a:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .site-footer a:hover {
   color: #10B981 !important;
 }
 
 html[data-theme="modern-neo-glass"] .developer-credit-bar,
-:root:not([data-theme="dark-academia"]) .developer-credit-bar {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .developer-credit-bar {
   background: rgba(6, 16, 20, 0.98) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #94A3B8 !important;
 }
 
 html[data-theme="modern-neo-glass"] .developer-credit-bar a,
-:root:not([data-theme="dark-academia"]) .developer-credit-bar a {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .developer-credit-bar a {
   color: #10B981 !important;
 }
 
@@ -4320,9 +4431,9 @@ html[data-theme="modern-neo-glass"] .admin-form-actions .btn-primary,
 html[data-theme="modern-neo-glass"] .admin-login__form .btn-primary,
 html[data-theme="modern-neo-glass"] .event-card-footer .btn,
 html[data-theme="modern-neo-glass"] .event-card-footer > .btn,
-:root:not([data-theme="dark-academia"]) .btn,
-:root:not([data-theme="dark-academia"]) .btn-primary,
-:root:not([data-theme="dark-academia"]) .hero-cta-single {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-primary,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .hero-cta-single {
   background: #0D9488 !important;
   background-color: #0D9488 !important;
   background-image: none !important;
@@ -4341,8 +4452,8 @@ html[data-theme="modern-neo-glass"] .event-card-footer > .btn,
 html[data-theme="modern-neo-glass"] .btn *,
 html[data-theme="modern-neo-glass"] .btn-primary *,
 html[data-theme="modern-neo-glass"] .hero-cta-single *,
-:root:not([data-theme="dark-academia"]) .btn *,
-:root:not([data-theme="dark-academia"]) .btn-primary * {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn *,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-primary * {
   color: #FFFFFF !important;
   fill: #FFFFFF !important;
   box-shadow: none !important;
@@ -4356,8 +4467,8 @@ html[data-theme="modern-neo-glass"] .hero-cta-single:hover,
 html[data-theme="modern-neo-glass"] #memberLookupBtn:hover,
 html[data-theme="modern-neo-glass"] #adminLoginBtn:hover,
 html[data-theme="modern-neo-glass"] .admin-submit:hover,
-:root:not([data-theme="dark-academia"]) .btn:hover,
-:root:not([data-theme="dark-academia"]) .btn-primary:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn:hover,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-primary:hover {
   background: #0F766E !important;
   background-color: #0F766E !important;
   background-image: none !important;
@@ -4376,8 +4487,8 @@ html[data-theme="modern-neo-glass"] .hero-cta-single:active,
 html[data-theme="modern-neo-glass"] #memberLookupBtn:active,
 html[data-theme="modern-neo-glass"] #adminLoginBtn:active,
 html[data-theme="modern-neo-glass"] .admin-submit:active,
-:root:not([data-theme="dark-academia"]) .btn:active,
-:root:not([data-theme="dark-academia"]) .btn-primary:active {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn:active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-primary:active {
   background: #115E59 !important;
   background-color: #115E59 !important;
   background-image: none !important;
@@ -4399,7 +4510,7 @@ html[data-theme="modern-neo-glass"] .admin-main .btn-secondary,
 html[data-theme="modern-neo-glass"] .admin-form-actions .btn-secondary,
 html[data-theme="modern-neo-glass"] .admin-logout,
 html[data-theme="modern-neo-glass"] .admin-btn-logout,
-:root:not([data-theme="dark-academia"]) .btn-secondary {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-secondary {
   background: rgba(255, 255, 255, 0.06) !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -4411,7 +4522,7 @@ html[data-theme="modern-neo-glass"] .admin-btn-logout,
 html[data-theme="modern-neo-glass"] .btn-secondary:hover,
 html[data-theme="modern-neo-glass"] a.btn-secondary:hover,
 html[data-theme="modern-neo-glass"] .admin-logout:hover,
-:root:not([data-theme="dark-academia"]) .btn-secondary:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.12) !important;
   border-color: rgba(255, 255, 255, 0.25) !important;
   color: #FFFFFF !important;
@@ -4477,11 +4588,11 @@ html[data-theme="modern-neo-glass"] .filter-btn,
 html[data-theme="modern-neo-glass"] .committee-nav-pills button,
 html[data-theme="modern-neo-glass"] .filter-pills button,
 html[data-theme="modern-neo-glass"] .member-nav button,
-:root:not([data-theme="dark-academia"]) .committee-pill,
-:root:not([data-theme="dark-academia"]) .filter-btn,
-:root:not([data-theme="dark-academia"]) .committee-nav-pills button,
-:root:not([data-theme="dark-academia"]) .filter-pills button,
-:root:not([data-theme="dark-academia"]) .member-nav button {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-nav-pills button,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-pills button,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .member-nav button {
   background: rgba(255, 255, 255, 0.08) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   background-image: none !important;
@@ -4505,11 +4616,11 @@ html[data-theme="modern-neo-glass"] .filter-btn:hover:not(.active):not(.is-activ
 html[data-theme="modern-neo-glass"] .committee-nav-pills button:hover:not(.active):not(.is-active),
 html[data-theme="modern-neo-glass"] .filter-pills button:hover:not(.active):not(.is-active),
 html[data-theme="modern-neo-glass"] .member-nav button:hover:not(.active):not(.is-active),
-:root:not([data-theme="dark-academia"]) .committee-pill:hover:not(.active):not(.is-active),
-:root:not([data-theme="dark-academia"]) .filter-btn:hover:not(.active):not(.is-active),
-:root:not([data-theme="dark-academia"]) .committee-nav-pills button:hover:not(.active):not(.is-active),
-:root:not([data-theme="dark-academia"]) .filter-pills button:hover:not(.active):not(.is-active),
-:root:not([data-theme="dark-academia"]) .member-nav button:hover:not(.active):not(.is-active) {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-nav-pills button:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-pills button:hover:not(.active):not(.is-active),
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .member-nav button:hover:not(.active):not(.is-active) {
   background: rgba(255, 255, 255, 0.16) !important;
   background-color: rgba(255, 255, 255, 0.16) !important;
   background-image: none !important;
@@ -4534,18 +4645,18 @@ html[data-theme="modern-neo-glass"] .filter-pills button.active,
 html[data-theme="modern-neo-glass"] .filter-pills button.is-active,
 html[data-theme="modern-neo-glass"] .member-nav button.active,
 html[data-theme="modern-neo-glass"] .member-nav button.is-active,
-:root:not([data-theme="dark-academia"]) .committee-pill.active,
-:root:not([data-theme="dark-academia"]) .committee-pill.is-active,
-:root:not([data-theme="dark-academia"]) .committee-pill:active,
-:root:not([data-theme="dark-academia"]) .filter-btn.active,
-:root:not([data-theme="dark-academia"]) .filter-btn.is-active,
-:root:not([data-theme="dark-academia"]) .filter-btn:active,
-:root:not([data-theme="dark-academia"]) .committee-nav-pills button.active,
-:root:not([data-theme="dark-academia"]) .committee-nav-pills button.is-active,
-:root:not([data-theme="dark-academia"]) .filter-pills button.active,
-:root:not([data-theme="dark-academia"]) .filter-pills button.is-active,
-:root:not([data-theme="dark-academia"]) .member-nav button.active,
-:root:not([data-theme="dark-academia"]) .member-nav button.is-active {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill.active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill.is-active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill:active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn.active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn.is-active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn:active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-nav-pills button.active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-nav-pills button.is-active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-pills button.active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-pills button.is-active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .member-nav button.active,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .member-nav button.is-active {
   background: #0D9488 !important;
   background-color: #0D9488 !important;
   background-image: none !important;
@@ -4565,10 +4676,10 @@ html[data-theme="modern-neo-glass"] .committee-pill.active:focus-visible,
 html[data-theme="modern-neo-glass"] .filter-btn.active:hover,
 html[data-theme="modern-neo-glass"] .filter-btn.active:focus,
 html[data-theme="modern-neo-glass"] .filter-btn.active:focus-visible,
-:root:not([data-theme="dark-academia"]) .committee-pill.active:hover,
-:root:not([data-theme="dark-academia"]) .committee-pill.active:focus,
-:root:not([data-theme="dark-academia"]) .filter-btn.active:hover,
-:root:not([data-theme="dark-academia"]) .filter-btn.active:focus {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill.active:hover,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-pill.active:focus,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn.active:hover,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .filter-btn.active:focus {
   background: #0D9488 !important;
   background-color: #0D9488 !important;
   background-image: none !important;
@@ -4603,8 +4714,8 @@ html[data-theme="modern-neo-glass"] .featured-resource-section,
 html[data-theme="modern-neo-glass"] .membership-section,
 html[data-theme="modern-neo-glass"] #membershipStatusCheck,
 html[data-theme="modern-neo-glass"] .admin-main,
-:root:not([data-theme="dark-academia"]) .hero,
-:root:not([data-theme="dark-academia"]) .section-notice-board {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .hero,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .section-notice-board {
   background: transparent !important;
   background-color: transparent !important;
 }
@@ -4635,9 +4746,9 @@ html[data-theme="modern-neo-glass"] .admin-notice-card,
 html[data-theme="modern-neo-glass"] .admin-preview-card,
 html[data-theme="modern-neo-glass"] .admin-live,
 html[data-theme="modern-neo-glass"] .tier-card,
-:root:not([data-theme="dark-academia"]) .card,
-:root:not([data-theme="dark-academia"]) .event-card,
-:root:not([data-theme="dark-academia"]) .notice-card {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .card,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .event-card,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .notice-card {
   background: rgba(17, 39, 51, 0.65) !important;
   background-color: rgba(17, 39, 51, 0.65) !important;
   backdrop-filter: blur(12px) !important;
@@ -4649,7 +4760,7 @@ html[data-theme="modern-neo-glass"] .tier-card,
 }
 
 html[data-theme="modern-neo-glass"] .news-ticker-bar,
-:root:not([data-theme="dark-academia"]) .news-ticker-bar {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .news-ticker-bar {
   background: rgba(17, 39, 51, 0.75) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -4659,7 +4770,7 @@ html[data-theme="modern-neo-glass"] .news-ticker-bar,
 
 html[data-theme="modern-neo-glass"] .section-pillars .card-icon-wrap,
 html[data-theme="modern-neo-glass"] .card-icon-wrap,
-:root:not([data-theme="dark-academia"]) .card-icon-wrap {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .card-icon-wrap {
   background: rgba(16, 185, 129, 0.18) !important;
   border: 1px solid rgba(16, 185, 129, 0.3) !important;
   border-radius: 8px !important;
@@ -4668,7 +4779,7 @@ html[data-theme="modern-neo-glass"] .card-icon-wrap,
 
 html[data-theme="modern-neo-glass"] .card-icon-wrap svg,
 html[data-theme="modern-neo-glass"] .card-icon-wrap svg *,
-:root:not([data-theme="dark-academia"]) .card-icon-wrap svg {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .card-icon-wrap svg {
   fill: #6EE7B7 !important;
   stroke: #6EE7B7 !important;
   color: #6EE7B7 !important;
@@ -4685,7 +4796,7 @@ html[data-theme="modern-neo-glass"] .admin-tag,
 html[data-theme="modern-neo-glass"] .admin-env-pill,
 html[data-theme="modern-neo-glass"] .resource-card-tag,
 html[data-theme="modern-neo-glass"] .resource-card-badge,
-:root:not([data-theme="dark-academia"]) .badge {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .badge {
   background: rgba(16, 185, 129, 0.18) !important;
   color: #6EE7B7 !important;
   border: 1px solid rgba(16, 185, 129, 0.3) !important;
@@ -4694,7 +4805,7 @@ html[data-theme="modern-neo-glass"] .resource-card-badge,
 }
 
 html[data-theme="modern-neo-glass"] .committee-avatar,
-:root:not([data-theme="dark-academia"]) .committee-avatar {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .committee-avatar {
   background-color: rgba(10, 25, 30, 0.8) !important;
   border: 2px solid rgba(16, 185, 129, 0.4) !important;
   border-radius: 50% !important;
@@ -4703,7 +4814,7 @@ html[data-theme="modern-neo-glass"] .committee-avatar,
 
 html[data-theme="modern-neo-glass"] .stat-item,
 html[data-theme="modern-neo-glass"] .stat-card,
-:root:not([data-theme="dark-academia"]) .stat-item {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .stat-item {
   background: rgba(17, 39, 51, 0.65) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -4713,13 +4824,13 @@ html[data-theme="modern-neo-glass"] .stat-card,
 }
 
 html[data-theme="modern-neo-glass"] .stat-number,
-:root:not([data-theme="dark-academia"]) .stat-number {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .stat-number {
   color: #10B981 !important;
   text-shadow: 0 0 24px rgba(16, 185, 129, 0.35) !important;
 }
 
 html[data-theme="modern-neo-glass"] .stat-label,
-:root:not([data-theme="dark-academia"]) .stat-label {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .stat-label {
   color: #CBD5E1 !important;
 }
 
@@ -4731,8 +4842,8 @@ html[data-theme="modern-neo-glass"] .form-control,
 html[data-theme="modern-neo-glass"] .admin-input,
 html[data-theme="modern-neo-glass"] .search-input-wrap input,
 html[data-theme="modern-neo-glass"] #eventSearchInput,
-:root:not([data-theme="dark-academia"]) input,
-:root:not([data-theme="dark-academia"]) textarea {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) input,
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) textarea {
   background-color: rgba(10, 25, 30, 0.75) !important;
   background: rgba(10, 25, 30, 0.75) !important;
   color: #FFFFFF !important;
@@ -4747,7 +4858,7 @@ html[data-theme="modern-neo-glass"] input:focus,
 html[data-theme="modern-neo-glass"] textarea:focus,
 html[data-theme="modern-neo-glass"] select:focus,
 html[data-theme="modern-neo-glass"] .admin-input:focus,
-:root:not([data-theme="dark-academia"]) input:focus {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) input:focus {
   border-color: #10B981 !important;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
   outline: none !important;
@@ -4755,12 +4866,12 @@ html[data-theme="modern-neo-glass"] .admin-input:focus,
 
 html[data-theme="modern-neo-glass"] input::placeholder,
 html[data-theme="modern-neo-glass"] textarea::placeholder,
-:root:not([data-theme="dark-academia"]) input::placeholder {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) input::placeholder {
   color: #64748B !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-upload,
-:root:not([data-theme="dark-academia"]) .admin-upload {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-upload {
   background: rgba(17, 39, 51, 0.5) !important;
   border: 1px dashed rgba(255, 255, 255, 0.2) !important;
   color: #CBD5E1 !important;
@@ -4768,25 +4879,25 @@ html[data-theme="modern-neo-glass"] .admin-upload,
 }
 
 html[data-theme="modern-neo-glass"] .admin-upload:hover,
-:root:not([data-theme="dark-academia"]) .admin-upload:hover {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-upload:hover {
   background: rgba(23, 53, 69, 0.65) !important;
   border-color: #10B981 !important;
 }
 
 /* Neo-Glass Admin Login */
 html[data-theme="modern-neo-glass"] .admin-login__brand,
-:root:not([data-theme="dark-academia"]) .admin-login__brand {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-login__brand {
   background: rgba(8, 20, 25, 0.88) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-login__panel,
-:root:not([data-theme="dark-academia"]) .admin-login__panel {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-login__panel {
   background: transparent !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-login__card,
-:root:not([data-theme="dark-academia"]) .admin-login__card {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-login__card {
   background: rgba(17, 39, 51, 0.7) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -4796,20 +4907,20 @@ html[data-theme="modern-neo-glass"] .admin-login__card,
 }
 
 html[data-theme="modern-neo-glass"] .admin-user-chip,
-:root:not([data-theme="dark-academia"]) .admin-user-chip {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-user-chip {
   background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 8px !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-user-chip__avatar,
-:root:not([data-theme="dark-academia"]) .admin-user-chip__avatar {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-user-chip__avatar {
   background: linear-gradient(135deg, #10B981 0%, #0284C7 100%) !important;
   color: #FFFFFF !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-env-pill,
-:root:not([data-theme="dark-academia"]) .admin-env-pill {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .admin-env-pill {
   background: rgba(16, 185, 129, 0.18) !important;
   border: 1px solid rgba(16, 185, 129, 0.35) !important;
   color: #6EE7B7 !important;
@@ -4820,7 +4931,7 @@ html[data-theme="modern-neo-glass"] .event-card__poster,
 html[data-theme="modern-neo-glass"] .event-poster,
 html[data-theme="modern-neo-glass"] .event-image-container,
 html[data-theme="modern-neo-glass"] .event-card--poster .event-card__poster,
-:root:not([data-theme="dark-academia"]) .event-card__poster {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .event-card__poster {
   background: rgba(10, 25, 30, 0.8) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
@@ -4828,18 +4939,18 @@ html[data-theme="modern-neo-glass"] .event-card--poster .event-card__poster,
 html[data-theme="modern-neo-glass"] .event-card__poster-placeholder,
 html[data-theme="modern-neo-glass"] .event-card--poster .event-card__poster-placeholder,
 html[data-theme="modern-neo-glass"] .event-card__poster:empty,
-:root:not([data-theme="dark-academia"]) .event-card__poster-placeholder {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .event-card__poster-placeholder {
   background: rgba(10, 25, 30, 0.85) !important;
 }
 
 html[data-theme="modern-neo-glass"] .event-card__poster-mark,
-:root:not([data-theme="dark-academia"]) .event-card__poster-mark {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .event-card__poster-mark {
   color: #10B981 !important;
   text-shadow: 0 0 20px rgba(16, 185, 129, 0.5) !important;
 }
 
 html[data-theme="modern-neo-glass"] .event-card__poster-caption,
-:root:not([data-theme="dark-academia"]) .event-card__poster-caption {
+:root:not([data-theme="dark-academia"]):not([data-theme="mystic-woods"]) .event-card__poster-caption {
   background: rgba(16, 185, 129, 0.15) !important;
   color: #6EE7B7 !important;
   border: 1px solid rgba(16, 185, 129, 0.3) !important;
@@ -5320,6 +5431,463 @@ html[data-theme="dark-academia"] .admin-upload {
   background: #4B3B2A !important;
   border: 1px dashed #D8B7B0 !important;
   color: #EDEDDC !important;
+}
+
+/* ==========================================================================
+   THEME 3 RULES: MYSTIC WOODS (Mindful Forest Aesthetic Mode)
+   5-Gradient Palette Â· Forest Olive to Deep Earth Â· 100% Flat UI
+   ========================================================================== */
+html[data-theme="mystic-woods"] *,
+html[data-theme="mystic-woods"] *::before,
+html[data-theme="mystic-woods"] *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+html[data-theme="mystic-woods"] {
+  background-color: #341C02 !important;
+  background: #341C02 !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme="mystic-woods"] body,
+html[data-theme="mystic-woods"] body.admin-body {
+  background: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
+  background-attachment: fixed !important;
+  background-color: #341C02 !important;
+  color: #C5C6B3 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] main,
+html[data-theme="mystic-woods"] #main-content,
+html[data-theme="mystic-woods"] .main-wrapper {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html[data-theme="mystic-woods"] .bg-caps {
+  opacity: 0.1 !important;
+}
+
+html[data-theme="mystic-woods"] h1,
+html[data-theme="mystic-woods"] h2,
+html[data-theme="mystic-woods"] h3,
+html[data-theme="mystic-woods"] h4,
+html[data-theme="mystic-woods"] h5,
+html[data-theme="mystic-woods"] h6,
+html[data-theme="mystic-woods"] .hero h1,
+html[data-theme="mystic-woods"] .hero-content h1,
+html[data-theme="mystic-woods"] #hero-heading,
+html[data-theme="mystic-woods"] .section-intro h2,
+html[data-theme="mystic-woods"] .section-head h2,
+html[data-theme="mystic-woods"] .resource-card-title,
+html[data-theme="mystic-woods"] .admin-card h1,
+html[data-theme="mystic-woods"] .admin-card h2,
+html[data-theme="mystic-woods"] .admin-card h3,
+html[data-theme="mystic-woods"] .admin-main h1,
+html[data-theme="mystic-woods"] .admin-main h2 {
+  color: #F6F4EC !important;
+}
+
+html[data-theme="mystic-woods"] p,
+html[data-theme="mystic-woods"] span,
+html[data-theme="mystic-woods"] li,
+html[data-theme="mystic-woods"] a,
+html[data-theme="mystic-woods"] label {
+  color: #C5C6B3;
+}
+
+/* Mystic Woods Header & Topbar */
+html[data-theme="mystic-woods"] .site-header,
+html[data-theme="mystic-woods"] header.site-header,
+html[data-theme="mystic-woods"] header,
+html[data-theme="mystic-woods"] .admin-topbar,
+html[data-theme="mystic-woods"] header.admin-topbar {
+  background: rgba(52, 28, 2, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid #4F531F !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .site-header *,
+html[data-theme="mystic-woods"] .site-header .nav-link,
+html[data-theme="mystic-woods"] .site-header .logo-text,
+html[data-theme="mystic-woods"] .site-header .logo-line-1,
+html[data-theme="mystic-woods"] .site-header .logo-line-2,
+html[data-theme="mystic-woods"] .site-header a,
+html[data-theme="mystic-woods"] .site-header span,
+html[data-theme="mystic-woods"] .admin-topbar *,
+html[data-theme="mystic-woods"] .admin-topbar span,
+html[data-theme="mystic-woods"] .admin-topbar strong {
+  color: #F6F4EC !important;
+}
+
+html[data-theme="mystic-woods"] .site-header .nav-link:hover,
+html[data-theme="mystic-woods"] .site-header .nav-link.active {
+  color: #EFC87D !important;
+}
+
+html[data-theme="mystic-woods"] .partner-affiliation {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  border: 1px solid #4F531F !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .site-footer {
+  background: #251402 !important;
+  background-color: #251402 !important;
+  border-top: 1px solid #4F531F !important;
+  color: #C5C6B3 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .site-footer * {
+  color: #C5C6B3;
+}
+
+html[data-theme="mystic-woods"] .site-footer h3,
+html[data-theme="mystic-woods"] .site-footer h4,
+html[data-theme="mystic-woods"] .site-footer strong {
+  color: #F6F4EC !important;
+}
+
+html[data-theme="mystic-woods"] .site-footer a:hover {
+  color: #EFC87D !important;
+}
+
+html[data-theme="mystic-woods"] .developer-credit-bar {
+  background: #180c01 !important;
+  background-color: #180c01 !important;
+  border-top: 1px solid #4F531F !important;
+  color: #C5C6B3 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .developer-credit-bar * {
+  color: #C5C6B3 !important;
+}
+
+html[data-theme="mystic-woods"] .developer-credit-bar a {
+  color: #EFC87D !important;
+}
+
+/* Mystic Woods Buttons: Gradient 02 (#E2D8C3 to #EFC87D) with Dark Earth / Bark (#341C02) Text */
+html[data-theme="mystic-woods"] .btn,
+html[data-theme="mystic-woods"] .btn-primary,
+html[data-theme="mystic-woods"] .resource-drive-btn,
+html[data-theme="mystic-woods"] .notice-link-btn,
+html[data-theme="mystic-woods"] .poster-action-btn.btn-register,
+html[data-theme="mystic-woods"] .hero-cta-single,
+html[data-theme="mystic-woods"] .mobile-nav-cta,
+html[data-theme="mystic-woods"] button.btn-primary,
+html[data-theme="mystic-woods"] a.btn-primary,
+html[data-theme="mystic-woods"] .site-header .btn-primary,
+html[data-theme="mystic-woods"] #memberLookupBtn,
+html[data-theme="mystic-woods"] #restorePassBtn,
+html[data-theme="mystic-woods"] button#memberLookupBtn,
+html[data-theme="mystic-woods"] button#restorePassBtn,
+html[data-theme="mystic-woods"] .member-lookup-form .btn-primary,
+html[data-theme="mystic-woods"] #adminLoginBtn,
+html[data-theme="mystic-woods"] .admin-submit,
+html[data-theme="mystic-woods"] .admin-card .btn-primary,
+html[data-theme="mystic-woods"] .admin-main .btn-primary,
+html[data-theme="mystic-woods"] .admin-form-actions .btn-primary,
+html[data-theme="mystic-woods"] .admin-login__form .btn-primary,
+html[data-theme="mystic-woods"] .event-card-footer .btn,
+html[data-theme="mystic-woods"] .event-card-footer > .btn,
+html[data-theme="mystic-woods"] .filter-btn.active,
+html[data-theme="mystic-woods"] .committee-pill.active {
+  background: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background-color: #EFC87D !important;
+  background-image: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  color: #341C02 !important;
+  border: 1px solid #EFC87D !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+html[data-theme="mystic-woods"] .btn *,
+html[data-theme="mystic-woods"] .btn-primary *,
+html[data-theme="mystic-woods"] .hero-cta-single *,
+html[data-theme="mystic-woods"] .filter-btn.active *,
+html[data-theme="mystic-woods"] .committee-pill.active * {
+  color: #341C02 !important;
+  fill: #341C02 !important;
+  stroke: #341C02 !important;
+}
+
+html[data-theme="mystic-woods"] .btn:hover,
+html[data-theme="mystic-woods"] .btn-primary:hover,
+html[data-theme="mystic-woods"] .hero-cta-single:hover,
+html[data-theme="mystic-woods"] #memberLookupBtn:hover,
+html[data-theme="mystic-woods"] #restorePassBtn:hover,
+html[data-theme="mystic-woods"] #adminLoginBtn:hover,
+html[data-theme="mystic-woods"] .admin-submit:hover {
+  background: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background-color: #E2D8C3 !important;
+  background-image: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  border-color: #E2D8C3 !important;
+  color: #341C02 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-theme="mystic-woods"] .btn:hover *,
+html[data-theme="mystic-woods"] .btn-primary:hover *,
+html[data-theme="mystic-woods"] .hero-cta-single:hover * {
+  color: #341C02 !important;
+  fill: #341C02 !important;
+  stroke: #341C02 !important;
+}
+
+html[data-theme="mystic-woods"] .btn-secondary,
+html[data-theme="mystic-woods"] a.btn-secondary,
+html[data-theme="mystic-woods"] button.btn-secondary,
+html[data-theme="mystic-woods"] .poster-action-btn.btn-details,
+html[data-theme="mystic-woods"] .admin-card .btn-secondary,
+html[data-theme="mystic-woods"] .admin-main .btn-secondary,
+html[data-theme="mystic-woods"] .admin-form-actions .btn-secondary,
+html[data-theme="mystic-woods"] .admin-logout,
+html[data-theme="mystic-woods"] .admin-btn-logout,
+html[data-theme="mystic-woods"] .filter-btn,
+html[data-theme="mystic-woods"] .committee-pill {
+  background: rgba(79, 83, 31, 0.35) !important;
+  background-color: rgba(79, 83, 31, 0.35) !important;
+  color: #F6F4EC !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .btn-secondary * {
+  color: #F6F4EC !important;
+}
+
+html[data-theme="mystic-woods"] .btn-secondary:hover,
+html[data-theme="mystic-woods"] a.btn-secondary:hover,
+html[data-theme="mystic-woods"] .filter-btn:hover,
+html[data-theme="mystic-woods"] .committee-pill:hover,
+html[data-theme="mystic-woods"] .admin-logout:hover {
+  background: rgba(79, 83, 31, 0.7) !important;
+  color: #F6F4EC !important;
+  border-color: #EFC87D !important;
+  box-shadow: none !important;
+}
+
+/* Mystic Woods Sections Canvas */
+html[data-theme="mystic-woods"] .hero,
+html[data-theme="mystic-woods"] .section-notice-board,
+html[data-theme="mystic-woods"] #noticeBoard,
+html[data-theme="mystic-woods"] .events-controls-section,
+html[data-theme="mystic-woods"] .events-grid-section,
+html[data-theme="mystic-woods"] .archive-band,
+html[data-theme="mystic-woods"] section[aria-labelledby="featured-events-heading"],
+html[data-theme="mystic-woods"] .section-secondary,
+html[data-theme="mystic-woods"] .section-pillars,
+html[data-theme="mystic-woods"] .stats-strip,
+html[data-theme="mystic-woods"] #committee,
+html[data-theme="mystic-woods"] section#committee,
+html[data-theme="mystic-woods"] #wings,
+html[data-theme="mystic-woods"] section#wings,
+html[data-theme="mystic-woods"] .section-testimonials,
+html[data-theme="mystic-woods"] .featured-resource-section,
+html[data-theme="mystic-woods"] .membership-section,
+html[data-theme="mystic-woods"] #membershipStatusCheck {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #C5C6B3 !important;
+}
+
+html[data-theme="mystic-woods"] .news-ticker-bar {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  border: none !important;
+  border-bottom: 1px solid #4F531F !important;
+  box-shadow: none !important;
+}
+
+/* Mystic Woods Cards & Containers: Gradient 145deg with #4F531F Border */
+html[data-theme="mystic-woods"] .card,
+html[data-theme="mystic-woods"] .notice-card,
+html[data-theme="mystic-woods"] .notice-poster-card,
+html[data-theme="mystic-woods"] .notice-board-banner,
+html[data-theme="mystic-woods"] .notice-board-state,
+html[data-theme="mystic-woods"] .feed-state,
+html[data-theme="mystic-woods"] .archive-band__inner,
+html[data-theme="mystic-woods"] .section-pillars .card,
+html[data-theme="mystic-woods"] .pillar-card,
+html[data-theme="mystic-woods"] #memberRecordLookupCard,
+html[data-theme="mystic-woods"] .membership-card-pass,
+html[data-theme="mystic-woods"] .membership-container .card,
+html[data-theme="mystic-woods"] .event-card,
+html[data-theme="mystic-woods"] .event-card--poster,
+html[data-theme="mystic-woods"] .section-secondary .card,
+html[data-theme="mystic-woods"] .faq-card,
+html[data-theme="mystic-woods"] .featured-resource-card,
+html[data-theme="mystic-woods"] .committee-card,
+html[data-theme="mystic-woods"] .tier-card,
+html[data-theme="mystic-woods"] .stat-item,
+html[data-theme="mystic-woods"] .stat-card {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background-color: rgba(52, 28, 2, 0.85) !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #C5C6B3 !important;
+}
+
+html[data-theme="mystic-woods"] .notice-badge,
+html[data-theme="mystic-woods"] .notice-date-badge,
+html[data-theme="mystic-woods"] .badge,
+html[data-theme="mystic-woods"] .event-date-badge,
+html[data-theme="mystic-woods"] .resource-card-tag,
+html[data-theme="mystic-woods"] .resource-card-badge {
+  background: rgba(79, 83, 31, 0.6) !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 4px !important;
+  color: #F6F4EC !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .card-icon-wrap,
+html[data-theme="mystic-woods"] .section-pillars .card-icon-wrap {
+  background: #4F531F !important;
+  border: 1px solid #EFC87D !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .card-icon-wrap svg,
+html[data-theme="mystic-woods"] .card-icon-wrap svg * {
+  fill: #EFC87D !important;
+  stroke: #EFC87D !important;
+  color: #EFC87D !important;
+}
+
+html[data-theme="mystic-woods"] .event-card__poster,
+html[data-theme="mystic-woods"] .event-poster,
+html[data-theme="mystic-woods"] .event-image-container,
+html[data-theme="mystic-woods"] .event-card--poster .event-card__poster {
+  background: #341C02 !important;
+  border-bottom: 1px solid #4F531F !important;
+}
+
+html[data-theme="mystic-woods"] .event-card__poster-placeholder,
+html[data-theme="mystic-woods"] .event-card--poster .event-card__poster-placeholder,
+html[data-theme="mystic-woods"] .event-card__poster:empty,
+html[data-theme="mystic-woods"] .event-poster.empty-poster {
+  background: #341C02 !important;
+  background-color: #341C02 !important;
+}
+
+html[data-theme="mystic-woods"] .event-card__poster-mark {
+  color: #EFC87D !important;
+}
+
+html[data-theme="mystic-woods"] .event-card__poster-caption {
+  background: rgba(79, 83, 31, 0.6) !important;
+  color: #F6F4EC !important;
+  border: 1px solid #4F531F !important;
+}
+
+html[data-theme="mystic-woods"] .committee-avatar {
+  background-color: #341C02 !important;
+  border: 2px solid #EFC87D !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .stat-number {
+  color: #EFC87D !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] .stat-label {
+  color: #C5C6B3 !important;
+}
+
+/* Mystic Woods Form Controls */
+html[data-theme="mystic-woods"] input,
+html[data-theme="mystic-woods"] textarea,
+html[data-theme="mystic-woods"] select,
+html[data-theme="mystic-woods"] .form-control,
+html[data-theme="mystic-woods"] .admin-input,
+html[data-theme="mystic-woods"] .search-input-wrap input,
+html[data-theme="mystic-woods"] #eventSearchInput {
+  background-color: rgba(52, 28, 2, 0.85) !important;
+  background: rgba(52, 28, 2, 0.85) !important;
+  color: #F6F4EC !important;
+  border: 1px solid #4F531F !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] input:focus,
+html[data-theme="mystic-woods"] textarea:focus,
+html[data-theme="mystic-woods"] select:focus,
+html[data-theme="mystic-woods"] .form-control:focus,
+html[data-theme="mystic-woods"] .admin-input:focus {
+  border-color: #EFC87D !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="mystic-woods"] input::placeholder,
+html[data-theme="mystic-woods"] textarea::placeholder {
+  color: #8C8B7B !important;
+}
+
+/* Mystic Woods Admin Console Elements */
+html[data-theme="mystic-woods"] .admin-login__brand {
+  background: #251402 !important;
+  border-right: 1px solid #4F531F !important;
+}
+
+html[data-theme="mystic-woods"] .admin-login__panel {
+  background: transparent !important;
+}
+
+html[data-theme="mystic-woods"] .admin-login__card,
+html[data-theme="mystic-woods"] .admin-card,
+html[data-theme="mystic-woods"] .admin-notice-card,
+html[data-theme="mystic-woods"] .admin-preview-card,
+html[data-theme="mystic-woods"] .admin-live {
+  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  border: 1px solid #4F531F !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="mystic-woods"] .admin-user-chip {
+  background: rgba(52, 28, 2, 0.85) !important;
+  border: 1px solid #4F531F !important;
+}
+
+html[data-theme="mystic-woods"] .admin-user-chip__avatar {
+  background: #EFC87D !important;
+  color: #341C02 !important;
+}
+
+html[data-theme="mystic-woods"] .admin-env-pill {
+  background: rgba(52, 28, 2, 0.85) !important;
+  border: 1px solid #4F531F !important;
+  color: #EFC87D !important;
+}
+
+html[data-theme="mystic-woods"] .admin-upload {
+  background: rgba(52, 28, 2, 0.85) !important;
+  border: 1px dashed #4F531F !important;
+  color: #F6F4EC !important;
 }
 
 
