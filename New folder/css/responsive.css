@@ -2130,26 +2130,44 @@ input[type="submit"] *,
   -webkit-filter: none !important;
 }
 
-/* 3D Floating Navbar Responsive Adjustments */
+/* Full-Width Sticky Navbar Responsive Adjustments */
 @media (max-width: 768px) {
   html[data-theme="modern-neo-glass"] .site-header,
   html[data-theme="modern-neo-glass"] header.site-header,
   :root:not([data-theme="dark-academia"]) .site-header,
   :root:not([data-theme="dark-academia"]) header.site-header {
-    width: 92% !important;
-    margin: 10px auto !important;
-    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    top: 0 !important;
+    position: sticky !important;
   }
 
   html[data-theme="modern-neo-glass"] body,
   :root:not([data-theme="dark-academia"]) body {
-    padding-top: 85px !important;
+    padding-top: 0 !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .header-container,
+  html[data-theme="modern-neo-glass"] .site-header .header-container,
+  :root:not([data-theme="dark-academia"]) .header-container,
+  :root:not([data-theme="dark-academia"]) .site-header .header-container {
+    height: auto !important;
+    min-height: 52px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header .site-logo-img,
+  :root:not([data-theme="dark-academia"]) .site-header .site-logo-img {
+    height: 38px !important;
   }
 
   html[data-theme="modern-neo-glass"] .main-nav,
   :root:not([data-theme="dark-academia"]) .main-nav {
-    top: 82px !important;
-    height: calc(100vh - 82px) !important;
-    height: calc(100dvh - 82px) !important;
+    top: 56px !important;
+    height: calc(100vh - 56px) !important;
+    height: calc(100dvh - 56px) !important;
   }
 }

@@ -2584,42 +2584,48 @@ html[data-theme="modern-neo-glass"] label,
   color: #A5D6A7;
 }
 
-/* 3D FLOATING GLOSSY NAVBAR (Emerald Depth) */
+/* TOP NAVBAR: Sticky, Full-width, Slimmer (Emerald Depth) */
 html[data-theme="modern-neo-glass"] .site-header,
 html[data-theme="modern-neo-glass"] header.site-header,
 :root:not([data-theme="dark-academia"]) .site-header,
 :root:not([data-theme="dark-academia"]) header.site-header {
-  position: fixed !important;
-  top: 0;
-  left: 0 !important;
-  right: 0 !important;
-  width: 95% !important;
-  max-width: 1200px !important;
-  margin: 15px auto !important;
-  border-radius: 20px !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  top: 0 !important;
+  position: sticky !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
   background: linear-gradient(180deg, rgba(40, 98, 58, 0.4) 0%, rgba(15, 32, 39, 0.6) 100%) !important;
   backdrop-filter: blur(16px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
-  border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
   overflow: visible !important;
-  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease !important;
+  z-index: 10000 !important;
+}
+
+html[data-theme="modern-neo-glass"] .header-container,
+html[data-theme="modern-neo-glass"] .site-header .header-container,
+:root:not([data-theme="dark-academia"]) .header-container,
+:root:not([data-theme="dark-academia"]) .site-header .header-container {
+  height: auto !important;
+  min-height: 56px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header .site-logo-img,
+:root:not([data-theme="dark-academia"]) .site-header .site-logo-img {
+  height: 42px !important;
+  width: auto !important;
 }
 
 html[data-theme="modern-neo-glass"] .site-header.scrolled,
 :root:not([data-theme="dark-academia"]) .site-header.scrolled {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-}
-
-html[data-theme="modern-neo-glass"] .site-header.is-hidden,
-html[data-theme="modern-neo-glass"] .site-header.header-hidden,
-:root:not([data-theme="dark-academia"]) .site-header.is-hidden,
-:root:not([data-theme="dark-academia"]) .site-header.header-hidden {
-  top: -120px !important;
-  transform: translateY(-150%) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-topbar,
@@ -2883,7 +2889,7 @@ html[data-theme="modern-neo-glass"] .admin-logout:hover,
   filter: none !important;
 }
 
-/* Modern Neo-Glass Member & Event Filter Tabs */
+/* Modern Neo-Glass Member & Event Filter Tabs (Emerald Depth) */
 html[data-theme="modern-neo-glass"] .committee-pill,
 html[data-theme="modern-neo-glass"] .filter-btn,
 html[data-theme="modern-neo-glass"] .committee-nav-pills button,
@@ -2894,11 +2900,11 @@ html[data-theme="modern-neo-glass"] .member-nav button,
 :root:not([data-theme="dark-academia"]) .committee-nav-pills button,
 :root:not([data-theme="dark-academia"]) .filter-pills button,
 :root:not([data-theme="dark-academia"]) .member-nav button {
-  background: rgba(255, 255, 255, 0.08) !important;
-  background-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(40, 98, 58, 0.2) !important;
+  background-color: rgba(40, 98, 58, 0.2) !important;
   background-image: none !important;
   color: #E8F5E9 !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border: 1px solid rgba(40, 98, 58, 0.5) !important;
   border-radius: 8px !important;
   padding: 0.45rem 1rem !important;
   font-size: 0.86rem !important;
@@ -2922,11 +2928,11 @@ html[data-theme="modern-neo-glass"] .member-nav button:hover:not(.active):not(.i
 :root:not([data-theme="dark-academia"]) .committee-nav-pills button:hover:not(.active):not(.is-active),
 :root:not([data-theme="dark-academia"]) .filter-pills button:hover:not(.active):not(.is-active),
 :root:not([data-theme="dark-academia"]) .member-nav button:hover:not(.active):not(.is-active) {
-  background: rgba(255, 255, 255, 0.16) !important;
-  background-color: rgba(255, 255, 255, 0.16) !important;
+  background: rgba(40, 98, 58, 0.35) !important;
+  background-color: rgba(40, 98, 58, 0.35) !important;
   background-image: none !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
-  color: #E8F5E9 !important;
+  border-color: rgba(40, 98, 58, 0.7) !important;
+  color: #FFFFFF !important;
   box-shadow: none !important;
   text-shadow: none !important;
   filter: none !important;
@@ -2958,11 +2964,11 @@ html[data-theme="modern-neo-glass"] .member-nav button.is-active,
 :root:not([data-theme="dark-academia"]) .filter-pills button.is-active,
 :root:not([data-theme="dark-academia"]) .member-nav button.active,
 :root:not([data-theme="dark-academia"]) .member-nav button.is-active {
-  background: #0D9488 !important;
-  background-color: #0D9488 !important;
-  background-image: none !important;
-  color: #E8F5E9 !important;
-  border: 1px solid #0D9488 !important;
+  background: linear-gradient(90deg, #28623A 0%, #0F2027 100%) !important;
+  background-color: #28623A !important;
+  background-image: linear-gradient(90deg, #28623A 0%, #0F2027 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(40, 98, 58, 0.8) !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
   box-shadow: none !important;
@@ -2981,19 +2987,14 @@ html[data-theme="modern-neo-glass"] .filter-btn.active:focus-visible,
 :root:not([data-theme="dark-academia"]) .committee-pill.active:focus,
 :root:not([data-theme="dark-academia"]) .filter-btn.active:hover,
 :root:not([data-theme="dark-academia"]) .filter-btn.active:focus {
-  background: #0D9488 !important;
-  background-color: #0D9488 !important;
-  background-image: none !important;
-  color: #E8F5E9 !important;
-  border: 1px solid #0D9488 !important;
+  background: linear-gradient(90deg, #347c4b 0%, #152e38 100%) !important;
+  background-color: #347c4b !important;
+  background-image: linear-gradient(90deg, #347c4b 0%, #152e38 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(40, 98, 58, 0.9) !important;
   box-shadow: none !important;
   text-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  transform: none !important;
-  outline: none !important;
 }
-
 
 /* Neo-Glass Canvas Transparency */
 html[data-theme="modern-neo-glass"] .hero,
@@ -3061,12 +3062,20 @@ html[data-theme="modern-neo-glass"] .tier-card,
 }
 
 html[data-theme="modern-neo-glass"] .news-ticker-bar,
-:root:not([data-theme="dark-academia"]) .news-ticker-bar {
-  background: rgba(17, 39, 51, 0.75) !important;
+html[data-theme="modern-neo-glass"] #noticeTicker,
+:root:not([data-theme="dark-academia"]) .news-ticker-bar,
+:root:not([data-theme="dark-academia"]) #noticeTicker {
+  background: rgba(15, 32, 39, 0.85) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  position: relative !important;
+  margin-top: 0 !important;
+  z-index: 990 !important;
 }
 
 html[data-theme="modern-neo-glass"] .section-pillars .card-icon-wrap,
@@ -3141,14 +3150,32 @@ html[data-theme="modern-neo-glass"] textarea,
 html[data-theme="modern-neo-glass"] select,
 html[data-theme="modern-neo-glass"] .form-control,
 html[data-theme="modern-neo-glass"] .admin-input,
-html[data-theme="modern-neo-glass"] .search-input-wrap input,
-html[data-theme="modern-neo-glass"] #eventSearchInput,
 :root:not([data-theme="dark-academia"]) input,
 :root:not([data-theme="dark-academia"]) textarea {
   background-color: rgba(10, 25, 30, 0.75) !important;
   background: rgba(10, 25, 30, 0.75) !important;
   color: #E8F5E9 !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .search-input-wrap,
+:root:not([data-theme="dark-academia"]) .search-input-wrap {
+  position: relative;
+  background: transparent !important;
+}
+
+html[data-theme="modern-neo-glass"] .search-input-wrap input,
+html[data-theme="modern-neo-glass"] #eventSearchInput,
+:root:not([data-theme="dark-academia"]) .search-input-wrap input,
+:root:not([data-theme="dark-academia"]) #eventSearchInput {
+  background: rgba(40, 98, 58, 0.2) !important;
+  background-color: rgba(40, 98, 58, 0.2) !important;
+  border: 1px solid rgba(40, 98, 58, 0.5) !important;
+  color: #E8F5E9 !important;
   border-radius: 8px !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
@@ -4270,26 +4297,44 @@ html[data-theme="modern-neo-glass"] .admin-btn-primary:hover,
   color: #FFFFFF !important;
 }
 
-/* 3D Floating Navbar Responsive Adjustments */
+/* Full-Width Sticky Navbar Responsive Adjustments */
 @media (max-width: 768px) {
   html[data-theme="modern-neo-glass"] .site-header,
   html[data-theme="modern-neo-glass"] header.site-header,
   :root:not([data-theme="dark-academia"]) .site-header,
   :root:not([data-theme="dark-academia"]) header.site-header {
-    width: 92% !important;
-    margin: 10px auto !important;
-    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    top: 0 !important;
+    position: sticky !important;
   }
 
   html[data-theme="modern-neo-glass"] body,
   :root:not([data-theme="dark-academia"]) body {
-    padding-top: 85px !important;
+    padding-top: 0 !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .header-container,
+  html[data-theme="modern-neo-glass"] .site-header .header-container,
+  :root:not([data-theme="dark-academia"]) .header-container,
+  :root:not([data-theme="dark-academia"]) .site-header .header-container {
+    height: auto !important;
+    min-height: 52px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header .site-logo-img,
+  :root:not([data-theme="dark-academia"]) .site-header .site-logo-img {
+    height: 38px !important;
   }
 
   html[data-theme="modern-neo-glass"] .main-nav,
   :root:not([data-theme="dark-academia"]) .main-nav {
-    top: 82px !important;
-    height: calc(100vh - 82px) !important;
-    height: calc(100dvh - 82px) !important;
+    top: 56px !important;
+    height: calc(100vh - 56px) !important;
+    height: calc(100dvh - 56px) !important;
   }
 }
