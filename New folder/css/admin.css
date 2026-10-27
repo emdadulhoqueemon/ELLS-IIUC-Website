@@ -2322,16 +2322,21 @@ input[type="submit"] *,
 }
 
 /* ==========================================================================
-   MYSTIC WOODS OVERRIDES FOR ADMIN CONSOLE
+   MYSTIC WOODS OVERRIDES FOR ADMIN CONSOLE (WALLPAPER THEME)
    ========================================================================== */
 html[data-theme="mystic-woods"] .admin-body {
-  background: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
+  background: url('../images/Wallpaper.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
   background-attachment: fixed !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
   color: #C5C6B3 !important;
 }
 
 html[data-theme="mystic-woods"] .admin-login__brand {
-  background: #251402 !important;
+  background: rgba(18, 10, 5, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border-right: 1px solid #4F531F !important;
 }
 
@@ -2340,22 +2345,26 @@ html[data-theme="mystic-woods"] .admin-login__panel {
 }
 
 html[data-theme="mystic-woods"] .admin-login__card {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
   box-shadow: none !important;
 }
 
 html[data-theme="mystic-woods"] .admin-card {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
   box-shadow: none !important;
 }
 
 html[data-theme="mystic-woods"] .admin-input {
-  background-color: rgba(52, 28, 2, 0.85) !important;
-  background: rgba(52, 28, 2, 0.85) !important;
+  background-color: rgba(20, 12, 6, 0.85) !important;
+  background: rgba(20, 12, 6, 0.85) !important;
   color: #F6F4EC !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
@@ -2373,7 +2382,7 @@ html[data-theme="mystic-woods"] .admin-input::placeholder {
 }
 
 html[data-theme="mystic-woods"] .admin-topbar {
-  background: rgba(52, 28, 2, 0.88) !important;
+  background: rgba(20, 12, 6, 0.88) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   border-bottom: 1px solid #4F531F !important;
@@ -2383,9 +2392,9 @@ html[data-theme="mystic-woods"] .admin-topbar {
 html[data-theme="mystic-woods"] .admin-btn-primary,
 html[data-theme="mystic-woods"] .admin-submit,
 html[data-theme="mystic-woods"] #adminLoginBtn {
-  background: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background: #EFC87D !important;
   background-color: #EFC87D !important;
-  background-image: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background-image: none !important;
   color: #341C02 !important;
   border: 1px solid #EFC87D !important;
   border-radius: 8px !important;
@@ -2398,9 +2407,9 @@ html[data-theme="mystic-woods"] #adminLoginBtn {
 html[data-theme="mystic-woods"] .admin-btn-primary:hover,
 html[data-theme="mystic-woods"] .admin-submit:hover,
 html[data-theme="mystic-woods"] #adminLoginBtn:hover {
-  background: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background: #E2D8C3 !important;
   background-color: #E2D8C3 !important;
-  background-image: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background-image: none !important;
   border-color: #E2D8C3 !important;
   color: #341C02 !important;
   box-shadow: none !important;
@@ -2408,7 +2417,7 @@ html[data-theme="mystic-woods"] #adminLoginBtn:hover {
 }
 
 html[data-theme="mystic-woods"] .admin-logout {
-  background: rgba(79, 83, 31, 0.35) !important;
+  background: rgba(30, 20, 10, 0.75) !important;
   border: 1px solid #4F531F !important;
   color: #F6F4EC !important;
   border-radius: 8px !important;
@@ -2416,7 +2425,7 @@ html[data-theme="mystic-woods"] .admin-logout {
 }
 
 html[data-theme="mystic-woods"] .admin-logout:hover {
-  background: rgba(79, 83, 31, 0.7) !important;
+  background: #4F531F !important;
   border-color: #EFC87D !important;
   color: #F6F4EC !important;
   box-shadow: none !important;

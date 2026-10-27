@@ -2075,7 +2075,7 @@ html[data-theme="dark-academia"] body {
 
 html[data-theme="mystic-woods"],
 html[data-theme="mystic-woods"] body {
-  background-color: #341C02 !important;
+  background-color: #1e140a !important;
   color-scheme: dark !important;
 }
 
@@ -2222,17 +2222,17 @@ html[data-theme="mystic-woods"] {
   --font-sans: 'Livvic', sans-serif !important;
   --font-quote: 'Livvic', sans-serif !important;
 
-  /* Mystic Woods Palette (Mindful Forest) */
-  --bg-primary: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
-  --bg-canvas: #341C02 !important;
-  --bg-card: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
-  --bg-secondary: rgba(79, 83, 31, 0.6) !important;
-  --bg-chestnut: #341C02 !important;
-  --bg-card-subtle: rgba(52, 28, 2, 0.6) !important;
-  --bg-card-hover: linear-gradient(145deg, rgba(79, 83, 31, 0.85) 0%, rgba(52, 28, 2, 0.95) 100%) !important;
-  --bg-elevated: linear-gradient(145deg, rgba(79, 83, 31, 0.75) 0%, rgba(52, 28, 2, 0.9) 100%) !important;
-  --bg-drawer: #341C02 !important;
-  --bg-input: rgba(52, 28, 2, 0.85) !important;
+  /* Mystic Woods Wallpaper Palette */
+  --bg-primary: url('../images/Wallpaper.jpg') no-repeat center center fixed !important;
+  --bg-canvas: #1e140a !important;
+  --bg-card: rgba(30, 20, 10, 0.85) !important;
+  --bg-secondary: rgba(30, 20, 10, 0.8) !important;
+  --bg-chestnut: #1e140a !important;
+  --bg-card-subtle: rgba(30, 20, 10, 0.7) !important;
+  --bg-card-hover: rgba(45, 30, 15, 0.95) !important;
+  --bg-elevated: rgba(30, 20, 10, 0.9) !important;
+  --bg-drawer: #1e140a !important;
+  --bg-input: rgba(30, 20, 10, 0.85) !important;
 
   --text-primary: #F6F4EC !important;
   --text-heading: #F6F4EC !important;
@@ -2241,8 +2241,8 @@ html[data-theme="mystic-woods"] {
   --text-inverse: #341C02 !important;
 
   --accent-primary: #EFC87D !important;
-  --btn-bg: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
-  --btn-bg-hover: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  --btn-bg: #EFC87D !important;
+  --btn-bg-hover: #E2D8C3 !important;
   --btn-text: #341C02 !important;
   --accent-gold: #EFC87D !important;
   --accent-gold-hover: #E2D8C3 !important;
@@ -2571,7 +2571,9 @@ html[data-theme="dark-academia"] .theme-option.is-active .theme-option-check {
 
 /* Theme Switcher in Mystic Woods Mode */
 html[data-theme="mystic-woods"] .theme-switcher-toggle {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   color: #F6F4EC !important;
   border: 1px solid #4F531F !important;
   box-shadow: none !important;
@@ -2579,15 +2581,17 @@ html[data-theme="mystic-woods"] .theme-switcher-toggle {
 }
 
 html[data-theme="mystic-woods"] .theme-switcher-toggle:hover {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.9) 0%, rgba(52, 28, 2, 0.95) 100%) !important;
+  background: rgba(45, 30, 15, 0.95) !important;
   border-color: #EFC87D !important;
   color: #F6F4EC !important;
   box-shadow: none !important;
 }
 
 html[data-theme="mystic-woods"] .theme-dropdown {
-  background: #251402 !important;
-  background-color: #251402 !important;
+  background: rgba(22, 14, 7, 0.96) !important;
+  background-color: rgba(22, 14, 7, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid #4F531F !important;
   box-shadow: none !important;
 }
@@ -2599,13 +2603,13 @@ html[data-theme="mystic-woods"] .theme-option {
 }
 
 html[data-theme="mystic-woods"] .theme-option:hover {
-  background: rgba(79, 83, 31, 0.45) !important;
+  background: rgba(79, 83, 31, 0.35) !important;
   color: #F6F4EC !important;
   box-shadow: none !important;
 }
 
 html[data-theme="mystic-woods"] .theme-option.is-active {
-  background: rgba(79, 83, 31, 0.7) !important;
+  background: rgba(79, 83, 31, 0.6) !important;
   color: #F6F4EC !important;
   border-left: 3px solid #EFC87D !important;
   box-shadow: none !important;
@@ -3811,8 +3815,8 @@ html[data-theme="dark-academia"] .admin-upload {
 }
 
 /* ==========================================================================
-   THEME 3 RULES: MYSTIC WOODS (Mindful Forest Aesthetic Mode)
-   5-Gradient Palette Â· Forest Olive to Deep Earth Â· 100% Flat UI
+   THEME 3 RULES: MYSTIC WOODS (Wallpaper Aesthetic Mode)
+   Global Fixed Wallpaper Â· Translucent Obsidian Earth Containers Â· 100% Flat UI
    ========================================================================== */
 html[data-theme="mystic-woods"] *,
 html[data-theme="mystic-woods"] *::before,
@@ -3823,16 +3827,19 @@ html[data-theme="mystic-woods"] *::after {
 }
 
 html[data-theme="mystic-woods"] {
-  background-color: #341C02 !important;
-  background: #341C02 !important;
+  background-color: #1e140a !important;
+  background: #1e140a !important;
   color-scheme: dark !important;
 }
 
 html[data-theme="mystic-woods"] body,
 html[data-theme="mystic-woods"] body.admin-body {
-  background: linear-gradient(135deg, #4F531F 0%, #341C02 100%) !important;
+  background: url('../images/Wallpaper.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
   background-attachment: fixed !important;
-  background-color: #341C02 !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #1e140a !important;
   color: #C5C6B3 !important;
   box-shadow: none !important;
 }
@@ -3845,7 +3852,7 @@ html[data-theme="mystic-woods"] .main-wrapper {
 }
 
 html[data-theme="mystic-woods"] .bg-caps {
-  opacity: 0.1 !important;
+  opacity: 0.08 !important;
 }
 
 html[data-theme="mystic-woods"] h1,
@@ -3882,7 +3889,7 @@ html[data-theme="mystic-woods"] header.site-header,
 html[data-theme="mystic-woods"] header,
 html[data-theme="mystic-woods"] .admin-topbar,
 html[data-theme="mystic-woods"] header.admin-topbar {
-  background: rgba(52, 28, 2, 0.88) !important;
+  background: rgba(20, 12, 6, 0.88) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   border-bottom: 1px solid #4F531F !important;
@@ -3908,14 +3915,18 @@ html[data-theme="mystic-woods"] .site-header .nav-link.active {
 }
 
 html[data-theme="mystic-woods"] .partner-affiliation {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid #4F531F !important;
   box-shadow: none !important;
 }
 
 html[data-theme="mystic-woods"] .site-footer {
-  background: #251402 !important;
-  background-color: #251402 !important;
+  background: rgba(18, 10, 5, 0.94) !important;
+  background-color: rgba(18, 10, 5, 0.94) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-top: 1px solid #4F531F !important;
   color: #C5C6B3 !important;
   box-shadow: none !important;
@@ -3936,8 +3947,8 @@ html[data-theme="mystic-woods"] .site-footer a:hover {
 }
 
 html[data-theme="mystic-woods"] .developer-credit-bar {
-  background: #180c01 !important;
-  background-color: #180c01 !important;
+  background: #0d0703 !important;
+  background-color: #0d0703 !important;
   border-top: 1px solid #4F531F !important;
   color: #C5C6B3 !important;
   box-shadow: none !important;
@@ -3951,7 +3962,7 @@ html[data-theme="mystic-woods"] .developer-credit-bar a {
   color: #EFC87D !important;
 }
 
-/* Mystic Woods Buttons: Gradient 02 (#E2D8C3 to #EFC87D) with Dark Earth / Bark (#341C02) Text */
+/* Mystic Woods Buttons: Solid #EFC87D with #341C02 Text (100% Flat) */
 html[data-theme="mystic-woods"] .btn,
 html[data-theme="mystic-woods"] .btn-primary,
 html[data-theme="mystic-woods"] .resource-drive-btn,
@@ -3977,9 +3988,9 @@ html[data-theme="mystic-woods"] .event-card-footer .btn,
 html[data-theme="mystic-woods"] .event-card-footer > .btn,
 html[data-theme="mystic-woods"] .filter-btn.active,
 html[data-theme="mystic-woods"] .committee-pill.active {
-  background: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background: #EFC87D !important;
   background-color: #EFC87D !important;
-  background-image: linear-gradient(90deg, #E2D8C3 0%, #EFC87D 100%) !important;
+  background-image: none !important;
   color: #341C02 !important;
   border: 1px solid #EFC87D !important;
   border-radius: 8px !important;
@@ -3987,6 +3998,8 @@ html[data-theme="mystic-woods"] .committee-pill.active {
   text-decoration: none !important;
   box-shadow: none !important;
   text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
   transition: all 0.2s ease !important;
   cursor: pointer !important;
 }
@@ -4008,9 +4021,9 @@ html[data-theme="mystic-woods"] #memberLookupBtn:hover,
 html[data-theme="mystic-woods"] #restorePassBtn:hover,
 html[data-theme="mystic-woods"] #adminLoginBtn:hover,
 html[data-theme="mystic-woods"] .admin-submit:hover {
-  background: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background: #E2D8C3 !important;
   background-color: #E2D8C3 !important;
-  background-image: linear-gradient(90deg, #EFC87D 0%, #E2D8C3 100%) !important;
+  background-image: none !important;
   border-color: #E2D8C3 !important;
   color: #341C02 !important;
   box-shadow: none !important;
@@ -4036,8 +4049,8 @@ html[data-theme="mystic-woods"] .admin-logout,
 html[data-theme="mystic-woods"] .admin-btn-logout,
 html[data-theme="mystic-woods"] .filter-btn,
 html[data-theme="mystic-woods"] .committee-pill {
-  background: rgba(79, 83, 31, 0.35) !important;
-  background-color: rgba(79, 83, 31, 0.35) !important;
+  background: rgba(30, 20, 10, 0.75) !important;
+  background-color: rgba(30, 20, 10, 0.75) !important;
   color: #F6F4EC !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
@@ -4054,7 +4067,8 @@ html[data-theme="mystic-woods"] a.btn-secondary:hover,
 html[data-theme="mystic-woods"] .filter-btn:hover,
 html[data-theme="mystic-woods"] .committee-pill:hover,
 html[data-theme="mystic-woods"] .admin-logout:hover {
-  background: rgba(79, 83, 31, 0.7) !important;
+  background: #4F531F !important;
+  background-color: #4F531F !important;
   color: #F6F4EC !important;
   border-color: #EFC87D !important;
   box-shadow: none !important;
@@ -4086,13 +4100,15 @@ html[data-theme="mystic-woods"] #membershipStatusCheck {
 }
 
 html[data-theme="mystic-woods"] .news-ticker-bar {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: none !important;
   border-bottom: 1px solid #4F531F !important;
   box-shadow: none !important;
 }
 
-/* Mystic Woods Cards & Containers: Gradient 145deg with #4F531F Border */
+/* Mystic Woods Cards & Containers: Translucent Obsidian Earth (rgba(30, 20, 10, 0.85)) with #4F531F Border */
 html[data-theme="mystic-woods"] .card,
 html[data-theme="mystic-woods"] .notice-card,
 html[data-theme="mystic-woods"] .notice-poster-card,
@@ -4113,9 +4129,12 @@ html[data-theme="mystic-woods"] .featured-resource-card,
 html[data-theme="mystic-woods"] .committee-card,
 html[data-theme="mystic-woods"] .tier-card,
 html[data-theme="mystic-woods"] .stat-item,
-html[data-theme="mystic-woods"] .stat-card {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
-  background-color: rgba(52, 28, 2, 0.85) !important;
+html[data-theme="mystic-woods"] .stat-card,
+html[data-theme="mystic-woods"] .partner-affiliation {
+  background: rgba(30, 20, 10, 0.85) !important;
+  background-color: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
   box-shadow: none !important;
@@ -4154,7 +4173,7 @@ html[data-theme="mystic-woods"] .event-card__poster,
 html[data-theme="mystic-woods"] .event-poster,
 html[data-theme="mystic-woods"] .event-image-container,
 html[data-theme="mystic-woods"] .event-card--poster .event-card__poster {
-  background: #341C02 !important;
+  background: rgba(20, 12, 6, 0.9) !important;
   border-bottom: 1px solid #4F531F !important;
 }
 
@@ -4162,8 +4181,8 @@ html[data-theme="mystic-woods"] .event-card__poster-placeholder,
 html[data-theme="mystic-woods"] .event-card--poster .event-card__poster-placeholder,
 html[data-theme="mystic-woods"] .event-card__poster:empty,
 html[data-theme="mystic-woods"] .event-poster.empty-poster {
-  background: #341C02 !important;
-  background-color: #341C02 !important;
+  background: rgba(20, 12, 6, 0.95) !important;
+  background-color: rgba(20, 12, 6, 0.95) !important;
 }
 
 html[data-theme="mystic-woods"] .event-card__poster-mark {
@@ -4171,13 +4190,13 @@ html[data-theme="mystic-woods"] .event-card__poster-mark {
 }
 
 html[data-theme="mystic-woods"] .event-card__poster-caption {
-  background: rgba(79, 83, 31, 0.6) !important;
+  background: rgba(40, 25, 12, 0.8) !important;
   color: #F6F4EC !important;
   border: 1px solid #4F531F !important;
 }
 
 html[data-theme="mystic-woods"] .committee-avatar {
-  background-color: #341C02 !important;
+  background-color: rgba(20, 12, 6, 0.9) !important;
   border: 2px solid #EFC87D !important;
   border-radius: 50% !important;
   box-shadow: none !important;
@@ -4201,8 +4220,8 @@ html[data-theme="mystic-woods"] .form-control,
 html[data-theme="mystic-woods"] .admin-input,
 html[data-theme="mystic-woods"] .search-input-wrap input,
 html[data-theme="mystic-woods"] #eventSearchInput {
-  background-color: rgba(52, 28, 2, 0.85) !important;
-  background: rgba(52, 28, 2, 0.85) !important;
+  background-color: rgba(20, 12, 6, 0.85) !important;
+  background: rgba(20, 12, 6, 0.85) !important;
   color: #F6F4EC !important;
   border: 1px solid #4F531F !important;
   border-radius: 8px !important;
@@ -4226,7 +4245,9 @@ html[data-theme="mystic-woods"] textarea::placeholder {
 
 /* Mystic Woods Admin Console Elements */
 html[data-theme="mystic-woods"] .admin-login__brand {
-  background: #251402 !important;
+  background: rgba(18, 10, 5, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border-right: 1px solid #4F531F !important;
 }
 
@@ -4239,14 +4260,16 @@ html[data-theme="mystic-woods"] .admin-card,
 html[data-theme="mystic-woods"] .admin-notice-card,
 html[data-theme="mystic-woods"] .admin-preview-card,
 html[data-theme="mystic-woods"] .admin-live {
-  background: linear-gradient(145deg, rgba(79, 83, 31, 0.7) 0%, rgba(52, 28, 2, 0.85) 100%) !important;
+  background: rgba(30, 20, 10, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: 1px solid #4F531F !important;
   box-shadow: none !important;
   border-radius: 8px !important;
 }
 
 html[data-theme="mystic-woods"] .admin-user-chip {
-  background: rgba(52, 28, 2, 0.85) !important;
+  background: rgba(20, 12, 6, 0.85) !important;
   border: 1px solid #4F531F !important;
 }
 
@@ -4256,13 +4279,13 @@ html[data-theme="mystic-woods"] .admin-user-chip__avatar {
 }
 
 html[data-theme="mystic-woods"] .admin-env-pill {
-  background: rgba(52, 28, 2, 0.85) !important;
+  background: rgba(20, 12, 6, 0.85) !important;
   border: 1px solid #4F531F !important;
   color: #EFC87D !important;
 }
 
 html[data-theme="mystic-woods"] .admin-upload {
-  background: rgba(52, 28, 2, 0.85) !important;
+  background: rgba(20, 12, 6, 0.85) !important;
   border: 1px dashed #4F531F !important;
   color: #F6F4EC !important;
 }
