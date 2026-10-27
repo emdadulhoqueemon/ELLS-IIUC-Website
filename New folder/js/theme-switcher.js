@@ -1,7 +1,7 @@
 /**
  * ELLS Website & Admin Console — Theme Switcher
  * Handles aesthetic theme toggling between:
- *  - 'modern-neo-glass' (Emerald Depth, default)
+ *  - 'modern-neo-glass' (Vintage Day Mode, default)
  *  - 'dark-academia' (Dark Academia)
  * Persists user preference via localStorage with key 'theme' (and 'ells_theme').
  */
@@ -46,7 +46,7 @@
     try {
       var metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#0F2027');
+        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#F1E9DC');
       }
     } catch (err) {}
 
@@ -64,9 +64,9 @@
   /** Update UI state of all switcher elements */
   function updateAllSwitchers(activeTheme) {
     var switchers = document.querySelectorAll('.theme-switcher');
-    var isEmeraldDepth = activeTheme === 'modern-neo-glass';
-    var themeLabelText = isEmeraldDepth ? 'Emerald Depth' : 'Dark Academia';
-    var themeFullName = isEmeraldDepth ? 'Emerald Depth' : 'Dark Academia';
+    var isVintageDay = activeTheme === 'modern-neo-glass';
+    var themeLabelText = isVintageDay ? 'Vintage Day Mode' : 'Dark Academia';
+    var themeFullName = isVintageDay ? 'Vintage Day Mode' : 'Dark Academia';
 
     switchers.forEach(function(switcher) {
       var label = switcher.querySelector('.theme-switcher-text');
