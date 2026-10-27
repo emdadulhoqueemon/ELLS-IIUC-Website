@@ -4299,3 +4299,28 @@ html[data-theme="modern-neo-glass"] .btn-primary *,
     background-color: #F1E9DC !important;
   }
 }
+
+/* Vintage Day Mode: Flush Top Navbar & Body Margin Reset */
+html[data-theme="modern-neo-glass"],
+:root:not([data-theme="dark-academia"]) {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  padding-top: 0 !important;
+}
+
+html[data-theme="modern-neo-glass"] body,
+html[data-theme="modern-neo-glass"] body:not(.admin-body),
+:root:not([data-theme="dark-academia"]) body,
+:root:not([data-theme="dark-academia"]) body:not(.admin-body) {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+html[data-theme="modern-neo-glass"] .hero-subheading,
+:root:not([data-theme="dark-academia"]) .hero-subheading {
+  font-style: normal !important;
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
+}

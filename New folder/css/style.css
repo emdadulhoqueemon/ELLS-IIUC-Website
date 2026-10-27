@@ -192,7 +192,7 @@ textarea {
 
 body:not(.admin-body) {
   margin: 0;
-  padding-top: 80px; /* offset for the fixed public header */
+  padding-top: 0; /* no gap for sticky header */
   background-color: var(--bg-primary);
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -906,10 +906,11 @@ body.nav-open .site-header {
   font-family: var(--font-serif);
   font-size: clamp(1.05rem, 1.8vw, 1.3rem);
   font-weight: 500;
-  font-style: italic;
+  font-style: normal !important;
   color: var(--text-secondary);
   letter-spacing: 0.04em;
-  margin: 0.55rem auto 0;
+  margin: 15px auto 0 !important;
+  margin-top: 15px !important;
   line-height: 1.35;
   text-align: center;
 }
@@ -5921,4 +5922,29 @@ html[data-theme="modern-neo-glass"] .btn-primary *,
     background: #F1E9DC !important;
     background-color: #F1E9DC !important;
   }
+}
+
+/* Vintage Day Mode: Flush Top Navbar & Body Margin Reset */
+html[data-theme="modern-neo-glass"],
+:root:not([data-theme="dark-academia"]) {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  padding-top: 0 !important;
+}
+
+html[data-theme="modern-neo-glass"] body,
+html[data-theme="modern-neo-glass"] body:not(.admin-body),
+:root:not([data-theme="dark-academia"]) body,
+:root:not([data-theme="dark-academia"]) body:not(.admin-body) {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+html[data-theme="modern-neo-glass"] .hero-subheading,
+:root:not([data-theme="dark-academia"]) .hero-subheading {
+  font-style: normal !important;
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
 }

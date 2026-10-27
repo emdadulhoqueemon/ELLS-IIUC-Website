@@ -39,7 +39,8 @@
   }
 
   body {
-    padding-top: 70px;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
 
   /* Smart Sticky Header Configuration */

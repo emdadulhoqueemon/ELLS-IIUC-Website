@@ -2010,79 +2010,353 @@
 
 
 /* ==========================================================================
-   VINTAGE DAY MODE OVERRIDES FOR ADMIN CONSOLE
+   VINTAGE DAY MODE OVERRIDES FOR ADMIN CONSOLE (COMPLETE & HARDENED)
    ========================================================================== */
-html[data-theme="modern-neo-glass"] .admin-body {
+
+/* Global Dashboard Background Fix (Bright Aged Parchment #F1E9DC, NO Navy Blue) */
+html[data-theme="modern-neo-glass"] .admin-body,
+html[data-theme="modern-neo-glass"] .admin-dashboard,
+html[data-theme="modern-neo-glass"] #adminDashboard,
+html[data-theme="modern-neo-glass"] .admin-main,
+html[data-theme="modern-neo-glass"] #adminDashboardMain,
+:root:not([data-theme="dark-academia"]) .admin-body,
+:root:not([data-theme="dark-academia"]) .admin-dashboard,
+:root:not([data-theme="dark-academia"]) #adminDashboard,
+:root:not([data-theme="dark-academia"]) .admin-main,
+:root:not([data-theme="dark-academia"]) #adminDashboardMain {
   background: #F1E9DC !important;
+  background-color: #F1E9DC !important;
+  background-image: none !important;
   color: #32291A !important;
 }
 
-html[data-theme="modern-neo-glass"] .admin-login__brand {
-  background: #E8DEC8 !important;
-  border-right: 1px solid rgba(94, 71, 50, 0.2) !important;
-  color: #32291A !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-login__brand * {
-  color: #32291A !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-login__brand h1 {
-  color: #5E4732 !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-login__panel {
-  background: transparent !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-login__card,
-html[data-theme="modern-neo-glass"] .admin-card {
-  background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
-  background-size: cover !important;
-  border: none !important;
-  border-radius: 16px !important;
-  box-shadow: 0 10px 25px rgba(50, 41, 26, 0.2) !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-login__card *,
-html[data-theme="modern-neo-glass"] .admin-card * {
-  color: #F1E9DC !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-input {
-  background-color: #FFFFFF !important;
-  background: #FFFFFF !important;
-  color: #32291A !important;
-  border: 1px solid rgba(94, 71, 50, 0.3) !important;
-  border-radius: 8px !important;
-  color-scheme: light !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-input:focus {
-  border-color: #8D7662 !important;
-  box-shadow: 0 0 0 3px rgba(141, 118, 98, 0.25) !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-input::placeholder {
-  color: rgba(50, 41, 26, 0.5) !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-topbar {
-  background: rgba(241, 233, 220, 0.94) !important;
+/* Admin Topbar (Sticky, Flush, Parchment Tint) */
+html[data-theme="modern-neo-glass"] .admin-topbar,
+:root:not([data-theme="dark-academia"]) .admin-topbar {
+  background: rgba(241, 233, 220, 0.95) !important;
   background-color: #F1E9DC !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
   border-bottom: 1px solid rgba(94, 71, 50, 0.18) !important;
   box-shadow: 0 4px 15px rgba(50, 41, 26, 0.08) !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-topbar * {
   color: #32291A !important;
 }
 
+html[data-theme="modern-neo-glass"] .admin-topbar__brand-text strong,
+html[data-theme="modern-neo-glass"] .admin-topbar__brand-text span,
+:root:not([data-theme="dark-academia"]) .admin-topbar__brand-text strong,
+:root:not([data-theme="dark-academia"]) .admin-topbar__brand-text span {
+  color: #32291A !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip,
+:root:not([data-theme="dark-academia"]) .admin-user-chip {
+  background: #E8DEC8 !important;
+  border: 1px solid rgba(94, 71, 50, 0.22) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip__avatar,
+:root:not([data-theme="dark-academia"]) .admin-user-chip__avatar {
+  background: #8D7662 !important;
+  border: 1px solid #755F4D !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip__text strong,
+:root:not([data-theme="dark-academia"]) .admin-user-chip__text strong {
+  color: #32291A !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-user-chip__text span,
+:root:not([data-theme="dark-academia"]) .admin-user-chip__text span {
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-env-pill,
+:root:not([data-theme="dark-academia"]) .admin-env-pill {
+  background: #E8DEC8 !important;
+  border: 1px solid rgba(94, 71, 50, 0.25) !important;
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-logout,
+:root:not([data-theme="dark-academia"]) .admin-logout {
+  background: rgba(94, 71, 50, 0.12) !important;
+  border: 1px solid rgba(94, 71, 50, 0.28) !important;
+  color: #32291A !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-logout:hover,
+:root:not([data-theme="dark-academia"]) .admin-logout:hover {
+  background: rgba(94, 71, 50, 0.22) !important;
+  border-color: rgba(94, 71, 50, 0.45) !important;
+  color: #5E4732 !important;
+}
+
+/* Dashboard Headings & Meta Box (Dark text on light parchment) */
+html[data-theme="modern-neo-glass"] .admin-main__head h1,
+:root:not([data-theme="dark-academia"]) .admin-main__head h1 {
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-main__head p,
+:root:not([data-theme="dark-academia"]) .admin-main__head p {
+  color: #32291A !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-main__head .admin-eyebrow,
+:root:not([data-theme="dark-academia"]) .admin-main__head .admin-eyebrow {
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-main__meta,
+:root:not([data-theme="dark-academia"]) .admin-main__meta {
+  background: #E8DEC8 !important;
+  border: 1px solid rgba(94, 71, 50, 0.25) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-main__meta span,
+:root:not([data-theme="dark-academia"]) .admin-main__meta span {
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-main__meta strong,
+:root:not([data-theme="dark-academia"]) .admin-main__meta strong {
+  color: #32291A !important;
+}
+
+/* ==========================================================================
+   ADMIN LOGIN VIEW FIXES
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .admin-login,
+:root:not([data-theme="dark-academia"]) .admin-login {
+  background: #F1E9DC !important;
+  background-color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__brand,
+:root:not([data-theme="dark-academia"]) .admin-login__brand {
+  background: #E8DEC8 !important;
+  border-right: 1px solid rgba(94, 71, 50, 0.2) !important;
+  color: #32291A !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__brand h1,
+:root:not([data-theme="dark-academia"]) .admin-login__brand h1 {
+  color: #5E4732 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__brand p,
+:root:not([data-theme="dark-academia"]) .admin-login__brand p {
+  color: #32291A !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__panel,
+:root:not([data-theme="dark-academia"]) .admin-login__panel {
+  background: #F1E9DC !important;
+  background-color: #F1E9DC !important;
+}
+
+/* Login Card: Solid Leather Cognac (#8D7662), NO Background Image */
+html[data-theme="modern-neo-glass"] .admin-login__card,
+:root:not([data-theme="dark-academia"]) .admin-login__card {
+  background: #8D7662 !important;
+  background-color: #8D7662 !important;
+  background-image: none !important;
+  border: 1px solid rgba(241, 233, 220, 0.3) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 32px rgba(50, 41, 26, 0.25) !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__card h2,
+html[data-theme="modern-neo-glass"] .admin-login__card .admin-eyebrow,
+html[data-theme="modern-neo-glass"] .admin-login__card .admin-login__lead,
+html[data-theme="modern-neo-glass"] .admin-login__card .form-label,
+html[data-theme="modern-neo-glass"] .admin-login__card .admin-inline-link,
+html[data-theme="modern-neo-glass"] .admin-login__card .admin-check span,
+html[data-theme="modern-neo-glass"] .admin-login__card .admin-credit__copyright,
+:root:not([data-theme="dark-academia"]) .admin-login__card h2,
+:root:not([data-theme="dark-academia"]) .admin-login__card .admin-eyebrow,
+:root:not([data-theme="dark-academia"]) .admin-login__card .admin-login__lead,
+:root:not([data-theme="dark-academia"]) .admin-login__card .form-label,
+:root:not([data-theme="dark-academia"]) .admin-login__card .admin-inline-link,
+:root:not([data-theme="dark-academia"]) .admin-login__card .admin-check span,
+:root:not([data-theme="dark-academia"]) .admin-login__card .admin-credit__copyright {
+  color: #F1E9DC !important;
+}
+
+/* Login Card Theme Toggle Button */
+html[data-theme="modern-neo-glass"] .admin-login__card .theme-switcher-toggle,
+:root:not([data-theme="dark-academia"]) .admin-login__card .theme-switcher-toggle {
+  background: rgba(241, 233, 220, 0.18) !important;
+  border: 1px solid rgba(241, 233, 220, 0.35) !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-login__card .theme-switcher-toggle svg,
+:root:not([data-theme="dark-academia"]) .admin-login__card .theme-switcher-toggle svg {
+  stroke: #F1E9DC !important;
+}
+
+/* ==========================================================================
+   INPUT FIELDS HIGH CONTRAST & VISIBILITY (CRITICAL FIX)
+   Dark text (#32291A) on White Background (#FFFFFF)
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .admin-input,
+html[data-theme="modern-neo-glass"] .admin-select,
+html[data-theme="modern-neo-glass"] .admin-textarea,
+html[data-theme="modern-neo-glass"] .form-control,
+html[data-theme="modern-neo-glass"] .admin-login__card input.admin-input,
+html[data-theme="modern-neo-glass"] .admin-card input,
+html[data-theme="modern-neo-glass"] .admin-card textarea,
+html[data-theme="modern-neo-glass"] .admin-card select,
+html[data-theme="modern-neo-glass"] .admin-card option,
+:root:not([data-theme="dark-academia"]) .admin-input,
+:root:not([data-theme="dark-academia"]) .admin-select,
+:root:not([data-theme="dark-academia"]) .admin-textarea,
+:root:not([data-theme="dark-academia"]) .form-control,
+:root:not([data-theme="dark-academia"]) .admin-login__card input.admin-input,
+:root:not([data-theme="dark-academia"]) .admin-card input,
+:root:not([data-theme="dark-academia"]) .admin-card textarea,
+:root:not([data-theme="dark-academia"]) .admin-card select,
+:root:not([data-theme="dark-academia"]) .admin-card option {
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #32291A !important;
+  -webkit-text-fill-color: #32291A !important;
+  border: 1px solid rgba(50, 41, 26, 0.35) !important;
+  border-radius: 8px !important;
+  color-scheme: light !important;
+  font-weight: 500 !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input:focus,
+html[data-theme="modern-neo-glass"] .admin-card input:focus,
+html[data-theme="modern-neo-glass"] .admin-card textarea:focus,
+html[data-theme="modern-neo-glass"] .admin-card select:focus,
+:root:not([data-theme="dark-academia"]) .admin-input:focus,
+:root:not([data-theme="dark-academia"]) .admin-card input:focus,
+:root:not([data-theme="dark-academia"]) .admin-card textarea:focus,
+:root:not([data-theme="dark-academia"]) .admin-card select:focus {
+  border-color: #8D7662 !important;
+  box-shadow: 0 0 0 3px rgba(141, 118, 98, 0.25) !important;
+  outline: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input::placeholder,
+html[data-theme="modern-neo-glass"] .admin-card input::placeholder,
+html[data-theme="modern-neo-glass"] .admin-card textarea::placeholder,
+:root:not([data-theme="dark-academia"]) .admin-input::placeholder,
+:root:not([data-theme="dark-academia"]) .admin-card input::placeholder,
+:root:not([data-theme="dark-academia"]) .admin-card textarea::placeholder {
+  color: rgba(50, 41, 26, 0.55) !important;
+  -webkit-text-fill-color: rgba(50, 41, 26, 0.55) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-input-icon svg,
+html[data-theme="modern-neo-glass"] .admin-password-toggle svg,
+:root:not([data-theme="dark-academia"]) .admin-input-icon svg,
+:root:not([data-theme="dark-academia"]) .admin-password-toggle svg {
+  color: #5E4732 !important;
+  stroke: #5E4732 !important;
+}
+
+/* Dashboard Cards (Dark Literary Cover Image & High-Contrast Light Text) */
+html[data-theme="modern-neo-glass"] .admin-card,
+:root:not([data-theme="dark-academia"]) .admin-card {
+  background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+  background-size: cover !important;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px rgba(50, 41, 26, 0.2) !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-card h2,
+html[data-theme="modern-neo-glass"] .admin-card h3,
+html[data-theme="modern-neo-glass"] .admin-card .form-label,
+html[data-theme="modern-neo-glass"] .admin-card .form-hint,
+html[data-theme="modern-neo-glass"] .admin-card .admin-counter,
+:root:not([data-theme="dark-academia"]) .admin-card h2,
+:root:not([data-theme="dark-academia"]) .admin-card h3,
+:root:not([data-theme="dark-academia"]) .admin-card .form-label,
+:root:not([data-theme="dark-academia"]) .admin-card .form-hint,
+:root:not([data-theme="dark-academia"]) .admin-card .admin-counter {
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-card__icon,
+:root:not([data-theme="dark-academia"]) .admin-card__icon {
+  background: rgba(141, 118, 98, 0.25) !important;
+  border: 1px solid rgba(241, 233, 220, 0.3) !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-card__icon svg,
+:root:not([data-theme="dark-academia"]) .admin-card__icon svg {
+  stroke: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-tag,
+:root:not([data-theme="dark-academia"]) .admin-tag {
+  background: rgba(141, 118, 98, 0.25) !important;
+  color: #F1E9DC !important;
+  border: 1px solid rgba(241, 233, 220, 0.35) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-count,
+:root:not([data-theme="dark-academia"]) .admin-count {
+  background: rgba(141, 118, 98, 0.25) !important;
+  color: #F1E9DC !important;
+  border: 1px solid rgba(241, 233, 220, 0.35) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-notice-preview,
+:root:not([data-theme="dark-academia"]) .admin-notice-preview {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(241, 233, 220, 0.2) !important;
+  border-radius: 10px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-notice-preview *,
+:root:not([data-theme="dark-academia"]) .admin-notice-preview * {
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-notice-item,
+:root:not([data-theme="dark-academia"]) .admin-notice-item {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(241, 233, 220, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-notice-item h4,
+html[data-theme="modern-neo-glass"] .admin-notice-item p,
+:root:not([data-theme="dark-academia"]) .admin-notice-item h4,
+:root:not([data-theme="dark-academia"]) .admin-notice-item p {
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-notice-item time,
+:root:not([data-theme="dark-academia"]) .admin-notice-item time {
+  color: #D4C5B0 !important;
+}
+
+/* ==========================================================================
+   BUTTONS IN ADMIN (FLAT SOLID LEATHER COGNAC)
+   ========================================================================== */
 html[data-theme="modern-neo-glass"] .admin-btn-primary,
 html[data-theme="modern-neo-glass"] .admin-submit,
-html[data-theme="modern-neo-glass"] #adminLoginBtn {
+html[data-theme="modern-neo-glass"] #adminLoginBtn,
+html[data-theme="modern-neo-glass"] #publishNoticeBtn,
+html[data-theme="modern-neo-glass"] #publishEventBtn,
+:root:not([data-theme="dark-academia"]) .admin-btn-primary,
+:root:not([data-theme="dark-academia"]) .admin-submit,
+:root:not([data-theme="dark-academia"]) #adminLoginBtn,
+:root:not([data-theme="dark-academia"]) #publishNoticeBtn,
+:root:not([data-theme="dark-academia"]) #publishEventBtn {
   background: #8D7662 !important;
   background-color: #8D7662 !important;
   background-image: none !important;
@@ -2090,11 +2364,27 @@ html[data-theme="modern-neo-glass"] #adminLoginBtn {
   border: 1px solid rgba(241, 233, 220, 0.25) !important;
   border-radius: 8px !important;
   box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-btn-primary *,
+html[data-theme="modern-neo-glass"] .admin-submit *,
+:root:not([data-theme="dark-academia"]) .admin-btn-primary *,
+:root:not([data-theme="dark-academia"]) .admin-submit * {
+  color: #F1E9DC !important;
+  fill: #F1E9DC !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-btn-primary:hover,
 html[data-theme="modern-neo-glass"] .admin-submit:hover,
-html[data-theme="modern-neo-glass"] #adminLoginBtn:hover {
+html[data-theme="modern-neo-glass"] #adminLoginBtn:hover,
+html[data-theme="modern-neo-glass"] #publishNoticeBtn:hover,
+html[data-theme="modern-neo-glass"] #publishEventBtn:hover,
+:root:not([data-theme="dark-academia"]) .admin-btn-primary:hover,
+:root:not([data-theme="dark-academia"]) .admin-submit:hover,
+:root:not([data-theme="dark-academia"]) #adminLoginBtn:hover,
+:root:not([data-theme="dark-academia"]) #publishNoticeBtn:hover,
+:root:not([data-theme="dark-academia"]) #publishEventBtn:hover {
   background: #755F4D !important;
   background-color: #755F4D !important;
   background-image: none !important;
@@ -2103,16 +2393,147 @@ html[data-theme="modern-neo-glass"] #adminLoginBtn:hover {
   color: #FFFFFF !important;
 }
 
-html[data-theme="modern-neo-glass"] .admin-logout {
-  background: rgba(94, 71, 50, 0.12) !important;
-  border: 1px solid rgba(94, 71, 50, 0.28) !important;
+html[data-theme="modern-neo-glass"] .admin-card .btn-secondary,
+:root:not([data-theme="dark-academia"]) .admin-card .btn-secondary {
+  background: rgba(241, 233, 220, 0.15) !important;
+  color: #F1E9DC !important;
+  border: 1px solid rgba(241, 233, 220, 0.3) !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   THEME SWITCHER DROPDOWN & ICONS IN ADMIN PANEL (CRITICAL FIX)
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .theme-dropdown,
+:root:not([data-theme="dark-academia"]) .theme-dropdown {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(94, 71, 50, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(50, 41, 26, 0.2) !important;
+  padding: 6px !important;
+  z-index: 10001 !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option,
+:root:not([data-theme="dark-academia"]) .theme-option {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #32291A !important;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option .theme-option-title,
+:root:not([data-theme="dark-academia"]) .theme-option .theme-option-title {
+  color: #32291A !important;
+  font-weight: 700 !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option .theme-option-subtitle,
+:root:not([data-theme="dark-academia"]) .theme-option .theme-option-subtitle {
+  color: #5E4732 !important;
+  opacity: 0.85 !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option:hover,
+:root:not([data-theme="dark-academia"]) .theme-option:hover {
+  background: rgba(141, 118, 98, 0.12) !important;
+  background-color: rgba(141, 118, 98, 0.12) !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active,
+:root:not([data-theme="dark-academia"]) .theme-option.is-active {
+  background: #8D7662 !important;
+  background-color: #8D7662 !important;
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active .theme-option-title,
+:root:not([data-theme="dark-academia"]) .theme-option.is-active .theme-option-title {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active .theme-option-subtitle,
+:root:not([data-theme="dark-academia"]) .theme-option.is-active .theme-option-subtitle {
+  color: #F1E9DC !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-option.is-active .theme-option-check,
+:root:not([data-theme="dark-academia"]) .theme-option.is-active .theme-option-check {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+
+/* Theme Option Dot Badges (High Contrast Icons) */
+.theme-option-dot {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.theme-option-dot--glass {
+  background: #F1E9DC !important;
+  border: 1.5px solid #8D7662 !important;
+  color: #5E4732 !important;
+}
+
+.theme-option-dot--glass svg {
+  width: 11px !important;
+  height: 11px !important;
+  stroke: #5E4732 !important;
+  fill: #8D7662 !important;
+}
+
+.theme-option-dot--academia {
+  background: #2E3324 !important;
+  border: 1.5px solid #BFA76F !important;
+  color: #BFA76F !important;
+}
+
+.theme-option-dot--academia svg {
+  width: 11px !important;
+  height: 11px !important;
+  stroke: #BFA76F !important;
+  fill: none !important;
+}
+
+/* Topbar Switcher Toggle in Vintage Day Mode */
+html[data-theme="modern-neo-glass"] .admin-topbar .theme-switcher-toggle,
+:root:not([data-theme="dark-academia"]) .admin-topbar .theme-switcher-toggle {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(94, 71, 50, 0.25) !important;
   color: #32291A !important;
   border-radius: 8px !important;
 }
 
-html[data-theme="modern-neo-glass"] .admin-logout:hover {
-  background: rgba(94, 71, 50, 0.22) !important;
-  border-color: rgba(94, 71, 50, 0.45) !important;
+html[data-theme="modern-neo-glass"] .admin-topbar .theme-switcher-toggle svg,
+:root:not([data-theme="dark-academia"]) .admin-topbar .theme-switcher-toggle svg {
+  stroke: #32291A !important;
+}
+
+/* Strict Scoping of Theme Icon Switching to Toggle Buttons */
+html[data-theme="dark-academia"] .theme-switcher-toggle .theme-icon--glass {
+  display: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-switcher-toggle .theme-icon--academia,
+:root:not([data-theme="dark-academia"]) .theme-switcher-toggle .theme-icon--academia {
+  display: none !important;
+}
+
+html[data-theme="modern-neo-glass"] .theme-switcher-toggle .theme-icon--glass,
+:root:not([data-theme="dark-academia"]) .theme-switcher-toggle .theme-icon--glass {
+  display: inline-flex !important;
+}
+
+html[data-theme="dark-academia"] .theme-switcher-toggle .theme-icon--academia {
+  display: inline-flex !important;
 }
 
 /* ==========================================================================
