@@ -2010,17 +2010,17 @@
 
 
 /* ==========================================================================
-   MODERN NEO-GLASS OVERRIDES FOR ADMIN CONSOLE
+   EMERALD DEPTH OVERRIDES FOR ADMIN CONSOLE
    ========================================================================== */
 html[data-theme="modern-neo-glass"] .admin-body {
-  background: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
+  background: radial-gradient(circle at top center, #183C25 0%, #0A1612 100%) !important;
   background-attachment: fixed !important;
-  color: #CBD5E1 !important;
+  color: #A5D6A7 !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-login__brand {
-  background: rgba(8, 20, 25, 0.88) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(10, 22, 18, 0.92) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-login__panel {
@@ -2028,98 +2028,70 @@ html[data-theme="modern-neo-glass"] .admin-login__panel {
 }
 
 html[data-theme="modern-neo-glass"] .admin-login__card {
-  background: rgba(17, 39, 51, 0.7) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(90deg, #0F2027 0%, #28623A 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-card {
-  background: rgba(17, 39, 51, 0.65) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  background: linear-gradient(90deg, #0F2027 0%, #28623A 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-input {
-  background-color: rgba(10, 25, 30, 0.75) !important;
-  background: rgba(10, 25, 30, 0.75) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background-color: rgba(10, 22, 18, 0.8) !important;
+  background: rgba(10, 22, 18, 0.8) !important;
+  color: #E8F5E9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 8px !important;
   color-scheme: dark !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-input:focus {
-  border-color: #10B981 !important;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+  border-color: #28623A !important;
+  box-shadow: 0 0 0 3px rgba(40, 98, 58, 0.35) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-input::placeholder {
-  color: #64748B !important;
+  color: #81C784 !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-topbar {
-  background: rgba(10, 25, 30, 0.82) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(10, 22, 18, 0.45) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-btn-primary,
 html[data-theme="modern-neo-glass"] .admin-submit,
 html[data-theme="modern-neo-glass"] #adminLoginBtn {
-  background: #0D9488 !important;
-  background-color: #0D9488 !important;
-  background-image: none !important;
+  background: linear-gradient(90deg, #28623A 0%, #0F2027 100%) !important;
+  background-color: #28623A !important;
+  background-image: linear-gradient(90deg, #28623A 0%, #0F2027 100%) !important;
   color: #FFFFFF !important;
-  border: 1px solid #0D9488 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 8px !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-btn-primary:hover,
 html[data-theme="modern-neo-glass"] .admin-submit:hover,
 html[data-theme="modern-neo-glass"] #adminLoginBtn:hover {
-  background: #0F766E !important;
-  background-color: #0F766E !important;
-  background-image: none !important;
-  border-color: #0F766E !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  transform: none !important;
-}
-
-html[data-theme="modern-neo-glass"] .admin-btn-primary:active,
-html[data-theme="modern-neo-glass"] .admin-submit:active,
-html[data-theme="modern-neo-glass"] #adminLoginBtn:active {
-  background: #115E59 !important;
-  background-color: #115E59 !important;
-  background-image: none !important;
-  border-color: #115E59 !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  transform: none !important;
+  background: linear-gradient(90deg, #347c4b 0%, #152e38 100%) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
+  color: #FFFFFF !important;
 }
 
 html[data-theme="modern-neo-glass"] .admin-logout {
   background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #FFFFFF !important;
+  color: #E8F5E9 !important;
   border-radius: 8px !important;
 }
 
@@ -2321,112 +2293,3 @@ input[type="submit"] *,
   -webkit-filter: none !important;
 }
 
-/* ==========================================================================
-   MYSTIC WOODS OVERRIDES FOR ADMIN CONSOLE (WALLPAPER THEME)
-   ========================================================================== */
-html[data-theme="mystic-woods"] .admin-body {
-  background: url('../images/Wallpaper.jpg') no-repeat center center fixed !important;
-  background-size: cover !important;
-  background-attachment: fixed !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  color: #C5C6B3 !important;
-}
-
-html[data-theme="mystic-woods"] .admin-login__brand {
-  background: rgba(18, 10, 5, 0.92) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border-right: 1px solid #4F531F !important;
-}
-
-html[data-theme="mystic-woods"] .admin-login__panel {
-  background: transparent !important;
-}
-
-html[data-theme="mystic-woods"] .admin-login__card {
-  background: rgba(30, 20, 10, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid #4F531F !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-card {
-  background: rgba(30, 20, 10, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid #4F531F !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-input {
-  background-color: rgba(20, 12, 6, 0.85) !important;
-  background: rgba(20, 12, 6, 0.85) !important;
-  color: #F6F4EC !important;
-  border: 1px solid #4F531F !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-input:focus {
-  border-color: #EFC87D !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-input::placeholder {
-  color: #8C8B7B !important;
-}
-
-html[data-theme="mystic-woods"] .admin-topbar {
-  background: rgba(20, 12, 6, 0.88) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border-bottom: 1px solid #4F531F !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-btn-primary,
-html[data-theme="mystic-woods"] .admin-submit,
-html[data-theme="mystic-woods"] #adminLoginBtn {
-  background: #EFC87D !important;
-  background-color: #EFC87D !important;
-  background-image: none !important;
-  color: #341C02 !important;
-  border: 1px solid #EFC87D !important;
-  border-radius: 8px !important;
-  font-weight: 700 !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-btn-primary:hover,
-html[data-theme="mystic-woods"] .admin-submit:hover,
-html[data-theme="mystic-woods"] #adminLoginBtn:hover {
-  background: #E2D8C3 !important;
-  background-color: #E2D8C3 !important;
-  background-image: none !important;
-  border-color: #E2D8C3 !important;
-  color: #341C02 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-logout {
-  background: rgba(30, 20, 10, 0.75) !important;
-  border: 1px solid #4F531F !important;
-  color: #F6F4EC !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="mystic-woods"] .admin-logout:hover {
-  background: #4F531F !important;
-  border-color: #EFC87D !important;
-  color: #F6F4EC !important;
-  box-shadow: none !important;
-}

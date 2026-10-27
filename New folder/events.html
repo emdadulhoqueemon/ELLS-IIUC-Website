@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- Theme Preference Sync (Synchronous Blocking - Prevents FOUC/Reset) -->
   <script>
-    (function(){try{var t=localStorage.getItem('theme')||localStorage.getItem('ells_theme')||'modern-neo-glass';if(t!=='modern-neo-glass'&&t!=='dark-academia'&&t!=='mystic-woods')t='modern-neo-glass';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);localStorage.setItem('ells_theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){var c='#0A191E';if(t==='dark-academia')c='#3B3F2F';else if(t==='mystic-woods')c='#4F531F';m.setAttribute('content',c);}}catch(e){document.documentElement.setAttribute('data-theme','modern-neo-glass');}})();
+    (function(){try{var t=localStorage.getItem('theme')||localStorage.getItem('ells_theme')||'modern-neo-glass';if(t!=='modern-neo-glass'&&t!=='dark-academia')t='modern-neo-glass';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);localStorage.setItem('ells_theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark-academia'?'#3B3F2F':'#0A1612');}catch(e){document.documentElement.setAttribute('data-theme','modern-neo-glass');}})();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ELLS Club Events - Filterable schedule of literary salons, poetry slams, linguistics lectures, workshops, and book circles.">
@@ -12,7 +12,7 @@
   
   <!-- PWA & Mobile Web App Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0A191E">
+  <meta name="theme-color" content="#0A1612">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -104,12 +104,7 @@
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
             </span>
-            <span class="theme-icon theme-icon--mystic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
-                <path d="M12 2L5 12h4v8h6v-8h4L12 2z"></path>
-              </svg>
-            </span>
-            <span class="theme-switcher-text">Modern Neo-Glass</span>
+            <span class="theme-switcher-text">Emerald Depth</span>
             <svg class="theme-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -118,8 +113,8 @@
             <button type="button" class="theme-option is-active" data-theme-value="modern-neo-glass" role="menuitem">
               <span class="theme-option-dot theme-option-dot--glass" aria-hidden="true"></span>
               <span class="theme-option-label">
-                <span class="theme-option-title">Modern Neo-Glass</span>
-                <span class="theme-option-subtitle">Dark Teal &amp; Emerald Glow</span>
+                <span class="theme-option-title">Emerald Depth</span>
+                <span class="theme-option-subtitle">Rich Dark Emerald Glow</span>
               </span>
               <span class="theme-option-check" aria-hidden="true">&#x2713;</span>
             </button>
@@ -128,14 +123,6 @@
               <span class="theme-option-label">
                 <span class="theme-option-title">Dark Academia</span>
                 <span class="theme-option-subtitle">Forest Moss &amp; Faded Gold</span>
-              </span>
-              <span class="theme-option-check" aria-hidden="true">&#x2713;</span>
-            </button>
-            <button type="button" class="theme-option" data-theme-value="mystic-woods" role="menuitem">
-              <span class="theme-option-dot theme-option-dot--mystic" aria-hidden="true"></span>
-              <span class="theme-option-label">
-                <span class="theme-option-title">Mystic Woods</span>
-                <span class="theme-option-subtitle">Mindful Forest &amp; Warm Gold</span>
               </span>
               <span class="theme-option-check" aria-hidden="true">&#x2713;</span>
             </button>
