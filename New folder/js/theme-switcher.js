@@ -46,7 +46,7 @@
     try {
       var metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#0A1612');
+        metaThemeColor.setAttribute('content', theme === 'dark-academia' ? '#3B3F2F' : '#0F2027');
       }
     } catch (err) {}
 

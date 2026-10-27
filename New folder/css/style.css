@@ -3679,14 +3679,14 @@ textarea.form-control {
    EDGE-TO-EDGE MOBILE VIEWPORT & OVERSCROLL BOUNCE BACKGROUND FIX
    ========================================================================== */
 html, body {
-  background-color: #0A1612 !important;
+  background-color: #0F2027 !important;
   color-scheme: dark !important;
 }
 
 :root,
 html[data-theme="modern-neo-glass"],
 html[data-theme="modern-neo-glass"] body {
-  background-color: #0A1612 !important;
+  background-color: #0F2027 !important;
   color-scheme: dark !important;
 }
 
@@ -3751,22 +3751,22 @@ html[data-theme="modern-neo-glass"] {
   --font-quote: 'Livvic', sans-serif !important;
 
   /* Emerald Depth Palette */
-  --bg-primary: radial-gradient(circle at top center, #183C25 0%, #0A1612 100%) !important;
-  --bg-canvas: #0A1612 !important;
+  --bg-primary: linear-gradient(135deg, #0F2027 0%, #28623A 100%) !important;
+  --bg-canvas: #0F2027 !important;
   --bg-card: linear-gradient(90deg, #0F2027 0%, #28623A 100%) !important;
   --bg-secondary: linear-gradient(90deg, #0F2027 0%, #28623A 100%) !important;
-  --bg-chestnut: #0A1612 !important;
+  --bg-chestnut: #0F2027 !important;
   --bg-card-subtle: rgba(15, 32, 39, 0.75) !important;
   --bg-card-hover: linear-gradient(90deg, #162f39 0%, #347c4b 100%) !important;
   --bg-elevated: linear-gradient(90deg, #0F2027 0%, #28623A 100%) !important;
-  --bg-drawer: #0A1612 !important;
-  --bg-input: rgba(10, 22, 18, 0.8) !important;
+  --bg-drawer: #0F2027 !important;
+  --bg-input: rgba(15, 32, 39, 0.8) !important;
 
   --text-primary: #E8F5E9 !important;
   --text-heading: #E8F5E9 !important;
   --text-secondary: #A5D6A7 !important;
   --text-muted: #81C784 !important;
-  --text-inverse: #0A1612 !important;
+  --text-inverse: #0F2027 !important;
 
   --accent-primary: #28623A !important;
   --btn-bg: linear-gradient(90deg, #28623A 0%, #0F2027 100%) !important;
@@ -4135,8 +4135,9 @@ html[data-theme="dark-academia"] .theme-option.is-active .theme-option-check {
    ========================================================================== */
 html[data-theme="modern-neo-glass"],
 :root:not([data-theme="dark-academia"]) {
-  background-color: #0A1612 !important;
-  background: #0A191E !important;
+  background-color: #0F2027 !important;
+  background: linear-gradient(135deg, #0F2027 0%, #28623A 100%) !important;
+  background-attachment: fixed !important;
   color-scheme: dark !important;
 }
 
@@ -4144,9 +4145,9 @@ html[data-theme="modern-neo-glass"] body,
 html[data-theme="modern-neo-glass"] body.admin-body,
 :root:not([data-theme="dark-academia"]) body,
 :root:not([data-theme="dark-academia"]) body.admin-body {
-  background: linear-gradient(135deg, #0A191E 0%, #0F2C3D 100%) !important;
+  background: linear-gradient(135deg, #0F2027 0%, #28623A 100%) !important;
   background-attachment: fixed !important;
-  background-color: #0A1612 !important;
+  background-color: #0F2027 !important;
   color: #A5D6A7 !important;
 }
 
@@ -4206,21 +4207,51 @@ html[data-theme="modern-neo-glass"] label,
   color: #A5D6A7;
 }
 
-/* Emerald Depth Glossy & Blurred Top Navigation Bar */
+/* 3D FLOATING GLOSSY NAVBAR (Emerald Depth) */
 html[data-theme="modern-neo-glass"] .site-header,
 html[data-theme="modern-neo-glass"] header.site-header,
-html[data-theme="modern-neo-glass"] #mainNav,
-html[data-theme="modern-neo-glass"] header,
-html[data-theme="modern-neo-glass"] .admin-topbar,
-html[data-theme="modern-neo-glass"] header.admin-topbar,
 :root:not([data-theme="dark-academia"]) .site-header,
-:root:not([data-theme="dark-academia"]) header.site-header,
-:root:not([data-theme="dark-academia"]) #mainNav,
-:root:not([data-theme="dark-academia"]) .admin-topbar {
-  background: rgba(10, 22, 18, 0.45) !important;
+:root:not([data-theme="dark-academia"]) header.site-header {
+  position: fixed !important;
+  top: 0;
+  left: 0 !important;
+  right: 0 !important;
+  width: 95% !important;
+  max-width: 1200px !important;
+  margin: 15px auto !important;
+  border-radius: 20px !important;
+  background: linear-gradient(180deg, rgba(40, 98, 58, 0.4) 0%, rgba(15, 32, 39, 0.6) 100%) !important;
   backdrop-filter: blur(16px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  overflow: visible !important;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header.scrolled,
+:root:not([data-theme="dark-academia"]) .site-header.scrolled {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header.is-hidden,
+html[data-theme="modern-neo-glass"] .site-header.header-hidden,
+:root:not([data-theme="dark-academia"]) .site-header.is-hidden,
+:root:not([data-theme="dark-academia"]) .site-header.header-hidden {
+  top: -120px !important;
+  transform: translateY(-150%) !important;
+}
+
+html[data-theme="modern-neo-glass"] .admin-topbar,
+html[data-theme="modern-neo-glass"] header.admin-topbar,
+:root:not([data-theme="dark-academia"]) .admin-topbar {
+  background: linear-gradient(180deg, rgba(40, 98, 58, 0.4) 0%, rgba(15, 32, 39, 0.6) 100%) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -4917,6 +4948,13 @@ html[data-theme="dark-academia"] header.site-header,
 html[data-theme="dark-academia"] header,
 html[data-theme="dark-academia"] .admin-topbar,
 html[data-theme="dark-academia"] header.admin-topbar {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
   background: #3B3F2F !important;
   background-color: #3B3F2F !important;
   background-image: none !important;
@@ -5743,7 +5781,7 @@ input[type="submit"] *,
     left: 0 !important;
     inset: 0 !important;
     background: var(--bg-card, #0A191E) !important;
-    background-color: #0A1612 !important;
+    background-color: #0F2027 !important;
     padding: 1.5rem 1rem !important;
     gap: 0.65rem !important;
     box-shadow: none !important;
@@ -5853,4 +5891,28 @@ html[data-theme="modern-neo-glass"] .admin-btn-primary:hover,
   background: linear-gradient(90deg, #347c4b 0%, #152e38 100%) !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
   color: #FFFFFF !important;
+}
+
+/* 3D Floating Navbar Responsive Adjustments */
+@media (max-width: 768px) {
+  html[data-theme="modern-neo-glass"] .site-header,
+  html[data-theme="modern-neo-glass"] header.site-header,
+  :root:not([data-theme="dark-academia"]) .site-header,
+  :root:not([data-theme="dark-academia"]) header.site-header {
+    width: 92% !important;
+    margin: 10px auto !important;
+    border-radius: 16px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] body,
+  :root:not([data-theme="dark-academia"]) body {
+    padding-top: 85px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .main-nav,
+  :root:not([data-theme="dark-academia"]) .main-nav {
+    top: 82px !important;
+    height: calc(100vh - 82px) !important;
+    height: calc(100dvh - 82px) !important;
+  }
 }

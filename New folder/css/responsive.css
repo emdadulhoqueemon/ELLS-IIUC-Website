@@ -2129,3 +2129,27 @@ input[type="submit"] *,
   filter: none !important;
   -webkit-filter: none !important;
 }
+
+/* 3D Floating Navbar Responsive Adjustments */
+@media (max-width: 768px) {
+  html[data-theme="modern-neo-glass"] .site-header,
+  html[data-theme="modern-neo-glass"] header.site-header,
+  :root:not([data-theme="dark-academia"]) .site-header,
+  :root:not([data-theme="dark-academia"]) header.site-header {
+    width: 92% !important;
+    margin: 10px auto !important;
+    border-radius: 16px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] body,
+  :root:not([data-theme="dark-academia"]) body {
+    padding-top: 85px !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .main-nav,
+  :root:not([data-theme="dark-academia"]) .main-nav {
+    top: 82px !important;
+    height: calc(100vh - 82px) !important;
+    height: calc(100dvh - 82px) !important;
+  }
+}

@@ -2013,7 +2013,7 @@
    EMERALD DEPTH OVERRIDES FOR ADMIN CONSOLE
    ========================================================================== */
 html[data-theme="modern-neo-glass"] .admin-body {
-  background: radial-gradient(circle at top center, #183C25 0%, #0A1612 100%) !important;
+  background: linear-gradient(135deg, #0F2027 0%, #28623A 100%) !important;
   background-attachment: fixed !important;
   color: #A5D6A7 !important;
 }
