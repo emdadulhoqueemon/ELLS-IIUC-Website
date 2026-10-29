@@ -62,8 +62,15 @@ header {
 /* Legacy class: hiding is now done with `top`, never with a transform.
    Neutralised so an old cached class can never leave the bar off-screen. */
 .site-header.header-hidden,
-header.header-hidden {
-  transform: translateY(0);
+.site-header.is-hidden,
+header.header-hidden,
+header.is-hidden {
+  transform: translateY(-100%) !important;
+}
+
+.site-header:not(.is-hidden):not(.header-hidden),
+header:not(.is-hidden):not(.header-hidden) {
+  transform: translateY(0) !important;
 }
 
 /* While the mobile drawer is open the bar must always be visible. */
@@ -2130,7 +2137,7 @@ html[data-theme="modern-neo-glass"] {
   /* Vintage Day Mode Palette */
   --bg-primary: #F1E9DC !important;
   --bg-canvas: #F1E9DC !important;
-  --bg-card: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+  --bg-card: linear-gradient(135deg, #000000 0%, #372112 100%) !important;
   --bg-secondary: #E8DEC8 !important;
   --bg-chestnut: #E8DEC8 !important;
   --bg-card-subtle: rgba(94, 71, 50, 0.08) !important;
@@ -2594,7 +2601,7 @@ html[data-theme="modern-neo-glass"] header.site-header,
 :root:not([data-theme="dark-academia"]) .site-header,
 :root:not([data-theme="dark-academia"]) header.site-header {
   position: sticky !important;
-  top: 0 !important;
+  top: 0;
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
@@ -2606,6 +2613,26 @@ html[data-theme="modern-neo-glass"] header.site-header,
   border-bottom: 1px solid rgba(94, 71, 50, 0.18) !important;
   box-shadow: 0 4px 15px rgba(50, 41, 26, 0.08) !important;
   z-index: 1000 !important;
+  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, box-shadow 0.3s ease, background-color 0.3s ease !important;
+  will-change: transform, top;
+}
+
+html[data-theme="modern-neo-glass"] .site-header.is-hidden,
+html[data-theme="modern-neo-glass"] .site-header.header-hidden,
+html[data-theme="modern-neo-glass"] header.is-hidden,
+html[data-theme="modern-neo-glass"] header.header-hidden,
+:root:not([data-theme="dark-academia"]) .site-header.is-hidden,
+:root:not([data-theme="dark-academia"]) .site-header.header-hidden,
+:root:not([data-theme="dark-academia"]) header.is-hidden,
+:root:not([data-theme="dark-academia"]) header.header-hidden {
+  transform: translateY(-100%) !important;
+}
+
+html[data-theme="modern-neo-glass"] .site-header:not(.is-hidden):not(.header-hidden),
+html[data-theme="modern-neo-glass"] header:not(.is-hidden):not(.header-hidden),
+:root:not([data-theme="dark-academia"]) .site-header:not(.is-hidden):not(.header-hidden),
+:root:not([data-theme="dark-academia"]) header:not(.is-hidden):not(.header-hidden) {
+  transform: translateY(0) !important;
 }
 
 html[data-theme="modern-neo-glass"] .header-container,
@@ -2758,7 +2785,7 @@ html[data-theme="modern-neo-glass"] .stat-item,
 :root:not([data-theme="dark-academia"]) .notice-card,
 :root:not([data-theme="dark-academia"]) .pillar-card,
 :root:not([data-theme="dark-academia"]) .stat-card {
-  background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+  background: linear-gradient(135deg, #000000 0%, #372112 100%) !important;
   background-size: cover !important;
   border: none !important;
   border-radius: 16px !important;
@@ -4108,7 +4135,7 @@ input[type="submit"] *,
     top: 0 !important;
     left: 0 !important;
     inset: 0 !important;
-    background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+    background: linear-gradient(135deg, #000000 0%, #372112 100%) !important;
     background-size: cover !important;
     background-color: #2A241C !important;
     padding: 1.5rem 1rem !important;
@@ -4172,7 +4199,7 @@ html[data-theme="modern-neo-glass"] #memberRecordLookupCard,
 :root:not([data-theme="dark-academia"]) .card,
 :root:not([data-theme="dark-academia"]) .event-card,
 :root:not([data-theme="dark-academia"]) .notice-card {
-  background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+  background: linear-gradient(135deg, #000000 0%, #372112 100%) !important;
   background-size: cover !important;
   border: none !important;
   border-radius: 16px !important;
@@ -4264,10 +4291,30 @@ html[data-theme="modern-neo-glass"] .btn-primary *,
     max-width: none !important;
     margin: 0 !important;
     border-radius: 0 !important;
-    top: 0 !important;
+    top: 0;
     position: sticky !important;
     background: #F1E9DC !important;
     border-bottom: 1px solid rgba(94, 71, 50, 0.18) !important;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out !important;
+    will-change: transform, top;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header.is-hidden,
+  html[data-theme="modern-neo-glass"] .site-header.header-hidden,
+  html[data-theme="modern-neo-glass"] header.is-hidden,
+  html[data-theme="modern-neo-glass"] header.header-hidden,
+  :root:not([data-theme="dark-academia"]) .site-header.is-hidden,
+  :root:not([data-theme="dark-academia"]) .site-header.header-hidden,
+  :root:not([data-theme="dark-academia"]) header.is-hidden,
+  :root:not([data-theme="dark-academia"]) header.header-hidden {
+    transform: translateY(-100%) !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header:not(.is-hidden):not(.header-hidden),
+  html[data-theme="modern-neo-glass"] header:not(.is-hidden):not(.header-hidden),
+  :root:not([data-theme="dark-academia"]) .site-header:not(.is-hidden):not(.header-hidden),
+  :root:not([data-theme="dark-academia"]) header:not(.is-hidden):not(.header-hidden) {
+    transform: translateY(0) !important;
   }
 
   html[data-theme="modern-neo-glass"] body,
@@ -4323,4 +4370,28 @@ html[data-theme="modern-neo-glass"] .hero-subheading,
   font-style: normal !important;
   margin-top: 15px !important;
   margin-bottom: 0 !important;
+}
+
+/* ==========================================================================
+   VINTAGE DAY MODE: MOBILE HAMBURGER & BACKDROP REMOVAL REFINEMENTS
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .mobile-nav-toggle span,
+:root:not([data-theme="dark-academia"]) .mobile-nav-toggle span {
+  background-color: #372112 !important;
+  background: #372112 !important;
+}
+
+html[data-theme="modern-neo-glass"] .mobile-nav-toggle,
+:root:not([data-theme="dark-academia"]) .mobile-nav-toggle {
+  border-color: rgba(55, 33, 18, 0.35) !important;
+}
+
+html[data-theme="modern-neo-glass"] .nav-backdrop,
+html[data-theme="modern-neo-glass"] .nav-backdrop.open,
+:root:not([data-theme="dark-academia"]) .nav-backdrop,
+:root:not([data-theme="dark-academia"]) .nav-backdrop.open {
+  display: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
 }

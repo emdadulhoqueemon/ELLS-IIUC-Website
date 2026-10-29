@@ -59,8 +59,13 @@
     will-change: top;
   }
 
-  .site-header.header-hidden {
+  .site-header.header-hidden,
+  .site-header.is-hidden {
     transform: translateY(-100%) !important;
+  }
+
+  .site-header:not(.is-hidden):not(.header-hidden) {
+    transform: translateY(0) !important;
   }
 
   /* Background Scroll Lock when Mobile Navigation Drawer is Open */
@@ -2141,10 +2146,30 @@ input[type="submit"] *,
     max-width: none !important;
     margin: 0 !important;
     border-radius: 0 !important;
-    top: 0 !important;
+    top: 0;
     position: sticky !important;
     background: #F1E9DC !important;
     border-bottom: 1px solid rgba(94, 71, 50, 0.18) !important;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out !important;
+    will-change: transform, top;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header.is-hidden,
+  html[data-theme="modern-neo-glass"] .site-header.header-hidden,
+  html[data-theme="modern-neo-glass"] header.is-hidden,
+  html[data-theme="modern-neo-glass"] header.header-hidden,
+  :root:not([data-theme="dark-academia"]) .site-header.is-hidden,
+  :root:not([data-theme="dark-academia"]) .site-header.header-hidden,
+  :root:not([data-theme="dark-academia"]) header.is-hidden,
+  :root:not([data-theme="dark-academia"]) header.header-hidden {
+    transform: translateY(-100%) !important;
+  }
+
+  html[data-theme="modern-neo-glass"] .site-header:not(.is-hidden):not(.header-hidden),
+  html[data-theme="modern-neo-glass"] header:not(.is-hidden):not(.header-hidden),
+  :root:not([data-theme="dark-academia"]) .site-header:not(.is-hidden):not(.header-hidden),
+  :root:not([data-theme="dark-academia"]) header:not(.is-hidden):not(.header-hidden) {
+    transform: translateY(0) !important;
   }
 
   html[data-theme="modern-neo-glass"] body,
@@ -2175,4 +2200,29 @@ input[type="submit"] *,
     background: #F1E9DC !important;
     background-color: #F1E9DC !important;
   }
+}
+
+
+/* ==========================================================================
+   VINTAGE DAY MODE: MOBILE HAMBURGER & BACKDROP REMOVAL REFINEMENTS
+   ========================================================================== */
+html[data-theme="modern-neo-glass"] .mobile-nav-toggle span,
+:root:not([data-theme="dark-academia"]) .mobile-nav-toggle span {
+  background-color: #372112 !important;
+  background: #372112 !important;
+}
+
+html[data-theme="modern-neo-glass"] .mobile-nav-toggle,
+:root:not([data-theme="dark-academia"]) .mobile-nav-toggle {
+  border-color: rgba(55, 33, 18, 0.35) !important;
+}
+
+html[data-theme="modern-neo-glass"] .nav-backdrop,
+html[data-theme="modern-neo-glass"] .nav-backdrop.open,
+:root:not([data-theme="dark-academia"]) .nav-backdrop,
+:root:not([data-theme="dark-academia"]) .nav-backdrop.open {
+  display: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
 }

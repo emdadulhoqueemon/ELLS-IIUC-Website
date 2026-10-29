@@ -126,7 +126,7 @@ function initHeaderScroll() {
 
   function hideHeader() {
     header.style.top = `-${headerHeight()}px`;
-    header.classList.add(HIDE_CLASS);
+    header.classList.add(HIDE_CLASS, 'header-hidden');
   }
 
   function currentScrollTop() {

@@ -2266,7 +2266,7 @@ html[data-theme="modern-neo-glass"] .admin-password-toggle svg,
 /* Dashboard Cards (Dark Literary Cover Image & High-Contrast Light Text) */
 html[data-theme="modern-neo-glass"] .admin-card,
 :root:not([data-theme="dark-academia"]) .admin-card {
-  background: url('../images/dark-literary-website-background.webp') no-repeat center center !important;
+  background: linear-gradient(135deg, #000000 0%, #372112 100%) !important;
   background-size: cover !important;
   border: none !important;
   border-radius: 16px !important;
