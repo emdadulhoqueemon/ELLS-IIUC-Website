@@ -8,240 +8,47 @@
   
   <!-- PWA & Mobile Web App Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#FAF9F6">
+  <meta name="theme-color" content="#065F46">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ELLS">
-  
   <!-- Favicon & Touch Icons -->
   <link rel="icon" type="image/svg+xml" href="images/ELLS LOGO Favicon.svg">
   <link rel="shortcut icon" href="images/ELLS LOGO Favicon.svg">
   <link rel="apple-touch-icon" href="images/ELLS LOGO Favicon.svg">
 
-  <!-- Editorial & Modern Sans Fonts -->
+  <!-- Google Fonts: Livvic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Livvic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Base Stylesheets (Preserves dynamic JS card layouts) -->
+  <!-- Preload Fonts -->
+  <link rel="preload" href="fonts/GoogleSansFlex_9pt-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/GoogleSansFlex_9pt-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Stylesheets + New Emerald Theme -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/polish.css">
-
-  <!-- New Light Alabaster & Academic Emerald Bento Theme -->
-  <style>
-    :root {
-      --bg-primary: #FAF9F6;
-      --bg-secondary: #F2EFE9;
-      --bg-card: #FFFFFF;
-      --bg-card-subtle: #F7F6F2;
-      --text-primary: #111827;
-      --text-secondary: #374151;
-      --text-muted: #6B7280;
-      --primary: #065F46;
-      --emerald: #065F46;
-      --accent-green: #059669;
-      --accent-gold: #065F46;
-      --accent-crimson: #047857;
-      --border-subtle: #E5E7EB;
-      --font-heading: 'Playfair Display', Georgia, serif;
-      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-quote: 'Playfair Display', Georgia, serif;
-      --radius-md: 20px;
-      --radius-lg: 26px;
-    }
-
-    body {
-      background-color: #FAF9F6 !important;
-      color: #111827 !important;
-      font-family: 'Plus Jakarta Sans', sans-serif !important;
-      background-image: radial-gradient(#E5E7EB 0.75px, transparent 0.75px) !important;
-      background-size: 24px 24px !important;
-    }
-
-    h1, h2, h3, .resource-card-title {
-      font-family: 'Playfair Display', Georgia, serif !important;
-      color: #111827 !important;
-      letter-spacing: -0.015em;
-    }
-
-    /* Clean Light Header */
-    .site-header {
-      background: rgba(250, 249, 246, 0.92) !important;
-      backdrop-filter: blur(14px) !important;
-      border-bottom: 1px solid #E5E7EB !important;
-      box-shadow: 0 2px 12px rgba(17, 24, 39, 0.03) !important;
-    }
-    .logo-line-1 { color: #065F46 !important; font-weight: 700 !important; }
-    .logo-line-2 { color: #111827 !important; font-family: 'Playfair Display', serif !important; }
-    .nav-link { color: #374151 !important; font-weight: 600 !important; }
-    .nav-link:hover, .nav-link.active {
-      color: #065F46 !important;
-      background: #ECFDF5 !important;
-      border-radius: 10px;
-    }
-
-    /* Live Ticker Bar */
-    .news-ticker-bar {
-      background: #0F172A !important;
-      color: #F9FAFB !important;
-      border-bottom: 1px solid #1E293B !important;
-    }
-
-    /* Modern Bento Hero Card */
-    .hero {
-      padding: 3.2rem 0 2.5rem !important;
-      background: transparent !important;
-    }
-    .hero-grid {
-      background: #FFFFFF !important;
-      border: 1px solid #E5E7EB !important;
-      border-radius: 28px !important;
-      padding: clamp(2rem, 5vw, 3.8rem) !important;
-      box-shadow: 0 12px 32px -12px rgba(6, 95, 70, 0.08) !important;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-grid::after {
-      content: "";
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(6, 95, 70, 0.10) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: #ECFDF5;
-      color: #065F46;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 1.1rem;
-      border: 1px solid #A7F3D0;
-    }
-    .hero-subheading {
-      color: #065F46 !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.14em !important;
-      text-transform: uppercase !important;
-      font-size: 0.92rem !important;
-    }
-
-    /* Greenish Primary Buttons */
-    .btn-primary, .resource-drive-btn {
-      background: linear-gradient(135deg, #065F46 0%, #047857 100%) !important;
-      color: #FFFFFF !important;
-      border: none !important;
-      border-radius: 14px !important;
-      font-weight: 600 !important;
-      box-shadow: 0 8px 20px -6px rgba(6, 95, 70, 0.45) !important;
-      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
-    .btn-primary:hover, .resource-drive-btn:hover {
-      background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
-      transform: translateY(-2px) !important;
-      box-shadow: 0 12px 24px -6px rgba(6, 95, 70, 0.55) !important;
-    }
-    .btn-secondary {
-      background: #FFFFFF !important;
-      color: #065F46 !important;
-      border: 1.5px solid #065F46 !important;
-      border-radius: 14px !important;
-      font-weight: 600 !important;
-    }
-    .btn-secondary:hover {
-      background: #ECFDF5 !important;
-    }
-
-    /* Bento Cards & Dynamic Firestore Cards */
-    .card, .notice-card, .event-card, .featured-resource-card, .feed-state, .notice-board-state {
-      background: #FFFFFF !important;
-      border: 1px solid #E5E7EB !important;
-      border-radius: 22px !important;
-      box-shadow: 0 4px 18px -6px rgba(17, 24, 39, 0.05) !important;
-      color: #111827 !important;
-    }
-    .card:hover, .notice-card:hover, .event-card:hover {
-      border-color: #10B981 !important;
-      transform: translateY(-3px);
-      transition: all 0.22s ease;
-    }
-    .eyebrow {
-      color: #065F46 !important;
-      background: #ECFDF5;
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-weight: 700 !important;
-      letter-spacing: 0.08em !important;
-    }
-    .card-icon-wrap {
-      background: #ECFDF5 !important;
-      color: #065F46 !important;
-      border-radius: 14px !important;
-    }
-    .card-link {
-      color: #065F46 !important;
-      font-weight: 700 !important;
-    }
-
-    /* Academic Resource Vault Bento */
-    .featured-resource-card {
-      background: linear-gradient(135deg, #FFFFFF 0%, #ECFDF5 100%) !important;
-      border: 1px solid #A7F3D0 !important;
-    }
-    .resource-card-badge {
-      background: #065F46 !important;
-      color: #FFFFFF !important;
-    }
-    .resource-tag {
-      background: #FFFFFF !important;
-      border: 1px solid #D1FAE5 !important;
-      color: #065F46 !important;
-    }
-
-    /* Stats Strip */
-    .stats-strip {
-      background: #065F46 !important;
-      color: #FFFFFF !important;
-      border-radius: 24px;
-      margin: 0 auto;
-      max-width: 1200px;
-    }
-    .stat-number { color: #FFFFFF !important; font-family: 'Playfair Display', serif !important; }
-    .stat-label { color: #D1FAE5 !important; }
-
-    /* Secondary Section & Footer */
-    .section-secondary {
-      background: #F3F1EC !important;
-      border-top: 1px solid #E5E7EB;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    .site-footer {
-      background: #FFFFFF !important;
-      border-top: 1px solid #E5E7EB !important;
-      color: #374151 !important;
-    }
-    .developer-credit-bar {
-      background: #065F46 !important;
-      color: #ECFDF5 !important;
-    }
-  </style>
+  <link rel="stylesheet" href="css/emerald-theme.css">
 </head>
 <body>
+  <!-- Ambient Background: floating graduation caps -->
+  <div class="bg-caps" aria-hidden="true">
+    <span class="bg-caps__cap" style="--cap-x: 3vw; --cap-y: 12vh; --cap-size: 104px; --cap-dur: 76s; --cap-delay: -54s; --cap-dx: 8vw; --cap-rot: -8deg; --cap-sway: 17s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 22vw; --cap-y: 62vh; --cap-size: 62px; --cap-dur: 96s; --cap-delay: -31s; --cap-dx: -5vw; --cap-rot: 6deg; --cap-sway: 21s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 41vw; --cap-y: 30vh; --cap-size: 128px; --cap-dur: 68s; --cap-delay: -38s; --cap-dx: 5vw; --cap-rot: 10deg; --cap-sway: 15s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 63vw; --cap-y: 74vh; --cap-size: 48px; --cap-dur: 118s; --cap-delay: -26s; --cap-dx: -9vw; --cap-rot: -14deg; --cap-sway: 24s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 79vw; --cap-y: 22vh; --cap-size: 92px; --cap-dur: 80s; --cap-delay: -51s; --cap-dx: 6vw; --cap-rot: 7deg; --cap-sway: 18s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+  </div>
+
   <!-- Accessible Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Global Header -->
   <header class="site-header" role="banner">
     <div class="container header-container">
-      <!-- Society Logo -->
       <a href="index.html" class="site-logo" aria-label="English Language and Literary Society Homepage">
         <img src="images/ELLS LOGO Favicon.svg" alt="ELLS Club Logo" class="site-logo-img">
         <div class="logo-text">
@@ -250,7 +57,6 @@
         </div>
       </a>
 
-      <!-- Desktop & Mobile Navigation Menu -->
       <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link active">Home</a></li>
@@ -268,16 +74,13 @@
         </div>
       </nav>
 
-      <!-- Header Utilities -->
       <div class="header-actions">
-        <!-- Facebook Page Link -->
         <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="social-icon social-facebook header-social-link" aria-label="Official ELLS Facebook Page" title="Follow ELLS on Facebook">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
           </svg>
         </a>
 
-        <!-- Mobile Drawer Hamburger -->
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
           <span></span>
           <span></span>
@@ -287,39 +90,31 @@
     </div>
   </header>
 
-  <!-- Mobile Drawer Backdrop Overlay -->
   <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <!-- Urgent Updates News Ticker — 100% Firestore -->
   <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
     <div class="news-ticker-inner">
       <div class="news-ticker-window" tabindex="0">
-        <div class="news-ticker-track" id="noticeTickerTrack">
-          <!-- Populated from the `notices` collection -->
-        </div>
+        <div class="news-ticker-track" id="noticeTickerTrack"></div>
       </div>
     </div>
   </aside>
 
   <!-- Main Page Content -->
   <main id="main-content">
-    <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
-            <span class="hero-eyebrow-pill">● International Islamic University Chittagong</span>
+            <span class="eyebrow" style="margin-bottom: 1rem;">DEPT. OF ENGLISH LANGUAGE &amp; LITERATURE • IIUC</span>
             <h1 id="hero-heading">Welcome to the New World<br>of ELLS — DELL, IIUC</h1>
-
             <p class="hero-subheading" style="font-style: normal; margin-top: 15px;">Learn &bull; Speak &bull; Lead</p>
 
-            <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.6rem;">
+            <div class="hero-actions">
               <a href="events.html" class="btn btn-primary hero-cta-single">
                 <span>Explore Events &amp; Salons</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </a>
-              <a href="membership.html#membershipStatusCheck" class="btn btn-secondary">
-                <span>Verify Student ID</span>
               </a>
             </div>
           </div>
@@ -327,7 +122,7 @@
       </div>
     </section>
 
-    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
+    <!-- Official Notice Board — 100% Firestore -->
     <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
       <div class="container">
         <div class="section-intro">
@@ -411,30 +206,28 @@
     </section>
 
     <!-- Quick Stats Strip -->
-    <div class="container" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
-      <section class="stats-strip" aria-label="Society Impact and Statistics">
-        <div class="container">
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number">500+</div>
-              <div class="stat-label">Active Members &amp; Scholars</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">20+</div>
-              <div class="stat-label">Annual Events &amp; Salons</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">15+</div>
-              <div class="stat-label">Literary Publications</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">5</div>
-              <div class="stat-label">Active Secretariats</div>
-            </div>
+    <section class="stats-strip" aria-label="Society Impact and Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Active Members &amp; Scholars</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Annual Events &amp; Salons</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Literary Publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Active Secretariats</div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
     <!-- Society Core Pillars -->
     <section class="section-pillars" aria-labelledby="pillars-heading">
@@ -515,7 +308,6 @@
           </div>
         </div>
 
-        <!-- Firestore-driven strip: the three next events on the calendar -->
         <div class="feed-state feed-state--compact" id="homeEventsStatus" data-state="loading" role="status" aria-live="polite">
           <div class="feed-state__inner">
             <span class="feed-state__spinner notice-board-state__spinner" aria-hidden="true"></span>
@@ -543,12 +335,12 @@
         </div>
 
         <div class="grid grid-3">
-          <div class="card" style="border-top: 3px solid #065F46;">
-            <p style="font-family: var(--font-quote); font-size: 1.12rem; font-style: italic;">
+          <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
               "Walking into my first ELLS poetry salon was intimidating, but I found an extraordinarily generous community. My thesis and first published collection owe everything to their honest critiques."
             </p>
             <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
-              <div style="width: 44px; height: 44px; border-radius: 999px; background: #065F46; color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--primary); color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
                 EM
               </div>
               <div>
@@ -558,12 +350,12 @@
             </div>
           </div>
 
-          <div class="card" style="border-top: 3px solid #059669;">
-            <p style="font-family: var(--font-quote); font-size: 1.12rem; font-style: italic;">
+          <div class="card" style="border-top: 3px solid var(--accent-green);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
               "The linguistics roundtables transformed how I think about syntax, dialogue, and cognitive processing. It bridges the art of expression with scientific inquiry in a rare and beautiful way."
             </p>
             <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
-              <div style="width: 44px; height: 44px; border-radius: 999px; background: #047857; color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--emerald); color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
                 TA
               </div>
               <div>
@@ -573,12 +365,12 @@
             </div>
           </div>
 
-          <div class="card" style="border-top: 3px solid #065F46;">
-            <p style="font-family: var(--font-quote); font-size: 1.12rem; font-style: italic;">
+          <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
               "Editing for The Scribe gave me the real-world editorial discipline that landed my first role at a major university press. ELLS is where passions turn into enduring vocations."
             </p>
             <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
-              <div style="width: 44px; height: 44px; border-radius: 999px; background: #ECFDF5; color: #065F46; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1px solid #065F46;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: #ECFDF5; color: #065F46; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1px solid #A7F3D0;">
                 SC
               </div>
               <div>
@@ -683,10 +475,9 @@
     </div>
   </footer>
 
-  <!-- Developer credit -->
   <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
 
-  <!-- Scripts (100% Original Connections Preserved) -->
+  <!-- Original Functional Scripts -->
   <script src="js/main.js"></script>
   <script type="module" src="js/events-feed.js"></script>
   <script type="module" src="js/notice-board.js"></script>
