@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELLS Club - The English Language and Literary Society. Fostering creative writing, linguistic inquiry, debate, and literary fellowship.">
+  <title>ELLS Club | English Language and Literary Society</title>
+  
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ELLS">
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/svg+xml" href="images/ELLS LOGO Favicon.svg">
+  <link rel="shortcut icon" href="images/ELLS LOGO Favicon.svg">
+  <link rel="apple-touch-icon" href="images/ELLS LOGO Favicon.svg">
+
+    <!-- Google Fonts: Livvic (Weights: 300, 400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Livvic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Preload Fonts -->
+  <link rel="preload" href="fonts/GoogleSansFlex_9pt-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/GoogleSansFlex_9pt-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/polish.css">
+  </head>
+<body>
+  <!-- Ambient Background: floating graduation caps (decorative watermark, purely CSS) -->
+  <div class="bg-caps" aria-hidden="true">
+    <span class="bg-caps__cap" style="--cap-x: 3vw; --cap-y: 12vh; --cap-size: 104px; --cap-dur: 76s; --cap-delay: -54s; --cap-dx: 8vw; --cap-rot: -8deg; --cap-sway: 17s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 22vw; --cap-y: 62vh; --cap-size: 62px; --cap-dur: 96s; --cap-delay: -31s; --cap-dx: -5vw; --cap-rot: 6deg; --cap-sway: 21s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 41vw; --cap-y: 30vh; --cap-size: 128px; --cap-dur: 68s; --cap-delay: -38s; --cap-dx: 5vw; --cap-rot: 10deg; --cap-sway: 15s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 63vw; --cap-y: 74vh; --cap-size: 48px; --cap-dur: 118s; --cap-delay: -26s; --cap-dx: -9vw; --cap-rot: -14deg; --cap-sway: 24s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 79vw; --cap-y: 22vh; --cap-size: 92px; --cap-dur: 80s; --cap-delay: -51s; --cap-dx: 6vw; --cap-rot: 7deg; --cap-sway: 18s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 91vw; --cap-y: 55vh; --cap-size: 56px; --cap-dur: 104s; --cap-delay: -40s; --cap-dx: -6vw; --cap-rot: -5deg; --cap-sway: 22s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 12vw; --cap-y: 84vh; --cap-size: 72px; --cap-dur: 88s; --cap-delay: -12s; --cap-dx: 9vw; --cap-rot: 12deg; --cap-sway: 16s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 27vw; --cap-y: 8vh; --cap-size: 44px; --cap-dur: 124s; --cap-delay: -98s; --cap-dx: -7vw; --cap-rot: -10deg; --cap-sway: 26s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 52vw; --cap-y: 46vh; --cap-size: 116px; --cap-dur: 72s; --cap-delay: -31s; --cap-dx: -4vw; --cap-rot: 5deg; --cap-sway: 14s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 71vw; --cap-y: 90vh; --cap-size: 66px; --cap-dur: 92s; --cap-delay: -8s; --cap-dx: 7vw; --cap-rot: -12deg; --cap-sway: 20s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 86vw; --cap-y: 38vh; --cap-size: 40px; --cap-dur: 130s; --cap-delay: -69s; --cap-dx: 4vw; --cap-rot: 9deg; --cap-sway: 25s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 2vw; --cap-y: 48vh; --cap-size: 84px; --cap-dur: 84s; --cap-delay: -36s; --cap-dx: -8vw; --cap-rot: -6deg; --cap-sway: 19s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 33vw; --cap-y: 26vh; --cap-size: 52px; --cap-dur: 112s; --cap-delay: -70s; --cap-dx: 6vw; --cap-rot: 14deg; --cap-sway: 23s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 47vw; --cap-y: 68vh; --cap-size: 96px; --cap-dur: 78s; --cap-delay: -20s; --cap-dx: -6vw; --cap-rot: -9deg; --cap-sway: 17s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 66vw; --cap-y: 14vh; --cap-size: 44px; --cap-dur: 126s; --cap-delay: -93s; --cap-dx: 5vw; --cap-rot: 4deg; --cap-sway: 27s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+    <span class="bg-caps__cap" style="--cap-x: 95vw; --cap-y: 80vh; --cap-size: 76px; --cap-dur: 86s; --cap-delay: -14s; --cap-dx: -10vw; --cap-rot: 11deg; --cap-sway: 15s"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5.9 7.7 12 12.9l11.1-5.2z"/><path d="M6 10.6v4.3c0 1.8 2.7 3.2 6 3.2s6-1.4 6-3.2v-4.3l-6 2.8z"/><path d="M21.4 8.4h1.5v6.3h-1.5z"/><circle cx="22.15" cy="16.1" r="1.35"/></svg></span>
+  </div>
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <!-- Society Logo -->
+      <a href="index.html" class="site-logo" aria-label="English Language and Literary Society Homepage">
+        <img src="images/ELLS LOGO Favicon.svg" alt="ELLS Club Logo" class="site-logo-img">
+        <div class="logo-text">
+          <span class="logo-line-1">ENGLISH LANGUAGE AND</span>
+          <span class="logo-line-2">LITERARY SOCIETY</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Menu -->
+      <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="membership.html#membershipStatusCheck" class="nav-link">Membership</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+          <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="mobile-nav-social" aria-label="Follow ELLS on Facebook">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            <span>Follow ELLS on Facebook</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Header Utilities -->
+      <div class="header-actions">
+                
+
+        <!-- Facebook Page Link -->
+        <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="social-icon social-facebook header-social-link" aria-label="Official ELLS Facebook Page" title="Follow ELLS on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+
+        <!-- Mobile Drawer Hamburger -->
+        <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open mobile navigation" aria-expanded="false" aria-controls="mainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+  <!-- Urgent Updates News Ticker — filled 100% from Firestore by js/notice-board.js -->
+  <aside class="news-ticker-bar" id="noticeTicker" aria-label="Urgent Updates" hidden>
+    <div class="news-ticker-inner">
+      <div class="news-ticker-window" tabindex="0">
+        <div class="news-ticker-track" id="noticeTickerTrack">
+          <!-- Populated from the `notices` collection; duplicated for the seamless loop -->
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Page Content -->
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1 id="hero-heading">Welcome to the New World<br>of ELLS — DELL, IIUC</h1>
+
+            <p class="hero-subheading" style="font-style: normal; margin-top: 15px;">Learn &bull; Speak &bull; Lead</p>
+
+            <div class="hero-actions">
+              <a href="events.html" class="btn btn-primary hero-cta-single">
+                <span>Explore Events &amp; Salons</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official Notice Board — 100% Firestore (js/notice-board.js) -->
+    <section class="section-notice-board" id="noticeBoard" aria-labelledby="notice-board-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">FROM THE IT SECRETARY</span>
+          <h2 id="notice-board-heading">Official Notice Board</h2>
+          <p>Every announcement published by the ELLS committee, delivered live from our database.</p>
+          <span class="notice-live-pill" id="noticeLivePill" hidden>
+            <span class="notice-live-dot" aria-hidden="true"></span>Live
+          </span>
+        </div>
+
+        <div class="notice-board-state" id="noticeBoardStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="notice-board-state__spinner feed-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-notice-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-notice-status-title>Loading the notice board&hellip;</h3>
+            <p class="feed-state__text" data-notice-status-text>Fetching the latest official announcements from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Explore Upcoming Events</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" id="noticeBoardGrid"></div>
+      </div>
+    </section>
+
+    <!-- Featured Academic Resource: Previous Question Bank -->
+    <section class="featured-resource-section" aria-labelledby="resource-bank-heading">
+      <div class="container">
+        <div class="featured-resource-card">
+          <div class="resource-card-grid">
+            <div class="resource-card-info">
+              <div class="resource-card-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Academic Resource Vault</span>
+              </div>
+              
+              <h2 id="resource-bank-heading" class="resource-card-title">Previous Question Bank (1st to 8th Semester)</h2>
+              
+              <p class="resource-card-desc">
+                Access past exams, mid-term papers, and study materials for all semesters directly from our organized Google Drive folders.
+              </p>
+
+              <div class="resource-tags-row">
+                <span class="resource-tag">📂 1st to 8th Semesters</span>
+                <span class="resource-tag">📝 Mid-Term &amp; Finals</span>
+                <span class="resource-tag">🎓 Dept. of English</span>
+                <span class="resource-tag">☁️ Direct Google Drive Access</span>
+              </div>
+            </div>
+
+            <div class="resource-btn-wrap">
+              <a href="https://drive.google.com/drive/folders/1k0UC5G3Th6137YczWjk9Y_VurXRueamo" target="_blank" rel="noopener noreferrer" class="resource-drive-btn" title="Open Previous Question Bank on Google Drive">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"></path>
+                </svg>
+                <span>Access Question Bank</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="resource-card-credit">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>An initiative by <strong>Md Shafayat Miraz &amp; Sajibul Islam Shawon (ELL-46th)</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Quick Stats Strip -->
+    <section class="stats-strip" aria-label="Society Impact and Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Active Members &amp; Scholars</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Annual Events &amp; Salons</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Literary Publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Active Secretariats</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Society Core Pillars -->
+    <section class="section-pillars" aria-labelledby="pillars-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">OUR CALLING</span>
+          <h2 id="pillars-heading">Four Pillars of Literary Excellence</h2>
+          <p>Whether crafting lyrical stanzas, untangling syntactic evolution, or debating critical theory, ELLS Club provides the hearth for your creative fire.</p>
+        </div>
+
+        <div class="grid grid-4">
+          <!-- Pillar 1 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+              </svg>
+            </div>
+            <h3>Creative Writing &amp; Verse</h3>
+            <p>Weekly workshops for poets, playwrights, and novelists. Engage in confidential peer critique, prompt sessions, and annual chapbook selections.</p>
+            <a href="about.html#wings" class="card-link">Explore Guild &rarr;</a>
+          </article>
+
+          <!-- Pillar 2 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3>Linguistics &amp; Semiotics</h3>
+            <p>Investigating language variation, phonetics, historical etymology, and modern digital discourse analysis with faculty mentors.</p>
+            <a href="about.html#wings" class="card-link">Learn More &rarr;</a>
+          </article>
+
+          <!-- Pillar 3 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h3>The Great Books Circle</h3>
+            <p>From Homeric epics to contemporary world literature in translation, our roundtables dismantle narratives with nuance and passion.</p>
+            <a href="events.html" class="card-link">View Reading List &rarr;</a>
+          </article>
+
+          <!-- Pillar 4 -->
+          <article class="card">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3>The Scribe Review</h3>
+            <p>Our premier quarterly literary review. We solicit, edit, curate, and publish outstanding student essays, fiction, and scholarly papers.</p>
+            <a href="about.html#the-scribe" class="card-link">Read Submissions &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Upcoming Events Preview -->
+    <section class="section-secondary" aria-labelledby="featured-events-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">ON THE CALENDAR</span>
+          <h2 id="featured-events-heading">Upcoming Literary Gatherings</h2>
+          <p>Salons, competitions and workshops curated by the ELLS literary committee.</p>
+          <div class="section-head__actions">
+            <a href="events.html" class="btn btn-secondary btn-sm">View Full Calendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Firestore-driven strip: the three next events on the calendar -->
+        <div class="feed-state feed-state--compact" id="homeEventsStatus" data-state="loading" role="status" aria-live="polite">
+          <div class="feed-state__inner">
+            <span class="feed-state__spinner notice-board-state__spinner" aria-hidden="true"></span>
+            <span class="feed-state__monogram" aria-hidden="true">ELLS</span>
+            <span class="feed-state__eyebrow" data-event-status-eyebrow>One moment</span>
+            <h3 class="feed-state__title" data-event-status-title>Loading upcoming events&hellip;</h3>
+            <p class="feed-state__text" data-event-status-text>Fetching the latest schedule from ELLS Club.</p>
+            <div class="feed-state__actions">
+              <a href="events.html" class="btn btn-primary btn-sm">Open the Full Calendar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" id="homeEventsGrid"></div>
+
+      </div>
+    </section>
+
+    <!-- Member Voices / Testimonials -->
+    <section class="section-testimonials" aria-labelledby="voices-heading">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">VOICES OF FELLOWS</span>
+          <h2 id="voices-heading">Words from Our Literary Family</h2>
+          <p>Discover how ELLS Club shapes the craft, friendships, and intellectual journeys of our members.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "Walking into my first ELLS poetry salon was intimidating, but I found an extraordinarily generous community. My thesis and first published collection owe everything to their honest critiques."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--primary); color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                EM
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Eleanor Vance</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Class of '24 • Published Poet</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 3px solid var(--accent-green);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "The linguistics roundtables transformed how I think about syntax, dialogue, and cognitive processing. It bridges the art of expression with scientific inquiry in a rare and beautiful way."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--emerald); color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                TA
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Tariq Al-Mansoor</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Graduate Fellow, Dept of English</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <p style="font-family: var(--font-quote); font-size: 1.15rem; font-style: italic;">
+              "Editing for The Scribe gave me the real-world editorial discipline that landed my first role at a major university press. ELLS is where passions turn into enduring vocations."
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--bg-card-subtle); color: var(--accent-gold); font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-gold);">
+                SC
+              </div>
+              <div>
+                <strong style="display: block; font-size: 0.95rem;">Sophia Chen</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Alumna &amp; Assistant Editor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="site-logo" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <img src="images/ELLS LOGO Favicon.svg" alt="ELLS Club Logo" class="site-logo-img">
+            <span class="logo-subtitle" style="display: block; text-align: center; margin-top: 0.6rem;">English Language &amp; Literary Society</span>
+          </div>
+          <p>Dedicated to literary scholarship, linguistic curiosity, and creative expression. Dept. of English Language &amp; Literature, International Islamic University Chittagong.</p>
+
+          <!-- Social Media Icons with Integrated Facebook Link -->
+          <div class="social-media-container">
+            <span class="social-media-title">Connect With Us</span>
+            <div class="social-media-icons">
+              <!-- Facebook Link: https://www.facebook.com/ELLS.IIUC/ -->
+              <a href="https://www.facebook.com/ELLS.IIUC/" target="_blank" rel="noopener noreferrer" class="social-icon social-facebook" aria-label="Follow ELLS Club on Facebook" title="Facebook - ELLS IIUC">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="mailto:ells@iiuc.ac.bd" class="social-icon social-instagram" aria-label="Contact ELLS via Email" title="Email ELLS (ells@iiuc.ac.bd)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="mailto:ells@iiuc.ac.bd" class="social-icon social-youtube" aria-label="Contact ELLS via Email" title="Email ELLS (ells@iiuc.ac.bd)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+              <a href="mailto:ells@iiuc.ac.bd" class="social-icon social-linkedin" aria-label="Contact ELLS via Email" title="Email ELLS (ells@iiuc.ac.bd)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Institutional Partner Affiliation -->
+          <div class="partner-affiliation">
+            <img src="images/IIUC LOGO Favicon.svg" alt="IIUC Crest" class="partner-logo-img">
+            <div class="partner-text">
+              <span>Dept. of English Language &amp; Literature</span>
+              <span>International Islamic University Chittagong</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ELLS</a></li>
+            <li><a href="events.html">Events &amp; Salons</a></li>
+            <li><a href="membership.html#membershipStatusCheck">Membership Status Check</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Society Circles</h4>
+          <ul class="footer-links">
+            <li><a href="about.html#wings">Poetry &amp; Slam Guild</a></li>
+            <li><a href="about.html#wings">Linguistics Forum</a></li>
+            <li><a href="about.html#the-scribe">The Scribe Review</a></li>
+            <li><a href="about.html#wings">The Great Books Circle</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact &amp; Hall</h4>
+          <ul class="footer-links">
+            <li><span>📍 Academic Building-05, 4th Floor, Kumira, IIUC, Chattogram</span></li>
+            <li><a href="mailto:ells@iiuc.ac.bd">✉️ ells@iiuc.ac.bd</a></li>
+            <li><span>🕒 Sat-Wed 9 AM to 4 PM</span></li>
+            <li><a href="membership.html#membershipStatusCheck">Membership Status Check</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-quote">"Nulla dies sine linea — Not a day without a line."</div>
+        <div class="footer-legal">
+          <div class="footer-copyright">&copy;2012-2026 English Language &amp; Literary Society-ELLS. All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Developer credit — slim full-bleed ribbon, the last thing on the page -->
+  <div class="developer-credit-bar">Developed by Md. Emdadul Hoque (N241038)</div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <!-- Live Firestore feeds (ES modules) -->
+  <script type="module" src="js/events-feed.js"></script>
+  <script type="module" src="js/notice-board.js"></script>
+</body>
+</html>
