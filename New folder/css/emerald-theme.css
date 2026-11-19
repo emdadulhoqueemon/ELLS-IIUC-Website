@@ -1,0 +1,1063 @@
+/* ==========================================================================
+   ELLS IIUC — Academic Emerald Green & Pure White Design System
+   High-Contrast, Crisp, Modern Literary Light Theme
+   Preserves 100% of HTML IDs, Forms, and JavaScript Functional Hooks
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. Theme Tokens & Global CSS Variables
+   -------------------------------------------------------------------------- */
+:root,
+:root:not([data-theme="dark-academia"]),
+html[data-theme="modern-neo-glass"],
+html[data-theme="dark-academia"] {
+  /* Page & Surface Backgrounds */
+  --bg-primary: #FFFFFF !important;
+  --bg-secondary: #FAF9F6 !important;
+  --bg-canvas: #FFFFFF !important;
+  --bg-card: #FFFFFF !important;
+  --bg-card-subtle: #FAF9F6 !important;
+  --bg-card-hover: #F9FAFB !important;
+  --bg-elevated: #FFFFFF !important;
+  --bg-glass: rgba(255, 255, 255, 0.95) !important;
+  --bg-input: #FFFFFF !important;
+  --bg-secondary-veil: #FAF9F6 !important;
+  --bg-card-veil: #FFFFFF !important;
+
+  /* Typography / Text Colors */
+  --text-primary: #111827 !important;
+  --text-heading: #111827 !important;
+  --text-secondary: #374151 !important;
+  --text-muted: #6B7280 !important;
+  --text-inverse: #FFFFFF !important;
+  --text-on-card: #111827 !important;
+
+  /* Academic Emerald Green Brand Palette */
+  --primary: #065F46 !important;
+  --emerald: #065F46 !important;
+  --accent-primary: #065F46 !important;
+  --btn-bg: #065F46 !important;
+  --btn-bg-hover: #047857 !important;
+  --btn-text: #FFFFFF !important;
+  --accent-gold: #065F46 !important;
+  --accent-gold-hover: #047857 !important;
+  --accent-gold-dark: #064E3B !important;
+  --accent-gold-light: #ECFDF5 !important;
+  --accent-green: #065F46 !important;
+  --accent-green-dark: #047857 !important;
+  --accent-green-light: #ECFDF5 !important;
+  --accent-green-slate: #065F46 !important;
+  --accent-green-border: #A7F3D0 !important;
+
+  /* Semantic Highlights */
+  --color-olive: #065F46 !important;
+  --color-chocolate: #111827 !important;
+  --color-ivory: #FAF9F6 !important;
+  --accent-crimson: #D97706 !important;
+  --accent-navy: #065F46 !important;
+
+  /* Borders & Shadows */
+  --border-color: #E5E7EB !important;
+  --border-subtle: #E5E7EB !important;
+  --border-strong: #D1D5DB !important;
+  --border-accent: #065F46 !important;
+  --border-green: #A7F3D0 !important;
+
+  --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05) !important;
+  --shadow-md: 0 4px 16px rgba(17, 24, 39, 0.05) !important;
+  --shadow-lg: 0 10px 25px rgba(6, 95, 70, 0.08) !important;
+  --shadow-gold: 0 4px 16px rgba(6, 95, 70, 0.15) !important;
+  --shadow-green: 0 4px 16px rgba(6, 95, 70, 0.15) !important;
+
+  /* Fonts */
+  --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  --font-heading: 'Playfair Display', Georgia, serif !important;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  --font-serif: 'Playfair Display', Georgia, serif !important;
+  --font-quote: 'Playfair Display', Georgia, serif !important;
+
+  /* Border Radii */
+  --radius-xs: 4px !important;
+  --radius-sm: 8px !important;
+  --radius-md: 16px !important;
+  --radius-lg: 20px !important;
+  --radius-full: 9999px !important;
+  --card-radius: 20px !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Page Foundations & Typography
+   -------------------------------------------------------------------------- */
+html,
+body,
+:root:not([data-theme="dark-academia"]) body,
+html[data-theme="modern-neo-glass"] body {
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  background-image: none !important;
+  color: #111827 !important;
+  color-scheme: light !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+main,
+#main-content,
+.main-wrapper {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Headings: Deep Ink & Classic Editorial Serif */
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.hero-content h1,
+#hero-heading,
+.section-intro h2,
+.section-head h2,
+.resource-card-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  color: #111827 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Body & Paragraph Text: Charcoal Gray */
+p,
+li,
+.section-intro p,
+.section-subhead,
+.hero-lead,
+.hero-subheading {
+  color: #374151 !important;
+}
+
+/* Metadata & Secondary Copy: Muted Slate */
+time,
+.event-date-badge,
+.notice-date,
+.resource-card-credit,
+.admin-counter,
+.form-hint,
+.card-meta {
+  color: #6B7280 !important;
+}
+
+/* Hide legacy theme switcher toggle permanently */
+.theme-switcher,
+.theme-dropdown,
+.theme-switcher-toggle {
+  display: none !important;
+}
+
+/* Floating graduation caps watermark (ultra-subtle emerald tint) */
+.bg-caps {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+.bg-caps__cap svg {
+  fill: rgba(6, 95, 70, 0.038) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header & Navigation (Clean Light Sticky Header)
+   -------------------------------------------------------------------------- */
+.site-header,
+header.site-header,
+:root:not([data-theme="dark-academia"]) .site-header {
+  position: sticky !important;
+  top: 0 !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid #E5E7EB !important;
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.04) !important;
+  z-index: 1000 !important;
+}
+
+.site-logo-img,
+.partner-logo-img {
+  height: 48px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.logo-line-1,
+.logo-line-2,
+.brand-title,
+.site-logo-text {
+  color: #111827 !important;
+  font-weight: 700 !important;
+}
+
+.nav-link,
+:root:not([data-theme="dark-academia"]) .nav-link {
+  color: #374151 !important;
+  font-weight: 600 !important;
+  transition: color 0.15s ease !important;
+}
+
+.nav-link:hover,
+.nav-link.active,
+:root:not([data-theme="dark-academia"]) .site-header .nav-link:hover,
+:root:not([data-theme="dark-academia"]) .site-header .nav-link.active {
+  color: #065F46 !important;
+}
+
+.nav-link.active::after {
+  background: #065F46 !important;
+}
+
+.header-social-link {
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  color: #374151 !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease !important;
+}
+
+.header-social-link:hover {
+  background: #ECFDF5 !important;
+  border-color: #065F46 !important;
+  color: #065F46 !important;
+}
+
+.mobile-nav-toggle {
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 8px !important;
+}
+
+.mobile-nav-toggle span {
+  background-color: #111827 !important;
+}
+
+@media (max-width: 768px) {
+  .main-nav,
+  :root:not([data-theme="dark-academia"]) .main-nav {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    border-left: 1px solid #E5E7EB !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Urgent News Ticker Bar
+   -------------------------------------------------------------------------- */
+.news-ticker-bar {
+  background: #065F46 !important;
+  color: #FFFFFF !important;
+  border-bottom: 1px solid #047857 !important;
+}
+
+.news-ticker-bar a,
+.news-ticker-bar span,
+.news-ticker-bar strong {
+  color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Sectional Layouts (White & Warm Alabaster Alternating)
+   -------------------------------------------------------------------------- */
+/* Primary White sections */
+.section-notice-board,
+.section-pillars,
+.membership-section,
+.events-controls-section,
+.events-grid-section {
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+}
+
+/* Alternating Warm Alabaster sections */
+.hero,
+.section-secondary,
+.featured-resource-section,
+.archive-band,
+.section-testimonials {
+  background-color: #FAF9F6 !important;
+  background: #FAF9F6 !important;
+}
+
+.hero {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%) !important;
+  border-bottom: 1px solid #E5E7EB !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Soft Accent Surfaces: Eyebrows, Badges, Pills & Callout Boxes
+   -------------------------------------------------------------------------- */
+.eyebrow,
+.admin-eyebrow,
+.section-intro .eyebrow,
+.feed-state__eyebrow {
+  background: #ECFDF5 !important;
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 9999px !important;
+  padding: 0.35rem 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  display: inline-block !important;
+}
+
+.badge-gold,
+.badge-navy,
+.committee-role-badge,
+.resource-card-badge,
+.resource-tag,
+.admin-tag,
+.admin-count,
+.notice-badge,
+.event-tag {
+  background: #ECFDF5 !important;
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 9999px !important;
+  font-weight: 600 !important;
+}
+
+.badge-crimson {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #FDE68A !important;
+}
+
+.notice-live-pill {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 9999px !important;
+}
+
+.notice-live-dot {
+  background-color: #10B981 !important;
+}
+
+/* Filter Pills & Committee Pills */
+.filter-btn,
+.committee-pill,
+.filter-pills button,
+.committee-nav-pills button {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #374151 !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 9999px !important;
+  padding: 0.45rem 1rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+}
+
+.filter-btn:hover,
+.filter-btn.active,
+.filter-btn.is-active,
+.committee-pill:hover,
+.committee-pill.active,
+.committee-pill.is-active {
+  background: #065F46 !important;
+  background-color: #065F46 !important;
+  color: #FFFFFF !important;
+  border-color: #065F46 !important;
+}
+
+/* Special Academic Highlight Callout Box */
+.academic-highlight-card,
+.card.academic-highlight-card,
+div[style*="Special Academic Highlight"] {
+  background: #ECFDF5 !important;
+  background-color: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 16px rgba(6, 95, 70, 0.05) !important;
+}
+
+.academic-highlight-card h4,
+.card.academic-highlight-card h4 {
+  color: #065F46 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+}
+
+.academic-highlight-card p,
+.academic-highlight-card p *,
+.card.academic-highlight-card p,
+.card.academic-highlight-card p * {
+  color: #1F2937 !important;
+}
+
+.academic-highlight-card em,
+.card.academic-highlight-card em {
+  color: #065F46 !important;
+  font-weight: 600 !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Cards, Modals, Containers & FAQ Boxes
+   -------------------------------------------------------------------------- */
+.card,
+.event-card,
+.notice-card,
+.notice-poster-card,
+.pillar-card,
+.featured-resource-card,
+.committee-card,
+.advisory-card,
+.about-card,
+.faq-card,
+.tier-card,
+.admin-card,
+.admin-notice-card,
+.admin-preview-card,
+.admin-login__card,
+#memberRecordLookupCard,
+.feed-state,
+.notice-board-state,
+:root:not([data-theme="dark-academia"]) .card,
+:root:not([data-theme="dark-academia"]) .event-card,
+:root:not([data-theme="dark-academia"]) .notice-card,
+:root:not([data-theme="dark-academia"]) .pillar-card,
+:root:not([data-theme="dark-academia"]) .admin-card,
+:root:not([data-theme="dark-academia"]) #memberRecordLookupCard,
+html[data-theme="modern-neo-glass"] .card,
+html[data-theme="modern-neo-glass"] .admin-card {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 16px rgba(17, 24, 39, 0.05) !important;
+  color: #111827 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* Card Hover */
+.card:hover,
+.committee-card:hover,
+.event-card:hover,
+.notice-card:hover,
+.featured-resource-card:hover,
+.pillar-card:hover {
+  border-color: #065F46 !important;
+  box-shadow: 0 10px 25px rgba(6, 95, 70, 0.08) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Card Typography & Text Contrast Overrides */
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+.event-card h3, .notice-card h3, .committee-card h4, .admin-card h2, .admin-card h3,
+:root:not([data-theme="dark-academia"]) .card h3,
+:root:not([data-theme="dark-academia"]) .event-card h3,
+:root:not([data-theme="dark-academia"]) .notice-card h3,
+html[data-theme="modern-neo-glass"] .card h3 {
+  color: #111827 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.card p,
+.event-card p,
+.notice-card p,
+.committee-card p,
+.admin-card p,
+:root:not([data-theme="dark-academia"]) .card p,
+:root:not([data-theme="dark-academia"]) .card *,
+html[data-theme="modern-neo-glass"] .card p {
+  color: #374151 !important;
+}
+
+.card strong,
+.committee-card strong,
+.event-card strong,
+.notice-card strong,
+.admin-card strong {
+  color: #111827 !important;
+}
+
+/* Card Icons */
+.card-icon-wrap,
+.admin-card__icon {
+  background: #ECFDF5 !important;
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 14px !important;
+}
+
+.card-icon-wrap svg,
+.admin-card__icon svg {
+  stroke: #065F46 !important;
+  fill: none !important;
+}
+
+.card-link {
+  color: #065F46 !important;
+  font-weight: 700 !important;
+}
+
+.card-link:hover {
+  color: #047857 !important;
+}
+
+/* Committee Avatars */
+.committee-avatar {
+  background: #065F46 !important;
+  color: #FFFFFF !important;
+  border-radius: 50% !important;
+  font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Buttons & Interactive Elements (Academic Emerald Green)
+   -------------------------------------------------------------------------- */
+.btn-primary,
+.hero-cta-single,
+.resource-drive-btn,
+.admin-submit,
+.admin-btn-primary,
+#memberLookupBtn,
+#adminLoginBtn,
+#publishNoticeBtn,
+#publishEventBtn,
+:root:not([data-theme="dark-academia"]) .admin-btn-primary,
+:root:not([data-theme="dark-academia"]) #adminLoginBtn,
+:root:not([data-theme="dark-academia"]) #publishNoticeBtn,
+:root:not([data-theme="dark-academia"]) #publishEventBtn,
+html[data-theme="modern-neo-glass"] .btn-primary {
+  background: #065F46 !important;
+  background-color: #065F46 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 1px solid #065F46 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 14px rgba(6, 95, 70, 0.18) !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-primary *,
+.hero-cta-single *,
+.resource-drive-btn *,
+.admin-submit *,
+#memberLookupBtn *,
+#adminLoginBtn *,
+#publishNoticeBtn *,
+#publishEventBtn * {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.btn-primary:hover,
+.hero-cta-single:hover,
+.resource-drive-btn:hover,
+.admin-submit:hover,
+.admin-btn-primary:hover,
+#memberLookupBtn:hover,
+#adminLoginBtn:hover,
+#publishNoticeBtn:hover,
+#publishEventBtn:hover {
+  background: #047857 !important;
+  background-color: #047857 !important;
+  border-color: #047857 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(6, 95, 70, 0.25) !important;
+}
+
+.btn-secondary,
+.admin-btn-secondary,
+.archive-band__cta {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #111827 !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-secondary:hover,
+.admin-btn-secondary:hover,
+.archive-band__cta:hover {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border-color: #065F46 !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. Form Controls & Inputs
+   -------------------------------------------------------------------------- */
+.form-control,
+.admin-input,
+.search-input-wrap input,
+#memberLookupInput {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #111827 !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  font-size: 0.95rem !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.form-control:focus,
+.admin-input:focus,
+.search-input-wrap input:focus,
+#memberLookupInput:focus {
+  border-color: #065F46 !important;
+  box-shadow: 0 0 0 3px rgba(6, 95, 70, 0.14) !important;
+  outline: none !important;
+}
+
+.form-label,
+.admin-label-row label {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. Quick Stats Strip (Academic Emerald Accent Band)
+   -------------------------------------------------------------------------- */
+.stats-strip {
+  background: #065F46 !important;
+  background-color: #065F46 !important;
+  color: #FFFFFF !important;
+}
+
+.stats-strip .stat-number {
+  color: #FFFFFF !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+}
+
+.stats-strip .stat-label {
+  color: #D1FAE5 !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. Global Footer & Department Affiliation Badge
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #374151 !important;
+  border-top: 1px solid #E5E7EB !important;
+}
+
+.site-footer h4,
+.site-footer .logo-subtitle {
+  color: #111827 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+}
+
+.footer-links a,
+.footer-links span {
+  color: #4B5563 !important;
+}
+
+.footer-links a:hover {
+  color: #065F46 !important;
+}
+
+.footer-quote {
+  color: #6B7280 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.footer-legal,
+.footer-copyright {
+  color: #6B7280 !important;
+}
+
+/* Partner Affiliation Badge (Clean Light Container, NO dark background) */
+.partner-affiliation,
+:root:not([data-theme="dark-academia"]) .partner-affiliation,
+html[data-theme="modern-neo-glass"] .partner-affiliation {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.04) !important;
+  padding: 1.25rem 1.4rem !important;
+  max-width: 320px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.partner-affiliation:hover {
+  border-color: #065F46 !important;
+  box-shadow: 0 4px 14px rgba(6, 95, 70, 0.08) !important;
+}
+
+.partner-logo-img,
+:root:not([data-theme="dark-academia"]) .partner-logo-img {
+  width: 48px !important;
+  height: 48px !important;
+  object-fit: contain !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.partner-text span:first-child {
+  color: #111827 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+.partner-text span:last-child {
+  color: #6B7280 !important;
+  font-size: 0.85rem !important;
+}
+
+/* Footer Social Icons */
+.social-icon {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  color: #374151 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.social-icon svg {
+  fill: currentColor !important;
+}
+
+.social-icon:hover {
+  background-color: #ECFDF5 !important;
+  border-color: #065F46 !important;
+  color: #065F46 !important;
+}
+
+.social-icon.social-facebook:hover {
+  background-color: #1877f2 !important;
+  border-color: #1877f2 !important;
+  color: #FFFFFF !important;
+}
+
+.developer-credit-bar {
+  background: #065F46 !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  font-size: 0.84rem !important;
+  text-align: center !important;
+  padding: 0.65rem 1rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. Admin Console: Login & Dashboard High-Contrast Overrides
+   -------------------------------------------------------------------------- */
+.admin-body,
+body.admin-body {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+  color: #111827 !important;
+}
+
+.admin-login {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+}
+
+/* Left Brand Panel: Deep Emerald Green with Crisp White Text */
+.admin-login__brand,
+:root:not([data-theme="dark-academia"]) .admin-login__brand,
+html[data-theme="modern-neo-glass"] .admin-login__brand {
+  background: #065F46 !important;
+  background-color: #065F46 !important;
+  border-right: 1px solid #047857 !important;
+  color: #FFFFFF !important;
+}
+
+.admin-login__brand h1,
+.admin-login__brand p,
+.admin-login__brand strong,
+.admin-login__brand span,
+:root:not([data-theme="dark-academia"]) .admin-login__brand h1,
+:root:not([data-theme="dark-academia"]) .admin-login__brand p {
+  color: #FFFFFF !important;
+}
+
+.admin-login__brand p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.admin-login__brand .admin-eyebrow {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ECFDF5 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.admin-login__brand .admin-brand__status {
+  color: #D1FAE5 !important;
+}
+
+.admin-login__brand .admin-back-link {
+  color: #FFFFFF !important;
+}
+
+.admin-login__brand .admin-back-link:hover {
+  color: #ECFDF5 !important;
+}
+
+.admin-brand__points li {
+  color: #FFFFFF !important;
+}
+
+.admin-brand__points strong {
+  color: #FFFFFF !important;
+}
+
+.admin-brand__points svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Right Panel & Login Card */
+.admin-login__panel,
+:root:not([data-theme="dark-academia"]) .admin-login__panel {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+}
+
+.admin-login__card,
+:root:not([data-theme="dark-academia"]) .admin-login__card,
+html[data-theme="modern-neo-glass"] .admin-login__card {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 16px rgba(17, 24, 39, 0.05) !important;
+  color: #111827 !important;
+}
+
+.admin-login__card h2 {
+  color: #111827 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.admin-login__lead {
+  color: #374151 !important;
+}
+
+.admin-check span {
+  color: #374151 !important;
+}
+
+.admin-credit__copyright {
+  color: #6B7280 !important;
+}
+
+/* Admin Dashboard */
+.admin-dashboard,
+.admin-main,
+#adminDashboard,
+#adminDashboardMain,
+:root:not([data-theme="dark-academia"]) .admin-dashboard,
+:root:not([data-theme="dark-academia"]) .admin-main {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+  color: #111827 !important;
+}
+
+.admin-topbar,
+:root:not([data-theme="dark-academia"]) .admin-topbar {
+  background: #065F46 !important;
+  background-color: #065F46 !important;
+  color: #FFFFFF !important;
+  border-bottom: 1px solid #047857 !important;
+  box-shadow: 0 2px 8px rgba(6, 95, 70, 0.15) !important;
+}
+
+.admin-topbar__brand-text strong,
+.admin-topbar__brand-text span,
+.admin-topbar strong {
+  color: #FFFFFF !important;
+}
+
+.admin-env-pill,
+.admin-user-chip,
+.admin-logout {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+.admin-user-chip__avatar {
+  background: #FFFFFF !important;
+  color: #065F46 !important;
+  font-weight: 700 !important;
+}
+
+.admin-user-chip__text strong,
+.admin-user-chip__text span {
+  color: #FFFFFF !important;
+}
+
+.admin-logout:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+.admin-main__head h1,
+#eventManagementHeading {
+  color: #111827 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.admin-main__head p {
+  color: #374151 !important;
+}
+
+.admin-main__meta {
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 12px !important;
+  color: #374151 !important;
+}
+
+.admin-main__meta strong {
+  color: #065F46 !important;
+}
+
+/* Admin Dashboard Live Preview & Published Items */
+.admin-notice-preview,
+:root:not([data-theme="dark-academia"]) .admin-notice-preview {
+  background: #FAF9F6 !important;
+  background-color: #FAF9F6 !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 16px !important;
+  color: #111827 !important;
+}
+
+.admin-notice-preview h3,
+#previewTitle,
+#eventPreviewTitle {
+  color: #111827 !important;
+}
+
+.admin-notice-preview p,
+#previewDescription,
+#eventPreviewDescription,
+.admin-notice-preview__meta {
+  color: #374151 !important;
+}
+
+.admin-notice-preview time,
+#previewDate,
+#eventPreviewWhen {
+  color: #6B7280 !important;
+}
+
+.admin-notice-preview__badge {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 9999px !important;
+}
+
+.admin-live-item,
+:root:not([data-theme="dark-academia"]) .admin-live-item,
+html[data-theme="modern-neo-glass"] .admin-live-item {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 12px !important;
+  color: #111827 !important;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04) !important;
+}
+
+.admin-live-item__title {
+  color: #111827 !important;
+  font-weight: 700 !important;
+}
+
+.admin-live-item__desc {
+  color: #374151 !important;
+}
+
+.admin-live-item__meta {
+  color: #6B7280 !important;
+}
+
+.admin-live-item__serial {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.admin-live-badge--live,
+.admin-live-badge--open {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+.admin-live-badge--closed {
+  background: #F3F4F6 !important;
+  color: #4B5563 !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+.admin-live-badge--completed {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #FDE68A !important;
+}
+
+.admin-live-action {
+  background: #FAF9F6 !important;
+  border: 1px solid #E5E7EB !important;
+  color: #374151 !important;
+  border-radius: 8px !important;
+}
+
+.admin-live-action:hover {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border-color: #065F46 !important;
+}
+
+.admin-live-action--delete:hover {
+  background: #FEE2E2 !important;
+  color: #DC2626 !important;
+  border-color: #DC2626 !important;
+}
+
+.admin-upload__drop {
+  background: #FAF9F6 !important;
+  border: 2px dashed #D1D5DB !important;
+  border-radius: 14px !important;
+  color: #374151 !important;
+}
+
+.admin-upload__drop:hover {
+  border-color: #065F46 !important;
+  background: #ECFDF5 !important;
+}
+
+.admin-notice-list__empty {
+  background: #FAF9F6 !important;
+  border: 1px dashed #D1D5DB !important;
+  border-radius: 12px !important;
+  color: #6B7280 !important;
+}
